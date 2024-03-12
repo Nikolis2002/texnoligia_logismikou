@@ -43,3 +43,5 @@
 
 
 NOTES: ΘΕΛΩ ΒΟΗΘΕΙΑ ΑΠΟ DISTA ΓΙΑ ΤΟΝ ΠΡΟΣΔΙΟΡΙΣΜΟ ΕΠΙΠΛΕΟΝ ΚΛΑΣΕΩΝ, ΩΣΤΕ ΝΑ ΔΟΥΜΕ ΜΕΤΑ ΤΑ USE CASES
+
+domain model -> use cases -> pert εργου -> gannt εργου (?????)
