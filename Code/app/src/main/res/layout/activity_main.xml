@@ -30,4 +30,12 @@
         android:layout_marginBottom="16dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Material Button"
+        android:layout_gravity="center"
+        android:onClick="onButtonClick"/>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

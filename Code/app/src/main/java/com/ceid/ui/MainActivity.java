@@ -1,4 +1,4 @@
-package com.ceid.texnolgia_logismikou;
+package com.ceid.ui;
 
 import android.os.Bundle;
 

@@ -19,6 +19,11 @@ dependencyResolutionManagement {
     }
 }
 
+
+
+
 rootProject.name = "texnolgia_logismikou"
 include(":app")
+
+
  

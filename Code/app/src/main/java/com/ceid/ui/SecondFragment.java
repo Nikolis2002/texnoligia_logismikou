@@ -1,4 +1,4 @@
-package com.ceid.texnolgia_logismikou;
+package com.ceid.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,19 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.ceid.texnolgia_logismikou.databinding.FragmentFirstBinding;
+import com.ceid.texnolgia_logismikou.databinding.FragmentSecondBinding;
 
-public class FirstFragment extends Fragment {
+public class SecondFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
-//TO KALYTERO ZOUMI XANAXTYPA
+    private FragmentSecondBinding binding;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -29,9 +29,9 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(v ->
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.buttonSecond.setOnClickListener(v ->
+                NavHostFragment.findNavController(SecondFragment.this)
+                        .navigate(R.id.action_SecondFragment_to_FirstFragment)
         );
     }
 
