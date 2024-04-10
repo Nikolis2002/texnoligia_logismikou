@@ -1,3 +1,5 @@
+package com.ceid.model.payment_methods;
+
 import java.math.BigDecimal;
 
 public class Currency {

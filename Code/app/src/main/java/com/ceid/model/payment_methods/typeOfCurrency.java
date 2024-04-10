@@ -1,3 +1,5 @@
+package com.ceid.model.payment_methods;
+
 public enum typeOfCurrency{
     DOLLAR("$", "Dollar"),
     EURO("€", "Euro");

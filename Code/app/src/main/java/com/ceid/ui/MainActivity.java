@@ -13,7 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.ceid.texnolgia_logismikou.databinding.ActivityMainBinding;
+import com.ceid.ui.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;

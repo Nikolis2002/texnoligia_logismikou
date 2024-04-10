@@ -1,3 +1,7 @@
+package com.ceid.model.users;
+import com.ceid.model.*;
+import com.ceid.model.Service.Services;
+
 import java.util.ArrayList;
 
 public class CustomerHistory {

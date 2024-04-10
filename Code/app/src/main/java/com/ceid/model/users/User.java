@@ -1,3 +1,5 @@
+package com.ceid.model.users;
+
 public class User {
     private int id;
     private String username;
@@ -25,7 +27,7 @@ public class User {
         return this.name;
     }
 
-    public String nameGetter(){
+    public String lnameGetter(){
         return this.lname;
     }
 
@@ -45,7 +47,7 @@ public class User {
          this.name=name;
     }
 
-    protected void nameSetter(String lname){
+    protected void lnameSetter(String lname){
          this.lname=lname;
     }
 

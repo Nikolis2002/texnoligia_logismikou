@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ceid.texnolgia_logismikou"
+    namespace = "com.ceid.ui"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ceid.texnolgia_logismikou"
+        applicationId = "com.ceid.ui"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

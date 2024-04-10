@@ -42,12 +42,4 @@ public class DateFormat {
         return String.format("%04d-%02d-%02d", year, month, day);
     }
 
-    public Date tosqlDate(){
-        return Date.valueOf(String.valueOf(this.localDate));
-    }
-
-    static public DateFormat fromsqlDate(Date sqlDate){
-        LocalDate LocalDate=sqlDate.tosqlDate();
-        return new DateFormat(localDate.getDayOfMonth(), localDate.getMonthValue(),localDate.getYear(),LocalDate);
-    }
 }

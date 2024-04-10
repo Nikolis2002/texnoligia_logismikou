@@ -1,3 +1,5 @@
+package com.ceid.model.payment_methods;
+
 import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Credit;
 import com.ceid.model.payment_methods.Debit;

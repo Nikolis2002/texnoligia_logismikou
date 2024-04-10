@@ -1,5 +1,8 @@
-import com.ceid.util.DateFormat;
+package com.ceid.model.Transport;
 
+import com.ceid.model.payment_methods.typeOfCurrency;
+import com.ceid.util.*;
+import com.ceid.model.*;
 public class Transport {
     private String model;
     private String id;

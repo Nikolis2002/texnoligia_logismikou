@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.ceid.texnolgia_logismikou.databinding.FragmentSecondBinding;
+import com.ceid.ui.databinding.FragmentSecondBinding;
 
 public class SecondFragment extends Fragment {
 

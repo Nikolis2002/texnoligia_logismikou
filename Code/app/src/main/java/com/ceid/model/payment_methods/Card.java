@@ -1,4 +1,5 @@
 package com.ceid.model.payment_methods;
+import com.ceid.util.DateFormat;
 
 public abstract class Card {
     private String cardnumber;
@@ -17,4 +18,13 @@ public abstract class Card {
     protected void setType(String type){
         this.type=type;
     }
+
+    public void changeInfo(String number,String name,DateFormat Date,String cvv){
+        this.cardnumber=number;
+        this.cardholderName=name;
+        this.expirationDate=Date;
+        this.cvv=cvv;
+    }
+
+    
 }

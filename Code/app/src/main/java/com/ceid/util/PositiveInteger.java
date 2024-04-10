@@ -1,3 +1,5 @@
+package com.ceid.util;
+
 public class PositiveInteger {
     private int value;
 
