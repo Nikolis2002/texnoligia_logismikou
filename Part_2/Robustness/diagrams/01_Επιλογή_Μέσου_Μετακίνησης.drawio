@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="696" dy="1740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="835" dy="1645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -44,7 +44,7 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="3" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-8" target="2">
+                <mxCell id="3" value="" style="edgeStyle=none;html=1;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-8" target="2" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-8" value="Έχει ο πελάτης χρέος;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -203,7 +203,7 @@
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-68" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-66" target="5Ba9WoWl8ZpEdoUwCl-l-67" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-66" value="Έχει εισάγει δίπλωμα;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-66" value="Ο πελάτης έχει εισάγει δίπλωμα;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="640" y="240" width="80" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-67" value="Customer's Profile" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -264,7 +264,7 @@
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-94" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.007;entryY=0.534;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-86" target="5Ba9WoWl8ZpEdoUwCl-l-30" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="Wallet" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="Wallet" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="410" y="-30" width="70" height="70" as="geometry"/>
                 </mxCell>
             </root>
