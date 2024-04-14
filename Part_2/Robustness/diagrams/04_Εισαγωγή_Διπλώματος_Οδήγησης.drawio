@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Σελίδα-1" id="OHz2EBmf9zVARGRaG9hI">
-        <mxGraphModel dx="819" dy="672" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1725" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -19,7 +19,7 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2v3vXZpvR5kIUnmruyP6-5" value="" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" target="2v3vXZpvR5kIUnmruyP6-6" edge="1">
+                <mxCell id="2v3vXZpvR5kIUnmruyP6-5" value="" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" source="2" target="2v3vXZpvR5kIUnmruyP6-6" edge="1">
                     <mxGeometry x="0.0076" width="80" relative="1" as="geometry">
                         <mxPoint x="330" y="400" as="sourcePoint"/>
                         <mxPoint x="410" y="440" as="targetPoint"/>
@@ -34,7 +34,7 @@
                 <mxCell id="2v3vXZpvR5kIUnmruyP6-6" value="Έλεγχος Συστήματος υποχρεωτικού πεδιου" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="375" y="400" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="2v3vXZpvR5kIUnmruyP6-8" value="ειαγωγή" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=-0.028;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" target="2" source="2v3vXZpvR5kIUnmruyP6-1">
+                <mxCell id="2v3vXZpvR5kIUnmruyP6-8" value="ειαγωγή" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=-0.028;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="2v3vXZpvR5kIUnmruyP6-1" target="2" edge="1">
                     <mxGeometry width="80" relative="1" as="geometry">
                         <mxPoint x="150" y="409.40999999999997" as="sourcePoint"/>
                         <mxPoint x="230" y="409.40999999999997" as="targetPoint"/>
@@ -55,7 +55,7 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2v3vXZpvR5kIUnmruyP6-11" value="Αποήκευση στη βάση Δεδομένων" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="2v3vXZpvR5kIUnmruyP6-11" value="Αποθήκευση στη βάση Δεδομένων" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="515" y="630" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="2v3vXZpvR5kIUnmruyP6-13" value="Μη Συμπληρωμένο" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0.513;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="2v3vXZpvR5kIUnmruyP6-6" target="2v3vXZpvR5kIUnmruyP6-14" edge="1">
@@ -125,11 +125,8 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2" value="Αρχική Οθόνη" style="shape=umlBoundary;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="Αρχική Οθόνη" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="200" y="320" width="90" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="4" value="πεδίο ταυτότητας" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;rotation=90;align=center;verticalAlign=middle;direction=east;" vertex="1" parent="1">
-                    <mxGeometry x="110" y="110.00000000000003" width="80" height="90" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
