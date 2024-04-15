@@ -1,8 +1,8 @@
-package com.ceid.model.Transport;
+package com.ceid.model.transport;
 
 import com.ceid.model.payment_methods.typeOfCurrency;
 import com.ceid.util.*;
-import com.ceid.model.*;
+
 public class Transport {
     private String model;
     private String id;
@@ -13,6 +13,17 @@ public class Transport {
     //field for Tracker
     private PositiveInteger seat_capacity;
     private typeOfCurrency rental_rate;
+
+    public Transport(String id, String model, String manufacturer, DateFormat manuf_date, String licence_plate, boolean free_status, PositiveInteger seat_capacity, typeOfCurrency rental_rate) {
+        this.id = id;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.manuf_date = manuf_date;
+        this.licence_plate = licence_plate;
+        this.free_status = free_status;
+        this.seat_capacity = seat_capacity;
+        this.rental_rate = rental_rate;
+    }
 
     public String getModel() {
         return model;
