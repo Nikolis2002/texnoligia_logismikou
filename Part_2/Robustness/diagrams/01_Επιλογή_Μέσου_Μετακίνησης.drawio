@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="835" dy="1645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1243" dy="2121" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -17,15 +17,6 @@
                 </mxCell>
                 <mxCell id="Tk8j7c15YgIE_sbvmRS2-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
                     <mxGeometry x="160" y="260" width="30" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="Tk8j7c15YgIE_sbvmRS2-2" value="Βάση Δεδομένων" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="40" y="640" width="70" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="Tk8j7c15YgIE_sbvmRS2-3" value="Control Object" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="50" y="270" width="70" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="Tk8j7c15YgIE_sbvmRS2-4" value="Boundary Object" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="20" y="395" width="90" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-9" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Tk8j7c15YgIE_sbvmRS2-7" target="5Ba9WoWl8ZpEdoUwCl-l-8" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -80,9 +71,6 @@
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-17" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.924;entryY=0.211;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-13" target="5Ba9WoWl8ZpEdoUwCl-l-15" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-19" value="Entity Object" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="50" y="515" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-29" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-20" target="5Ba9WoWl8ZpEdoUwCl-l-26" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
