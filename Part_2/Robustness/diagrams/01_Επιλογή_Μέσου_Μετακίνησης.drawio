@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="1109" dy="1985" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="913" dy="1841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -100,10 +100,10 @@
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-28" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-26" target="5Ba9WoWl8ZpEdoUwCl-l-27" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-31" value="Βρέθημαν οχήματα" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.497;exitY=1.028;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.667;entryY=0.082;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-26" target="55" edge="1">
+                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-31" value="Βρέθημαν οχήματα" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.497;exitY=1.028;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.396;entryY=0.157;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-26" target="98" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="782" y="650" as="sourcePoint"/>
-                        <mxPoint x="890" y="640" as="targetPoint"/>
+                        <mxPoint x="896.69" y="630.1700000000001" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="46" value="Δε βρέθηκαν οχήματα" style="edgeStyle=none;html=1;entryX=1.015;entryY=0.626;entryDx=0;entryDy=0;entryPerimeter=0;rounded=0;strokeColor=#b85450;fillColor=#f8cecc;strokeWidth=2;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-26" target="45" edge="1">
@@ -121,9 +121,9 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-30" value="Χάρτης με οχήματα" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="620" y="623.61" width="90" height="70" as="geometry"/>
+                    <mxGeometry x="620" y="628.61" width="90" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="97" style="edgeStyle=none;html=1;entryX=1.023;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;" edge="1" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-33" target="5Ba9WoWl8ZpEdoUwCl-l-37">
+                <mxCell id="97" style="edgeStyle=none;html=1;entryX=1.023;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-33" target="5Ba9WoWl8ZpEdoUwCl-l-37" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-33" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -281,18 +281,6 @@
                 <mxCell id="45" value="Εμφάνισε&lt;br&gt;οθόνη με μήνυμα σφάλματος" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="523.52" y="510" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="62" value="" style="edgeStyle=none;html=1;" parent="1" source="55" target="61" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="55" value="Εμφάνισε χάρτη" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="850" y="623.61" width="70" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="60" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="59" target="55" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="59" value="Υπηρεσία Χάρτη" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="1050" y="633.61" width="30" height="60" as="geometry"/>
-                </mxCell>
                 <mxCell id="64" value="" style="edgeStyle=none;html=1;" parent="1" source="61" target="63" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
@@ -300,10 +288,10 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="61" value="Εμφάνιση οχημάτων στον χάρτη" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="729.8" y="623.61" width="70" height="80" as="geometry"/>
+                    <mxGeometry x="750" y="623.61" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="63" value="In City Transport" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="729.8" y="740" width="70" height="70" as="geometry"/>
+                    <mxGeometry x="750" y="730" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="83" value="" style="edgeStyle=none;html=1;" parent="1" source="79" target="82" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -326,11 +314,23 @@
                 <mxCell id="88" value="In City Transport" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="243.51999999999995" y="720" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="94" style="edgeStyle=none;html=1;entryX=-0.031;entryY=0.508;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;rounded=0;strokeColor=#b85450;fillColor=#f8cecc;strokeWidth=2;" edge="1" parent="1" source="93" target="5Ba9WoWl8ZpEdoUwCl-l-30">
+                <mxCell id="94" style="edgeStyle=none;html=1;entryX=-0.031;entryY=0.508;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;rounded=0;strokeColor=#b85450;fillColor=#f8cecc;strokeWidth=2;" parent="1" source="93" target="5Ba9WoWl8ZpEdoUwCl-l-30" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="93" value="Κλείσιμο οθόνης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+                <mxCell id="93" value="Κλείσιμο οθόνης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="550" y="680" width="50" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="98" target="61">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="Επικοινωνία με υπηρεσία χάρτη" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="912" y="660" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="100" target="98">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="Υπηρεσία Χάρτη" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1040" y="670" width="30" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
