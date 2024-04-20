@@ -1,14 +1,14 @@
 <mxfile host="65bd71144e">
     <diagram id="I9YTbGuVgBh3_8I0MJiJ" name="Page-1">
-        <mxGraphModel dx="1985" dy="1828" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2647" dy="2303" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="48" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="50" y="280" width="1460" height="790" as="geometry"/>
+                    <mxGeometry x="50" y="280" width="1460" height="1239" as="geometry"/>
                 </mxCell>
-                <mxCell id="88" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="60" y="610" width="1440" height="450" as="geometry"/>
+                <mxCell id="88" value="opt" style="shape=umlFrame;whiteSpace=wrap;html=1;connectable=0;allowArrows=0;rotatable=0;comic=0;treeMoving=0;noLabel=0;snapToPoint=1;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="610" width="1440" height="897" as="geometry"/>
                 </mxCell>
                 <mxCell id="40" value="inCity()" style="edgeStyle=none;html=1;endArrow=open;endFill=0;endSize=8;" edge="1" parent="1" source="2" target="16">
                     <mxGeometry relative="1" as="geometry">
@@ -139,20 +139,27 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
+                <mxCell id="105" value="license" style="edgeStyle=none;html=1;dashed=1;endArrow=open;endFill=0;endSize=8;" edge="1" parent="1" source="19" target="16">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="431" y="736"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
                 <mxCell id="19" value="selectedVehicle&lt;br&gt;:InCityTransport" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
                     <mxGeometry x="560" y="80" width="100" height="960" as="geometry"/>
                 </mxCell>
                 <mxCell id="28" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="19">
                     <mxGeometry x="45" y="470" width="10" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value=":Customer" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
-                    <mxGeometry x="680" y="80" width="100" height="960" as="geometry"/>
-                </mxCell>
-                <mxCell id="21" value=":InCityVehicleScreen" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
-                    <mxGeometry x="800" y="80" width="100" height="960" as="geometry"/>
+                <mxCell id="104" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="19">
+                    <mxGeometry x="45" y="616" width="10" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="22" value=":Map" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
                     <mxGeometry x="920" y="80" width="100" height="950" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value=":Customer" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="80" width="100" height="960" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" value=":InCityVehicleInfoScreen" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
                     <mxGeometry x="1040" y="80" width="100" height="960" as="geometry"/>
@@ -192,6 +199,24 @@
                 </mxCell>
                 <mxCell id="42" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="17">
                     <mxGeometry x="45" y="120" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;fillColor=none;connectable=1;allowArrows=0;expand=0;editable=1;movable=1;resizable=1;rotatable=0;deletable=1;backgroundOutline=0;" vertex="1" parent="1">
+                    <mxGeometry x="72" y="761" width="1419" height="734" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="getLicense()" style="edgeStyle=none;html=1;endArrow=open;endFill=0;endSize=8;" edge="1" parent="1" source="16" target="19">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="254.00333333333336" y="757" as="sourcePoint"/>
+                        <mxPoint x="493.67" y="757" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="344" y="695"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value=":InCityVehicleScreen" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="800" y="80" width="100" height="960" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" value="[license == null]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="69.5" y="792" width="101" height="26" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
