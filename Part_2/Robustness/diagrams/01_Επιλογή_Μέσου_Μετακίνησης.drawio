@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="885" dy="1930" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1134" dy="1985" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -283,7 +283,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="45" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="673.24" y="520" width="83.52" height="100" as="geometry"/>
+                    <mxGeometry x="681.62" y="525" width="66.76" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="64" value="" style="edgeStyle=none;html=1;" parent="1" source="61" target="63" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
