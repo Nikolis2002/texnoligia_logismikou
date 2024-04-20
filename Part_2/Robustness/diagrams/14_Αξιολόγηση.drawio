@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="tMwVYfzn25PWMmUZTQfm" name="Page-1">
-        <mxGraphModel dx="2554" dy="1142" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1661" dy="544" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -122,7 +122,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="51" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;strokeColor=#b85450;fillColor=none;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="150" y="770" width="70" height="80" as="geometry"/>
+                    <mxGeometry x="160" y="760" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="92" value="" style="edgeStyle=none;html=1;fontSize=12;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" source="54" target="91" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -176,7 +176,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="89" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="260" y="780" width="70" height="60" as="geometry"/>
+                    <mxGeometry x="285" y="770" width="70" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="93" style="edgeStyle=none;html=1;fontSize=12;fillColor=none;strokeColor=#b85450;strokeWidth=2;entryX=-0.032;entryY=0.515;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="91" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
