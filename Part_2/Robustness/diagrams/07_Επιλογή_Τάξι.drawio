@@ -213,7 +213,7 @@
                         <mxPoint x="1" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="171" style="edgeStyle=none;html=1;entryX=0.191;entryY=0.371;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#FFFFFF;strokeWidth=2;fontSize=10;" parent="1" source="67" target="169" edge="1">
+                <mxCell id="171" style="edgeStyle=none;html=1;entryX=0.191;entryY=0.371;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#FFFFFF;strokeWidth=1;fontSize=10;" parent="1" source="67" target="169" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="67" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
