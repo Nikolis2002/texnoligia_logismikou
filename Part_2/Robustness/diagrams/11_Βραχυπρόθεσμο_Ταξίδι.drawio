@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="-z3Yh579_QSOd7VFaLvF" name="Page-1">
-        <mxGraphModel dx="1668" dy="786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1959" dy="1340" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -193,7 +193,7 @@
                     <mxGeometry x="590" y="1030" width="85" height="95" as="geometry"/>
                 </mxCell>
                 <mxCell id="170" value="OutCityRental" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="380" y="1210" width="60" height="60" as="geometry"/>
+                    <mxGeometry x="360" y="1200" width="80" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="172" value="Wallet" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="670" y="1170" width="80" height="80" as="geometry"/>
