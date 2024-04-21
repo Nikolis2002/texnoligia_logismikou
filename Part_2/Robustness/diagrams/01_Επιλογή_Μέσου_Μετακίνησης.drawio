@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="1134" dy="1985" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1186" dy="2308" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -23,6 +23,20 @@
                 </mxCell>
                 <mxCell id="22" style="edgeStyle=none;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.026;entryY=0.505;entryDx=0;entryDy=0;entryPerimeter=0;rounded=0;strokeColor=#b85450;fillColor=#f8cecc;strokeWidth=2;" parent="1" source="Tk8j7c15YgIE_sbvmRS2-1" target="20" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" style="edgeStyle=none;html=1;entryX=0.6;entryY=-0.014;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="Tk8j7c15YgIE_sbvmRS2-1" target="5Ba9WoWl8ZpEdoUwCl-l-23">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="150" y="380" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="150" y="-110"/>
+                            <mxPoint x="1100" y="-110"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="120" value="Εισαγωγή&amp;nbsp;&lt;br&gt;τοποθεσίας" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="119">
+                    <mxGeometry x="-0.7885" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="Tk8j7c15YgIE_sbvmRS2-1" value="Πελάτης" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
                     <mxGeometry x="120" y="370" width="30" height="60" as="geometry"/>
@@ -83,10 +97,12 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-20" value="Εισαγωγή Τοποθεσίας" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="1035" y="395" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="1035" y="445" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-24" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-21" target="5Ba9WoWl8ZpEdoUwCl-l-23" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-24" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.312;entryY=0.109;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-21" target="5Ba9WoWl8ZpEdoUwCl-l-23" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1064" y="210" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-21" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="930" y="60" width="70" height="80" as="geometry"/>
@@ -208,7 +224,7 @@
                     <mxGeometry x="500" y="916.39" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="2" value="Wallet" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="430" y="-70" width="70" height="70" as="geometry"/>
+                    <mxGeometry x="433.52" y="-70" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="42" value="" style="edgeStyle=none;html=1;rounded=0;strokeColor=#b85450;fillColor=#f8cecc;strokeWidth=2;" parent="1" source="4" target="Tk8j7c15YgIE_sbvmRS2-11" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
