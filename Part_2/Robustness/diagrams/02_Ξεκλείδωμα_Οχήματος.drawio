@@ -1,11 +1,14 @@
 <mxfile host="65bd71144e">
     <diagram id="kkWpz3CDeRfXQrRLxnoT" name="Page-1">
-        <mxGraphModel dx="2438" dy="2242" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1838" dy="2049" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="22" style="edgeStyle=none;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.033;entryY=0.522;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="2" target="20" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="22" style="edgeStyle=none;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-150" y="260" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="23" value="Επιλογή &quot;Ξεκλείδωμα Οχήματος&quot;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="22" vertex="1" connectable="0">
                     <mxGeometry x="0.099" y="-1" relative="1" as="geometry">
@@ -27,7 +30,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="2" value="Πελάτης" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="-350" y="375" width="30" height="60" as="geometry"/>
+                    <mxGeometry x="-430" y="375" width="30" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="55" value="Ναι" style="edgeStyle=none;html=1;fontSize=12;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" source="3" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -61,7 +64,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="Οθόνη &quot;Ξεκλείδωμα Οχήματος&quot;" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="50" y="250" width="100" height="80" as="geometry"/>
+                    <mxGeometry x="50" y="260" width="100" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="30" value="Επιτυχία" style="edgeStyle=none;html=1;exitX=0.379;exitY=1.04;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="24" target="32" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -223,13 +226,17 @@
                 <mxCell id="114" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="-40" y="1185" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="117" style="edgeStyle=none;html=1;entryX=-0.022;entryY=0.575;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.013;exitY=0.529;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="116" target="3" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint y="187.75213547130215" as="sourcePoint"/>
-                    </mxGeometry>
+                <mxCell id="219" style="edgeStyle=none;html=1;entryX=-0.03;entryY=0.483;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="116">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="222" style="edgeStyle=none;html=1;entryX=-0.013;entryY=0.535;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="116">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="227" style="edgeStyle=none;html=1;entryX=-0.036;entryY=0.576;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="116" target="226">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="116" value="Από περίπτωση χρήσης&lt;br&gt;&quot;Επιλογή Οχήματος&quot;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="-217.5" y="146" width="150" height="40" as="geometry"/>
+                    <mxGeometry x="-380" y="144" width="150" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="125" value="Επιτυχία" style="edgeStyle=none;html=1;entryX=0.143;entryY=0.25;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="122" target="14" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -238,7 +245,7 @@
                     <mxGeometry x="302.5" y="119" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="128" value="GeneralTracker" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="545" y="100" width="85" height="80" as="geometry"/>
+                    <mxGeometry x="537.5" y="100" width="85" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="130" value="Δορυφόροι GPS" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
                     <mxGeometry x="220" y="40" width="30" height="60" as="geometry"/>
@@ -414,7 +421,8 @@
                         <mxPoint x="-300" y="330" as="sourcePoint"/>
                         <mxPoint x="-320" y="-23.039999999999992" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="-120" y="-330"/>
+                            <mxPoint x="-400" y="40"/>
+                            <mxPoint x="-400" y="-320"/>
                             <mxPoint x="482" y="-330"/>
                         </Array>
                     </mxGeometry>
@@ -473,6 +481,23 @@
                     <mxGeometry x="-0.0001" y="5" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="221" style="edgeStyle=none;html=1;entryX=-0.04;entryY=0.559;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="224" style="edgeStyle=none;html=1;entryX=0.004;entryY=0.578;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.028;exitY=0.525;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="225" target="3">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-10" y="164.98249027237352" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="225" value="Οθόνη &quot;Ξεκλείδωμα Οχήματος&quot;" style="shape=umlBoundary;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-90" y="124" width="100" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="228" style="edgeStyle=none;html=1;entryX=-0.013;entryY=0.515;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="226" target="225">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="226" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-182.5" y="129" width="60" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
