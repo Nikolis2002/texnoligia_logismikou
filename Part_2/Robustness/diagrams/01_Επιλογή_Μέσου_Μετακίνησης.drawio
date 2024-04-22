@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="622" dy="1645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="746" dy="1740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -360,17 +360,17 @@
                 <mxCell id="93" value="Κλείσιμο οθόνης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="533.52" y="760" width="50" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="133" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="98" target="132">
+                <mxCell id="140" value="" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="98" target="139">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="98" value="Εμφάνιση χάρτη" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="98" value="Επικοινωνία με υπηρεσία χάρτη" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="1157.5" y="280" width="75" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="101" value="" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="100" target="98" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="100" value="Υπηρεσία Χάρτη" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="1241" y="420" width="30" height="60" as="geometry"/>
+                    <mxGeometry x="1180" y="180" width="30" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="109" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="860" y="330" width="90" height="70" as="geometry"/>
@@ -433,7 +433,13 @@
                     <mxGeometry x="940" y="650" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="132" value="Χάρτης" style="shape=umlBoundary;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1120" y="420" width="90" height="70" as="geometry"/>
+                    <mxGeometry x="1196" y="520" width="90" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="141" style="edgeStyle=none;html=1;entryX=0.443;entryY=0.016;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="139" target="132">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="139" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1160" y="405" width="70" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
