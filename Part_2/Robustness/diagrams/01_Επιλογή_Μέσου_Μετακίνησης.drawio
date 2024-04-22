@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="746" dy="1740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="553" dy="1592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -158,7 +158,7 @@
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-33" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="516.48" y="665" width="65" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-42" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.522;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-37" target="5Ba9WoWl8ZpEdoUwCl-l-41" edge="1">
+                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-42" value="Κράτηση" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.522;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-37" target="5Ba9WoWl8ZpEdoUwCl-l-41" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="84" value="Ακύρωση" style="edgeStyle=none;html=1;rounded=0;strokeColor=#b85450;fillColor=#f8cecc;strokeWidth=2;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-37" target="93" edge="1">
@@ -169,11 +169,6 @@
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-39" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.567;entryY=-0.002;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="Tk8j7c15YgIE_sbvmRS2-1" target="5Ba9WoWl8ZpEdoUwCl-l-37" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="106" value="Επιλογή προσωρινής&lt;br&gt;κράτησης" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="5Ba9WoWl8ZpEdoUwCl-l-39" connectable="0" vertex="1">
-                    <mxGeometry x="0.5668" y="3" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-49" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-41" target="5Ba9WoWl8ZpEdoUwCl-l-48" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
