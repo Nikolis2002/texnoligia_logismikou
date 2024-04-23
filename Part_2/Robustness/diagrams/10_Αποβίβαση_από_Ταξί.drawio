@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ZnUvBVadmKkvFejZgnjO" name="Page-1">
-        <mxGraphModel dx="943" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1184" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -42,8 +42,10 @@
                 <mxCell id="18" value="" style="edgeStyle=none;html=1;strokeWidth=1;" parent="1" source="15" target="17" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value="Κάρτα" style="edgeStyle=none;html=1;strokeWidth=1;" parent="1" source="15" target="19" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="20" value="Πορτοφόλι" style="edgeStyle=none;html=1;strokeWidth=1;" parent="1" source="15" target="19" edge="1">
+                    <mxGeometry x="0.0154" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="39" value="Μετρητά" style="edgeStyle=none;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="15" target="38" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
