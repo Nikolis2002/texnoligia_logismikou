@@ -121,12 +121,15 @@
                 <mxCell id="106" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="222.5" y="595.0000000000002" width="90" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="114" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;entryX=1.024;entryY=0.478;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="111" target="117" edge="1">
+                <mxCell id="114" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;entryX=0.55;entryY=0.048;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.59;exitY=1.013;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="137" target="117" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="332.5" y="775" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="116" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;" parent="1" source="111" target="115" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" style="edgeStyle=none;html=1;entryX=0.994;entryY=0.471;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="111" target="143">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="111" value="Επικοινωνία με υπηρεσία χάρτη" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -135,16 +138,16 @@
                 <mxCell id="115" value="Υπηρεσία χάρτη" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
                     <mxGeometry x="402.5" y="900" width="30" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="121" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="117" target="120" edge="1">
+                <mxCell id="121" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="117" target="120" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="278.90757839319303" y="880.0247736333113" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="117" value="Υπολογισμός χρόνου άφιξης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="232.5" y="725" width="100" height="105" as="geometry"/>
+                    <mxGeometry x="515" y="897.5" width="100" height="105" as="geometry"/>
                 </mxCell>
                 <mxCell id="120" value="Coordinates" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="242.5" y="890" width="80" height="80" as="geometry"/>
+                    <mxGeometry x="680" y="910" width="80" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="130" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="124" target="129" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -158,8 +161,11 @@
                 <mxCell id="138" value="" style="edgeStyle=none;html=1;" parent="1" source="137" target="111" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="137" value="Οθόνη Χάρτη" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="137" value="Οθόνη Μετακίνησης" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="510" y="735" width="100" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="Χάρτης με τοποθεσία οδηγού και πελάτη" style="shape=umlBoundary;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="730" width="102.5" height="90" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
