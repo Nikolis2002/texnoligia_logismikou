@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="3Z9twvWDdscRjlYfzpVh" name="Page-1">
-        <mxGraphModel dx="1596" dy="571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1364" dy="394" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -319,19 +319,27 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="179" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;Εμφάνισε&lt;/font&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fontSize=11;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
-                    <mxGeometry x="-180" y="610" width="70" height="80" as="geometry"/>
+                    <mxGeometry x="-160" y="610" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="187" style="edgeStyle=none;html=1;entryX=0.313;entryY=0.935;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" edge="1" parent="1" source="183" target="158">
+                <mxCell id="190" style="edgeStyle=none;html=1;entryX=0.552;entryY=1.023;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" edge="1" parent="1" source="183" target="189">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="-240" y="760"/>
-                            <mxPoint x="-240" y="540"/>
-                            <mxPoint x="-180" y="400"/>
+                            <mxPoint x="-220" y="760"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="183" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;fontSize=11;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
-                    <mxGeometry x="-187.5" y="725" width="85" height="70" as="geometry"/>
+                    <mxGeometry x="-167.5" y="725" width="85" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="191" style="edgeStyle=none;html=1;entryX=0.213;entryY=0.76;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" edge="1" parent="1" source="189" target="158">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-220" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="189" value="Κλείσιμο μηνύματος" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fontSize=11;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="-257.5" y="610" width="70" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
