@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="3Z9twvWDdscRjlYfzpVh" name="Page-1">
-        <mxGraphModel dx="1364" dy="394" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1728" dy="672" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -252,17 +252,16 @@
                 <mxCell id="142" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Υπολογισμός πόντων&lt;/span&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="625" y="800" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="149" value="" style="edgeStyle=none;html=1;" parent="1" source="146" target="148" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="149" value="" style="edgeStyle=none;html=1;" parent="1" source="146" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="525.0000000000002" y="860" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="151" value="" style="edgeStyle=none;html=1;" parent="1" source="146" target="150" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="146" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Επιστροφή πόντων στον πελάτη&lt;/span&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="490" y="910" width="70" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="148" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Customer&lt;/span&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="490" y="780" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="153" value="" style="edgeStyle=none;html=1;" parent="1" source="150" target="152" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -340,6 +339,12 @@
                 </mxCell>
                 <mxCell id="189" value="Κλείσιμο μηνύματος" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fontSize=11;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
                     <mxGeometry x="-257.5" y="610" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="193" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="192" target="146">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="192" value="Customer" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="790" width="70" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
