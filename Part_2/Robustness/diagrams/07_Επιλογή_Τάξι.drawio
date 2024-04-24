@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="-z3Yh579_QSOd7VFaLvF" name="Page-1">
-        <mxGraphModel dx="1066" dy="816" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="649" dy="497" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -118,7 +118,7 @@
                 <mxCell id="33" value="Υπολογισμός κόστους μετακίνησης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="800" y="710" width="100" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="35" value="Location" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="35" value="Coordinates" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="815" y="825" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="86" value="" style="edgeStyle=none;html=1;strokeWidth=1;entryX=0.985;entryY=0.671;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.062;exitY=0.321;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="40" target="42" edge="1">
