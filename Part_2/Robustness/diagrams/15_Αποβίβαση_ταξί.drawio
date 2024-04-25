@@ -4,8 +4,8 @@
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="4" value="Πελάτης" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="340" width="30" height="60" as="geometry"/>
+                <mxCell id="5" value="Οθόνη μετακίνησης&lt;br&gt;ταξί" style="shape=umlBoundary;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="210" width="100" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
