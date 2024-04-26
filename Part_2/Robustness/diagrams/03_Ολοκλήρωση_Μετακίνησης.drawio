@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="zwPRGnRJBlrswf_2xyk5" name="Page-1">
-        <mxGraphModel dx="1793" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1728" dy="672" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -9,13 +9,6 @@
                 </mxCell>
                 <mxCell id="55" value="Συμπλήρωση και&lt;br&gt;Υποβολή" style="edgeStyle=none;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.004;entryY=0.525;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;" parent="1" source="2" target="51" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="87" style="edgeStyle=none;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.032;entryY=0.518;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;" parent="1" source="2" target="84" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="-30" y="640"/>
-                        </Array>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="2" value="Πελάτης" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-110" y="315" width="30" height="60" as="geometry"/>
@@ -250,29 +243,6 @@
                 </mxCell>
                 <mxCell id="79" value="Βάση Δεδομένων" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="597.5" y="602.5000000000001" width="70" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="85" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;" parent="1" source="82" target="84" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="82" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="275" y="720" width="70" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="90" value="Ναι" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;fontSize=12;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" source="84" target="89" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="84" value="Επιλογή αξιολόγησης" style="shape=umlBoundary;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="62.5" y="725" width="87.5" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="89" value="Αξιολόγηση" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="46.25" y="850" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="100" style="edgeStyle=none;html=1;strokeWidth=1;entryX=1.071;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="99" target="82" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="360" y="760" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="400" y="760"/>
-                        </Array>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="102" style="edgeStyle=none;html=1;entryX=-0.036;entryY=0.414;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=1;" parent="1" source="99" target="101" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
