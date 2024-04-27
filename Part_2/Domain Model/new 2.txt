@@ -19,10 +19,17 @@ Rental
 	
 Customer
 	getLicense()
+	addPoints()
 	
 	license
+	points
 	
 ===============================================================================
 
+Tracker
+
+	checkStoppedVehicle()
+	calculateCharge()
+	calculatePoints()
 
 ===============================================================================

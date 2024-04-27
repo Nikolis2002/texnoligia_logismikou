@@ -120,7 +120,7 @@
                     <mxGeometry x="650" y="700" width="90" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="51" value="Μετρητά και &lt;br&gt;&quot;Εύρεση Ταξί&quot;" style="edgeStyle=none;html=1;exitX=-0.035;exitY=0.55;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.491;entryY=0.027;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="42" target="59" edge="1">
-                    <mxGeometry x="-0.5943" y="2" relative="1" as="geometry">
+                    <mxGeometry x="-0.5942" y="2" relative="1" as="geometry">
                         <mxPoint x="110" y="817" as="targetPoint"/>
                         <Array as="points">
                             <mxPoint x="200" y="760"/>
