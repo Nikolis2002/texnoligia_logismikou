@@ -1,0 +1,16 @@
+Wallet
+	isOverdrawn()
+	
+	
+InCityTransport
+	requiresLicense()
+	
+	
+Rental
+	validLicense()
+	
+	
+Customer
+	getLicense()
+	
+	license

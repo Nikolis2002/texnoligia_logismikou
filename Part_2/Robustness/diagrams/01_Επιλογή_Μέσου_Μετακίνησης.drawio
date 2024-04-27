@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Επιλογή Μέσου Μετακίνησης" id="LMLPMtf7ALw_Q4-HfFrC">
-        <mxGraphModel dx="553" dy="1592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="2770" dy="2597" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -213,7 +213,7 @@
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-59" value="Απαιτεί το επιλεγμένο όχημα δίπλωμα;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;strokeWidth=1;fontColor=default;" parent="1" vertex="1">
                     <mxGeometry x="595" y="119.75" width="100" height="104.5" as="geometry"/>
                 </mxCell>
-                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-60" value="In City Transport" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;strokeWidth=1;" parent="1" vertex="1">
+                <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-60" value="Rental" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;strokeWidth=1;" parent="1" vertex="1">
                     <mxGeometry x="720" y="40" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="5Ba9WoWl8ZpEdoUwCl-l-70" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;entryX=0.517;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.578;exitY=1.002;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="5Ba9WoWl8ZpEdoUwCl-l-59" target="12" edge="1">
