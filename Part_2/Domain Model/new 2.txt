@@ -2,8 +2,12 @@ Wallet
 	isOverdrawn()
 	getBalance()
 	withdraw()
+	addToWallet()
+	getPaymentMethods()
+	
 	
 	balance
+	paymentMethods
 	
 ===============================================================================
 	
@@ -14,6 +18,7 @@ InCityTransport
 	
 Rental
 	validLicense()
+	acceptsGas()
 	
 ===============================================================================
 	
@@ -27,9 +32,29 @@ Customer
 ===============================================================================
 
 Tracker
+	coords
 
 	checkStoppedVehicle()
 	calculateCharge()
 	calculatePoints()
 
 ===============================================================================
+
+SpecializedTracker
+	gasLevel
+	
+	getGasLevel()
+	findNearest()
+
+===============================================================================
+
+Gas Station
+===============================================================================
+	
+	calculateGasPrice()
+	calculatePoints()
+	
+	coords
+	gasPrice
+	
+	
