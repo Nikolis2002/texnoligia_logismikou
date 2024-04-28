@@ -5,6 +5,8 @@ Wallet
 	addToWallet()
 	getPaymentMethods()
 	
+	addPaymentMethod()
+	
 	
 	balance
 	paymentMethods

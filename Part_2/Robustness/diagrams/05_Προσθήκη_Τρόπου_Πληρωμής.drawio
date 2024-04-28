@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="vf1xtiBl3QLcEVPzXh17" name="Page-1">
-        <mxGraphModel dx="1276" dy="326" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2166" dy="1038" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -63,6 +63,9 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="38" value="" style="edgeStyle=none;html=1;" parent="1" source="33" target="37" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="140" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="33" target="139">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="33" value="Αποθήκευση" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -231,7 +234,7 @@
                 <mxCell id="126" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="640" y="1280" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="137" value="" style="edgeStyle=none;html=1;fontSize=12;strokeColor=#b85450;strokeWidth=2;fillColor=none;" edge="1" parent="1" source="127" target="135">
+                <mxCell id="137" value="" style="edgeStyle=none;html=1;fontSize=12;strokeColor=#b85450;strokeWidth=2;fillColor=none;" parent="1" source="127" target="135" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="127" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
@@ -240,14 +243,17 @@
                 <mxCell id="133" value="Επιστροφή στην αρχική&lt;br&gt;περίπτωση χρήσης" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="207.5" y="1530" width="150" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="138" value="" style="edgeStyle=none;html=1;fontSize=12;strokeColor=#b85450;strokeWidth=2;fillColor=none;" edge="1" parent="1" source="135" target="136">
+                <mxCell id="138" value="" style="edgeStyle=none;html=1;fontSize=12;strokeColor=#b85450;strokeWidth=2;fillColor=none;" parent="1" source="135" target="136" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="135" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+                <mxCell id="135" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="520" y="1400" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="136" value="Αρχική οθόνη" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+                <mxCell id="136" value="Αρχική οθόνη" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="380" y="1405" width="90" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="139" value="Wallet" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="245" y="1180" width="80" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
