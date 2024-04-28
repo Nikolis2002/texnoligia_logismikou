@@ -60,3 +60,9 @@ Gas Station
 	gasPrice
 	
 	
+	
+TaxiRequest
+==========================
+
+getPaymentMethod()
+	
