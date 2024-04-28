@@ -85,3 +85,17 @@ TaxiServiceProgress
 ========================
 
 addPointsToCustomer()
+
+
+
+Service()
+========================
+	rate()
+	
+	rating
+	
+	getRating()
+	
+========================
+
+NEW CLASS: Rating
