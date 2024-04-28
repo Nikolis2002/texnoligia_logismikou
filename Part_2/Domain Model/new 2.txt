@@ -36,6 +36,7 @@ Customer
 Tracker
 	coords
 	
+	getCoords()
 	findNearest()
 	checkStoppedVehicle()
 	calculateCharge()
@@ -47,7 +48,6 @@ SpecializedTracker
 	gasLevel
 	
 	getGasLevel()
-	findNearest()
 
 ===============================================================================
 
@@ -66,14 +66,7 @@ TaxiRequest
 ==========================
 
 getPaymentMethod()
-
-
-Coordinates
-========================
-
 calculateEta(coords)
-
-
 
 
 Rental
