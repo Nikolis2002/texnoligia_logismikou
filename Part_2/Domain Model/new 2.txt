@@ -79,3 +79,9 @@ calculateEta(coords)
 Rental
 ========================
 acceptsGas()
+
+
+TaxiServiceProgress
+========================
+
+addPointsToCustomer()
