@@ -35,7 +35,8 @@ Customer
 
 Tracker
 	coords
-
+	
+	findNearest()
 	checkStoppedVehicle()
 	calculateCharge()
 	calculatePoints()
@@ -65,4 +66,16 @@ TaxiRequest
 ==========================
 
 getPaymentMethod()
-	
+
+
+Coordinates
+========================
+
+calculateEta(coords)
+
+
+
+
+Rental
+========================
+acceptsGas()
