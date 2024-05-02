@@ -363,6 +363,7 @@ CREATE TABLE out_city_car
     PRIMARY KEY(out_city_licence)
 );
 
+ -- test
 CREATE TABLE out_city_van
 (
     out_city_licence VARCHAR(32) NOT NULL,
