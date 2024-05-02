@@ -1,3 +1,6 @@
+-- test
+
+
 DROP DATABASE IF EXISTS app_database;
 CREATE DATABASE app_database;
 USE app_database;
