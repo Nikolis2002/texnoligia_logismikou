@@ -108,7 +108,6 @@ CREATE TABLE Payment
 
 );
 
-
 CREATE TABLE rental_rating
 (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -157,25 +156,35 @@ CREATE TABLE service
 CREATE TABLE rental_service
 (
     rating_id INT UNSIGNED NOT NULL,
+    refill_date DATETIME 
 
-    FOREIGN KEY(rating) REFERENCES rating(id)
+    PRIMARY
+
+    FOREIGN KEY(rating) REFERENCES rental_rating(id)
     ON UPDATE CASCADE
     ON DELETE SET NULL
 )
 
-CREATE TABLE out_city_reservation
+CREATE TABLE out_city_service
 (
+    rating_id INT UNSIGNED NOT NULL,
 
+    FOREIGN KEY(rating_id) REFERENCES rental_rating(id)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL
 )
 
 CREATE TABLE taxi_request
 (
     service_id INT NOT NULL AUTO_INCREMENT,
-    pickup POINT NOT NULL,
+    pickup_location POINT NOT NULL,
     destination POINT NOT NULL,
     assigned_driver INT UNSIGNED,
     assignment_time DATETIME, -- Originally NULL, until a driver is assigned
     pickup_time DATETIME, -- Originally NULL, until the driver picks up the customer
+    rating_id INT UNSIGNED NOT NULL,
+
+    PRIMARY KEY(service_id)
 
     CONSTRAINT fk_taxi_request_service
     FOREIGN KEY(service_id) REFERENCES service(id)
@@ -183,7 +192,12 @@ CREATE TABLE taxi_request
     ON DELETE CASCADE
 
     CONSTRAINT fk_taxi_request_driver
-    FOREIGN KEY(service_id) REFERENCES service(id)
+    FOREIGN KEY(assigned_driver) REFERENCES taxi_driver(id)
+    ON UPDATE CASCADE,
+    ON DELETE CASCADE
+
+    CONSTRAINT fk_taxi_request_rating
+    FOREIGN KEY(rating_id) REFERENCES taxi_rating(id)
     ON UPDATE CASCADE,
     ON DELETE CASCADE
 )
