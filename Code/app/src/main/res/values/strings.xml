@@ -43,4 +43,10 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="complete_order">Complete Order</string>
+    <string name="backbutton">backButton</string>
+    <string name="taxiimage">taxiImage</string>
+    <string name="text">text</string>
+    <string name="taxi_image">taxi Image</string>
+    <string name="name_page">name_page</string>
 </resources>
