@@ -17,7 +17,7 @@ public class PositiveInteger {
             this.value=value;
         }
         else{
-            throw new IllegalArgumentException("NOT AN POSITIVE INTEGER");
+            throw new IllegalArgumentException("NOT A POSITIVE INTEGER");
         }
     }
 }
