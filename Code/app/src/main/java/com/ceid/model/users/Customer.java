@@ -1,6 +1,6 @@
 package com.ceid.model.users;
 import com.ceid.model.payment_methods.*;
-import main.java.com.ceid.model.Points;
+import com.ceid.model.users.Points;
 public class Customer extends User {
 
     private Wallet wallet;
