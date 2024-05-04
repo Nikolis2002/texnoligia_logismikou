@@ -210,7 +210,13 @@ CREATE TABLE customer_coupon
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
-nikolis@nikolisComputer:~/Desktop/texnoligia_logismikou/app database$ 
+
+CREATE TABLE rental_rating
+(
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    stars TINYINT NOT NULL,
+    comment TEXT,
+
     PRIMARY KEY(id)
 );
 
