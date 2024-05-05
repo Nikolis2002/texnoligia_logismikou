@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/startPoint"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,24 +18,23 @@
 
     <TextView
         android:id="@+id/completeOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="20dp"
+        android:layout_marginStart="112dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="168dp"
+        android:scaleY="1.2"
         android:text="@string/complete_order"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/taxiImage"
         android:layout_width="0dp"
         android:layout_height="134dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
         android:contentDescription="@string/taxi_image"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completeOrder"
@@ -46,28 +44,29 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:text="@string/payment_method"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/taxiImage" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/cashButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/cash"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/walletButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="104dp"
         android:text="@string/wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -76,20 +75,21 @@
         android:id="@+id/walletBox"
         style="@style/Widget.Material3.TextInputLayout.FilledBox"
         android:layout_width="0dp"
-        android:layout_height="61dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/Available"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/cashButton"
         app:startIconDrawable="@drawable/baseline_account_balance_wallet_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/walletInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -118,7 +118,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/startPointInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -137,7 +139,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/endPointInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -146,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Estimated cost:"
+        android:text="@string/estimated_cost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endPointBox" />
 
@@ -156,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="129dp"
-        android:text="Pickup cost:"
+        android:text="@string/pickup_cost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endPointBox" />
 
@@ -166,17 +170,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="21dp"
-        android:text="Estimated final cost:"
+        android:text="@string/estimated_final_cost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="12dp"
-        android:text="Find a cab!"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/find_a_cab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estimateFinalCost" />
 

@@ -58,4 +58,8 @@
     <string name="taxi">Taxi</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="find_a_cab">Find a cab!</string>
+    <string name="estimated_final_cost">Estimated final cost:</string>
+    <string name="pickup_cost">Pickup cost:</string>
+    <string name="estimated_cost">Estimated cost:</string>
 </resources>
