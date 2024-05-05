@@ -28,8 +28,6 @@ public class MainScreen extends AppCompatActivity
 
     public void onClick(View view)
     {
-        //Toast.makeText(this, String.format("I remember you're, %s", view.getTag()), Toast.LENGTH_SHORT).show();
-
         intent.putExtra("type", (String)view.getTag());
         startActivity(intent);
     }

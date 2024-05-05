@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+	id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -41,4 +42,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+	implementation("com.google.android.gms:play-services-maps:18.2.0")
+}
+
+secrets {
+	// Optionally specify a different file name containing your secrets.
+	// The plugin defaults to "local.properties"
+	propertiesFileName = "secrets.properties"
 }

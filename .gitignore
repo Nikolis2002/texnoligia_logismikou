@@ -12,7 +12,6 @@ Code/build
 Code/captures
 Code/.externalNativeBuild
 Code/.cxx
-Code/local.properties
 ~*
 Code/.idea/usage.statistics.xml
 Code/.idea/shelf/*
