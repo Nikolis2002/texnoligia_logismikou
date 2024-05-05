@@ -49,4 +49,13 @@
     <string name="text">text</string>
     <string name="taxi_image">taxi Image</string>
     <string name="name_page">name_page</string>
+    <string name="payment_method">Payment method</string>
+    <string name="cash">Cash</string>
+    <string name="wallet">Wallet</string>
+    <string name="available">Available</string>
+    <string name="Available">Available:</string>
+    <string name="textview">TextView</string>
+    <string name="taxi">Taxi</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 </resources>
