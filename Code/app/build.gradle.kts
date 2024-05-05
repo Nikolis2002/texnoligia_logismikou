@@ -49,4 +49,5 @@ secrets {
 	// Optionally specify a different file name containing your secrets.
 	// The plugin defaults to "local.properties"
 	propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
 }
