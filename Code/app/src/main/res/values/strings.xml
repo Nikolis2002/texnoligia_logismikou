@@ -6,6 +6,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="main_screen_rent_car"> <u>Rent a car</u> </string>
+    <string name="main_screen_rent_motorcycle"> <u>Rent a motorcycle</u></string>
+    <string name="main_screen_rent_bike"> <u>Rent a bike</u></string>
+    <string name="main_screen_rent_scooter"> <u>Rent a scooter</u> </string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -43,4 +47,5 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="in_city_choose_vehicle">"Choose a"</string>
 </resources>
