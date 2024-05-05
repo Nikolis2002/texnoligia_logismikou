@@ -379,3 +379,43 @@ CREATE TABLE out_city_van
     PRIMARY KEY(out_city_licence)
 );
 
+--//////////////////////BANK MOCK
+
+
+DROP TABLE IF EXISTS bank;
+CREATE TABLE bank(
+    id INT UNSIGNED NOT NULL,
+    card_owner VARCHAR(64) NOT NULL,
+    card_number VARCHAR(32) NOT NULL,
+    card_exp_date VARCHAR(10) NOT NULL,
+    cvv VARCHAR(8) NOT NULL,
+    owner_balance INT NOT NULL default '500',
+    PRIMARY KEY(id,card_number),
+    CONSTRAINT fk_customer_bank_id
+        FOREIGN KEY(id) REFERENCES customer(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+DROP PROCEDURE IF EXISTS checkCredentials;
+DELIMITER $
+CREATE PROCEDURE checkCredentials(IN c_own VARCHAR(64),IN c_number VARCHAR(32),IN c_exp_date VARCHAR(10),IN c_cvv VARCHAR(8),IN price INT,OUT res SMALLINT)
+BEGIN
+    DECLARE c_id INT UNSIGNED;
+    DECLARE balance INT UNSIGNED;
+    SELECT count(*),id,MAX(owner_balance) INTO res,c_id,balance FROM bank WHERE c_own=bank.card_owner AND c_number=bank.card_number AND c_exp_date=bank.card_exp_date AND c_cvv=bank.cvv GROUP BY bank.id;
+    IF (res=1 AND balance>=price) THEN
+        UPDATE bank SET owner_balance=owner_balance-price WHERE c_id=bank.id;
+    ELSEIF(balance<price) THEN
+        SET res=-1;
+    ELSEIF(res=0) THEN
+        SET res=-2;
+    END IF;
+END $
+DELIMITER ;
+
+INSERT INTO user VALUES(NULL,"bill","Vasilis","Kourtakis","test@gmail.com");
+INSERT INTO customer VALUES(1,"A2","test",0);
+INSERT INTO bank VALUES(1,"VASILIS KOURTAKIS","1234567891011123","05/26","888",1000);
+CALL checkCredentials("VASILIS KOURTAKIS","1234567891011123","05/26","888",1000,@res);
+SELECT @res;
