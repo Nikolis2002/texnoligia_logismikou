@@ -1,11 +1,15 @@
 <resources>
-    <string name="app_name">texnolgia_logismikou</string>
+    <string name="app_name">Movfast</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="main_screen_rent_car"> <u>Rent a car</u> </string>
+    <string name="main_screen_rent_motorcycle"> <u>Rent a motorcycle</u></string>
+    <string name="main_screen_rent_bike"> <u>Rent a bike</u></string>
+    <string name="main_screen_rent_scooter"> <u>Rent a scooter</u> </string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -62,4 +66,6 @@
     <string name="estimated_final_cost">Estimated final cost:</string>
     <string name="pickup_cost">Pickup cost:</string>
     <string name="estimated_cost">Estimated cost:</string>
+    <string name="in_city_choose_vehicle">"Choose a"</string>
+
 </resources>

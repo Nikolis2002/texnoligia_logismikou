@@ -14,12 +14,14 @@ public class CityCar extends CityTransport implements Fuel {
     public CityCar(String id, String model, String manufacturer, DateFormat manuf_date, String licence_plate, boolean free_status, PositiveInteger seat_capacity, typeOfCurrency rental_rate, String emmision, ArrayList<String> accessibilityFeatures) {
         super(id, model, manufacturer, manuf_date, licence_plate, free_status, seat_capacity, rental_rate, emmision, accessibilityFeatures);
     }
+
     //rest of  the car todo!
 
     @Override
     public PositiveInteger getFuel() {
         // TODO
-        return null;
+
+        return this.gas;
     }
 
     @Override
