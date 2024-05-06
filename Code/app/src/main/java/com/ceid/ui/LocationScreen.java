@@ -10,7 +10,5 @@ public class LocationScreen extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.location_screen);
-
-
 	}
 }

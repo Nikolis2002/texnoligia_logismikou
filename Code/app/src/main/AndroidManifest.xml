@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".InCityVehicleScreen" />
+        <activity android:name=".LocationScreen" />
     </application>
 
 </manifest>
