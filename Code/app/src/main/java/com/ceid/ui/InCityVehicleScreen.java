@@ -1,16 +1,16 @@
 package com.ceid.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.ceid.util.Map;
 
-public class InCityVehicleScreen extends AppCompatActivity implements OnMapReadyCallback
+public class InCityVehicleScreen extends AppCompatActivity
 {
-    private GoogleMap gmap;
+    private Map map;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,15 +26,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements OnMapReady
 		textview.setText(String.format("%s %s", textview.getText(), extras.getString("type")));
 
         //Initialize map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapView);
-		assert mapFragment != null;
-		mapFragment.getMapAsync((OnMapReadyCallback) this);
-    }
+        ScrollMapFragment mapFragment = (ScrollMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
+        NestedScrollView scrollView = findViewById(R.id.mainScrollView);
 
-    @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
-        gmap = googleMap;
+        map = new Map(mapFragment, scrollView);
     }
 }
