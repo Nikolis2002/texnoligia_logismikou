@@ -65,5 +65,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/in_city_choose_vehicle" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/endPointBox"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/to">
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/endPointInput"
+            android:layout_width="308dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="92dp"
+            android:singleLine="true"
+            android:textColorHint="#616161"
+            app:layout_constraintTop_toBottomOf="@+id/vehicle_list"
+            tools:layout_editor_absoluteX="153dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

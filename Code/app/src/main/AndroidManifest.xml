@@ -29,6 +29,7 @@
         </activity>
         <activity android:name=".InCityVehicleScreen" />
         <activity android:name=".LocationScreen" />
+        <activity android:name=".TaxiSelect" />
     </application>
 
 </manifest>

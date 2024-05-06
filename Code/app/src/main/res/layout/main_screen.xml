@@ -12,6 +12,35 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayoutTaxi"
+            android:layout_width="184dp"
+            android:layout_height="152dp"
+            android:layout_marginTop="84dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+            <TextView
+                android:id="@+id/textview_taxi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/main_screen_taxi"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/img_taxi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="onTaxiClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/local_taxi_fill0_wght400_grad0_opsz24" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="148dp"
             android:layout_height="139dp"
@@ -131,5 +160,6 @@
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pedal_bike_fill0_wght400_grad0_opsz24" />
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

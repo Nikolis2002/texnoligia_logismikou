@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainScreen extends AppCompatActivity
 {
     private Intent intent;
+    private Intent taxiIntent;
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -24,12 +26,18 @@ public class MainScreen extends AppCompatActivity
 
         //Initialize intent
         intent = new Intent(this, InCityVehicleScreen.class);
+        taxiIntent = new Intent(this, TaxiSelect.class);
     }
 
     public void onClick(View view)
     {
         intent.putExtra("type", (String)view.getTag());
         startActivity(intent);
+    }
+
+    public void onTaxiClick(View view)
+    {
+        startActivity(taxiIntent);
     }
 }
 
