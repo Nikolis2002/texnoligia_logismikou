@@ -10,11 +10,7 @@ public class TaxiSelect extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.taxi_select);
-
-        Bundle extras = getIntent().getExtras();
-        assert extras != null;
-
-
+        
         
     }
 
