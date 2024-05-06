@@ -15,3 +15,6 @@ Code/.cxx
 ~*
 Code/.idea/usage.statistics.xml
 Code/.idea/shelf/*
+.idea/misc.xml
+.idea/workspace.xml
+Code/.idea/deploymentTargetSelector.xml
