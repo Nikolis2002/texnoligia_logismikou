@@ -1,42 +1,64 @@
 package com.ceid.util;
 
-public class Coordinates {
-    private double x;
-    private double y;
+import com.google.android.gms.maps.model.LatLng;
 
-    public Coordinates(double x, double y) {
-        this.x = x;
-        this.y = y;
+import java.io.Serializable;
+
+public class Coordinates implements Serializable
+{
+    private double lat;
+    private double lng;
+
+    public Coordinates(double lat, double lng) {
+        this.lat = lat;
+        this.lng = lng;
     }
 
-    public double getX() {
-        return x;
+	public Coordinates(Coordinates coords)
+	{
+        this.lat = coords.lat;
+        this.lng = coords.lng;
+	}
+
+    public Coordinates(LatLng coords)
+    {
+        this.lat = coords.latitude;
+        this.lng = coords.longitude;
     }
 
-    public double getY() {
-        return y;
+	public double getLat() {
+        return lat;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public double getLng() {
+        return lng;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     public void addCoords(Coordinates coord){
-        this.x=this.x +coord.x;
-        this.y=this.y + coord.y;
+        this.lat=this.lat +coord.lat;
+        this.lng=this.lng + coord.lng;
     }
 
     public void subCoords(Coordinates coord){
-        this.x=this.x -coord.x;
-        this.y=this.y - coord.y;
+        this.lat=this.lat -coord.lat;
+        this.lng=this.lng - coord.lng;
     }
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return String.format("(%.7f, %.7f)", lat, lng);
+    }
+
+    public LatLng toLatLng()
+    {
+        return new LatLng(this.lat, this.lng);
     }
 }

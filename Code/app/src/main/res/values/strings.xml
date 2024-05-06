@@ -68,5 +68,6 @@
     <string name="estimated_cost">Estimated cost:</string>
     <string name="in_city_choose_vehicle">"Choose a"</string>
     <string name="main_screen_taxi">Call a cab now</string>
+    <string name="location">Location:</string>
 
 </resources>
