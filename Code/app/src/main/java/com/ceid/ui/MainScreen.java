@@ -26,7 +26,7 @@ public class MainScreen extends AppCompatActivity
 
         //Initialize intent
         intent = new Intent(this, InCityVehicleScreen.class);
-        taxiIntent = new Intent(this, LocationScreen.class);
+        taxiIntent = new Intent(this, TaxiSelect.class);
     }
 
     public void onClick(View view)
