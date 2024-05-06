@@ -47,5 +47,25 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="complete_order">Complete Order</string>
+    <string name="backbutton">backButton</string>
+    <string name="taxiimage">taxiImage</string>
+    <string name="text">text</string>
+    <string name="taxi_image">taxi Image</string>
+    <string name="name_page">name_page</string>
+    <string name="payment_method">Payment method</string>
+    <string name="cash">Cash</string>
+    <string name="wallet">Wallet</string>
+    <string name="available">Available</string>
+    <string name="Available">Available:</string>
+    <string name="textview">TextView</string>
+    <string name="taxi">Taxi</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="find_a_cab">Find a cab!</string>
+    <string name="estimated_final_cost">Estimated final cost:</string>
+    <string name="pickup_cost">Pickup cost:</string>
+    <string name="estimated_cost">Estimated cost:</string>
     <string name="in_city_choose_vehicle">"Choose a"</string>
+
 </resources>
