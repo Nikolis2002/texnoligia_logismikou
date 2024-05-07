@@ -61,7 +61,7 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 
 			if (coords != null)
 			{
-				map.placePin(coords);
+				map.placePin(coords, true);
 				map.setZoom(data.getFloat("zoom"));
 				map.setPosition(coords);
 			}

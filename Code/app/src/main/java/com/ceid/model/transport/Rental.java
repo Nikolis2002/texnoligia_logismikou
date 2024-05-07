@@ -11,15 +11,16 @@ public abstract class Rental extends InCityTransport
 {
     private ArrayList<String>  accessibilityFeatures;
     private Currency rate;
-    VehicleTracker tracker;
+    private VehicleTracker tracker;
     private boolean freeStatus;
 
-    public Rental(boolean freeStatus, int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
     {
-        super(id, model, manufacturer, manuf_date);
+        super(id, model, manufacturer, manuf_year);
 
         this.accessibilityFeatures = accessibilityFeatures;
         this.rate = rate;
+        this.freeStatus = freeStatus;
 
         this.tracker = new VehicleTracker(coords);
     }
@@ -54,6 +55,11 @@ public abstract class Rental extends InCityTransport
     public void setFreeStatus(boolean freeStatus)
     {
         this.freeStatus = freeStatus;
+    }
+
+    public VehicleTracker getTracker()
+    {
+        return tracker;
     }
 
     public abstract boolean requiresLicense();

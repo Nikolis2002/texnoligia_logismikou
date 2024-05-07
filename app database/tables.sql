@@ -81,7 +81,7 @@ CREATE TABLE transport
 (
     id INT UNSIGNED NOT NULL,
     model VARCHAR(32) NOT NULL,
-    manuf_date DATETIME NOT NULL,
+    manuf_year YEAR NOT NULL,
     manufacturer VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(id)

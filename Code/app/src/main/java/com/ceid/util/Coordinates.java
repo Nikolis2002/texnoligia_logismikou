@@ -1,6 +1,8 @@
 package com.ceid.util;
 
 import com.google.android.gms.maps.model.LatLng;
+import android.location.Location;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -60,5 +62,22 @@ public class Coordinates implements Serializable
     public LatLng toLatLng()
     {
         return new LatLng(this.lat, this.lng);
+    }
+
+    public boolean withinRadius(Coordinates other, float radius)
+    {
+        Location center = new Location("center");
+        center.setLatitude(this.lat);
+        center.setLongitude(this.lng);
+
+        Location point = new Location("point");
+        point.setLatitude(other.getLat());
+        point.setLongitude(other.getLng());
+
+        float dista = center.distanceTo(point);
+
+        Log.d("DISTA", String.format("%f", dista));
+
+        return dista <= radius;
     }
 }

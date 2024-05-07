@@ -7,16 +7,16 @@ public abstract class Transport
     private int id;
     private String model;
     private String manufacturer;
-    private DateFormat manuf_date;
+    private String manuf_year;
     //field for Tracker
     //private PositiveInteger seat_capacity;
 
-    public Transport(int id, String model, String manufacturer, DateFormat manuf_date)
+    public Transport(int id, String model, String manufacturer, String manuf_year)
     {
         this.id = id;
         this.model = model;
         this.manufacturer = manufacturer;
-        this.manuf_date = manuf_date;
+        this.manuf_year = manuf_year;
     }
 
     public String getModel() {
@@ -27,8 +27,8 @@ public abstract class Transport
         return manufacturer;
     }
 
-    public DateFormat getManuf_date() {
-        return manuf_date;
+    public String getManufYear() {
+        return manuf_year;
     }
 
     public int getId() {

@@ -8,8 +8,8 @@ public abstract class OutCityTransport extends Transport{
 
     private String licence_plate;
 
-    public OutCityTransport(String licence_plate, int id, String model, String manufacturer, DateFormat manuf_date) {
-        super(id, model, manufacturer, manuf_date);
+    public OutCityTransport(String licence_plate, int id, String model, String manufacturer, String manuf_year) {
+        super(id, model, manufacturer, manuf_year);
         this.licence_plate = licence_plate;
     }
 }

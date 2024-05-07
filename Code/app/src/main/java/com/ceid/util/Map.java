@@ -1,18 +1,23 @@
 package com.ceid.util;
 
+import android.graphics.BitmapFactory;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
+import com.ceid.ui.R;
 import com.ceid.ui.ScrollMapFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+
+import android.graphics.Bitmap;
 
 public class Map implements OnMapReadyCallback
 {
@@ -44,6 +49,12 @@ public class Map implements OnMapReadyCallback
 		mapFragment.getMapAsync((OnMapReadyCallback)this);
 	}
 
+	public Map(SupportMapFragment mapFragment, NestedScrollView scrollView, MapWrapperReadyListener listener)
+	{
+		this(mapFragment, scrollView);
+		this.listener = listener;
+	}
+
 	@Override
 	public void onMapReady(@NonNull GoogleMap googleMap)
 	{
@@ -51,9 +62,6 @@ public class Map implements OnMapReadyCallback
 
 		//Defaults
 		this.gmap.getUiSettings().setRotateGesturesEnabled(false);
-
-		if (listener != null)
-			listener.onMapWrapperReady();
 
 		//Only for maps within a scrollView
 		if (scrollView != null)
@@ -76,10 +84,13 @@ public class Map implements OnMapReadyCallback
 			{
 				if (clickable)
 				{
-					placePin(new Coordinates(latLng));
+					placePin(new Coordinates(latLng), true);
 				}
 			}
 		});
+
+		if (listener != null)
+			listener.onMapWrapperReady();
 	}
 
 	public void setListener(MapWrapperReadyListener listener)
@@ -97,10 +108,29 @@ public class Map implements OnMapReadyCallback
 		return clickable;
 	}
 
-	public void placePin(Coordinates coords)
+	public void placePin(Coordinates coords, boolean clear)
 	{
-		gmap.clear();
+		if (clear)
+			gmap.clear();
+
 		gmap.addMarker(new MarkerOptions().position(coords.toLatLng()));
+		pinCoords = coords;
+	}
+
+	public void placePin(Coordinates coords, boolean clear, int iconId)
+	{
+		if (clear)
+			gmap.clear();
+
+		Bitmap b = BitmapFactory.decodeResource(scrollView.getResources(), iconId);
+		Bitmap smallMarker = Bitmap.createScaledBitmap(b, 128, 128, false);
+
+		MarkerOptions opt = new MarkerOptions();
+		opt.position(coords.toLatLng());
+		opt.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+		gmap.addMarker(opt);
+
 		pinCoords = coords;
 	}
 
