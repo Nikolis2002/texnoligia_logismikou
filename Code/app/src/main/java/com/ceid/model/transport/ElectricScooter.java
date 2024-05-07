@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class ElectricScooter extends Rental {
 
-	public ElectricScooter(String license_plate, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
-		super(license_plate, model, manufacturer, manuf_date, accessibilityFeatures, rate, coords);
+	public ElectricScooter(int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
+		super(id, model, manufacturer, manuf_date, accessibilityFeatures, rate, coords);
 	}
 
 	@Override

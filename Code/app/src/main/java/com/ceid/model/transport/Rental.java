@@ -12,10 +12,11 @@ public abstract class Rental extends InCityTransport
     private ArrayList<String>  accessibilityFeatures;
     private Currency rate;
     VehicleTracker tracker;
+    private boolean freeStatus;
 
-    public Rental(String license_plate, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
+    public Rental(int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
     {
-        super(license_plate, model, manufacturer, manuf_date);
+        super(id, model, manufacturer, manuf_date);
 
         this.accessibilityFeatures = accessibilityFeatures;
         this.rate = rate;

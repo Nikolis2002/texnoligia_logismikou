@@ -18,8 +18,8 @@ CREATE TABLE user
 CREATE TABLE customer
 (
     id INT UNSIGNED NOT NULL,
-    licence VARCHAR(32),
-    licence_image LONGBLOB,
+    license VARCHAR(32),
+    license_image LONGBLOB,
     points INT UNSIGNED NOT NULL,
 
     CONSTRAINT fk_customer_id 
@@ -79,59 +79,92 @@ CREATE TABLE customer_history
 
 CREATE TABLE transport
 (
-    licence_plate VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
     model VARCHAR(32) NOT NULL,
     manuf_date DATETIME NOT NULL,
     manufacturer VARCHAR(32) NOT NULL,
 
-    PRIMARY KEY(licence_plate)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE taxi
 (
-    licence_plate VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
+    license_plate VARCHAR(32) NOT NULL,
     coords POINT NOT NULL,
 
-    PRIMARY KEY(licence_plate),
+    PRIMARY KEY(id),
 
     CONSTRAINT fk_taxi_transport
-    FOREIGN KEY(licence_plate) REFERENCES transport(licence_plate)
+    FOREIGN KEY(id) REFERENCES transport(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
 
 CREATE TABLE rental
 (
-    licence_plate VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
     rate DECIMAL(5, 2) NOT NULL,
     coords POINT NOT NULL,
     free_status BOOLEAN NOT NULL,
 
+    PRIMARY KEY(id),
+
     CONSTRAINT fk_rental_transport
-    FOREIGN KEY(licence_plate) REFERENCES transport(licence_plate)
+    FOREIGN KEY(id) REFERENCES transport(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
 
 CREATE TABLE car
 (
-    licence_plate VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
+    license_plate VARCHAR(32) NOT NULL,
     gas_level INT UNSIGNED NOT NULL,
     seat_capacity INT UNSIGNED NOT NULL,
 
+    PRIMARY KEY(id),
+
     CONSTRAINT fk_car_rental
-    FOREIGN KEY(licence_plate) REFERENCES rental(licence_plate)
+    FOREIGN KEY(id) REFERENCES rental(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
 
 CREATE TABLE motorcycle
 (
-    licence_plate VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
+    license_plate VARCHAR(32) NOT NULL,
     gas_level INT UNSIGNED NOT NULL,
 
+    PRIMARY KEY(id),
+
     CONSTRAINT fk_motorcycle_rental
-    FOREIGN KEY(licence_plate) REFERENCES rental(licence_plate)
+    FOREIGN KEY(id) REFERENCES rental(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+CREATE TABLE bicycle
+(
+    id INT UNSIGNED NOT NULL,
+
+    PRIMARY KEY(id),
+
+    CONSTRAINT fk_bicycle_rental
+    FOREIGN KEY(id) REFERENCES rental(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+CREATE TABLE electric_scooter
+(
+    id INT UNSIGNED NOT NULL,
+
+    PRIMARY KEY(id),
+
+    CONSTRAINT fk_electric_scooter_rental
+    FOREIGN KEY(id) REFERENCES rental(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
@@ -139,8 +172,10 @@ CREATE TABLE motorcycle
 CREATE TABLE taxi_driver
 (
     id INT UNSIGNED NOT NULL,
-    taxi VARCHAR(32) NOT NULL,
+    taxi INT UNSIGNED NOT NULL,
     free_status BOOLEAN NOT NULL,
+
+    PRIMARY KEY(id),
 
     CONSTRAINT fk_taxi_driver_id 
         FOREIGN KEY(id) REFERENCES user(id)
@@ -148,7 +183,7 @@ CREATE TABLE taxi_driver
         ON DELETE CASCADE,
 
     CONSTRAINT fk_taxi_driver_taxi
-    FOREIGN KEY(taxi) REFERENCES taxi(licence_plate)
+    FOREIGN KEY(taxi) REFERENCES taxi(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
@@ -269,7 +304,7 @@ CREATE TABLE refill
 CREATE TABLE rental_service
 (
     service_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    selected_vehicle VARCHAR(32) NOT NULL,
+    selected_vehicle INT UNSIGNED NOT NULL,
     refill_date DATETIME, -- NULL, unless the customer refills the vehicle
     rating_id INT UNSIGNED,
     left_side_img LONGBLOB,
@@ -285,7 +320,7 @@ CREATE TABLE rental_service
     ON DELETE CASCADE,
 
     CONSTRAINT fk_rental_vehicle
-    FOREIGN KEY(selected_vehicle) REFERENCES rental(licence_plate)
+    FOREIGN KEY(selected_vehicle) REFERENCES rental(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 
@@ -343,42 +378,44 @@ CREATE TABLE taxi_request
 
 CREATE TABLE out_city_transport
 (
-    out_city_licence VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
+    out_city_license VARCHAR(32) NOT NULL,
     seat_capacity INT UNSIGNED NOT NULL,
     gas INT UNSIGNED NOT NULL,
     free_status BOOLEAN NOT NULL,
     
-    CONSTRAINT fk_licence_plate 
-    FOREIGN KEY(out_city_licence) REFERENCES transport(licence_plate)
+    CONSTRAINT fk_out_city_transport 
+    FOREIGN KEY(id) REFERENCES transport(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     
-    PRIMARY KEY(out_city_licence)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE out_city_car
 (
-    out_city_licence VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
+    out_city_license VARCHAR(32) NOT NULL,
 
-    CONSTRAINT fk_out_city_car_licence_plate 
-    FOREIGN KEY(out_city_licence) REFERENCES transport(licence_plate)
+    CONSTRAINT fk_out_city_car
+    FOREIGN KEY(id) REFERENCES transport(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 
-    PRIMARY KEY(out_city_licence)
+    PRIMARY KEY(id)
 );
 
  -- test
 CREATE TABLE out_city_van
 (
-    out_city_licence VARCHAR(32) NOT NULL,
+    id INT UNSIGNED NOT NULL,
 
-    CONSTRAINT fk_out_city_van_licence_plate 
-    FOREIGN KEY(out_city_licence) REFERENCES transport(licence_plate)
+    CONSTRAINT fk_out_city_van
+    FOREIGN KEY(id) REFERENCES transport(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 
-    PRIMARY KEY(out_city_licence)
+    PRIMARY KEY(id)
 );
 
 --//////////////////////BANK MOCK

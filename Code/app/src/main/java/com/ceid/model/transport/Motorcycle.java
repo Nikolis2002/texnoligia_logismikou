@@ -13,9 +13,12 @@ public class Motorcycle extends Rental implements Fuel {
 
 	//?
 	private PositiveInteger gas;
+	private String licence_plate;
 
-	public Motorcycle(String license_plate, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
-		super(license_plate, model, manufacturer, manuf_date, accessibilityFeatures, rate, coords);
+	public Motorcycle(String license_plate, int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
+		super(id, model, manufacturer, manuf_date, accessibilityFeatures, rate, coords);
+
+		this.licence_plate = license_plate;
 	}
 
 	//rest of  the car todo!
@@ -43,5 +46,10 @@ public class Motorcycle extends Rental implements Fuel {
 	{
 		//TODO
 		return true;
+	}
+
+	public String getLicencePlate()
+	{
+		return licence_plate;
 	}
 }
