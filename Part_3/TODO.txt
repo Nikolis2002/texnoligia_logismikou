@@ -13,3 +13,6 @@
 Να φανεί το critical path σε ένα από τα pert
 
 Να μπουν πηγές στο project plan
+
+
+Στο μοντέλο πρέπει τα requiresLicense να πάνε στο Rental, όχι στο InCity

@@ -80,8 +80,9 @@ CREATE TABLE customer_history
 CREATE TABLE transport
 (
     licence_plate VARCHAR(32) NOT NULL,
+    model VARCHAR(32) NOT NULL,
     manuf_date DATETIME NOT NULL,
-    coords POINT NOT NULL,
+    manufacturer VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(licence_plate)
 );
@@ -89,6 +90,7 @@ CREATE TABLE transport
 CREATE TABLE taxi
 (
     licence_plate VARCHAR(32) NOT NULL,
+    coords POINT NOT NULL,
 
     PRIMARY KEY(licence_plate),
 
@@ -101,9 +103,9 @@ CREATE TABLE taxi
 CREATE TABLE rental
 (
     licence_plate VARCHAR(32) NOT NULL,
-    free_status BOOLEAN NOT NULL,
     rate DECIMAL(5, 2) NOT NULL,
-    model VARCHAR(32) NOT NULL DEFAULT 'FORD MONDEO',
+    coords POINT NOT NULL,
+    free_status BOOLEAN NOT NULL,
 
     CONSTRAINT fk_rental_transport
     FOREIGN KEY(licence_plate) REFERENCES transport(licence_plate)
@@ -138,6 +140,7 @@ CREATE TABLE taxi_driver
 (
     id INT UNSIGNED NOT NULL,
     taxi VARCHAR(32) NOT NULL,
+    free_status BOOLEAN NOT NULL,
 
     CONSTRAINT fk_taxi_driver_id 
         FOREIGN KEY(id) REFERENCES user(id)
@@ -343,6 +346,7 @@ CREATE TABLE out_city_transport
     out_city_licence VARCHAR(32) NOT NULL,
     seat_capacity INT UNSIGNED NOT NULL,
     gas INT UNSIGNED NOT NULL,
+    free_status BOOLEAN NOT NULL,
     
     CONSTRAINT fk_licence_plate 
     FOREIGN KEY(out_city_licence) REFERENCES transport(licence_plate)

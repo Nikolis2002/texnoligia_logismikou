@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Currency {
     private BigDecimal value;
-    typeOfCurrency currency=typeOfCurrency.EURO; //default value
+    CurrencyType currency= CurrencyType.EURO; //default value
 
     //TODO:make the methods better and make more setters and getters
 
@@ -25,10 +25,10 @@ public class Currency {
     }
     public void setCurrency(String currency){
         if(currency=="$"||currency=="Dollar"){
-            this.currency=typeOfCurrency.DOLLAR;
+            this.currency= CurrencyType.DOLLAR;
         }
         else
-          this.currency=typeOfCurrency.EURO;
+          this.currency= CurrencyType.EURO;
     }
 
     public BigDecimal getValue(){

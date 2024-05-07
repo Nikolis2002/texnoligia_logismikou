@@ -49,6 +49,9 @@ public class Map implements OnMapReadyCallback
 	{
 		this.gmap = googleMap;
 
+		//Defaults
+		this.gmap.getUiSettings().setRotateGesturesEnabled(false);
+
 		if (listener != null)
 			listener.onMapWrapperReady();
 

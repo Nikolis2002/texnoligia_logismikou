@@ -1,17 +1,18 @@
 package com.ceid.model.payment_methods;
 
-public enum typeOfCurrency{
+public enum CurrencyType
+{
     DOLLAR("$", "Dollar"),
     EURO("€", "Euro");
 
     private final String symbol;
     private final String name;
 
-    typeOfCurrency(String symbol, String name) {
+    CurrencyType(String symbol, String name) {
         this.symbol = symbol;
         this.name = name;
     }
-    typeOfCurrency(String symbol){
+    CurrencyType(String symbol){
         this.symbol = symbol;
         this.name = getNameBySymbol(symbol);
     }
@@ -25,7 +26,7 @@ public enum typeOfCurrency{
     }
 
     public static String getNameBySymbol(String symbol) {
-        for (typeOfCurrency currency : typeOfCurrency.values()) {
+        for (CurrencyType currency : CurrencyType.values()) {
             if (currency.getSymbol().equals(symbol)) {
                 return currency.getName();
             }
@@ -34,7 +35,7 @@ public enum typeOfCurrency{
     }
 
     public static String getSymbolByName(String name) {
-        for (typeOfCurrency currency : typeOfCurrency.values()) {
+        for (CurrencyType currency : CurrencyType.values()) {
             if (currency.getName().equals(name)) {
                 return currency.getSymbol();
             }

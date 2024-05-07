@@ -1,5 +1,6 @@
 package com.ceid.model.transport;
-import com.ceid.model.payment_methods.typeOfCurrency;
+import com.ceid.model.payment_methods.Currency;
+import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.DateFormat;
 import com.ceid.util.Fuel;
 import com.ceid.util.PositiveInteger;
@@ -7,12 +8,12 @@ import com.ceid.util.PositiveInteger;
 import java.util.ArrayList;
 
 
-public class CityCar extends CityTransport implements Fuel {
+public class CityCar extends Rental implements Fuel {
     
     private PositiveInteger gas;
 
-    public CityCar(String id, String model, String manufacturer, DateFormat manuf_date, String licence_plate, boolean free_status, PositiveInteger seat_capacity, typeOfCurrency rental_rate, String emmision, ArrayList<String> accessibilityFeatures) {
-        super(id, model, manufacturer, manuf_date, licence_plate, free_status, seat_capacity, rental_rate, emmision, accessibilityFeatures);
+    public CityCar(String license_plate, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate) {
+        super(license_plate, model, manufacturer, manuf_date, accessibilityFeatures, rate);
     }
 
     //rest of  the car todo!
@@ -27,5 +28,18 @@ public class CityCar extends CityTransport implements Fuel {
     @Override
     public void setFuel(int value) {
         // TODO
+    }
+
+    @Override
+    public boolean requiresLicense()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean validLicense(String license)
+    {
+        //TODO
+        return true;
     }
 }
