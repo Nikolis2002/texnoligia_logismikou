@@ -69,5 +69,10 @@
     <string name="in_city_choose_vehicle">"Choose a"</string>
     <string name="main_screen_taxi">Call a cab now</string>
     <string name="location">Location:</string>
+    <string name="cars_nearby">Cars nearby</string>
+    <string name="motorcycles_nearby">Motorcycles nearby</string>
+    <string name="bicycles_nearby">Bicycles nearby</string>
+    <string name="scooters_nearby">Scooters nearby</string>
+    <string name="distance">Distance</string>
 
 </resources>

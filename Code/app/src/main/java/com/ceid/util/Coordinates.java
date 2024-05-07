@@ -80,4 +80,17 @@ public class Coordinates implements Serializable
 
         return dista <= radius;
     }
+
+    public float distance(Coordinates other)
+    {
+        Location myloc = new Location("myloc");
+        myloc.setLatitude(this.lat);
+        myloc.setLongitude(this.lng);
+
+        Location point = new Location("point");
+        point.setLatitude(other.getLat());
+        point.setLongitude(other.getLng());
+
+        return myloc.distanceTo(point);
+    }
 }

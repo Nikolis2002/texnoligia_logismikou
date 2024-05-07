@@ -64,7 +64,7 @@ public class Map implements OnMapReadyCallback
 		this.gmap.getUiSettings().setRotateGesturesEnabled(false);
 
 		//Only for maps within a scrollView
-		if (scrollView != null)
+		if (this.scrollView != null)
 		{
 			((ScrollMapFragment)mapFragment).setListener(new ScrollMapFragment.OnTouchListener()
 			{
@@ -122,7 +122,7 @@ public class Map implements OnMapReadyCallback
 		if (clear)
 			gmap.clear();
 
-		Bitmap b = BitmapFactory.decodeResource(scrollView.getResources(), iconId);
+		Bitmap b = BitmapFactory.decodeResource(mapFragment.getResources(), iconId);
 		Bitmap smallMarker = Bitmap.createScaledBitmap(b, 128, 128, false);
 
 		MarkerOptions opt = new MarkerOptions();

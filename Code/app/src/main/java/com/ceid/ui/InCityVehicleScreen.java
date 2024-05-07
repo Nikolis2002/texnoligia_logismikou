@@ -10,7 +10,10 @@ import androidx.core.widget.NestedScrollView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ceid.model.payment_methods.Currency;
@@ -26,7 +29,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener
+public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener
 {
 
     private Intent locationIntent;
@@ -35,6 +38,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     private Coordinates selectedCoords = null;
     private Bundle locationScreenData = null;
 
+    private String type;
     private int markerIcon;
 
     private ArrayList<Rental> vehicleList;
@@ -64,20 +68,45 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
         //Initialize map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
-        NestedScrollView scrollView = findViewById(R.id.mainScrollView);
-        map = new Map(mapFragment, scrollView, this);
+        //NestedScrollView scrollView = findViewById(R.id.mainScrollView);
+        map = new Map(mapFragment, null, this);
 
         this.vehicleList = new ArrayList<>();
 
-        switch(extras.getString("type"))
-        {
-            case "car": this.markerIcon = R.drawable.in_city_car; break;
-            case "motorcycle": this.markerIcon = R.drawable.in_city_motorcycle; break;
-            case "bike": this.markerIcon = R.drawable.in_city_bicycle; break;
-            case "scooter": this.markerIcon = R.drawable.in_city_scooter; break;
-        }
+        this.type = extras.getString("type");
 
-        //====================================================================================
+        TextView tview = (TextView) findViewById(R.id.nearbyText);
+
+        switch(type)
+        {
+            case "car":
+            {
+                this.markerIcon = R.drawable.in_city_car;
+                tview.setText(R.string.cars_nearby);
+            }
+            break;
+
+            case "motorcycle":
+            {
+                this.markerIcon = R.drawable.in_city_motorcycle;
+                tview.setText(R.string.motorcycles_nearby);
+            }
+            break;
+
+            case "bike":
+            {
+                this.markerIcon = R.drawable.in_city_bicycle;
+                tview.setText(R.string.bicycles_nearby);
+            }
+            break;
+
+            case "scooter":
+            {
+                this.markerIcon = R.drawable.in_city_scooter;
+                tview.setText(R.string.scooters_nearby);
+            }
+            break;
+        }
     }
 
     //TESTING
@@ -85,6 +114,12 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     public void onMapWrapperReady()
     {
 
+    }
+
+    //Clicking on list item
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Log.d("CLICK", String.format("Position: %d", position));
     }
 
     //Clicking on the location screen
@@ -112,22 +147,35 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             {
                 TextInputEditText text = findViewById(R.id.location_text);
                 text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
-            }
 
-            //Set view around selected position
-            map.setZoom(locationScreenData.getFloat("zoom"));
-            map.setPosition(selectedCoords);
+                //Set view around selected position
+                map.setZoom(locationScreenData.getFloat("zoom"));
+                map.setPosition(selectedCoords);
 
-            //Retrieve vehicles
-            this.vehicleList = this.getVehicles();
+                //Retrieve vehicles
+                this.vehicleList = this.getVehicles();
 
-            map.placePin(selectedCoords, true);
+                map.placePin(selectedCoords, true);
 
-            //Place pins
-            for (Rental rental : vehicleList)
-            {
-                if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
-                    map.placePin(rental.getTracker().getCoords(), false, markerIcon);
+                ArrayList<Rental> validVehicles = new ArrayList<>();
+
+                //Place pins
+                for (Rental rental : vehicleList)
+                {
+                    if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
+                    {
+                        map.placePin(rental.getTracker().getCoords(), false, markerIcon);
+                        validVehicles.add(rental);
+                    }
+                }
+
+                //TESTING
+                //====================================================================================
+
+                ListView listView = (ListView) findViewById(R.id.listViewId);
+
+                listView.setAdapter(new MyListAdapter(this,  validVehicles, type.substring(0, 1).toUpperCase() + type.substring(1), this.markerIcon, selectedCoords));
+                listView.setOnItemClickListener(this);
             }
         }
     }
