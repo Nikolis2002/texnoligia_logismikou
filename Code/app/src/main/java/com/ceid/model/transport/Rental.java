@@ -14,7 +14,7 @@ public abstract class Rental extends InCityTransport
     VehicleTracker tracker;
     private boolean freeStatus;
 
-    public Rental(int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
     {
         super(id, model, manufacturer, manuf_date);
 
@@ -44,6 +44,16 @@ public abstract class Rental extends InCityTransport
     public Currency getRate()
     {
         return rate;
+    }
+
+    public boolean isFree()
+    {
+        return freeStatus;
+    }
+
+    public void setFreeStatus(boolean freeStatus)
+    {
+        this.freeStatus = freeStatus;
     }
 
     public abstract boolean requiresLicense();

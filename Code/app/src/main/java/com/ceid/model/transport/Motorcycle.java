@@ -15,8 +15,8 @@ public class Motorcycle extends Rental implements Fuel {
 	private PositiveInteger gas;
 	private String licence_plate;
 
-	public Motorcycle(String license_plate, int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
-		super(id, model, manufacturer, manuf_date, accessibilityFeatures, rate, coords);
+	public Motorcycle(String license_plate, boolean freeStatus, int id, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
+		super(freeStatus, id, model, manufacturer, manuf_date, accessibilityFeatures, rate, coords);
 
 		this.licence_plate = license_plate;
 	}
