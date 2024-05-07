@@ -12,12 +12,13 @@ import android.content.Intent;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class LocationScreen extends AppCompatActivity implements MapWrapperReadyListener
 {
 	private Map map;
-	private Coordinates coords;
+	private Bundle data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -33,21 +34,20 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 		map.setListener(this);
 
 		//See if we had already inserted coordinates before
-		this.coords = (Coordinates) getIntent().getSerializableExtra("coords");
-
-		if (coords != null)
-			Log.d("LOCATION", coords.toString());
-		else
-			Log.d("LOCATION", "NULL");
+		this.data = getIntent().getExtras();
 	}
 
 	//User presses the button to confirm location
 	public void onSubmit(View view)
 	{
-		this.coords = map.getPinCoords();
+		data = new Bundle();
+		data.putSerializable("coords", map.getPinCoords());
+		data.putFloat("zoom", map.getZoom());
+
+		Log.d("LOCATION", String.valueOf(map.getZoom()));
 
 		Intent res = new Intent();
-		res.putExtra("coords", coords);
+		res.putExtras(data);
 		setResult(Activity.RESULT_OK, res);
 
 		finish();
@@ -55,9 +55,20 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 
 	public void onMapWrapperReady()
 	{
-		Log.d("LOCATION", "READY");
+		if (data != null)
+		{
+			Coordinates coords = (Coordinates) data.getSerializable("coords");
 
-		if (coords != null)
-			map.placePin(coords);
+			if (coords != null)
+			{
+				map.placePin(coords);
+				map.setZoom(data.getFloat("zoom"));
+				map.setPosition(coords);
+			}
+		}
+
+		//map.getMap().setMinZoomPreference(10.0f);
+		//map.getMap().setMaxZoomPreference(10.0f);
+
 	}
 }

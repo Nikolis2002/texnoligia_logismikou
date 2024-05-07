@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
 import com.ceid.ui.ScrollMapFragment;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -98,6 +99,26 @@ public class Map implements OnMapReadyCallback
 		gmap.clear();
 		gmap.addMarker(new MarkerOptions().position(coords.toLatLng()));
 		pinCoords = coords;
+	}
+
+	public GoogleMap getMap()
+	{
+		return gmap;
+	}
+
+	public void setZoom(float zoomLevel)
+	{
+		gmap.moveCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+	}
+
+	public void setPosition(Coordinates coords)
+	{
+		gmap.moveCamera(CameraUpdateFactory.newLatLng(coords.toLatLng()));
+	}
+
+	public float getZoom()
+	{
+		return gmap.getCameraPosition().zoom;
 	}
 
 	public Coordinates getPinCoords()

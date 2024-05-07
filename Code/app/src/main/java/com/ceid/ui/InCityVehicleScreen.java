@@ -25,6 +25,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private Map map;
     private Coordinates selectedCoords = null;
+    private Bundle locationScreenData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,7 +59,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     //Clicking on the location screen
     public void onClick(View view)
     {
-        locationIntent.putExtra("coords", selectedCoords);
+        if (locationScreenData != null)
+            locationIntent.putExtras(locationScreenData);
+
         activityResultLauncher.launch(locationIntent);
     }
 
@@ -69,10 +72,12 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         if (result.getResultCode() == Activity.RESULT_OK)
         {
             Intent data = result.getData();
-            selectedCoords = (Coordinates) data.getSerializableExtra("coords");
+            locationScreenData = data.getExtras();
+
+            //selectedCoords = (Coordinates) data.getSerializableExtra("coords");
 
             TextInputEditText text = findViewById(R.id.location_text);
-            text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
+            text.setText(String.format("%s %s", getResources().getString(R.string.location),locationScreenData.getSerializable("coords").toString()));
         }
     }
 }
