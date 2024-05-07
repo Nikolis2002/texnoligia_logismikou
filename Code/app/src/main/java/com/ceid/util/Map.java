@@ -126,6 +126,8 @@ public class Map implements OnMapReadyCallback
 
 	public Coordinates getPinCoords()
 	{
-		return new Coordinates(pinCoords);
+		if (pinCoords != null)
+			return new Coordinates(pinCoords);
+		else return null;
 	}
 }

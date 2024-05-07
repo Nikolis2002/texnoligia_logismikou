@@ -74,10 +74,13 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             Intent data = result.getData();
             locationScreenData = data.getExtras();
 
-            //selectedCoords = (Coordinates) data.getSerializableExtra("coords");
+            selectedCoords = (Coordinates) locationScreenData.getSerializable("coords");
 
-            TextInputEditText text = findViewById(R.id.location_text);
-            text.setText(String.format("%s %s", getResources().getString(R.string.location),locationScreenData.getSerializable("coords").toString()));
+            if (selectedCoords != null)
+            {
+                TextInputEditText text = findViewById(R.id.location_text);
+                text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
+            }
         }
     }
 }

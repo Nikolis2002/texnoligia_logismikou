@@ -66,9 +66,5 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 				map.setPosition(coords);
 			}
 		}
-
-		//map.getMap().setMinZoomPreference(10.0f);
-		//map.getMap().setMaxZoomPreference(10.0f);
-
 	}
 }
