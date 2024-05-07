@@ -1,26 +1,37 @@
 package com.ceid.model.transport;
 
 import com.ceid.util.*;
+import com.google.android.gms.maps.model.LatLng;
 
-
-public class Tracker {
+public class Tracker
+{
     private Coordinates coords;
 
-    public Tracker(double x,double y){
-        coords= new Coordinates(x,y);
+    public Tracker(double lat,double lng){
+        coords= new Coordinates(lat,lng);
+    }
+
+    public Tracker(Coordinates coords)
+    {
+        this.coords= coords;
+    }
+
+    public Tracker(LatLng coords)
+    {
+        this.coords = new Coordinates(coords);
     }
 
     public void getCoordsFromDatabase(){
         //get things from api call
     }
 
-    public void addTrackerCoords(Coordinates coords){
-            this.coords.addCoords(coords);
+    public Coordinates getCoords()
+    {
+        return coords;
     }
 
-    public void subTrackerCoords(Coordinates coords){
-        this.coords.subCoords(coords);
+    public void setCoords(Coordinates coords)
+    {
+        this.coords = coords;
     }
-    
-    //TODO:other methods for tracker usage !
 }

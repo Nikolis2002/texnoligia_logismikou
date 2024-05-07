@@ -11,15 +11,19 @@ public abstract class Rental extends InCityTransport
 {
     private ArrayList<String>  accessibilityFeatures;
     private Currency rate;
-    //private Coordinates coords;
+    VehicleTracker tracker;
 
-    public Rental(String license_plate, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate)
+    public Rental(String license_plate, String model, String manufacturer, DateFormat manuf_date, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
     {
         super(license_plate, model, manufacturer, manuf_date);
 
         this.accessibilityFeatures = accessibilityFeatures;
         this.rate = rate;
+
+        this.tracker = new VehicleTracker(coords);
     }
+
+    //public updatePosition(Coordinates coords)
 
     public ArrayList<String> getAccessibilityFeatures()
     {
