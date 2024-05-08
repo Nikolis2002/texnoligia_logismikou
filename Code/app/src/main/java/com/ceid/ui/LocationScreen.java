@@ -1,9 +1,6 @@
 package com.ceid.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.NestedScrollView;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +9,6 @@ import android.content.Intent;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class LocationScreen extends AppCompatActivity implements MapWrapperReadyListener
@@ -55,6 +51,10 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 
 	public void onMapWrapperReady()
 	{
+		Coordinates Patra = new Coordinates( 38.246639, 21.734573);
+		map.setZoom(12);
+		map.setPosition(Patra);
+
 		if (data != null)
 		{
 			Coordinates coords = (Coordinates) data.getSerializable("coords");

@@ -1,5 +1,7 @@
 package com.ceid.model.payment_methods;
 
+import androidx.annotation.NonNull;
+
 import java.math.BigDecimal;
 
 public class Currency {
@@ -41,6 +43,20 @@ public class Currency {
 
     public String getCurrencyName(){
         return this.currency.getName();
+    }
+
+    @NonNull
+    public String toString()
+    {
+        if (currency == CurrencyType.EURO)
+        {
+            return String.format("%s%s", value.toString(),currency.getSymbol());
+        }
+        else
+        {
+            return String.format("%s%s",currency.getSymbol(), value.toString());
+        }
+
     }
 
     //for numeric types like Integer, Long, Short, Byte

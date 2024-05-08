@@ -10,12 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -72,7 +72,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
         //Initialize map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
-        //NestedScrollView scrollView = findViewById(R.id.mainScrollView);
         map = new Map(mapFragment, this, this);
         map.setMarkerListener(this);
 
@@ -118,7 +117,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     @Override
     public void onMapWrapperReady()
     {
-
+        Coordinates Patra = new Coordinates( 38.246639, 21.734573);
+        map.setZoom(12);
+        map.setPosition(Patra);
     }
 
     @Override
@@ -145,6 +146,32 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                     0,
                     0
             );
+
+            TextView title = popupView.findViewById(R.id.text_title);
+            TextView dista = popupView.findViewById(R.id.text_dista);
+            TextView rate = popupView.findViewById(R.id.text_rate);
+            TextView seats = popupView.findViewById(R.id.text_seats);
+            TextView plate = popupView.findViewById(R.id.text_plate);
+
+            CityCar car = (CityCar)tag;
+
+            title.setText(String.format("%s %s (%s)", car.getManufacturer(), car.getModel(), car.getManufYear()));
+            dista.setText(String.format("%s: %d m", "Distance", Math.round(selectedCoords.distance(car.getTracker().getCoords()))));
+            rate.setText(String.format("%s: %s/min", "Rate", car.getRate().toString()));
+            seats.setText(String.format("%s: %d", "Seats", 4));
+            plate.setText(String.format("%s: %s", "License Plate", car.getLicencePlate()));
+
+
+            Button cancel = popupView.findViewById(R.id.cancel);
+            Button reserve = popupView.findViewById(R.id.cancel);
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    popupWindow.dismiss();
+                }
+            });
         }
 
         return true;
@@ -234,7 +261,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "FORD",
                 "1993",
                 null,
-                new Currency(2),
+                new Currency(1.40),
                 new Coordinates(38.2442870,21.7326153))
         );
 
@@ -246,7 +273,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "HONDA",
                 "2006",
                 null,
-                new Currency(3),
+                new Currency(1.30),
                 new Coordinates(38.2466208,21.7325087))
         );
 
@@ -258,7 +285,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "PONTIAC",
                 "2004",
                 null,
-                new Currency(4),
+                new Currency(1.20),
                 new Coordinates(38.2481327,21.7374738))
         );
 
@@ -270,7 +297,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "SUZUKI",
                 "1998",
                 null,
-                new Currency(4.28),
+                new Currency(1.00),
                 new Coordinates(38.2442388,21.7405935))
         );
 
@@ -282,7 +309,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "KRUSTY KRAB",
                 "2004",
                 null,
-                new Currency(5),
+                new Currency(5.00),
                 new Coordinates(38.2473288,21.6084180))
         );
 
