@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:gravity="center_vertical"
-            android:textSize="16dp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
     </LinearLayout>

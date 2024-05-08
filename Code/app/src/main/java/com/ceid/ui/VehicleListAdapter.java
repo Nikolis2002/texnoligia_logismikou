@@ -13,17 +13,15 @@ import com.ceid.util.Coordinates;
 
 import java.util.ArrayList;
 
-public class MyListAdapter extends BaseAdapter
+public class VehicleListAdapter extends BaseAdapter
 {
 	private Context context;
 	private ArrayList<Rental> vehicles;
-	private String title;
 	private int icon;
 	private Coordinates pos;
 
-	public MyListAdapter(Context context, ArrayList<Rental> vehicles, String title, int icon, Coordinates pos) {
+	public VehicleListAdapter(Context context, ArrayList<Rental> vehicles, int icon, Coordinates pos) {
 		this.context = context;
-		this.title = title;
 		this.icon = icon;
 		this.vehicles = vehicles;
 		this.pos = pos;
@@ -43,21 +41,22 @@ public class MyListAdapter extends BaseAdapter
 
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		LayoutInflater inflater = LayoutInflater.from(this.context);
+		if (convertView == null)
+		{
+			convertView = LayoutInflater.from(this.context).inflate(R.layout.row, parent, false);
+		}
+		convertView.setTag(vehicles.get(position));
 
-		View row;
-		row = inflater.inflate(R.layout.row, parent, false);
-
-		TextView title = (TextView) row.findViewById(R.id.txtTitle);
-		TextView subtitle = (TextView) row.findViewById(R.id.txtSubtitle);
-		ImageView imgview = (ImageView) row.findViewById(R.id.imgIcon);
+		TextView title = (TextView) convertView.findViewById(R.id.txtTitle);
+		TextView subtitle = (TextView) convertView.findViewById(R.id.txtSubtitle);
+		ImageView imgview = (ImageView) convertView.findViewById(R.id.imgIcon);
 
 		float dista = pos.distance(vehicles.get(position).getTracker().getCoords());
 
-		title.setText(this.title);
-		subtitle.setText(String.format("%s: %s", context.getResources().getString(R.string.distance), dista));
+		title.setText(String.format("%s %s", vehicles.get(position).getManufacturer(), vehicles.get(position).getModel()));
+		subtitle.setText(String.format("%s: %s m", context.getResources().getString(R.string.distance), Math.round(dista)));
 		imgview.setImageResource(this.icon);
 
-		return (row);
+		return (convertView);
 	}
 }

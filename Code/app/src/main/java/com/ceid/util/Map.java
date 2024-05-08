@@ -1,6 +1,10 @@
 package com.ceid.util;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,11 +28,13 @@ public class Map implements OnMapReadyCallback
 {
 	private GoogleMap gmap;
 
-	private NestedScrollView scrollView; //NestedScrollView or ConstraintLayout
+	private View view; //Usually NestedScrollView or ConstraintLayout
 	private SupportMapFragment mapFragment; //SupportMapFragment or ScrollMapFragment
 
 	private boolean clickable;
 	private Coordinates pinCoords = null;
+
+	private GoogleMap.OnMarkerClickListener markerListener;
 
 	private MapWrapperReadyListener listener;
 
@@ -39,19 +46,43 @@ public class Map implements OnMapReadyCallback
 	//	If it's NestedScrollView, we need it
 	//WHY ALL THIS???
 	//If we have a scrollview, we need to override default behavior of the page, because scrolling prevents us from using the map
+
+	/*
 	public Map(SupportMapFragment mapFragment, NestedScrollView scrollView)
 	{
-		this.scrollView = scrollView;
+		this.view = scrollView;
 		this.mapFragment = mapFragment;
 		this.clickable = false;
+		this.markerListener = null;
+
+		assert mapFragment != null;
+		mapFragment.getMapAsync((OnMapReadyCallback)this);
+	}
+	*/
+
+	public Map(SupportMapFragment mapFragment, Context context)
+	{
+		this.view = ((Activity) context).findViewById(android.R.id.content);
+		this.mapFragment = mapFragment;
+		this.clickable = false;
+		this.markerListener = null;
 
 		assert mapFragment != null;
 		mapFragment.getMapAsync((OnMapReadyCallback)this);
 	}
 
+	/*
+
 	public Map(SupportMapFragment mapFragment, NestedScrollView scrollView, MapWrapperReadyListener listener)
 	{
 		this(mapFragment, scrollView);
+		this.listener = listener;
+	}
+	*/
+
+	public Map(SupportMapFragment mapFragment, Context context, MapWrapperReadyListener listener)
+	{
+		this(mapFragment, context);
 		this.listener = listener;
 	}
 
@@ -63,15 +94,19 @@ public class Map implements OnMapReadyCallback
 		//Defaults
 		this.gmap.getUiSettings().setRotateGesturesEnabled(false);
 
+		//Set marker listener if we have previously called setMarkerListener
+		this.gmap.setOnMarkerClickListener(markerListener);
+
+
 		//Only for maps within a scrollView
-		if (this.scrollView != null)
+		if (this.view instanceof NestedScrollView)
 		{
 			((ScrollMapFragment)mapFragment).setListener(new ScrollMapFragment.OnTouchListener()
 			{
 				@Override
 				public void onTouch()
 				{
-					scrollView.requestDisallowInterceptTouchEvent(true);
+					((NestedScrollView)view).requestDisallowInterceptTouchEvent(true);
 				}
 			});
 		}
@@ -108,16 +143,18 @@ public class Map implements OnMapReadyCallback
 		return clickable;
 	}
 
-	public void placePin(Coordinates coords, boolean clear)
+	public Marker placePin(Coordinates coords, boolean clear)
 	{
 		if (clear)
 			gmap.clear();
 
-		gmap.addMarker(new MarkerOptions().position(coords.toLatLng()));
+		Marker marker = gmap.addMarker(new MarkerOptions().position(coords.toLatLng()));
 		pinCoords = coords;
+
+		return marker;
 	}
 
-	public void placePin(Coordinates coords, boolean clear, int iconId)
+	public Marker placePin(Coordinates coords, boolean clear, int iconId)
 	{
 		if (clear)
 			gmap.clear();
@@ -129,9 +166,11 @@ public class Map implements OnMapReadyCallback
 		opt.position(coords.toLatLng());
 		opt.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-		gmap.addMarker(opt);
+		Marker marker = gmap.addMarker(opt);
 
 		pinCoords = coords;
+
+		return marker;
 	}
 
 	public GoogleMap getMap()
@@ -149,6 +188,11 @@ public class Map implements OnMapReadyCallback
 		gmap.moveCamera(CameraUpdateFactory.newLatLng(coords.toLatLng()));
 	}
 
+	public void smoothTransition(Coordinates coords)
+	{
+		gmap.animateCamera(CameraUpdateFactory.newLatLng(coords.toLatLng()));
+	}
+
 	public float getZoom()
 	{
 		return gmap.getCameraPosition().zoom;
@@ -159,5 +203,15 @@ public class Map implements OnMapReadyCallback
 		if (pinCoords != null)
 			return new Coordinates(pinCoords);
 		else return null;
+	}
+
+	public void setMarkerListener(GoogleMap.OnMarkerClickListener listener)
+	{
+		this.markerListener = listener;
+
+		if (this.gmap != null)
+		{
+			this.gmap.setOnMarkerClickListener(listener);
+		}
 	}
 }

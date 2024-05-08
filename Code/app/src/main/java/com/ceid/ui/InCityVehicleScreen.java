@@ -4,32 +4,36 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.transport.CityCar;
 import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
-import com.ceid.util.DateFormat;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener
+public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener, GoogleMap.OnMarkerClickListener
 {
 
     private Intent locationIntent;
@@ -69,7 +73,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         //Initialize map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         //NestedScrollView scrollView = findViewById(R.id.mainScrollView);
-        map = new Map(mapFragment, null, this);
+        map = new Map(mapFragment, this, this);
+        map.setMarkerListener(this);
 
         this.vehicleList = new ArrayList<>();
 
@@ -116,10 +121,43 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
     }
 
-    //Clicking on list item
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker)
     {
-        Log.d("CLICK", String.format("Position: %d", position));
+        Object tag  = marker.getTag();
+
+        if (tag != null) //Vehicle marker
+        {
+            // Inflate the popup window layout
+            View popupView = LayoutInflater.from(this).inflate(R.layout.vehicle_popup, null);
+
+            // Create the popup window
+            PopupWindow popupWindow = new PopupWindow(
+                    popupView,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            );
+
+            // Show the popup window
+            popupWindow.showAtLocation(
+                    findViewById(android.R.id.content),
+                    Gravity.CENTER,
+                    0,
+                    0
+            );
+        }
+
+        return true;
+
+    }
+
+    //Clicking on list item
+    public void onItemClick(AdapterView<?> parent, View clickedItem, int position, long id)
+    {
+        //Log.d("CLICK", String.format("Position: %d", position));
+
+        Rental rental = (Rental) clickedItem.getTag();
+        map.smoothTransition(rental.getTracker().getCoords());
     }
 
     //Clicking on the location screen
@@ -164,17 +202,15 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 {
                     if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
                     {
-                        map.placePin(rental.getTracker().getCoords(), false, markerIcon);
+                        Marker marker = map.placePin(rental.getTracker().getCoords(), false, markerIcon);
+                        marker.setTag(rental);
                         validVehicles.add(rental);
                     }
                 }
 
-                //TESTING
-                //====================================================================================
-
                 ListView listView = (ListView) findViewById(R.id.listViewId);
 
-                listView.setAdapter(new MyListAdapter(this,  validVehicles, type.substring(0, 1).toUpperCase() + type.substring(1), this.markerIcon, selectedCoords));
+                listView.setAdapter(new VehicleListAdapter(this,  validVehicles, this.markerIcon, selectedCoords));
                 listView.setOnItemClickListener(this);
             }
         }

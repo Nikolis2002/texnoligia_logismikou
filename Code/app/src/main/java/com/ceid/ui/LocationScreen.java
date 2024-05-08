@@ -29,7 +29,7 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 		//Initialize map
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapView);
 
-		map = new Map(mapFragment, null);
+		map = new Map(mapFragment, this);
 		map.setClickable(true);
 		map.setListener(this);
 
