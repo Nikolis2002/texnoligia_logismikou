@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
@@ -13,9 +14,12 @@ import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
-public class LocationScreen extends AppCompatActivity implements MapWrapperReadyListener
+public class LocationScreen extends AppCompatActivity implements MapWrapperReadyListener, OnMapReadyCallback
 {
 	private Map map;
 	private Bundle data;
@@ -28,6 +32,8 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 
 		//Initialize map
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapView);
+
+		mapFragment.getMapAsync(this);
 
 		map = new Map(mapFragment, this);
 		map.setClickable(true);
@@ -66,5 +72,12 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 				map.setPosition(coords);
 			}
 		}
+	}
+
+	@Override
+	public void onMapReady(@NonNull GoogleMap googleMap) {
+
+		LatLng Patra = new LatLng( 38.246639, 21.734573);
+		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Patra, 12));
 	}
 }

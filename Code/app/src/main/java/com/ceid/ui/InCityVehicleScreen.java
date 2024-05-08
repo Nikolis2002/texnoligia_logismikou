@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,14 +26,17 @@ import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener, GoogleMap.OnMarkerClickListener
+public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback
 {
 
     private Intent locationIntent;
@@ -75,6 +77,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         map = new Map(mapFragment, this, this);
         map.setMarkerListener(this);
+
+        mapFragment.getMapAsync(this);
 
         this.vehicleList = new ArrayList<>();
 
@@ -119,6 +123,12 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     public void onMapWrapperReady()
     {
 
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap){
+        LatLng Patra = new LatLng( 38.246639, 21.734573);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Patra, 12));
     }
 
     @Override
