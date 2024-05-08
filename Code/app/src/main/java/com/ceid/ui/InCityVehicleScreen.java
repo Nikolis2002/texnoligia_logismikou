@@ -26,17 +26,14 @@ import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback
+public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener, GoogleMap.OnMarkerClickListener
 {
 
     private Intent locationIntent;
@@ -77,8 +74,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         map = new Map(mapFragment, this, this);
         map.setMarkerListener(this);
-
-        mapFragment.getMapAsync(this);
 
         this.vehicleList = new ArrayList<>();
 
@@ -122,13 +117,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     @Override
     public void onMapWrapperReady()
     {
-
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap){
-        LatLng Patra = new LatLng( 38.246639, 21.734573);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Patra, 12));
+        Coordinates Patra = new Coordinates( 38.246639, 21.734573);
+        map.setZoom(12);
+        map.setPosition(Patra);
     }
 
     @Override
