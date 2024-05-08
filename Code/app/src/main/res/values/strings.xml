@@ -74,5 +74,8 @@
     <string name="bicycles_nearby">Bicycles nearby</string>
     <string name="scooters_nearby">Scooters nearby</string>
     <string name="distance">Distance</string>
+    <string name="wallet_balance">Wallet Balance</string>
+    <string name="locate">Locate</string>
+    <string name="destination">Destination</string>
 
 </resources>
