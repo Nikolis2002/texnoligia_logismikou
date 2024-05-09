@@ -25,6 +25,17 @@ public abstract class Rental extends InCityTransport
         this.tracker = new VehicleTracker(coords);
     }
 
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, VehicleTracker tracker)
+    {
+        super(id, model, manufacturer, manuf_year);
+
+        this.accessibilityFeatures = accessibilityFeatures;
+        this.rate = rate;
+        this.freeStatus = freeStatus;
+
+        this.tracker = tracker;
+    }
+
     //public updatePosition(Coordinates coords)
 
     public ArrayList<String> getAccessibilityFeatures()

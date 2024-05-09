@@ -5,8 +5,12 @@ import com.ceid.util.PositiveInteger;
 
 public class SpecializedTracker extends VehicleTracker
 {
-	public SpecializedTracker(Coordinates coords)
+	PositiveInteger gas;
+
+	public SpecializedTracker(Coordinates coords, PositiveInteger gas)
 	{
 		super(coords);
+
+		this.gas = gas;
 	}
 }
