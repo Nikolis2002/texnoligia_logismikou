@@ -77,5 +77,8 @@
     <string name="wallet_balance">Wallet Balance</string>
     <string name="locate">Locate</string>
     <string name="destination">Destination</string>
+    <string name="movfast">movfast</string>
+    <string name="sign_in_to">Sign in to continue to our services!</string>
+    <string name="label">Username or email</string>
 
 </resources>
