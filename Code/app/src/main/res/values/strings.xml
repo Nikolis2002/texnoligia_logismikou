@@ -80,5 +80,9 @@
     <string name="movfast">movfast</string>
     <string name="sign_in_to">Sign in to continue to our services!</string>
     <string name="label">Username or email</string>
+    <string name="pass">Password</string>
+    <string name="fireitup">Fire It Up!</string>
+    <string name="newHere">Are you new here?</string>
+    <string name="signUp">Sign Up</string>
 
 </resources>
