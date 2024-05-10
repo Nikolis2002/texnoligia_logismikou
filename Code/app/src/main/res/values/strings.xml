@@ -84,5 +84,17 @@
     <string name="fireitup">Fire It Up!</string>
     <string name="newHere">Are you new here?</string>
     <string name="signUp">Sign Up</string>
+    <string name="asterisk">*</string>
+    <string name="username">Username(What others will see you as)</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="phone">Phone Number</string>
+    <string name="driversLicense">Driver\'s License</string>
+    <string name="alrUser">Already a user?</string>
+    <string name="signIn">Sign In instead</string>
+    <string name="signUpNow">Sign Up Now!</string>
+
+
 
 </resources>
