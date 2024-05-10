@@ -9,31 +9,18 @@ import com.ceid.util.PositiveInteger;
 import java.util.ArrayList;
 
 
-public class CityCar extends Rental implements Fuel {
+public class CityCar extends Rental {
 
     //?
-    private PositiveInteger gas;
+    //private PositiveInteger gas;
     private String licence_plate;
 
-    public CityCar(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords) {
-        super(freeStatus, id, model, manufacturer, manuf_year, accessibilityFeatures, rate, coords);
-
+    public CityCar(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords, PositiveInteger gas) {
+        super(freeStatus, id, model, manufacturer, manuf_year, accessibilityFeatures, rate, new SpecializedTracker(coords, gas));
         this.licence_plate = license_plate;
     }
 
     //rest of  the car todo!
-
-    @Override
-    public PositiveInteger getFuel() {
-        // TODO
-
-        return this.gas;
-    }
-
-    @Override
-    public void setFuel(int value) {
-        // TODO
-    }
 
     @Override
     public boolean requiresLicense()

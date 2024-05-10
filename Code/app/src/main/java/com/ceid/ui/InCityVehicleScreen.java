@@ -26,6 +26,7 @@ import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
+import com.ceid.util.PositiveInteger;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
@@ -262,8 +263,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "1993",
                 null,
                 new Currency(1.40),
-                new Coordinates(38.2442870,21.7326153))
-        );
+                new Coordinates(38.2442870,21.7326153),
+                new PositiveInteger(0)
+        ));
 
         vehicleList.add(new CityCar(
                 "DEF-1234",
@@ -274,8 +276,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "2006",
                 null,
                 new Currency(1.30),
-                new Coordinates(38.2466208,21.7325087))
-        );
+                new Coordinates(38.2466208,21.7325087),
+                new PositiveInteger(0)
+        ));
 
         vehicleList.add(new CityCar(
                 "GHI-1234",
@@ -286,8 +289,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "2004",
                 null,
                 new Currency(1.20),
-                new Coordinates(38.2481327,21.7374738))
-        );
+                new Coordinates(38.2481327,21.7374738),
+                new PositiveInteger(0)
+        ));
 
         vehicleList.add(new CityCar(
                 "JKL-1234",
@@ -298,8 +302,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "1998",
                 null,
                 new Currency(1.00),
-                new Coordinates(38.2442388,21.7405935))
-        );
+                new Coordinates(38.2442388,21.7405935),
+                new PositiveInteger(0)
+        ));
 
         vehicleList.add(new CityCar(
                 "2-GO",
@@ -310,8 +315,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "2004",
                 null,
                 new Currency(5.00),
-                new Coordinates(38.2473288,21.6084180))
-        );
+                new Coordinates(38.2473288,21.6084180),
+                new PositiveInteger(0)
+        ));
 
         return vehicleList;
     }

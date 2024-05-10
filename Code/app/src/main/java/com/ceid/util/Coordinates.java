@@ -78,6 +78,8 @@ public class Coordinates implements Serializable
 
         Log.d("DISTA", String.format("%f", dista));
 
+        System.out.println("testtesttest");
+
         return dista <= radius;
     }
 
