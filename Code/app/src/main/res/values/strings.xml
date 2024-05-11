@@ -94,7 +94,10 @@
     <string name="alrUser">Already a user?</string>
     <string name="signIn">Sign In instead</string>
     <string name="signUpNow">Sign Up Now!</string>
-
+    <string name="fieldsWith">Fields with * are obligatory!</string>
+    <string name="getStarted">Get started!</string>
+    <string name="checkBox">By signing up, you agree to our Terms of Service and Privacy Policy.</string>
+    <string name="addDriversLicense">Add a driver\'s license</string>
 
 
 </resources>
