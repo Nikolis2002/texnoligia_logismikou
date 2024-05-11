@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/startPoint"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/startPoint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/back_button"
@@ -63,7 +67,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:hint="@string/from"
+        android:isScrollContainer="true"
         app:layout_constraintEnd_toStartOf="@+id/LocateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/middleText">
@@ -73,10 +79,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:editable="false"
             android:enabled="false"
+            android:isScrollContainer="true"
+            android:nestedScrollingEnabled="true"
             android:singleLine="true"
-            android:textColorHint="#616161" />
+            android:textColor="#000000" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -86,9 +93,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:hint="@string/to"
-        app:layout_constraintEnd_toStartOf="@+id/Destination"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startPointBox">
 
@@ -96,11 +103,11 @@
             android:id="@+id/endPointInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:editable="false"
-            android:enabled="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:onClick="onClick"
             android:singleLine="true"
-            android:textColorHint="#616161" />
+            android:textColor="#000000" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -139,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:layout_marginTop="48dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="#673AB7"
         android:text="@string/find_a_cab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estimateFinalCost" />
@@ -167,7 +174,7 @@
 
     <Button
         android:id="@+id/LocateButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="36dp"
@@ -221,15 +228,5 @@
             android:text="@string/cash" />
     </RadioGroup>
 
-    <Button
-        android:id="@+id/Destination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="#000000"
-        android:text="@string/destination"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LocateButton" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
