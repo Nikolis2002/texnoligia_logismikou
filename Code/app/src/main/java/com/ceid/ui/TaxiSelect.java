@@ -1,10 +1,13 @@
 package com.ceid.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -17,6 +20,7 @@ import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,7 +28,6 @@ import java.util.Random;
 public class TaxiSelect extends AppCompatActivity implements ActivityResultCallback<ActivityResult>{
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private Bundle destinationScreenData;
-    private Intent destinationIntent;
     private Location location;
     private Coordinates destinationCoord;
     private float zoom;
@@ -52,7 +55,7 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
     }
 
     public void insertDestination(View view){
-        destinationIntent = new Intent(TaxiSelect.this, LocationScreen.class);
+        Intent destinationIntent = new Intent(TaxiSelect.this, LocationScreen.class);
         destinationScreenData = new Bundle();
         destinationScreenData.putSerializable("coords",destinationCoord);
         destinationScreenData.putString("text","Choose your Destination");
@@ -132,9 +135,24 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
             assert destinationScreenData != null;
             destinationCoord = (Coordinates) destinationScreenData.getSerializable("coords");
             zoom = destinationScreenData.getFloat("zoom");
+
             if (destinationCoord != null){
                 TextInputEditText destCoords = findViewById(R.id.endPointInput);
                 destCoords.setText(destinationCoord.toString());
+                double taxiCost=location.estimateTaxiCost(destinationCoord);
+                TextView estimateCost = findViewById(R.id.estimatedCost);
+                String taxiCostFormatted= new DecimalFormat ("#.00").format(taxiCost);
+                String taxiCostFormat = taxiCostFormatted + "€";
+                estimateCost.setText(taxiCostFormat);
+                TextView finalCostText = findViewById(R.id.finalCost);
+                double finalCostEstimated = taxiCost + 1.5;
+                String finaCostEstimatedString = new DecimalFormat ("#.00").format(finalCostEstimated);
+                String finalCost = finaCostEstimatedString + "€";
+                finalCostText.setText(finalCost);
+
+
+
+
             }
 
 

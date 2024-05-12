@@ -125,8 +125,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="129dp"
-        android:text="@string/pickup_cost"
+        android:layout_marginEnd="100dp"
+        android:text="Pickup cost: 1.5€"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endPointBox" />
 
@@ -217,6 +217,15 @@
             android:layout_height="wrap_content"
             android:text="@string/cash" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/finalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toEndOf="@+id/estimateFinalCost"
+        app:layout_constraintTop_toBottomOf="@+id/pickupCostText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

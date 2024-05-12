@@ -95,4 +95,12 @@ public class Coordinates implements Serializable
 
         return myloc.distanceTo(point);
     }
+
+    public double estimateTaxiCost(Coordinates endPoint){
+        float distance=this.distance(endPoint);
+
+        return 0.003 * distance;
+    }
+
+
 }
