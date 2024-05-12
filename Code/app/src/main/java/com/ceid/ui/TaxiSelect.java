@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -20,55 +21,60 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TaxiSelect extends AppCompatActivity implements ActivityResultCallback<ActivityResult> {
+public class TaxiSelect extends AppCompatActivity implements ActivityResultCallback<ActivityResult>{
     private ActivityResultLauncher<Intent> activityResultLauncher;
-    private Bundle destinationScreenData = null;
+    private Bundle destinationScreenData;
     private Intent destinationIntent;
+    private Location location;
+    private Coordinates destinationCoord;
+    private float zoom;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.taxi_select);
 
-        selectLocation();
-
-        Button locButton = findViewById(R.id.LocateButton);
-
-        locButton.setOnClickListener(view -> selectLocation());
+        gpsLocation();
 
         this.activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),this
         );
 
-        destinationIntent = new Intent(this, LocationScreen.class);
-
-        buttonEnableCheck();
-
     }
 
-    public void onClick(View view){
 
-        if (destinationScreenData != null) {
-            destinationIntent.putExtras(destinationScreenData);
+    public void findTaxiButton(View view){
+        boolean fieldCheck=checkLocField();
+
+        if(fieldCheck){
+            Toast.makeText(getApplicationContext(), "Set a destination!", Toast.LENGTH_LONG).show();
         }
+    }
 
+    public void insertDestination(View view){
+        destinationIntent = new Intent(TaxiSelect.this, LocationScreen.class);
+        destinationScreenData = new Bundle();
+        destinationScreenData.putSerializable("coords",destinationCoord);
+        destinationScreenData.putString("text","Choose your Destination");
+        destinationScreenData.putFloat("zoom",zoom);
+        destinationScreenData.putSerializable("location",location);
+        destinationIntent.putExtras(destinationScreenData);
         activityResultLauncher.launch(destinationIntent);
     }
 
-    private void buttonEnableCheck(){
+    private void enableTaxiBtn(Boolean action){
         Button button = findViewById(R.id.findCabButton);
+        button.setEnabled(!action);
+    }
+
+    private boolean checkLocField(){
         TextInputEditText destCoords = findViewById(R.id.endPointInput);
         String end = destCoords.getText().toString();
 
-        if(end.isEmpty()){
-            button.setEnabled(false);
-        }else{
-            button.setEnabled(true);
-        }
-
+        return end.isEmpty();
     }
 
-    private void selectLocation(){
+    private void gpsLocation(){
 
         List<Location> locationList= new ArrayList<>();
 
@@ -110,11 +116,9 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
 
         Random random = new Random();
         int randomLocation = random.nextInt(locationList.size());
-
-        Location location = locationList.get(randomLocation);
-        String locationName=location.getAddress();
+        location = locationList.get(randomLocation);
         TextInputEditText fromInput = findViewById(R.id.startPointInput);
-        fromInput.setText(locationName);
+        fromInput.setText(location.getAddress());
     }
 
 
@@ -122,16 +126,29 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
     public void onActivityResult(ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK){
             Intent data = result.getData();
+            assert data != null;
             destinationScreenData = data.getExtras();
 
-            Coordinates selectedCoord = (Coordinates) destinationScreenData.getSerializable("coords");
-
-            if (selectedCoord != null){
+            assert destinationScreenData != null;
+            destinationCoord = (Coordinates) destinationScreenData.getSerializable("coords");
+            zoom = destinationScreenData.getFloat("zoom");
+            if (destinationCoord != null){
                 TextInputEditText destCoords = findViewById(R.id.endPointInput);
-                destCoords.setText(selectedCoord.toString());
+                destCoords.setText(destinationCoord.toString());
             }
 
-            buttonEnableCheck();
-         }
+
+            boolean fieldCheck=checkLocField();
+            enableTaxiBtn(fieldCheck);
+
+            if(fieldCheck){
+                Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_LONG).show();
+            }
+
+         }else{
+            Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_LONG).show();
+            boolean fieldCheck=checkLocField();
+            enableTaxiBtn(fieldCheck);
+        }
     }
 }

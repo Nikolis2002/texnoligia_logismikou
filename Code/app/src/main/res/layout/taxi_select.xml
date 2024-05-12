@@ -66,11 +66,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:hint="@string/from"
         android:isScrollContainer="true"
-        app:layout_constraintEnd_toStartOf="@+id/LocateButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/middleText">
 
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:cursorVisible="false"
             android:focusable="false"
-            android:onClick="onClick"
+            android:onClick="insertDestination"
             android:singleLine="true"
             android:textColor="#000000" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -147,6 +147,7 @@
         android:layout_marginStart="144dp"
         android:layout_marginTop="48dp"
         android:backgroundTint="#673AB7"
+        android:onClick="findTaxiButton"
         android:text="@string/find_a_cab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estimateFinalCost" />
@@ -171,17 +172,6 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/estimatedCostText"
         app:layout_constraintTop_toBottomOf="@+id/endPointBox" />
-
-    <Button
-        android:id="@+id/LocateButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="36dp"
-        android:backgroundTint="#000000"
-        android:text="@string/locate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/middleText" />
 
     <TextView
         android:id="@+id/balanceText"
