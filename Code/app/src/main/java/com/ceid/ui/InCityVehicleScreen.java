@@ -295,7 +295,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
         vehicleList.add(new CityCar(
                 "JKL-1234",
-                false,
+                true,
                 3,
                 "ESTEEM",
                 "SUZUKI",

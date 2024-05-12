@@ -39,6 +39,8 @@ public class Map implements OnMapReadyCallback
 	private Coordinates pinCoords = null;
 	private Coordinates startCoords;
 	private GoogleMap.OnMarkerClickListener markerListener;
+	private GoogleMap.OnMapClickListener clickListener;
+	private Marker clickedMarker;
 
 	private MapWrapperReadyListener listener;
 
@@ -51,38 +53,18 @@ public class Map implements OnMapReadyCallback
 	//WHY ALL THIS???
 	//If we have a scrollview, we need to override default behavior of the page, because scrolling prevents us from using the map
 
-	/*
-	public Map(SupportMapFragment mapFragment, NestedScrollView scrollView)
-	{
-		this.view = scrollView;
-		this.mapFragment = mapFragment;
-		this.clickable = false;
-		this.markerListener = null;
-
-		assert mapFragment != null;
-		mapFragment.getMapAsync((OnMapReadyCallback)this);
-	}
-	*/
-
 	public Map(SupportMapFragment mapFragment, Context context)
 	{
 		this.view = ((Activity) context).findViewById(android.R.id.content);
 		this.mapFragment = mapFragment;
 		this.clickable = false;
 		this.markerListener = null;
+		this.clickedMarker = null;
+		this.clickListener = null;
 
 		assert mapFragment != null;
 		mapFragment.getMapAsync((OnMapReadyCallback)this);
 	}
-
-	/*
-
-	public Map(SupportMapFragment mapFragment, NestedScrollView scrollView, MapWrapperReadyListener listener)
-	{
-		this(mapFragment, scrollView);
-		this.listener = listener;
-	}
-	*/
 
 	public Map(SupportMapFragment mapFragment, Context context, MapWrapperReadyListener listener)
 	{
@@ -98,9 +80,31 @@ public class Map implements OnMapReadyCallback
 		//Defaults
 		this.gmap.getUiSettings().setRotateGesturesEnabled(false);
 
-		//Set marker listener if we have previously called setMarkerListener
+		//Initialize clicking
+		//THIS IS THE DEFAULT CLICKER. YOU CAN ASSIGN OTHER CLICK HANDLER IF YOU WANT
+		gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+		{
+			@Override
+			public void onMapClick(@NonNull LatLng latLng)
+			{
+				if (clickable)
+				{
+					if (clickedMarker == null)
+						clickedMarker = placePin(new Coordinates(latLng), false);
+					else
+					{
+						clickedMarker.setPosition(latLng);
+						pinCoords = new Coordinates(latLng);
+					}
+				}
+			}
+		});
+
+		//Set listeners if we have previously called setMarkerListener/ setClickListener
 		this.gmap.setOnMarkerClickListener(markerListener);
 
+		if (clickListener != null)
+			this.gmap.setOnMapClickListener(clickListener);
 
 		//Only for maps within a scrollView
 		if (this.view instanceof NestedScrollView)
@@ -114,20 +118,6 @@ public class Map implements OnMapReadyCallback
 				}
 			});
 		}
-
-		//Initialize clicking
-		gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
-		{
-			@Override
-			public void onMapClick(@NonNull LatLng latLng)
-			{
-				if (clickable)
-				{
-					placePin(new Coordinates(latLng), true);
-					placeStartPin(startCoords,false, R.drawable.emoji_people);
-				}
-			}
-		});
 
 		if (listener != null)
 			listener.onMapWrapperReady();
@@ -153,10 +143,10 @@ public class Map implements OnMapReadyCallback
 		if (clear)
 			gmap.clear();
 
-		Marker marker = gmap.addMarker(new MarkerOptions().position(coords.toLatLng()));
+		clickedMarker = gmap.addMarker(new MarkerOptions().position(coords.toLatLng()));
 		pinCoords = coords;
 
-		return marker;
+		return clickedMarker;
 	}
 
 	public Marker placePin(Coordinates coords, boolean clear, int iconId)
@@ -171,11 +161,11 @@ public class Map implements OnMapReadyCallback
 		opt.position(coords.toLatLng());
 		opt.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-		Marker marker = gmap.addMarker(opt);
+		clickedMarker = gmap.addMarker(opt);
 
 		pinCoords = coords;
 
-		return marker;
+		return clickedMarker;
 	}
 
 	public void placeStartPin(Coordinates coords, boolean clear, int iconId)
@@ -233,6 +223,16 @@ public class Map implements OnMapReadyCallback
 		if (this.gmap != null)
 		{
 			this.gmap.setOnMarkerClickListener(listener);
+		}
+	}
+
+	public void setClickListener(GoogleMap.OnMapClickListener listener)
+	{
+		this.clickListener = listener;
+
+		if (this.gmap != null)
+		{
+			this.gmap.setOnMapClickListener(listener);
 		}
 	}
 }
