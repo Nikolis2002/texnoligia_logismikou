@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
+import android.widget.TextView;
+
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
@@ -31,7 +33,20 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 
 		//See if we had already inserted coordinates before
 		this.data = getIntent().getExtras();
+		taxiScreenCheck();
 	}
+	
+	private void taxiScreenCheck(){
+
+		Intent taxi = getIntent();
+
+		if(taxi.hasExtra("text")){
+			String text = this.data.getString("text");
+			TextView textview = findViewById(R.id.textView);
+			textview.setText(text);
+		}
+	}
+	
 
 	//User presses the button to confirm location
 	public void onSubmit(View view)
@@ -58,12 +73,17 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 		if (data != null)
 		{
 			Coordinates coords = (Coordinates) data.getSerializable("coords");
+			Coordinates starCoords = (Coordinates) data.getSerializable("location");
 
 			if (coords != null)
 			{
-				map.placePin(coords, true);
+				map.placePin(coords, false);
 				map.setZoom(data.getFloat("zoom"));
 				map.setPosition(coords);
+			}
+
+			if(starCoords!=null){
+				map.placeStartPin(starCoords, false, R.drawable.emoji_people);
 			}
 		}
 	}
