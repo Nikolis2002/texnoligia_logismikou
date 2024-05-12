@@ -103,7 +103,13 @@
     <string name="getStarted">Get started!</string>
     <string name="checkBox">By signing up, you agree to our Terms of Service and Privacy Policy.</string>
     <string name="addDriversLicense">Add a driver\'s license</string>
-
+    <string name="expDateText">Exp.Date</string>
+    <string name="ownerText">Card Owner</string>
+    <string name="ccvText">CCV</string>
+    <string name="cardNumText">Card Number</string>
+    <string name="addCard">Add your card</string>
+    <string name="remCardText">Remove your card</string>
+    <string name="remCard">Or remove one?</string>
 
 
 </resources>
