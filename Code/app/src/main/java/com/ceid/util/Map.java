@@ -3,6 +3,9 @@ package com.ceid.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.ceid.ui.ScrollMapFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -33,7 +37,7 @@ public class Map implements OnMapReadyCallback
 
 	private boolean clickable;
 	private Coordinates pinCoords = null;
-
+	private Coordinates startCoords;
 	private GoogleMap.OnMarkerClickListener markerListener;
 
 	private MapWrapperReadyListener listener;
@@ -120,6 +124,7 @@ public class Map implements OnMapReadyCallback
 				if (clickable)
 				{
 					placePin(new Coordinates(latLng), true);
+					placeStartPin(startCoords,false, R.drawable.emoji_people);
 				}
 			}
 		});
@@ -171,6 +176,22 @@ public class Map implements OnMapReadyCallback
 		pinCoords = coords;
 
 		return marker;
+	}
+
+	public void placeStartPin(Coordinates coords, boolean clear, int iconId)
+	{
+		if (clear)
+			gmap.clear();
+
+		Bitmap b = BitmapFactory.decodeResource(mapFragment.getResources(), iconId);
+		Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+		startCoords=coords;
+		MarkerOptions opt = new MarkerOptions();
+		opt.position(coords.toLatLng());
+		opt.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+		opt.title("Your Location");
+
+		gmap.addMarker(opt);
 	}
 
 	public GoogleMap getMap()
