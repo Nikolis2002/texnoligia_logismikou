@@ -7,10 +7,12 @@
 
     <TextView
         android:id="@+id/upperText"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="30dp"
         android:layout_marginTop="68dp"
         android:text="@string/vehicle_location"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,27 +22,30 @@
         android:id="@+id/UnlockButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:layout_marginTop="47dp"
         android:contentDescription="@string/unlockbutton"
+        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView3" />
+        app:layout_constraintTop_toBottomOf="@+id/googleMap" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
-        android:layout_marginEnd="92dp"
+        android:backgroundTint="#FF0000"
         android:text="@android:string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView3" />
+        app:layout_constraintStart_toEndOf="@+id/UnlockButton"
+        app:layout_constraintTop_toBottomOf="@+id/googleMap" />
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView3"
-        android:layout_width="361dp"
+        android:id="@+id/googleMap"
+        android:layout_width="0dp"
         android:layout_height="512dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:contentDescription="@string/maplocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,12 +55,13 @@
         android:id="@+id/textView4"
         android:layout_width="267dp"
         android:layout_height="87dp"
-        android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="57dp"
         android:gravity="center"
         android:text="@string/you_will_transferred_to_your_camera_to_scan_a_qr_code_make_sure_to_allow_all_permitions"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UnlockButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
