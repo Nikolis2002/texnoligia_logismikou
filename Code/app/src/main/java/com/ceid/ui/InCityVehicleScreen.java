@@ -164,13 +164,24 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
 
             Button cancel = popupView.findViewById(R.id.cancel);
-            Button reserve = popupView.findViewById(R.id.cancel);
+            Button reserve = popupView.findViewById(R.id.reserve);
 
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
                     popupWindow.dismiss();
+                }
+            });
+
+            reserve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(v.getContext(), UnlockVehicle.class);
+                    intent.putExtra("car_id",car.getId());
+                    intent.putExtra("car_location", car.getTracker().getCoords());
+                    startActivity(intent);
                 }
             });
         }
