@@ -23,6 +23,8 @@ public class MainScreen extends AppCompatActivity
 
         setContentView(R.layout.main_screen);
 
+        overridePendingTransition(0, 0);
+
         //Initialize tags
         findViewById(R.id.img_rent_car).setTag("car");
         findViewById(R.id.img_rent_motorcycle).setTag("motorcycle");
@@ -59,6 +61,7 @@ public class MainScreen extends AppCompatActivity
                 {
                     Intent intent = new Intent(MainScreen.this, RouteHistory.class);
                     startActivity(intent);
+                    finish();
                 }
                 else if (id == R.id.page_profile)
                 {

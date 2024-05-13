@@ -19,6 +19,8 @@ public class RouteHistory extends AppCompatActivity
 
 		setContentView(R.layout.route_history);
 
+		overridePendingTransition(0, 0);
+
 		//Bottom navigation
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 		bottomNavigationView.setSelectedItemId(R.id.page_history);
@@ -39,6 +41,7 @@ public class RouteHistory extends AppCompatActivity
 				{
 					Intent intent = new Intent(RouteHistory.this, MainScreen.class);
 					startActivity(intent);
+					finish();
 				}
 				else if (id == R.id.page_out_city)
 				{
