@@ -110,6 +110,11 @@
     <string name="addCard">Add your card</string>
     <string name="remCardText">Remove your card</string>
     <string name="remCard">Or remove one?</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_in_city">In City</string>
+    <string name="nav_out_city">Out City</string>
+    <string name="nav_history">History</string>
+    <string name="nav_profile">Profile</string>
 
 
 </resources>

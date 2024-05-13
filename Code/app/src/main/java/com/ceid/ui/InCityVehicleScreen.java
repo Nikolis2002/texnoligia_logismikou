@@ -30,6 +30,7 @@ import com.ceid.util.PositiveInteger;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -75,6 +76,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         map = new Map(mapFragment, this, this);
         map.setMarkerListener(this);
+
+        //Other
 
         this.vehicleList = new ArrayList<>();
 

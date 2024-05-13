@@ -31,6 +31,7 @@
         <activity android:name=".LocationScreen" />
         <activity android:name=".TaxiSelect" />
         <activity android:name=".UnlockVehicle" />
+        <activity android:name=".RouteHistory" />
     </application>
 
 </manifest>
