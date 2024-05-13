@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +51,13 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
         boolean fieldCheck=checkLocField();
 
         if(fieldCheck){
-            Toast.makeText(getApplicationContext(), "Set a destination!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Set a destination!", Toast.LENGTH_SHORT).show();
         }
+
+        if(paymentCheck()==-1){
+            Toast.makeText(getApplicationContext(), "Select a payment method!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void insertDestination(View view){
@@ -63,6 +69,12 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
         destinationScreenData.putSerializable("location",location);
         destinationIntent.putExtras(destinationScreenData);
         activityResultLauncher.launch(destinationIntent);
+    }
+
+    private int paymentCheck(){
+        RadioGroup radioGroup = findViewById(R.id.paymentRadioGroup);
+
+        return radioGroup.getCheckedRadioButtonId();
     }
 
     private void enableTaxiBtn(Boolean action){
@@ -149,10 +161,6 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
                 String finaCostEstimatedString = new DecimalFormat ("#.00").format(finalCostEstimated);
                 String finalCost = finaCostEstimatedString + "€";
                 finalCostText.setText(finalCost);
-
-
-
-
             }
 
 
@@ -160,11 +168,11 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
             enableTaxiBtn(fieldCheck);
 
             if(fieldCheck){
-                Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_SHORT).show();
             }
 
          }else{
-            Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_SHORT).show();
             boolean fieldCheck=checkLocField();
             enableTaxiBtn(fieldCheck);
         }

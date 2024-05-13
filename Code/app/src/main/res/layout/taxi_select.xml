@@ -148,7 +148,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:backgroundTint="#673AB7"
             android:onClick="findTaxiButton"
             android:text="@string/find_a_cab"
             app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +211,7 @@
                 android:id="@+id/walletRadioButton"
                 android:layout_width="87dp"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
                 android:text="@string/wallet" />
 
             <RadioButton
