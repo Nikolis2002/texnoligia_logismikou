@@ -48,6 +48,7 @@ public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallba
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15));
 
         Marker carMarker = map.addMarker(new MarkerOptions()
-                .position(location));
+                .position(location)
+        );
     }
 }
