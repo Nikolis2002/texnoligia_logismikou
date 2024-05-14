@@ -179,8 +179,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 public void onClick(View v)
                 {
                     Intent intent = new Intent(v.getContext(), UnlockVehicle.class);
-                    intent.putExtra("car_id",car.getId());
-                    intent.putExtra("car_location", car.getTracker().getCoords());
+                    intent.putExtra("vehicle_id",car.getId());
+                    intent.putExtra("vehicle_location", car.getTracker().getCoords());
                     startActivity(intent);
                 }
             });
