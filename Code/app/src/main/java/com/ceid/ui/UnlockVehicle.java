@@ -1,12 +1,18 @@
 package com.ceid.ui;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.ceid.util.Coordinates;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,7 +34,7 @@ public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallba
     private Coordinates car_loc;
     private int car_id;
     private Timer reservationTimer;
-
+    private static final int CAMERA_REQUEST_CODE = 200;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -57,12 +63,35 @@ public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallba
     }
 
     public void unlockVehicle(View view){
-        IntentIntegrator qrScanner = new IntentIntegrator(UnlockVehicle.this);
-        qrScanner.setCaptureActivity(QrCamera.class);
-        qrScanner.setOrientationLocked(false);
-        qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-        qrScanner.setPrompt("Scan QR on vehicle");
-        qrScanner.initiateScan();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            IntentIntegrator qrScanner = new IntentIntegrator(UnlockVehicle.this);
+            qrScanner.setCaptureActivity(QrCamera.class);
+            qrScanner.setOrientationLocked(false);
+            qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+            qrScanner.setPrompt("Scan QR on vehicle");
+            qrScanner.initiateScan();
+        }else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    CAMERA_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                IntentIntegrator qrScanner = new IntentIntegrator(UnlockVehicle.this);
+                qrScanner.setCaptureActivity(QrCamera.class);
+                qrScanner.setOrientationLocked(false);
+                qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                qrScanner.setPrompt("Scan QR on vehicle");
+                qrScanner.initiateScan();
+            } else {
+                Toast.makeText(this, "Camera permission required", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
