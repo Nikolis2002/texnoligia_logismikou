@@ -5,19 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="80dp"
+        android:background="#E6E6E6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2" />
+
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="50dp"
+        style="@style/buttonStyle"
+        android:layout_width="300dp"
         android:layout_height="48dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
         android:text="@string/signUp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/buttonStyle"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,7 +53,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal|center_vertical"
             android:lineSpacingExtra="4sp"
-            android:text="Welcome to"
+            android:text="@string/welcome_to"
             android:textAppearance="@style/welcome_to"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,26 +179,15 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/divider"
-        android:layout_width="100dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="80dp"
-        android:background="#E6E6E6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
-
-    <View
         android:id="@+id/divider2"
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:layout_marginBottom="80dp"
         android:background="#E6E6E6"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintHorizontal_bias="0.976"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

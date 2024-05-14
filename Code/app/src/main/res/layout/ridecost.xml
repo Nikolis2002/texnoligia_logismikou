@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/rideCostFields"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:layout_marginTop="64dp"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/rideSum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="@string/rideSum" />
+
+        <RelativeLayout
+            android:id="@+id/rideCost1"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/username_email"
+            android:gravity="center_horizontal|center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp" />
+
+            <TextView
+                android:id="@+id/timeString"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/visibility"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/time"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rideCost2"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/username_email"
+            android:gravity="center_horizontal|center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp" />
+
+            <TextView
+                android:id="@+id/costString"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/visibility"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/cost"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rideCost3"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/username_email"
+            android:gravity="center_horizontal|center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/points"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp" />
+
+            <TextView
+                android:id="@+id/pointsString"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/visibility"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/points"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/endRide"
+        android:layout_width="197dp"
+        android:layout_height="51dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="#000000"
+        android:text="@string/sendPhotos"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/img" />
+
+    <LinearLayout
+        android:id="@+id/fields"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/vehicleForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="@string/vehicleForm" />
+
+        <RelativeLayout
+            android:id="@+id/field1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <Button
+                android:id="@+id/attach1"
+                android:layout_width="153dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="140dp"
+                android:backgroundTint="#000000"
+                android:text="@string/attachPhoto"
+                android:textSize="12sp"
+                app:srcCompat="@drawable/img" />
+
+            <TextView
+                android:id="@+id/frontSize"
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="42dp"
+                android:layout_toStartOf="@id/visibility"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/frontSide"
+                android:textAppearance="@style/label" />
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="64dp"
+                android:layout_height="43dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="1dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/field2"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="64dp"
+                android:layout_height="43dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="1dp" />
+
+            <Button
+                android:id="@+id/attach2"
+                android:layout_width="153dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="140dp"
+                android:backgroundTint="#000000"
+                android:text="@string/attachPhoto"
+                android:textSize="12sp"
+                app:srcCompat="@drawable/img" />
+
+            <TextView
+                android:id="@+id/amountToAdd"
+                android:layout_width="52dp"
+                android:layout_height="40dp"
+
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="42dp"
+                android:layout_toStartOf="@id/visibility"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/backSide"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/field3"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <CheckBox
+                android:id="@+id/checkBox3"
+                android:layout_width="64dp"
+                android:layout_height="43dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="1dp" />
+
+            <Button
+                android:id="@+id/attach3"
+                android:layout_width="153dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="140dp"
+                android:backgroundTint="#000000"
+                android:text="@string/attachPhoto"
+                android:textSize="12sp"
+                app:srcCompat="@drawable/img" />
+
+            <TextView
+                android:id="@+id/amountToAdd"
+                android:layout_width="47dp"
+                android:layout_height="40dp"
+
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="42dp"
+                android:layout_toStartOf="@id/visibility"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/leftSide"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/field4"
+            android:layout_width="fill_parent"
+            android:layout_height="41dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <CheckBox
+                android:id="@+id/checkBox4"
+                android:layout_width="64dp"
+                android:layout_height="43dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="1dp" />
+
+            <Button
+                android:id="@+id/attach4"
+                android:layout_width="153dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="140dp"
+                android:backgroundTint="#000000"
+                android:text="@string/attachPhoto"
+                android:textSize="12sp"
+                app:srcCompat="@drawable/img" />
+
+            <TextView
+                android:id="@+id/amountToAdd"
+                android:layout_width="52dp"
+                android:layout_height="40dp"
+
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="42dp"
+                android:layout_toStartOf="@id/field4"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/rightSide"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/suppFiles"
+        android:layout_width="295dp"
+        android:layout_height="68dp"
+        android:text="@string/suppFiles"
+        app:layout_constraintBottom_toTopOf="@+id/fields"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rideCostFields"
+        app:layout_constraintVertical_bias="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,20 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <FrameLayout
-        android:id="@+id/frameLayout2"
-        android:layout_width="364dp"
-        android:layout_height="209dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645">
-
-    </FrameLayout>
-
     <Button
         android:id="@+id/remCard2"
         android:layout_width="156dp"
@@ -28,7 +14,7 @@
         android:backgroundTint="#000000"
         android:text="@string/remCardText"
         android:textColor="@android:color/white"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,12 +34,11 @@
         android:layout_height="49dp"
         android:layout_gravity="center|start"
         android:layout_marginTop="200dp"
-        android:layout_marginEnd="24dp"
         android:background="@drawable/username_email"
         android:gravity="center"
 
         app:layout_constraintEnd_toStartOf="@+id/ownerField"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.654"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -78,10 +63,11 @@
         android:layout_height="49dp"
         android:layout_gravity="center|start"
         android:layout_marginTop="200dp"
-        android:layout_marginEnd="36dp"
         android:background="@drawable/username_email"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toEndOf="@+id/ownerField"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -104,11 +90,12 @@
         android:layout_height="49dp"
         android:layout_gravity="center|start"
         android:layout_marginTop="200dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/username_email"
         android:gravity="center"
 
-        app:layout_constraintEnd_toStartOf="@+id/ccvField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -152,20 +139,6 @@
 
     </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="386dp"
-        android:layout_height="270dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.114">
-
-    </FrameLayout>
-
     <TextView
         android:id="@+id/cardNumText"
         android:layout_width="wrap_content"
@@ -194,20 +167,21 @@
         android:id="@+id/signUpButton2"
         android:layout_width="156dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="280dp"
         android:backgroundTint="#000000"
         android:text="@string/addCard"
         android:textColor="@android:color/white"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ownerField" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/addCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="76dp"
         android:text="@string/addCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -227,10 +201,10 @@
         android:id="@+id/spinner"
         android:layout_width="292dp"
         android:layout_height="48dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="400dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

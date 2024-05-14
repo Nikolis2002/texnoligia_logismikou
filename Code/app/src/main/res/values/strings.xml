@@ -115,6 +115,28 @@
     <string name="nav_out_city">Out City</string>
     <string name="nav_history">History</string>
     <string name="nav_profile">Profile</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="walletInfo">Wallet Info</string>
+    <string name="chargeWallet">Charge your wallet?</string>
+    <string name="completeCharge">Complete Charge</string>
+    <string name="amount">Amount to Add:</string>
+    <string name="attachPhoto">Attach Photo</string>
+    <string name="sendForReview">Send for review</string>
+    <string name="drivingsPhoto">Driving\'s license photo will appear here:</string>
+    <string name="driversLic">Drivers\'s License</string>
+    <string name="frontSide">Front Side:</string>
+    <string name="backSide">Back Side:</string>
+    <string name="leftSide">Left Side:</string>
+    <string name="rightSide">Right Side:</string>
+    <string name="sendPhotos">Send photos and end ride</string>
+    <string name="vehicleForm">Vehicle photos form</string>
+    <string name="points">Points gained:</string>
+    <string name="cost">Cost:</string>
+    <string name="time">Duration:</string>
+    <string name="suppFiles">To make sure everything is okay with the vehicle, it is necessary that you send 4 photos of the vehicle,1 on each side. (Supported files: .jpg, .png)</string>
+    <string name="rideSum">Ride Summary</string>
+    <string name="succInsert">Insertion successful</string>
+    <string name="underRev">Your driver’s license will be under review.</string>
 
 
 </resources>
