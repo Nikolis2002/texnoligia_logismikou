@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,7 +22,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".MainScreen"
+            android:name=".InCityScreen"
             android:exported="true"
             android:theme="@style/Theme.Texnolgia_logismikou">
             <intent-filter>
@@ -32,6 +36,12 @@
         <activity android:name=".TaxiSelect" />
         <activity android:name=".UnlockVehicle" />
         <activity android:name=".RouteHistory" />
+        <activity
+            android:name=".QrCamera"
+            android:theme="@style/zxing_CaptureTheme"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"
+            tools:ignore="DiscouragedApi" />
     </application>
 
 </manifest>
