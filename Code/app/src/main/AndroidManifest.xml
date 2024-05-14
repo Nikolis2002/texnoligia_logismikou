@@ -22,7 +22,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".MainScreen"
+            android:name=".InCityScreen"
             android:exported="true"
             android:theme="@style/Theme.Texnolgia_logismikou">
             <intent-filter>

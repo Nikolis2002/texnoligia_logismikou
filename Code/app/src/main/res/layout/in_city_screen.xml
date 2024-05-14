@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTaxi"
+            android:layout_width="184dp"
+            android:layout_height="152dp"
+            android:layout_marginTop="84dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+            <TextView
+                android:id="@+id/textview_taxi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/main_screen_taxi"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/img_taxi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="onTaxiClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/local_taxi_fill0_wght400_grad0_opsz24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="148dp"
+            android:layout_height="139dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout5">
+
+            <TextView
+                android:id="@+id/textview_rent_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/main_screen_rent_car"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/img_rent_car"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/directions_car_fill0_wght400_grad0_opsz24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="144dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textview_rent_motorcycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/main_screen_rent_motorcycle"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/img_rent_motorcycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/two_wheeler_fill0_wght400_grad0_opsz24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="56dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+            <TextView
+                android:id="@+id/textview_rent_scooter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/main_screen_rent_scooter"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/img_rent_scooter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/electric_scooter_fill0_wght400_grad0_opsz24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout7">
+
+            <TextView
+                android:id="@+id/textview_rent_bike"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/main_screen_rent_bike"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/img_rent_bike"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/pedal_bike_fill0_wght400_grad0_opsz24" />
+        </LinearLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_navigation_menu"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

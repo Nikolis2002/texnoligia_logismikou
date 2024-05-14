@@ -39,7 +39,7 @@ public class RouteHistory extends AppCompatActivity
 				}
 				else if (id == R.id.page_in_city)
 				{
-					Intent intent = new Intent(RouteHistory.this, MainScreen.class);
+					Intent intent = new Intent(RouteHistory.this, InCityScreen.class);
 					startActivity(intent);
 					finish();
 				}
