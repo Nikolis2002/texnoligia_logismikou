@@ -242,7 +242,7 @@
                 app:srcCompat="@drawable/img" />
 
             <TextView
-                android:id="@+id/amountToAdd"
+                android:id="@+id/backSide"
                 android:layout_width="52dp"
                 android:layout_height="40dp"
 
@@ -289,7 +289,7 @@
                 app:srcCompat="@drawable/img" />
 
             <TextView
-                android:id="@+id/amountToAdd"
+                android:id="@+id/leftSide"
                 android:layout_width="47dp"
                 android:layout_height="40dp"
 

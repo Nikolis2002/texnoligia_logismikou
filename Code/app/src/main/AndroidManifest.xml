@@ -22,7 +22,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".InCityScreen"
+            android:name=".MainScreen"
             android:exported="true"
             android:theme="@style/Theme.Texnolgia_logismikou">
             <intent-filter>
@@ -31,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".InCityScreen" />
         <activity android:name=".InCityVehicleScreen" />
         <activity android:name=".LocationScreen" />
         <activity android:name=".TaxiSelect" />
@@ -42,6 +43,8 @@
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"
             tools:ignore="DiscouragedApi" />
+        <activity android:name=".OutCityVehiclesScreen" />
+        <activity android:name=".OutCityGaragesScreen" />
     </application>
 
 </manifest>
