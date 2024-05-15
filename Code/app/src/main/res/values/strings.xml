@@ -137,6 +137,8 @@
     <string name="rideSum">Ride Summary</string>
     <string name="succInsert">Insertion successful</string>
     <string name="underRev">Your driver’s license will be under review.</string>
+    <string name="main_screen_in_city">In City</string>
+    <string name="main_screen_out_city">Out City</string>
 
 
 </resources>

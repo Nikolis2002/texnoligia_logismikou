@@ -19,7 +19,7 @@ public class RouteHistory extends AppCompatActivity
 
 		setContentView(R.layout.route_history);
 
-		overridePendingTransition(0, 0);
+		//overridePendingTransition(0, 0);
 
 		//Bottom navigation
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);

@@ -22,7 +22,7 @@ public class InCityScreen extends AppCompatActivity
 
         setContentView(R.layout.in_city_screen);
 
-        overridePendingTransition(0, 0);
+        //overridePendingTransition(0, 0);
 
         //Initialize tags
         findViewById(R.id.img_rent_car).setTag("car");

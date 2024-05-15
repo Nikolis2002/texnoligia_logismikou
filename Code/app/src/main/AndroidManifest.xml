@@ -44,7 +44,7 @@
             tools:replace="screenOrientation"
             tools:ignore="DiscouragedApi" />
         <activity android:name=".OutCityVehiclesScreen" />
-        <activity android:name=".OutCityGaragesScreen" />
+        <activity android:name=".OutCityScreen" />
     </application>
 
 </manifest>

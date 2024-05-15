@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -14,14 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class OutCityGaragesScreen extends AppCompatActivity implements GarageAdapter.OnGarageItemListener, ActivityResultCallback<ActivityResult> {
+public class OutCityScreen extends AppCompatActivity implements GarageAdapter.OnGarageItemListener, ActivityResultCallback<ActivityResult> {
 
     private RecyclerView recyclerView;
     private GarageAdapter adapter;
@@ -33,13 +30,13 @@ public class OutCityGaragesScreen extends AppCompatActivity implements GarageAda
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.out_city_garages_screen);
+        setContentView(R.layout.out_city_screen);
 
         this.activityResultLauncher = registerForActivityResult
-                (
-                        new ActivityResultContracts.StartActivityForResult(),
-                        this
-                );
+        (
+                new ActivityResultContracts.StartActivityForResult(),
+                this
+        );
 
         recyclerView=findViewById(R.id.recyclerViewGarage);
         garageList=new ArrayList<String>();
@@ -56,7 +53,7 @@ public class OutCityGaragesScreen extends AppCompatActivity implements GarageAda
     @Override
     public void onItemClick(int position){
         String test=garageList.get(position);
-        Intent intent=new Intent(OutCityGaragesScreen.this,OutCityVehiclesScreen.class);
+        Intent intent=new Intent(OutCityScreen.this,OutCityVehiclesScreen.class);
         intent.putExtra("test",test);
         startActivity(intent);
     }
