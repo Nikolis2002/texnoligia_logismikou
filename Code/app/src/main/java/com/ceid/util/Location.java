@@ -9,6 +9,11 @@ public class Location extends Coordinates{
         this.Address = AddressName;
     }
 
+    public Location(Coordinates coords, String AddressName) {
+        super(coords);
+        this.Address = AddressName;
+    }
+
     public String getAddress(){
         return Address;
     }

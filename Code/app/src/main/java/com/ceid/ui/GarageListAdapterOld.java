@@ -1,21 +1,23 @@
 package com.ceid.ui;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ceid.model.transport.Garage;
+
 import java.util.ArrayList;
 
-public class GarageAdapter extends RecyclerView.Adapter<GarageAdapter.GarageViewHolder> {
-    private ArrayList<String> garageList;
+public class GarageListAdapterOld extends RecyclerView.Adapter<GarageListAdapterOld.GarageViewHolder> {
+    private ArrayList<Garage> garageList;
     private OnGarageItemListener listener;
 
-    public GarageAdapter(ArrayList<String> garageList,OnGarageItemListener listener){
+    public GarageListAdapterOld(ArrayList<Garage> garageList, OnGarageItemListener listener){
         this.garageList=garageList;
         this.listener=listener;
     }
@@ -29,20 +31,17 @@ public class GarageAdapter extends RecyclerView.Adapter<GarageAdapter.GarageView
 
     @Override
     public void onBindViewHolder(@NonNull GarageViewHolder holder,int position){
-        holder.textView.setText(garageList.get(position));
+        holder.textView.setText("sus");
+        Log.d("GARAGE","test1");
     }
-
 
     @Override
     public int getItemCount(){
         return garageList.size();
     }
 
-
-
-
-
-
+    //Classes
+    //==================================================================================
 
     public class GarageViewHolder extends RecyclerView.ViewHolder{
         public TextView textView;

@@ -5,19 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
         android:id="@+id/in_city_choose_vehicle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/in_city_choose_vehicle"
+        android:layout_marginTop="32dp"
+        android:text="@string/choose_a_garage"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/location_field"
@@ -36,11 +35,13 @@
             android:layout_height="match_parent"
             android:cursorVisible="false"
             android:focusable="false"
-            android:text="@string/location"
-            android:onClick="onClick" />
+            android:onClick="onClick"
+            android:text="@string/location" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
 
+    <!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGarage"
         android:layout_width="23dp"
@@ -50,6 +51,40 @@
         app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_field"
-        app:layout_constraintVertical_bias="0.337"
-        tools:listitem="@layout/garage" />
+        app:layout_constraintVertical_bias="0.337" />
+    -->
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="354dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+        <ListView
+            android:id="@+id/listViewId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="44dp"
+        android:paddingBottom="20dp"
+        android:text="Garages nearby:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_field" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
