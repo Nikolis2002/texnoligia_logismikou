@@ -18,43 +18,5 @@ public class RouteHistory extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.route_history);
-
-		//overridePendingTransition(0, 0);
-
-		//Bottom navigation
-		BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-		bottomNavigationView.setSelectedItemId(R.id.page_history);
-
-		bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item)
-			{
-
-				int id = item.getItemId();
-
-				if (id == R.id.page_home)
-				{
-
-				}
-				else if (id == R.id.page_in_city)
-				{
-					Intent intent = new Intent(RouteHistory.this, InCityScreen.class);
-					startActivity(intent);
-					finish();
-				}
-				else if (id == R.id.page_out_city)
-				{
-				}
-				else if (id == R.id.page_history)
-				{
-				}
-				else if (id == R.id.page_profile)
-				{
-				}
-
-				return true; //successfully handled
-			}
-		});
 	}
 }

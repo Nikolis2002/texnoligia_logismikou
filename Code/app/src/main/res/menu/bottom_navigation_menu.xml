@@ -6,16 +6,6 @@
         android:icon="@drawable/home_nav"
         android:title="@string/nav_home"/>
     <item
-        android:id="@+id/page_in_city"
-        android:enabled="true"
-        android:icon="@drawable/in_city_nav"
-        android:title="@string/nav_in_city"/>
-    <item
-        android:id="@+id/page_out_city"
-        android:enabled="true"
-        android:icon="@drawable/out_city_nav"
-        android:title="@string/nav_out_city"/>
-    <item
         android:id="@+id/page_history"
         android:enabled="true"
         android:icon="@drawable/history_nav"

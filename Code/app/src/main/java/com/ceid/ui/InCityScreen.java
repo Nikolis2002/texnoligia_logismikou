@@ -33,42 +33,6 @@ public class InCityScreen extends AppCompatActivity
         //Initialize intent
         intent = new Intent(this, InCityVehicleScreen.class);
         taxiIntent = new Intent(this, TaxiSelect.class);
-
-        //Bottom navigation
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.page_in_city);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item)
-            {
-
-                int id = item.getItemId();
-
-                if (id == R.id.page_home)
-                {
-
-                }
-                else if (id == R.id.page_in_city)
-                {
-                }
-                else if (id == R.id.page_out_city)
-                {
-                }
-                else if (id == R.id.page_history)
-                {
-                    Intent intent = new Intent(InCityScreen.this, RouteHistory.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if (id == R.id.page_profile)
-                {
-                }
-
-                return true; //successfully handled
-            }
-        });
     }
 
     public void onClick(View view)

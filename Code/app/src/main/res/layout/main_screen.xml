@@ -31,7 +31,7 @@
             android:backgroundTint="#00FFFFFF"
             android:onClick="inCity"
             android:scaleType="fitCenter"
-            android:tint="#000000"
+            app:tint="#000000"
             app:srcCompat="@drawable/main_screen_in_city" />
     </LinearLayout>
 
@@ -61,8 +61,17 @@
             android:backgroundTint="#00FFFFFF"
             android:onClick="outCity"
             android:scaleType="fitCenter"
-            android:tint="#000000"
+            app:tint="#000000"
             app:srcCompat="@drawable/main_screen_out_city" />
     </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

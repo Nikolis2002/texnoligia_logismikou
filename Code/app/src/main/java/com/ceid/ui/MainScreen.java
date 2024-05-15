@@ -3,6 +3,7 @@ package com.ceid.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainScreen extends AppCompatActivity
 {
@@ -46,6 +49,17 @@ public class MainScreen extends AppCompatActivity
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 String error = String.valueOf(t.fillInStackTrace());
                 Log.d("tete", error);
+            }
+        });
+
+        //Bottom navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item)
+            {
+                return true; //successfully handled
             }
         });
     }

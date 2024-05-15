@@ -19,6 +19,7 @@ import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
 import com.ceid.model.transport.Rental;
+import com.ceid.model.transport.Van;
 import com.ceid.util.Coordinates;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -69,7 +70,20 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
         garageList = new ArrayList<>();
 
         ArrayList<OutCityTransport> l = new ArrayList<>();
-        l.add(new OutCityCar("123", 1, "dista", "1", "2024"));
+        l.add(new OutCityCar("1", 1, "dista", "1", "2024"));
+        l.add(new OutCityCar("2", 1, "dista", "2", "2024"));
+        l.add(new Van("3", 1, "dista", "3", "2024"));
+        l.add(new OutCityCar("4", 1, "dista", "4", "2024"));
+        l.add(new Van("5", 1, "dista", "5", "2024"));
+        l.add(new Van("6", 1, "dista", "6", "2024"));
+        l.add(new Van("7", 1, "dista", "7", "2024"));
+        l.add(new OutCityCar("8", 1, "dista", "8", "2024"));
+        l.add(new OutCityCar("9", 1, "dista", "9", "2024"));
+        l.add(new Van("10", 1, "dista", "10", "2024"));
+        l.add(new Van("11", 1, "dista", "11", "2024"));
+        l.add(new OutCityCar("12", 1, "dista", "12", "2024"));
+        l.add(new OutCityCar("13", 1, "dista", "13", "2024"));
+        l.add(new Van("14", 1, "dista", "14", "2024"));
 
         garageList.add(new Garage(
                 0,
@@ -182,7 +196,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 //Get garages
                 this.garageList = retrieveGarages();
 
-                if (garageList.size() == 0)
+                if (garageList.isEmpty())
                 {
                     //alternate flow
                 }
