@@ -2,14 +2,14 @@ package com.ceid.model.transport;
 
 import com.ceid.util.*;
 
-public abstract class Transport
+import java.io.Serializable;
+
+public abstract class Transport implements Serializable
 {
     private int id;
     private String model;
     private String manufacturer;
     private String manuf_year;
-    //field for Tracker
-    //private PositiveInteger seat_capacity;
 
     public Transport(int id, String model, String manufacturer, String manuf_year)
     {

@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class Coordinates implements Serializable
 {
-    private double lat;
-    private double lng;
+    protected double lat;
+    protected double lng;
 
     public Coordinates(double lat, double lng) {
         this.lat = lat;
