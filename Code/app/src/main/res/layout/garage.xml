@@ -3,7 +3,8 @@
     android:id="@+id/itemTextViewGarage"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:padding="16dp"
-    android:textSize="16sp"
+    android:text="TEST"
     android:textColor="@android:color/black"
-    android:background="?android:attr/selectableItemBackground" />
+    android:textSize="16sp" />

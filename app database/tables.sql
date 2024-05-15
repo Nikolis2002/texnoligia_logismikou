@@ -335,9 +335,37 @@ CREATE TABLE rental_service
     ON DELETE SET NULL
 );
 
+CREATE TABLE out_city_transport
+(
+    id INT UNSIGNED NOT NULL,
+    out_city_license VARCHAR(32) NOT NULL,
+    seat_capacity INT UNSIGNED NOT NULL,
+    gas INT UNSIGNED NOT NULL,
+    free_status BOOLEAN NOT NULL,
+    
+    CONSTRAINT fk_out_city_transport 
+    FOREIGN KEY(id) REFERENCES transport(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE garage
+(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(64) NOT NULL,
+    coords POINT NOT NULL,
+    address VARCHAR(64) NOT NULL,
+    available_hours TEXT NOT NULL,
+
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE out_city_service
 (
-    service_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    service_id INT UNSIGNED NOT NULL,
+    vehicle_id INT UNSIGNED NOT NULL,
     rating_id INT UNSIGNED,
 
     PRIMARY KEY(service_id),
@@ -345,7 +373,12 @@ CREATE TABLE out_city_service
     CONSTRAINT fk_out_city_rating
     FOREIGN KEY(rating_id) REFERENCES out_city_rating(id)
     ON UPDATE CASCADE
-    ON DELETE SET NULL
+    ON DELETE SET NULL,
+
+    CONSTRAINT fk_out_city_vehicle
+    FOREIGN KEY(vehicle_id) REFERENCES out_city_transport(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE taxi_request
@@ -376,22 +409,6 @@ CREATE TABLE taxi_request
     ON DELETE SET NULL
 );
 
-CREATE TABLE out_city_transport
-(
-    id INT UNSIGNED NOT NULL,
-    out_city_license VARCHAR(32) NOT NULL,
-    seat_capacity INT UNSIGNED NOT NULL,
-    gas INT UNSIGNED NOT NULL,
-    free_status BOOLEAN NOT NULL,
-    
-    CONSTRAINT fk_out_city_transport 
-    FOREIGN KEY(id) REFERENCES transport(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-    
-    PRIMARY KEY(id)
-);
-
 CREATE TABLE out_city_car
 (
     id INT UNSIGNED NOT NULL,
@@ -405,7 +422,6 @@ CREATE TABLE out_city_car
     PRIMARY KEY(id)
 );
 
- -- test
 CREATE TABLE out_city_van
 (
     id INT UNSIGNED NOT NULL,
@@ -418,7 +434,25 @@ CREATE TABLE out_city_van
     PRIMARY KEY(id)
 );
 
---//////////////////////BANK MOCK
+CREATE TABLE garage_vehicle
+(
+    garage_id INT UNSIGNED NOT NULL,
+    vehicle_id INT UNSIGNED NOT NULL,
+
+    PRIMARY KEY(garage_id, vehicle_id),
+
+    CONSTRAINT fk_garage_vehicle_garage
+    FOREIGN KEY(garage_id) REFERENCES garage(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_garage_vehicle_vehicle
+    FOREIGN KEY(garage_id) REFERENCES out_city_transport(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+-- //////////////////////BANK MOCK
 
 
 DROP TABLE IF EXISTS bank;
@@ -435,23 +469,6 @@ CREATE TABLE bank(
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
-
-
-DROP TABLE IF EXISTS garage;
-CREATE TABLE garage(
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    transport_id INT,
-    location VARCHAR(32),
-
-    PRIMARY KEY(id),
-
-    CONSTRAINT car_of_garage
-        FOREIGN KEY(transport_id) REFERENCES out_city_transport(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-
-);
-
 
 -- ////////////////////////////////////////////////////////////////////////////////////END////////////////////////////////////////////////////////////////////////////
 

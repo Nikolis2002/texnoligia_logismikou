@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -13,16 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ceid.model.transport.Garage;
+import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class OutCityScreen extends AppCompatActivity implements GarageAdapter.OnGarageItemListener, ActivityResultCallback<ActivityResult> {
+public class OutCityScreen extends AppCompatActivity implements AdapterView.OnItemClickListener, ActivityResultCallback<ActivityResult> {
 
     private RecyclerView recyclerView;
-    private GarageAdapter adapter;
-    private ArrayList<String> garageList;
+    private GarageListAdapterOld adapter;
+    private ArrayList<Garage> garageList;
     private Bundle locationScreenData = null;
     private Intent locationIntent;
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -32,30 +36,124 @@ public class OutCityScreen extends AppCompatActivity implements GarageAdapter.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.out_city_screen);
 
+        //Initialize activity result launcher
         this.activityResultLauncher = registerForActivityResult
         (
                 new ActivityResultContracts.StartActivityForResult(),
                 this
         );
 
-        recyclerView=findViewById(R.id.recyclerViewGarage);
-        garageList=new ArrayList<String>();
-        adapter=new GarageAdapter(garageList,this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Initialize location intent
+        locationIntent = new Intent(this, LocationScreen.class);
     }
 
-    private void addGarage(String garage){
-        garageList.add(garage);
-        adapter.notifyItemInserted(garageList.size()-1);
+    public void onClick(View view)
+    {
+        if (locationScreenData != null)
+            locationIntent.putExtras(locationScreenData);
+
+        activityResultLauncher.launch(locationIntent);
     }
 
-    @Override
-    public void onItemClick(int position){
-        String test=garageList.get(position);
-        Intent intent=new Intent(OutCityScreen.this,OutCityVehiclesScreen.class);
-        intent.putExtra("test",test);
-        startActivity(intent);
+    private ArrayList<Garage> retrieveGarages()
+    {
+        //Communicate with database
+        //...
+        //...
+        //...
+        //Communication complete
+
+        garageList = new ArrayList<>();
+
+        garageList.add(new Garage(
+                0,
+                "Garage #1",
+                "Mitsou 17",
+                new Coordinates(38.2442870,21.7326153),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                1,
+                "Garage #2",
+                "Dista 1",
+                new Coordinates(38.2466208,21.7325087),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        garageList.add(new Garage(
+                2,
+                "Garage #3",
+                "Odos 3",
+                new Coordinates(38.2481327,21.7374738),
+                "Mon-Fri, 08:00-20:00"
+        ));
+
+        return garageList;
     }
 
     @Override
@@ -73,15 +171,41 @@ public class OutCityScreen extends AppCompatActivity implements GarageAdapter.On
             {
                 TextInputEditText text = findViewById(R.id.location_text);
                 text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
+
+                //Get garages
+                this.garageList = retrieveGarages();
+
+                if (garageList.size() == 0)
+                {
+                    //alternate flow
+                }
+                else
+                {
+                    //Add garages to list
+                    ListView listView = (ListView) findViewById(R.id.listViewId);
+
+                    listView.setAdapter(new GarageListAdapter(this,  garageList));
+                    //listView.setOnItemClickListener(this);
+                }
             }
         }
     }
 
-    public void onClick(View view)
-    {
-        if (locationScreenData != null)
-            locationIntent.putExtras(locationScreenData);
+    /*
+    private void addGarage(String garage){
+        garageList.add(garage);
+        adapter.notifyItemInserted(garageList.size()-1);
+    }
+    */
 
-        activityResultLauncher.launch(locationIntent);
+    //Clicking on list item
+    public void onItemClick(AdapterView<?> parent, View clickedItem, int position, long id)
+    {
+        //Log.d("CLICK", String.format("Position: %d", position));
+
+        String test=garageList.get(position).getName();
+        Intent intent=new Intent(OutCityScreen.this, GarageInfoScreen.class);
+        intent.putExtra("test",test);
+        startActivity(intent);
     }
 }

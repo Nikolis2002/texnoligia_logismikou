@@ -321,6 +321,32 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         ));
 
         vehicleList.add(new CityCar(
+                "JKL-1234",
+                true,
+                3,
+                "ESTEEM",
+                "SUZUKI",
+                "1998",
+                null,
+                new Currency(1.00),
+                new Coordinates(38.2442388,21.7405935),
+                new PositiveInteger(0)
+        ));
+
+        vehicleList.add(new CityCar(
+                "JKL-1234",
+                true,
+                3,
+                "ESTEEM",
+                "SUZUKI",
+                "1998",
+                null,
+                new Currency(1.00),
+                new Coordinates(38.2442388,21.7405935),
+                new PositiveInteger(0)
+        ));
+
+        vehicleList.add(new CityCar(
                 "2-GO",
                 true,
                 4,

@@ -139,6 +139,7 @@
     <string name="underRev">Your driver’s license will be under review.</string>
     <string name="main_screen_in_city">In City</string>
     <string name="main_screen_out_city">Out City</string>
+    <string name="choose_a_garage">Choose a garage</string>
 
 
 </resources>
