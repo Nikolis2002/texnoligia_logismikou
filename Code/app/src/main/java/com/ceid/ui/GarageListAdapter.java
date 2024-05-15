@@ -22,7 +22,7 @@ public class GarageListAdapter extends BaseAdapter
 
     public GarageListAdapter(Context context, ArrayList<Garage> garages) {
         this.context = context;
-        //this.icon = R.drawable.garage_icon;
+        this.icon = R.drawable.garage_icon;
         this.garages = garages;
     }
 
@@ -47,10 +47,11 @@ public class GarageListAdapter extends BaseAdapter
         convertView.setTag(garages.get(position));
 
         TextView title = (TextView) convertView.findViewById(R.id.txtTitle);
-        //TextView subtitle = (TextView) convertView.findViewById(R.id.txtSubtitle);
+        TextView subtitle = (TextView) convertView.findViewById(R.id.txtSubtitle);
         ImageView imgview = (ImageView) convertView.findViewById(R.id.imgIcon);
 
         title.setText(String.format("%s", garages.get(position).getName()));
+        subtitle.setText(String.format("%s", garages.get(position).getAddress()));
         imgview.setImageResource(this.icon);
 
         return (convertView);

@@ -16,11 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceid.model.transport.Garage;
+import com.ceid.model.transport.OutCityCar;
+import com.ceid.model.transport.OutCityTransport;
 import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OutCityScreen extends AppCompatActivity implements AdapterView.OnItemClickListener, ActivityResultCallback<ActivityResult> {
 
@@ -65,12 +68,16 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
 
         garageList = new ArrayList<>();
 
+        ArrayList<OutCityTransport> l = new ArrayList<>();
+        l.add(new OutCityCar("123", 1, "dista", "1", "2024"));
+
         garageList.add(new Garage(
                 0,
                 "Garage #1",
                 "Mitsou 17",
                 new Coordinates(38.2442870,21.7326153),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri, 08:00-20:00",
+                l
         ));
 
         garageList.add(new Garage(
@@ -185,7 +192,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                     ListView listView = (ListView) findViewById(R.id.listViewId);
 
                     listView.setAdapter(new GarageListAdapter(this,  garageList));
-                    //listView.setOnItemClickListener(this);
+                    listView.setOnItemClickListener(this);
                 }
             }
         }
@@ -201,11 +208,11 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
     //Clicking on list item
     public void onItemClick(AdapterView<?> parent, View clickedItem, int position, long id)
     {
-        //Log.d("CLICK", String.format("Position: %d", position));
-
         String test=garageList.get(position).getName();
         Intent intent=new Intent(OutCityScreen.this, GarageInfoScreen.class);
-        intent.putExtra("test",test);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("garage", garageList.get(position));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

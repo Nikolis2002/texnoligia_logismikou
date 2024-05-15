@@ -36,10 +36,11 @@
             android:id="@+id/txtSubtitle"
             android:layout_width="634dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="2dp"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
     </LinearLayout>
 </LinearLayout>
