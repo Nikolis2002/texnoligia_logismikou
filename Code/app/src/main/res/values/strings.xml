@@ -141,6 +141,12 @@
     <string name="main_screen_out_city">Out City</string>
     <string name="choose_a_garage">Choose a garage</string>
     <string name="selected_garage_information">Selected Garage Information</string>
+    <string name="out_city_popup_continue">Continue</string>
+    <string name="out_city_popup_cancel">Cancel</string>
+    <string name="selected_vehicle_information">Selected Vehicle Information</string>
+    <string name="out_city_rate">Rate:</string>
+    <string name="out_city_seats">Seats:</string>
+    <string name="out_city_license">License Plate:</string>
 
 
 </resources>

@@ -24,7 +24,11 @@ public class OutCityVehicleListAdapter extends BaseAdapter
         this.vehicles = vehicles;
     }
 
-    public int getCount() {
+    public int getCount()
+    {
+        if (vehicles.isEmpty())
+            return 1; //Display one empty row
+
         return vehicles.size();
     }
 
@@ -38,23 +42,36 @@ public class OutCityVehicleListAdapter extends BaseAdapter
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        if (convertView == null)
+        if (!vehicles.isEmpty())
         {
-            convertView = LayoutInflater.from(this.context).inflate(R.layout.row, parent, false);
+            if (convertView == null)
+            {
+                convertView = LayoutInflater.from(this.context).inflate(R.layout.row, parent, false);
+            }
+
+            convertView.setTag(vehicles.get(position));
+
+            TextView title = (TextView) convertView.findViewById(R.id.txtTitle);
+            TextView subtitle = (TextView) convertView.findViewById(R.id.txtSubtitle);
+            ImageView imgview = (ImageView) convertView.findViewById(R.id.imgIcon);
+
+            title.setText(String.format("%s %s", vehicles.get(position).getManufacturer(), vehicles.get(position).getModel()));
+            //subtitle.setText(String.format("%s", vehicles.get(position).getAddress()));
+
+            if (vehicles.get(position) instanceof OutCityCar)
+                imgview.setImageResource(R.drawable.out_city_car);
+            else imgview.setImageResource(R.drawable.out_city_van);
+
+            return (convertView);
         }
-        convertView.setTag(vehicles.get(position));
+        else
+        {
+            if (convertView == null)
+            {
+                convertView = LayoutInflater.from(this.context).inflate(R.layout.out_city_vehicles_empty_row, parent, false);
+            }
 
-        TextView title = (TextView) convertView.findViewById(R.id.txtTitle);
-        TextView subtitle = (TextView) convertView.findViewById(R.id.txtSubtitle);
-        ImageView imgview = (ImageView) convertView.findViewById(R.id.imgIcon);
-
-        title.setText(String.format("%s %s", vehicles.get(position).getManufacturer(), vehicles.get(position).getModel()));
-        //subtitle.setText(String.format("%s", vehicles.get(position).getAddress()));
-
-        if (vehicles.get(position) instanceof OutCityCar)
-            imgview.setImageResource(R.drawable.out_city_car);
-        else imgview.setImageResource(R.drawable.out_city_van);
-
-        return (convertView);
+            return convertView;
+        }
     }
 }

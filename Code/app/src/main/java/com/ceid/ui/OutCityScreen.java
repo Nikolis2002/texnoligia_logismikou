@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
@@ -70,27 +71,27 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
         garageList = new ArrayList<>();
 
         ArrayList<OutCityTransport> l = new ArrayList<>();
-        l.add(new OutCityCar("1", 1, "dista", "1", "2024"));
-        l.add(new OutCityCar("2", 1, "dista", "2", "2024"));
-        l.add(new Van("3", 1, "dista", "3", "2024"));
-        l.add(new OutCityCar("4", 1, "dista", "4", "2024"));
-        l.add(new Van("5", 1, "dista", "5", "2024"));
-        l.add(new Van("6", 1, "dista", "6", "2024"));
-        l.add(new Van("7", 1, "dista", "7", "2024"));
-        l.add(new OutCityCar("8", 1, "dista", "8", "2024"));
-        l.add(new OutCityCar("9", 1, "dista", "9", "2024"));
-        l.add(new Van("10", 1, "dista", "10", "2024"));
-        l.add(new Van("11", 1, "dista", "11", "2024"));
-        l.add(new OutCityCar("12", 1, "dista", "12", "2024"));
-        l.add(new OutCityCar("13", 1, "dista", "13", "2024"));
-        l.add(new Van("14", 1, "dista", "14", "2024"));
+        l.add(new OutCityCar("1", new Currency(20), 1, 1,"dista", "1", "2024"));
+        l.add(new OutCityCar("2",new Currency(20), 1, 1,"dista", "2", "2024"));
+        l.add(new Van("3",new Currency(20), 1, 1,"dista", "3", "2024"));
+        l.add(new OutCityCar("4",new Currency(20), 1,1, "dista", "4", "2024"));
+        l.add(new Van("5",new Currency(20), 1,1, "dista", "5", "2024"));
+        l.add(new Van("6",new Currency(20), 1,1, "dista", "6", "2024"));
+        l.add(new Van("7",new Currency(20), 1,1, "dista", "7", "2024"));
+        l.add(new OutCityCar("8",new Currency(20), 1,1, "dista", "8", "2024"));
+        l.add(new OutCityCar("9",new Currency(20), 1,1, "dista", "9", "2024"));
+        l.add(new Van("10", new Currency(20),1,1, "dista", "10", "2024"));
+        l.add(new Van("11", new Currency(20), 1,1, "dista", "11", "2024"));
+        l.add(new OutCityCar("12",new Currency(20), 1,1, "dista", "12", "2024"));
+        l.add(new OutCityCar("13",new Currency(20), 1, 1,"dista", "13", "2024"));
+        l.add(new Van("14",new Currency(20), 1,1, "dista", "14", "2024"));
 
         garageList.add(new Garage(
                 0,
                 "Garage #1",
                 "Mitsou 17",
                 new Coordinates(38.2442870,21.7326153),
-                "Mon-Fri, 08:00-20:00",
+                "Mon-Fri 08:00-20:00",
                 l
         ));
 
@@ -99,7 +100,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #2",
                 "Dista 1",
                 new Coordinates(38.2466208,21.7325087),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -107,7 +108,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -115,7 +116,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -123,7 +124,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -131,7 +132,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -139,7 +140,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -147,7 +148,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -155,7 +156,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -163,7 +164,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         garageList.add(new Garage(
@@ -171,7 +172,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 "Garage #3",
                 "Odos 3",
                 new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri, 08:00-20:00"
+                "Mon-Fri 08:00-20:00"
         ));
 
         return garageList;

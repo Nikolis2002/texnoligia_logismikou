@@ -15,16 +15,31 @@ import java.util.ArrayList;
 
 public abstract class OutCityTransport extends Transport {
 
-    private String license_plate;
+    private String licensePlate;
+    private int seats;
+    private Currency rate;
+    //private SpecializedTracker tracker;
 
-    public OutCityTransport(String license_plate, int id, String model, String manufacturer, String manuf_year) {
+    public OutCityTransport(String license_plate, Currency rate, int seats, int id, String model, String manufacturer, String manuf_year) {
         super(id, model, manufacturer, manuf_year);
-        this.license_plate = license_plate;
+        this.licensePlate = license_plate;
+        this.seats = seats;
+        this.rate = rate;
     }
 
     public String getLicensePlate()
     {
-        return license_plate;
+        return licensePlate;
+    }
+
+    public int getSeats()
+    {
+        return seats;
+    }
+
+    public Currency getRate()
+    {
+        return rate;
     }
 
     //Parcelable

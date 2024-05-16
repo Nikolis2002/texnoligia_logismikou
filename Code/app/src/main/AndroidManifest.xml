@@ -47,6 +47,7 @@
             tools:ignore="DiscouragedApi" />
         <activity android:name=".GarageInfoScreen" />
         <activity android:name=".OutCityScreen" />
+        <activity android:name=".GarageReservationForm" />
     </application>
 
 </manifest>

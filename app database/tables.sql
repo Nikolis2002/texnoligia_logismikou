@@ -342,6 +342,7 @@ CREATE TABLE out_city_transport
     seat_capacity INT UNSIGNED NOT NULL,
     gas INT UNSIGNED NOT NULL,
     free_status BOOLEAN NOT NULL,
+    rate DECIMAL(5, 2) NOT NULL,
     
     CONSTRAINT fk_out_city_transport 
     FOREIGN KEY(id) REFERENCES transport(id)
@@ -357,7 +358,7 @@ CREATE TABLE garage
     name VARCHAR(64) NOT NULL,
     coords POINT NOT NULL,
     address VARCHAR(64) NOT NULL,
-    available_hours TEXT NOT NULL,
+    available_hours TEXT NOT NULL, -- A simple string like this: Mon-Fri 08:00-20:00. It's good enough for now
 
     PRIMARY KEY(id)
 );
@@ -425,6 +426,7 @@ CREATE TABLE out_city_car
 CREATE TABLE out_city_van
 (
     id INT UNSIGNED NOT NULL,
+    out_city_license VARCHAR(32) NOT NULL,
 
     CONSTRAINT fk_out_city_van
     FOREIGN KEY(id) REFERENCES out_city_transport(id)

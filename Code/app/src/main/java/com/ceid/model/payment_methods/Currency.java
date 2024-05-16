@@ -2,9 +2,11 @@ package com.ceid.model.payment_methods;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Currency {
+public class Currency implements Serializable
+{
     private BigDecimal value;
     CurrencyType currency= CurrencyType.EURO; //default value
 

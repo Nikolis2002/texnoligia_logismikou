@@ -1,22 +1,20 @@
 package com.ceid.model.users;
 import com.ceid.model.payment_methods.*;
-import com.ceid.model.users.Points;
 import com.google.gson.Gson;
 
 public class Customer extends User {
 
     private Wallet wallet;
     private Points points;
-    private String licence;
+    private String license;
     private CustomerHistory history;
 
-    Customer(int id,String username,String name,String lname,String email,String info,Wallet wallet,String licence,int points){
+    Customer(int id,String username,String name,String lname,String email,String info,Wallet wallet,String license,int points){
         super(id,username,name,lname,email);
         this.wallet=wallet;
-        this.licence=licence;
+        this.license=license;
         this.points=new Points(points);
     }
-
 
     public CustomerHistory getHistory(){
         return this.history;
@@ -26,19 +24,19 @@ public class Customer extends User {
         return this.wallet;
     }
 
-    public String get_licence(){
-        return this.licence;
+    public String getLicense(){
+        return this.license;
     }
 
-    public void set_licence(String licence){
-        this.licence=licence;
+    public void setLicense(String license){
+        this.license = license;
     }
 
-    public Points get_points(){
+    public Points getPoints(){
         return this.points;
     }
 
-    public  void set_points(int value){
+    public  void setPoints(int value){
         this.points.setPoints(value);
     }
 

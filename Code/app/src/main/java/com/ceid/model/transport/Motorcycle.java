@@ -13,12 +13,12 @@ public class Motorcycle extends Rental implements Fuel {
 
 	//?
 	private PositiveInteger gas;
-	private String licence_plate;
+	private String license_plate;
 
 	public Motorcycle(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords, PositiveInteger gas) {
 		super(freeStatus, id, model, manufacturer, manuf_year, accessibilityFeatures, rate, new SpecializedTracker(coords, gas));
 
-		this.licence_plate = license_plate;
+		this.license_plate = license_plate;
 	}
 
 	//rest of  the car todo!
@@ -48,8 +48,8 @@ public class Motorcycle extends Rental implements Fuel {
 		return true;
 	}
 
-	public String getLicencePlate()
+	public String getLicensePlate()
 	{
-		return licence_plate;
+		return license_plate;
 	}
 }

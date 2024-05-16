@@ -3,15 +3,16 @@ package com.ceid.model.transport;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ceid.model.payment_methods.Currency;
 import com.ceid.util.Location;
 
 import java.io.Serializable;
 
 public class OutCityCar extends OutCityTransport {
 
-    public OutCityCar(String license_plate, int id, String model, String manufacturer, String manuf_year)
+    public OutCityCar(String license_plate, Currency rate, int seats, int id, String model, String manufacturer, String manuf_year)
     {
-        super(license_plate, id, model, manufacturer, manuf_year);
+        super(license_plate, rate, seats, id, model, manufacturer, manuf_year);
     }
 
     /*

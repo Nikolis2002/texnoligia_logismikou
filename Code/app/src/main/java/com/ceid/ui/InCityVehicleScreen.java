@@ -30,7 +30,6 @@ import com.ceid.util.PositiveInteger;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -163,7 +162,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             dista.setText(String.format("%s: %d m", "Distance", Math.round(selectedCoords.distance(car.getTracker().getCoords()))));
             rate.setText(String.format("%s: %s/min", "Rate", car.getRate().toString()));
             seats.setText(String.format("%s: %d", "Seats", 4));
-            plate.setText(String.format("%s: %s", "License Plate", car.getLicencePlate()));
+            plate.setText(String.format("%s: %s", "License Plate", car.getLicensePlate()));
 
 
             Button cancel = popupView.findViewById(R.id.cancel);

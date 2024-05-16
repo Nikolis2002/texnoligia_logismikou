@@ -77,6 +77,11 @@ public class Garage implements Serializable {
         return name;
     }
 
+    public String getAvailableHours()
+    {
+        return availableHours;
+    }
+
     public ArrayList<OutCityTransport> getVehicles()
     {
         return vehicles;
