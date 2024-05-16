@@ -1,7 +1,7 @@
 package com.ceid.ui;
 
 import android.Manifest;
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -61,6 +61,13 @@ public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallba
         },5000);
 
     }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+    }
+
 
     public void unlockVehicle(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)

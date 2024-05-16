@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ceid.model.payment_methods.Payment;
+import com.ceid.model.service.TaxiRequest;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
@@ -56,6 +59,27 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
 
         if(paymentCheck()==-1){
             Toast.makeText(getApplicationContext(), "Select a payment method!", Toast.LENGTH_SHORT).show();
+        }
+
+        if(!fieldCheck && paymentCheck()!=-1){
+
+            RadioGroup paymentRadioGroup = findViewById(R.id.paymentRadioGroup);
+            int selectedPayment = paymentRadioGroup.getCheckedRadioButtonId();
+            RadioButton paymentRadioButton = findViewById(selectedPayment);
+            String payment = paymentRadioButton.getText().toString().toUpperCase();
+
+            /*TaxiRequest taxiRequest=new TaxiRequest(
+                    null,
+                    null,
+                    new Payment(
+
+                    ),
+
+
+            )*/
+
+            Intent intent = new Intent(TaxiSelect.this, TaxiWaitScreen.class);
+            startActivity(intent);
         }
 
     }
