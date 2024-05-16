@@ -3,7 +3,9 @@ import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -11,5 +13,8 @@ public interface ApiService {
     Call<String> getMessage();
 
     @GET("/getTableData")
-    Call<ArrayList<ResponseBody>> getTableData(@Query("tableName") String tableName);
+    Call<String> getTableData(@Query("tableName") String tableName);
+
+    @POST("/insert_user")
+    Call<Void> postUser(@Body String userString);
 }

@@ -1,18 +1,13 @@
 package com.ceid.ui;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.io.IOException;
 
@@ -21,8 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
+import com.ceid.Network.jsonStringParser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.JsonArray;
 
 public class MainScreen extends AppCompatActivity
 {
@@ -32,23 +29,25 @@ public class MainScreen extends AppCompatActivity
         setContentView(R.layout.main_screen);
 
         ApiService api = ApiClient.getApiService();
-        Call<String> call = api.getMessage();
+
+        Call<String> call = api.getTableData("user");
 
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String message = response.body();
-                    Toast.makeText(getApplicationContext(),"test", Toast.LENGTH_SHORT).show();
+                    String responseBodyString = response.body();
+                    Log.d("ez",responseBodyString);
+                    JsonArray array=jsonStringParser.extractResult(responseBodyString);
+                    jsonStringParser.printJsonArray(array);
                 } else {
-                    Log.d("tete", response.message());
+                    Log.d("TAG", "Response not successful: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                String error = String.valueOf(t.fillInStackTrace());
-                Log.d("tete", error);
+                Log.e("TAG", "onFailure: " + t.getMessage(), t);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.ceid.model.users;
 import com.ceid.model.payment_methods.*;
 import com.ceid.model.users.Points;
+import com.google.gson.Gson;
+
 public class Customer extends User {
 
     private Wallet wallet;
@@ -38,6 +40,11 @@ public class Customer extends User {
 
     public  void set_points(int value){
         this.points.setPoints(value);
+    }
+
+    public String convertCustomerToJsonString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
       
 }
