@@ -29,14 +29,15 @@ public class GarageInfoScreen extends AppCompatActivity implements AdapterView.O
 {
 
     private ArrayList<OutCityTransport> vehicles;
+    private Garage garage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.garage_info_screen);
 
-        Garage garage = (Garage) getIntent().getExtras().getSerializable("garage");
-        assert garage != null;
+        this.garage = (Garage) getIntent().getExtras().getSerializable("garage");
+        assert this.garage != null;
 
         TextView name = findViewById(R.id.nameField);
         TextView address = findViewById(R.id.addressField);
@@ -72,6 +73,7 @@ public class GarageInfoScreen extends AppCompatActivity implements AdapterView.O
 
         Intent intent = new Intent(this, GarageReservationForm.class);
         intent.putExtra("vehicle", vehicle);
+        intent.putExtra("garage", this.garage);
         startActivity(intent);
     }
 }
