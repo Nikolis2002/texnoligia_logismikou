@@ -6,18 +6,17 @@ const express= require("express");
 const helper = require("./serverHelper.js");
 
 
-//selecr user->username,password
-//select pinakes
-//select ta energa requests
-//select trasports
-//garage me autkinhta tou
-//
+
+const data = fs.readFileSync('password.json', 'utf8');
+const jsonPass = JSON.parse(data);
+const usr=jsonPass.user;
+const password=jsonPass.password;
 
 const con = mysql.createConnection(
     {
         "host": "localhost",
-        "user": "root",
-        "password": 'Nikolis2002"',
+        "user": usr,
+        "password": password,
         "database": "app_database",
         "port": 3306,
     }
@@ -76,7 +75,7 @@ app.post("/check_user",async (req,res)=>{
     }
 });
 
-const ip_adress="192.168.1.7";
+const ip_adress=jsonPass.ip;
 const port=3000;
 app.listen(port, () => {
     console.log(`Server is listening on port ${port} and ip: ${ip_adress}`);
