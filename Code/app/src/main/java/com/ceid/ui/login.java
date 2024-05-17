@@ -10,12 +10,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class login extends AppCompatActivity {
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
+import com.ceid.Network.PostHelper;
+import com.ceid.Network.postInterface;
+
+public class login extends AppCompatActivity implements postInterface{
     private String username,password;
     private EditText userText,pass;
     private ImageView visib;
+    private ApiService apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +41,8 @@ public class login extends AppCompatActivity {
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
+        apiService = ApiClient.getApiService();
 
-        username="billkourt";
-        password="bill123";
     }
     public void onClickVisib(View view) {
         int cursorPosition = pass.getSelectionStart();
@@ -43,7 +60,10 @@ public class login extends AppCompatActivity {
     }
     public void buttonLogin(View view)
     {
-        if(username.equals(userText.getText().toString())) {
+
+        PostHelper requestHandler = new PostHelper(this);
+        requestHandler.login(apiService,"");
+        /*if(username.equals(userText.getText().toString())) {
             if (password.equals(pass.getText().toString()))
             {
                 Intent intent = new Intent(this,MainScreen.class);
@@ -59,11 +79,25 @@ public class login extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), "Wrong Username!",
                     Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
     public void signUp(View view)
     {
         Intent intent = new Intent(this,signUp.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResponseSuccess(String data) {
+        // Start the new activity on successful response
+        Intent intent = new Intent(login.this, MainScreen.class);
+        intent.putExtra("key", data);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResponseFailure(Throwable t) {
+        // Handle the failure case
+        Toast.makeText(login.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
     }
 }
