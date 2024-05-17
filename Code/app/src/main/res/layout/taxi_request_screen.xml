@@ -29,11 +29,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="364dp"
+        android:layout_width="0dp"
         android:layout_height="522dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

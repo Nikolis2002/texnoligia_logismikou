@@ -21,7 +21,7 @@ public class TaxiRequestsScreen extends AppCompatActivity {
 
         requestView = findViewById(R.id.requestView);
         requestView.setLayoutManager(new LinearLayoutManager(this));
-        List<String> taxiRequestList = Arrays.asList("test","test2","test3","test4","test5","test6","test7");
+        List<String> taxiRequestList = Arrays.asList("test","test2","test3","test4","test5","test6","test7","test8","test9");
         requestAdapter = new TaxiRequestAdapter(taxiRequestList);
         requestView.setAdapter(requestAdapter);
     }
