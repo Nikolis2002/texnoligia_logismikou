@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
         android:text="Waiting for Taxi"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
