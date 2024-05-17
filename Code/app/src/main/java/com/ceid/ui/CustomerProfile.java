@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class RouteHistory extends Fragment
+public class CustomerProfile extends Fragment
 {
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.route_history, container, false);
+		return inflater.inflate(R.layout.customer_profile, container, false);
 	}
 }

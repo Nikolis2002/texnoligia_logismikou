@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
@@ -35,6 +36,10 @@ public class MainScreen extends AppCompatActivity implements postInterface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
+
+        /*
+
         ApiService api = ApiClient.getApiService();
 
         PostHelper postLogin = new PostHelper(this);
@@ -50,6 +55,7 @@ public class MainScreen extends AppCompatActivity implements postInterface
         String jsonString = gson.toJson(data);
         Log.d("kort",jsonString);
         postLogin.login(api,jsonString);
+        */
 
 
         //Bottom navigation
@@ -59,26 +65,27 @@ public class MainScreen extends AppCompatActivity implements postInterface
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item)
             {
+                int id = item.getItemId();
+                Fragment selectedFragment = null;
+
+                if (id == R.id.page_home)
+                {
+                    selectedFragment = new MainScreenFragment();
+                }
+                else if (id == R.id.page_history)
+                {
+                    selectedFragment = new RouteHistory();
+                }
+                else if (id == R.id.page_profile)
+                {
+                    selectedFragment = new CustomerProfile();
+                }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
+
                 return true; //successfully handled
             }
         });
-
-
-        /*
-        //TEST
-        //==================================================================
-
-        String input = "Mon-Fri 08:00-20:00";
-        String patternString = "(?<d1>[A-Z][a-z]{2})-(?<d2>[A-Z][a-z]{2})\\s(?<h1>\\d{2}):(?<m1>\\d{2})-(?<h2>\\d{2}):(?<m2>\\d{2})";
-
-        Pattern pattern = Pattern.compile(patternString);
-        Matcher matcher = pattern.matcher(input);
-
-        if (matcher.find())
-        {
-            Log.d("REGEXTEST", matcher.group("d1"));
-        }
-        */
     }
 
     public void inCity(View view)
