@@ -7,6 +7,7 @@ CREATE TABLE user
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     username VARCHAR(32) NOT NULL,
+    password VARCHAR(32) NOT NULL,
     name VARCHAR(32) NOT NULL,
     lname VARCHAR(32) NOT NULL,
     email VARCHAR(32) NOT NULL,
@@ -76,21 +77,7 @@ CREATE TABLE customer_history
         ON DELETE CASCADE
 
 );
-
-CREATE TABLE transport
-(
-    id INT UNSIGNED NOT NULL,
-    model VARCHAR(32) NOT NULL,
-    manuf_year YEAR NOT NULL,
-    manufacturer VARCHAR(32) NOT NULL,
-
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE taxi
-(
-    id INT UNSIGNED NOT NULL,
-    license_plate VARCHAR(32) NOT NULL,
+driver_id AS id, driver_username AS username, driver_password AS password, driver_name AS name, driver_lname AS lname, email,taxi_id,taxi_model,taxi_year,manuf,licensePlate,taxi_coords;ULL,
     coords POINT NOT NULL,
 
     PRIMARY KEY(id),
