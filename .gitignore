@@ -19,4 +19,6 @@ Code/.idea/shelf/*
 .idea/workspace.xml
 Code/.idea/deploymentTargetSelector.xml
 
-
+backend server/password.json
+Code/app/src/main/java/com/ceid/Network/ApiClient.java
+Code/app/src/main/res/xml/network_security_config.xml

@@ -3,5 +3,6 @@
     <!-- Allow cleartext traffic for specific domains -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.7</domain>
+
     </domain-config>
 </network-security-config>
