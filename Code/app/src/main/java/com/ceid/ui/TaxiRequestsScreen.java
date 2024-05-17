@@ -25,4 +25,6 @@ public class TaxiRequestsScreen extends AppCompatActivity {
         requestAdapter = new TaxiRequestAdapter(taxiRequestList);
         requestView.setAdapter(requestAdapter);
     }
+
+
 }

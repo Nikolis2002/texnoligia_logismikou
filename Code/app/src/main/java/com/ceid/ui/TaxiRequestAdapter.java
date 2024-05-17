@@ -32,7 +32,6 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
             start = requestView.findViewById(R.id.pickUp);
             end = requestView.findViewById(R.id.destination);
             accept = requestView.findViewById(R.id.acceptButton);
-            reject = requestView.findViewById(R.id.rejectButton);
         }
     }
 
