@@ -15,6 +15,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.ceid.util.Coordinates;
+import com.ceid.util.Map;
+import com.ceid.util.MapWrapperReadyListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,9 +30,9 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallback {
+public class UnlockVehicle extends AppCompatActivity implements MapWrapperReadyListener {
 
-    private GoogleMap map;
+    private Map map;
     private Coordinates car_loc;
     private int car_id;
     private Timer reservationTimer;
@@ -39,7 +41,9 @@ public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.unlock_screen);
-        mapSetup();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap);
+        map = new Map(mapFragment, this, this);
 
         Intent data = getIntent();
         car_id = data.getIntExtra("vehicle_id",-1);
@@ -116,22 +120,13 @@ public class UnlockVehicle extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-    private void mapSetup(){
-        SupportMapFragment mapFragment = SupportMapFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.googleMap,mapFragment).commit();
-        mapFragment.getMapAsync(this);
-    }
-
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        map=googleMap;
-
-        LatLng location = new LatLng(car_loc.getLat(),car_loc.getLng());
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15));
-
-        Marker carMarker = map.addMarker(new MarkerOptions()
-                .position(location)
-        );
+    public void onMapWrapperReady()
+    {
+        Coordinates location = new Coordinates(car_loc.getLat(),car_loc.getLng());
+        map.setZoom(15);
+        map.setPosition(location);
+        map.placePin(location,true);
     }
 
     @Override
