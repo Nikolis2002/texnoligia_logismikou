@@ -58,4 +58,8 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         return taxiRequest.size();
     }
 
+    public int getItemCount() {
+        return taxiRequest.size();
+    }
+
 }

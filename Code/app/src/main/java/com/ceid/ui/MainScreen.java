@@ -12,6 +12,8 @@ import retrofit2.Response;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +62,23 @@ public class MainScreen extends AppCompatActivity implements postInterface
                 return true; //successfully handled
             }
         });
+
+
+        /*
+        //TEST
+        //==================================================================
+
+        String input = "Mon-Fri 08:00-20:00";
+        String patternString = "(?<d1>[A-Z][a-z]{2})-(?<d2>[A-Z][a-z]{2})\\s(?<h1>\\d{2}):(?<m1>\\d{2})-(?<h2>\\d{2}):(?<m2>\\d{2})";
+
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find())
+        {
+            Log.d("REGEXTEST", matcher.group("d1"));
+        }
+        */
     }
 
     public void inCity(View view)
