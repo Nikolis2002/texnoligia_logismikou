@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/upperText"
-        android:layout_width="162dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/vehicle_location"
         android:textSize="20sp"
@@ -23,10 +23,10 @@
         android:id="@+id/UnlockButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="32dp"
         android:contentDescription="@string/unlockbutton"
         android:onClick="unlockVehicle"
-        android:text="Unlock vehicle"
+        android:text="@string/unlock_vehicle"
         app:layout_constraintEnd_toStartOf="@+id/cancelButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/googleMap" />
@@ -35,14 +35,14 @@
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#FF0000"
         android:text="@android:string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/UnlockButton"
         app:layout_constraintTop_toBottomOf="@+id/googleMap" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/googleMap"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
@@ -58,10 +58,12 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="267dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/you_will_transferred_to_your_camera_to_scan_a_qr_code_make_sure_to_allow_all_permitions"
         app:layout_constraintBottom_toBottomOf="parent"

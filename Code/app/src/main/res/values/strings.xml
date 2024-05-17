@@ -147,6 +147,11 @@
     <string name="out_city_rate">Rate:</string>
     <string name="out_city_seats">Seats:</string>
     <string name="out_city_license">License Plate:</string>
+    <string name="confirm_location">Confirm location</string>
+    <string name="choose_your_location">Choose your location</string>
+    <string name="unlock_vehicle">Unlock vehicle</string>
+    <string name="pickup_cost_1_5">Pickup cost: 1.5€</string>
+    <string name="accept">Accept</string>
 
 
 </resources>
