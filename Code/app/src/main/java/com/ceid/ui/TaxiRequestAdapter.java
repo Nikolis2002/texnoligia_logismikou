@@ -1,18 +1,21 @@
 package com.ceid.ui;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.ceid.model.service.TaxiRequest;
 
 import java.util.List;
 
 public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.RequestView> {
-    private List<TaxiRequest> taxiRequest;
+    private List<String> taxiRequest;
 
-    public TaxiRequestAdapter(List<TaxiRequest> taxiRequest){
+    public TaxiRequestAdapter(List<String> taxiRequest){
         this.taxiRequest=taxiRequest;
     }
 
@@ -20,22 +23,39 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         TextView number;
         TextView start;
         TextView end;
+        Button accept;
+        Button reject;
 
-        public RequestView(View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+        public RequestView(View requestView) {
+            super(requestView);
+            number = requestView.findViewById(R.id.requestNumber);
+            start = requestView.findViewById(R.id.pickUp);
+            end = requestView.findViewById(R.id.destination);
+            accept = requestView.findViewById(R.id.acceptButton);
         }
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
-        return new MyViewHolder(view);
+    public RequestView onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.taxi_requests_view, parent, false);
+        return new RequestView(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(dataList.get(position));
+    public void onBindViewHolder(RequestView holder, int position) {
+        holder.number.setText("test");
+
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Button clicked for item: ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public int getItemCount() {
+        return taxiRequest.size();
     }
 
 }

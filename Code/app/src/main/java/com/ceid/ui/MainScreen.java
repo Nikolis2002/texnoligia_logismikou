@@ -10,18 +10,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
+import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
+import com.ceid.Network.postInterface;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-public class MainScreen extends AppCompatActivity
+public class MainScreen extends AppCompatActivity implements postInterface
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,26 +35,20 @@ public class MainScreen extends AppCompatActivity
 
         ApiService api = ApiClient.getApiService();
 
-        Call<String> call = api.getTableData("user");
+        PostHelper postLogin = new PostHelper(this);
+        String username="kort";
+        String password="123";
 
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    String responseBodyString = response.body();
-                    Log.d("ez",responseBodyString);
-                    JsonArray array=jsonStringParser.extractResult(responseBodyString);
-                    jsonStringParser.printJsonArray(array);
-                } else {
-                    Log.d("TAG", "Response not successful: " + response.message());
-                }
-            }
+        Map<String, String> data = new HashMap<>();
+        data.put("username", username);
+        data.put("password", password);
 
-            @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                Log.e("TAG", "onFailure: " + t.getMessage(), t);
-            }
-        });
+        // Convert the map to a JSON string
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(data);
+        Log.d("kort",jsonString);
+        postLogin.login(api,jsonString);
+
 
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -73,5 +72,15 @@ public class MainScreen extends AppCompatActivity
     {
         Intent intent = new Intent(this, OutCityScreen.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResponseSuccess(String Data) {
+        Log.d("kort","yes");
+    }
+
+    @Override
+    public void onResponseFailure(Throwable t) {
+        Log.d("kort","no");
     }
 }
