@@ -88,10 +88,6 @@ CREATE TABLE transport
     manufacturer VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(id)
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 );
 
 CREATE TABLE taxi
