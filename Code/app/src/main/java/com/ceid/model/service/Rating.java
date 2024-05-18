@@ -1,6 +1,9 @@
 package com.ceid.model.service;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable
+{
 	private Integer vehicleStars = null;
 	private Integer driverStars = null;
 	private Integer garageStars = null;

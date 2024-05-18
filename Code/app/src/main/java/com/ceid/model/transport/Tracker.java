@@ -3,7 +3,9 @@ package com.ceid.model.transport;
 import com.ceid.util.*;
 import com.google.android.gms.maps.model.LatLng;
 
-public class Tracker
+import java.io.Serializable;
+
+public class Tracker implements Serializable
 {
     private Coordinates coords;
 

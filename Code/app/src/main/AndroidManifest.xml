@@ -48,6 +48,7 @@
         <activity android:name=".GarageInfoScreen" />
         <activity android:name=".OutCityScreen" />
         <activity android:name=".GarageReservationForm" />
+        <activity android:name=".RatingScreen" />
     </application>
 
 </manifest>

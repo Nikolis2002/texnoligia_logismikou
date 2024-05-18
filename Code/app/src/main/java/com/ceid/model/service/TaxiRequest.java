@@ -5,30 +5,31 @@ import com.ceid.model.transport.Transport;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.util.Coordinates;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-public class TaxiRequest
+public class TaxiRequest implements Serializable
 {
     private int id;
     private Coordinates pickupLocation;
     private Coordinates destination;
-    private String paymentMethod;
+    private Payment.Method paymentMethod;
     private TaxiDriver taxiDriver = null;
     private LocalDateTime assignmentTime = null;
     private LocalDateTime pickupTime = null;
 
-    public TaxiRequest(Coordinates pickupLocation, Coordinates destination, String paymentMethod) {
+    public TaxiRequest(Coordinates pickupLocation, Coordinates destination, Payment.Method paymentMethod) {
         this.pickupLocation = pickupLocation;
         this.destination = destination;
         this.paymentMethod=paymentMethod;
     }
 
-    public String getPaymentMethod() {
+    public Payment.Method getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(Payment.Method paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 

@@ -3,9 +3,10 @@ package com.ceid.model.service;
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.transport.Transport;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public abstract class Service
+public abstract class Service implements Serializable
 {
     private int id;
     private LocalDateTime creationDate;

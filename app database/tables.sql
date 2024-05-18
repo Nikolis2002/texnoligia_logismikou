@@ -82,11 +82,7 @@ CREATE TABLE customer_history
 
 CREATE TABLE transport
 (
-<<<<<<< Updated upstream
-    id INT UNSIGNED NOT NULL,
-=======
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
->>>>>>> Stashed changes
     model VARCHAR(32) NOT NULL,
     manuf_year YEAR NOT NULL,
     manufacturer VARCHAR(32) NOT NULL,
@@ -422,13 +418,8 @@ CREATE TABLE taxi_service
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 
-<<<<<<< Updated upstream
     CONSTRAINT fk_taxi_service_taxi_request
     FOREIGN KEY(request_id) REFERENCES taxi_request(id)
-=======
-    CONSTRAINT fk_taxi_request_driver
-    FOREIGN KEY(assigned_driver) REFERENCES taxi_driver(username)
->>>>>>> Stashed changes
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 

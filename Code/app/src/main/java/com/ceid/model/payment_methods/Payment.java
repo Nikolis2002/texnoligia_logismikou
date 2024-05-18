@@ -2,10 +2,13 @@ package com.ceid.model.payment_methods;
 import com.ceid.model.users.Customer;
 import com.ceid.util.PositiveInteger;
 
-public class Payment {
+import java.io.Serializable;
+
+public class Payment implements Serializable
+{
     //private Customer person;
 
-    public enum Method {WALLET,CASH};
+    public enum Method implements Serializable {WALLET,CASH};
     private Method method;
     private Currency amount;
 

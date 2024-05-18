@@ -3,9 +3,10 @@ package com.ceid.model.service;
 import com.ceid.model.transport.SpecializedTracker;
 import com.ceid.util.PositiveInteger;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Refill
+public class Refill implements Serializable
 {
 
 	private LocalDateTime date;

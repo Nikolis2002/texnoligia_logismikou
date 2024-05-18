@@ -12,4 +12,11 @@ public class Taxi extends InCityTransport {
         this.licence_plate=licence_plate;
         this.coords=new Coordinates(lat,lng);
     }
+
+    public Taxi(int id, String model, String manufacturer, String manuf_year,String licence_plate)
+    {
+        super(id, model, manufacturer, manuf_year);
+        this.licence_plate=licence_plate;
+        this.coords=null;
+    }
 }

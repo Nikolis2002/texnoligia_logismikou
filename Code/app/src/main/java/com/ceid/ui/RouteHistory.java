@@ -16,9 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.Payment;
+import com.ceid.model.service.OutCityService;
 import com.ceid.model.service.RentalService;
 import com.ceid.model.service.Service;
+import com.ceid.model.service.TaxiRequest;
+import com.ceid.model.service.TaxiService;
 import com.ceid.model.transport.CityCar;
+import com.ceid.model.transport.Taxi;
+import com.ceid.model.transport.Van;
 import com.ceid.util.Coordinates;
 import com.ceid.util.PositiveInteger;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,6 +64,46 @@ public class RouteHistory extends Fragment
 						new PositiveInteger(0)
 				)
 		));
+
+		data.add(new OutCityService(
+				"Kort Rentals",
+				1,
+				1,
+				LocalDateTime.now(),
+				new Payment(new Currency(87), Payment.Method.WALLET),
+				null,
+				new Van(
+						"ABC-1234",
+						new Currency(1.40),
+						4,
+						0,
+						"MONDEO",
+						"FORD",
+						"1993"
+				)
+		));
+
+		data.add(new TaxiService(
+				1,
+				LocalDateTime.now(),
+				new Payment(new Currency(87), Payment.Method.WALLET),
+				null,
+				new Taxi(
+						1,
+						"MONDEO",
+						"FORD",
+						"1993",
+						"ABC-123"
+				),
+				new TaxiRequest(
+						new Coordinates(38.2442870,21.7326153),
+						new Coordinates(39.2442870,22.7326153),
+						Payment.Method.WALLET
+				)
+		));
+
+		data.addAll(data);
+		data.addAll(data);
 
 		RecyclerView list = view.findViewById(R.id.list);
 		list.setLayoutManager(new LinearLayoutManager(getContext()));

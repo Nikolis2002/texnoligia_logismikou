@@ -1,6 +1,9 @@
 package com.ceid.util;
 
-public class PositiveInteger {
+import java.io.Serializable;
+
+public class PositiveInteger implements Serializable
+{
     private int value;
 
     public PositiveInteger(int value){
