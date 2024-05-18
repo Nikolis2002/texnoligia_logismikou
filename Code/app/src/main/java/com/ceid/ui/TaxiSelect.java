@@ -40,7 +40,7 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.taxi_select);
-
+        enableTaxiBtn(false);
         gpsLocation();
 
         this.activityResultLauncher = registerForActivityResult(
@@ -53,7 +53,7 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
     public void findTaxiButton(View view){
         boolean fieldCheck=checkLocField();
 
-        if(fieldCheck){
+        if(!fieldCheck){
             Toast.makeText(getApplicationContext(), "Set a destination!", Toast.LENGTH_SHORT).show();
         }
 
@@ -61,22 +61,18 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
             Toast.makeText(getApplicationContext(), "Select a payment method!", Toast.LENGTH_SHORT).show();
         }
 
-        if(!fieldCheck && paymentCheck()!=-1){
+        if(fieldCheck && paymentCheck()!=-1){
 
             RadioGroup paymentRadioGroup = findViewById(R.id.paymentRadioGroup);
             int selectedPayment = paymentRadioGroup.getCheckedRadioButtonId();
             RadioButton paymentRadioButton = findViewById(selectedPayment);
             String payment = paymentRadioButton.getText().toString().toUpperCase();
 
-            /*TaxiRequest taxiRequest=new TaxiRequest(
-                    null,
-                    null,
-                    new Payment(
+            if(payment.equals("CASH")){
 
-                    ),
+            }else{
 
-
-            )*/
+            }
 
             Intent intent = new Intent(TaxiSelect.this, TaxiWaitScreen.class);
             startActivity(intent);
@@ -103,14 +99,14 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
 
     private void enableTaxiBtn(Boolean action){
         Button button = findViewById(R.id.findCabButton);
-        button.setEnabled(!action);
+        button.setEnabled(action);
     }
 
     private boolean checkLocField(){
         TextInputEditText destCoords = findViewById(R.id.endPointInput);
         String end = destCoords.getText().toString();
 
-        return end.isEmpty();
+        return !(end.isEmpty());
     }
 
     private void gpsLocation(){
@@ -191,7 +187,7 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
             boolean fieldCheck=checkLocField();
             enableTaxiBtn(fieldCheck);
 
-            if(fieldCheck){
+            if(!fieldCheck){
                 Toast.makeText(getApplicationContext(), "Set a destination", Toast.LENGTH_SHORT).show();
             }
 

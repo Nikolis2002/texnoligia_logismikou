@@ -13,14 +13,31 @@ public class TaxiRequest
     private int id;
     private Coordinates pickupLocation;
     private Coordinates destination;
+    private String paymentMethod;
     private TaxiDriver taxiDriver = null;
     private LocalDateTime assignmentTime = null;
     private LocalDateTime pickupTime = null;
 
-    public TaxiRequest(int id, Coordinates pickupLocation, Coordinates destination) {
-        this.id = id;
+    public TaxiRequest(Coordinates pickupLocation, Coordinates destination, String paymentMethod) {
         this.pickupLocation = pickupLocation;
         this.destination = destination;
+        this.paymentMethod=paymentMethod;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Coordinates getPickupLocation()
