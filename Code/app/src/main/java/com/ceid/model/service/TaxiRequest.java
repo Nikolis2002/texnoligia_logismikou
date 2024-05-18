@@ -7,6 +7,7 @@ import com.ceid.util.Coordinates;
 
 import java.time.LocalDateTime;
 
+
 public class TaxiRequest
 {
     private int id;
