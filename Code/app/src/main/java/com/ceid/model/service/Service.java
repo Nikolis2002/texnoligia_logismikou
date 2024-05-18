@@ -38,4 +38,25 @@ public abstract class Service
         return rating;
     }
 
+    public Transport getTransport()
+    {
+        return transport;
+    }
+
+    public LocalDateTime getCreationDate()
+    {
+        return creationDate;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public Payment getPayment()
+    {
+        return payment;
+    }
+
+
 }

@@ -10,6 +10,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -18,6 +19,8 @@ import java.util.regex.Pattern;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
@@ -38,8 +41,6 @@ public class MainScreen extends AppCompatActivity implements postInterface
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
 
-        /*
-
         ApiService api = ApiClient.getApiService();
 
         PostHelper postLogin = new PostHelper(this);
@@ -55,8 +56,6 @@ public class MainScreen extends AppCompatActivity implements postInterface
         String jsonString = gson.toJson(data);
         Log.d("kort",jsonString);
         postLogin.login(api,jsonString);
-        */
-
 
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
