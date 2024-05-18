@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 
 public class TaxiService extends Service{
 
-    public TaxiService(int id, LocalDateTime creationDate, Payment payment, Rating rating, Transport transport) {
+    private TaxiServiceProgress serviceProgress;
+
+    public TaxiService(int id, LocalDateTime creationDate, Payment payment, Rating rating, Transport transport,TaxiServiceProgress serviceProgress) {
         super(id, creationDate, payment, rating, transport);
     }
 }
