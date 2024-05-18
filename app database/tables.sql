@@ -385,27 +385,40 @@ CREATE TABLE out_city_service
 
 CREATE TABLE taxi_request
 (
-    service_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     pickup_location POINT NOT NULL,
     destination POINT NOT NULL,
     assigned_driver INT UNSIGNED,
     assignment_time DATETIME, -- Originally NULL, until a driver is assigned
     pickup_time DATETIME, -- Originally NULL, until the driver picks up the customer
-    rating_id INT UNSIGNED,
 
-    PRIMARY KEY(service_id),
-
-    CONSTRAINT fk_taxi_request_service
-    FOREIGN KEY(service_id) REFERENCES service(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
+    PRIMARY KEY(id),
 
     CONSTRAINT fk_taxi_request_driver
     FOREIGN KEY(assigned_driver) REFERENCES taxi_driver(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
+);
 
-    CONSTRAINT fk_taxi_request_rating
+CREATE TABLE taxi_service
+(
+    service_id INT UNSIGNED NOT NULL,
+    request_id INT UNSIGNED NOT NULL,
+    rating_id INT UNSIGNED,
+
+    PRIMARY KEY(service_id),
+
+    CONSTRAINT fk_taxi_service_service
+    FOREIGN KEY(service_id) REFERENCES service(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_taxi_service_taxi_request
+    FOREIGN KEY(request_id) REFERENCES taxi_request(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_taxi_service_rating
     FOREIGN KEY(rating_id) REFERENCES taxi_rating(id)
     ON UPDATE CASCADE
     ON DELETE SET NULL
