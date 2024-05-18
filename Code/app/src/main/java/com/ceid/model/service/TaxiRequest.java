@@ -7,89 +7,59 @@ import com.ceid.util.Coordinates;
 
 import java.time.LocalDateTime;
 
-public class TaxiRequest{
 
+public class TaxiRequest
+{
     private int id;
-    private Coordinates pickUpLocation;
+    private Coordinates pickupLocation;
     private Coordinates destination;
-    private TaxiDriver taxiDriver;
-    private LocalDateTime assignmentTime;
-    private LocalDateTime pickUpTime;
-    private TaxiService taxiService;
-    private TaxiRequestProgress requestProgress;
+    private TaxiDriver taxiDriver = null;
+    private LocalDateTime assignmentTime = null;
+    private LocalDateTime pickupTime = null;
 
-    public TaxiRequest(int id, Coordinates pickUpLocation, Coordinates destination, TaxiDriver taxiDriver, LocalDateTime assignmentTime, LocalDateTime pickUpTime, TaxiService taxiService, TaxiRequestProgress requestProgress) {
+    public TaxiRequest(int id, Coordinates pickupLocation, Coordinates destination) {
         this.id = id;
-        this.pickUpLocation = pickUpLocation;
+        this.pickupLocation = pickupLocation;
         this.destination = destination;
-        this.taxiDriver = taxiDriver;
-        this.assignmentTime = assignmentTime;
-        this.pickUpTime = pickUpTime;
-        this.taxiService = taxiService;
-        this.requestProgress = requestProgress;
     }
 
-    public int getId() {
-        return id;
+    public Coordinates getPickupLocation()
+    {
+        return pickupLocation;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Coordinates getPickUpLocation() {
-        return pickUpLocation;
-    }
-
-    public void setPickUpLocation(Coordinates pickUpLocation) {
-        this.pickUpLocation = pickUpLocation;
-    }
-
-    public Coordinates getDestination() {
+    public Coordinates getDestination()
+    {
         return destination;
     }
 
-    public void setDestination(Coordinates destination) {
-        this.destination = destination;
-    }
-
-    public TaxiDriver getTaxiDriver() {
+    public TaxiDriver getTaxiDriver()
+    {
         return taxiDriver;
     }
 
-    public void setTaxiDriver(TaxiDriver taxiDriver) {
-        this.taxiDriver = taxiDriver;
-    }
-
-    public LocalDateTime getAssignmentTime() {
+    public LocalDateTime getAssignmentTime()
+    {
         return assignmentTime;
     }
 
-    public void setAssignmentTime(LocalDateTime assignmentTime) {
-        this.assignmentTime = assignmentTime;
+    public LocalDateTime getPickupTime()
+    {
+        return pickupTime;
     }
 
-    public LocalDateTime getPickUpTime() {
-        return pickUpTime;
+    public void setTaxiDriver(TaxiDriver taxiDriver)
+    {
+        this.taxiDriver = taxiDriver;
     }
 
-    public void setPickUpTime(LocalDateTime pickUpTime) {
-        this.pickUpTime = pickUpTime;
+    public void setAssignmentTime(LocalDateTime time)
+    {
+        this.assignmentTime = time;
     }
 
-    public TaxiService getTaxiService() {
-        return taxiService;
-    }
-
-    public void setTaxiService(TaxiService taxiService) {
-        this.taxiService = taxiService;
-    }
-
-    public TaxiRequestProgress getRequestProgress() {
-        return requestProgress;
-    }
-
-    public void setRequestProgress(TaxiRequestProgress requestProgress) {
-        this.requestProgress = requestProgress;
+    public void setPickupTime(LocalDateTime time)
+    {
+        this.pickupTime = time;
     }
 }

@@ -27,12 +27,15 @@ public class Currency implements Serializable
     public Currency(String value){
         this.value=new BigDecimal(value);
     }
-    public void setCurrency(String currency){
+
+    public Currency setCurrency(String currency){
         if(currency=="$"||currency=="Dollar"){
             this.currency= CurrencyType.DOLLAR;
         }
         else
           this.currency= CurrencyType.EURO;
+
+        return this;
     }
 
     public BigDecimal getValue(){
@@ -62,37 +65,37 @@ public class Currency implements Serializable
     }
 
     //for numeric types like Integer, Long, Short, Byte
-    public void mulValue(Number value){
+    public Currency mulValue(Number value){
         BigDecimal tmp=BigDecimal.valueOf(value.doubleValue());
-        this.value=this.value.multiply(tmp);
+        return new Currency(this.value.multiply(tmp)).setCurrency(this.currency.getSymbol());
     }
 
     //same for float and double
-    public void mulValue(Float value){
+    public Currency mulValue(Float value){
         BigDecimal tmp=new BigDecimal(value.toString());
-        this.value=this.value.multiply(tmp);
+        return new Currency(this.value.multiply(tmp)).setCurrency(this.currency.getSymbol());
     }
 
-    public void mulValue(Double value){
+    public Currency mulValue(Double value){
         BigDecimal tmp= BigDecimal.valueOf(value);
-        this.value=this.value.add(tmp);
+        return new Currency(this.value.multiply(tmp)).setCurrency(this.currency.getSymbol());
     }
     
     ////////////////////////////////////////////////////////////add
-    public void addValue(Number value){
+    public Currency addValue(Number value){
         BigDecimal tmp=BigDecimal.valueOf(value.doubleValue());
-        this.value=this.value.multiply(tmp);
+        return new Currency(this.value.add(tmp)).setCurrency(this.currency.getSymbol());
     }
 
     //same for float and double
-    public void addValue(Float value){
+    public Currency addValue(Float value){
         BigDecimal tmp=new BigDecimal(value.toString());
-        this.value=this.value.add(tmp);
+        return new Currency(this.value.add(tmp)).setCurrency(this.currency.getSymbol());
     }
 
-    public void addValue(Double value){
+    public Currency addValue(Double value){
         BigDecimal tmp= BigDecimal.valueOf(value);
-        this.value=this.value.add(tmp);
+        return new Currency(this.value.add(tmp)).setCurrency(this.currency.getSymbol());
     }
 
     ////////////////////////////////////////////////////////for someone TODO:make the same for division
