@@ -3,22 +3,26 @@ import com.ceid.model.users.Customer;
 import com.ceid.util.PositiveInteger;
 
 public class Payment {
-    private Customer person;
-    private PositiveInteger amount;
+    //private Customer person;
 
-    public Customer getPerson() {
+    public enum Method {WALLET,CASH};
+    private Method method;
+    private Currency amount;
+
+    /*public Customer getPerson() {
         return person;
-    }
+    }*/
 
+    /*
     public void setPerson(Customer person) {
         this.person = person;
-    }
+    }*/
 
-    public PositiveInteger getAmount() {
+    public Currency getAmount() {
         return amount;
     }
 
-    public void setAmount(PositiveInteger amount) {
+    public void setAmount(Currency amount) {
         this.amount = amount;
     }
 
@@ -30,16 +34,14 @@ public class Payment {
         this.method = method;
     }
 
-    enum Method {WALLET,CASH};
-    private Method method;
-    
-
-    public Payment(Customer person,int amount,Method method){
-        this.person=person;
-        this.amount=new PositiveInteger(amount);
+    public Payment(Currency amount,Method method){
+        this.amount=amount;
         this.method=method;
     }
 
-    
+    public String toString()
+    {
+        return amount.toString();
+    }
 }
 

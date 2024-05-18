@@ -16,3 +16,7 @@
 
 
 Στο μοντέλο πρέπει τα requiresLicense να πάνε στο Rental, όχι στο InCity
+
+
+
+ΤΑ ΒΕΛΑΚΙΑ ΣΤΟ ROBUSTNESS

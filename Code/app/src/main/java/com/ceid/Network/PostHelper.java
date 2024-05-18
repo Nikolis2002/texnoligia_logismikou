@@ -4,6 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,14 +39,19 @@ public class PostHelper {
     }
 
     public void login(ApiService api,String userParams){
-        Call<Void> call= api.checkUser(userParams);
+        Call<ResponseBody> call= api.checkUser(userParams);
         Log.d("kort","kort was send successfully!!");
-        call.enqueue(new Callback<Void>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    if(callback!=null)
-                        callback.onResponseSuccess("Success Data");
+                    if(callback!=null) {
+                        try {
+                            callback.onResponseSuccess(response);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 } else {
                     if (callback != null)
                         callback.onResponseFailure(new Throwable("Request failed"));
@@ -51,7 +59,7 @@ public class PostHelper {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 System.out.println("Error message");
             }
         });

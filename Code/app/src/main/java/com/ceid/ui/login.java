@@ -28,7 +28,7 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.postInterface;
 
-public class login extends AppCompatActivity implements postInterface{
+public class login extends AppCompatActivity{
     private String username,password;
     private EditText userText,pass;
     private ImageView visib;
@@ -61,8 +61,8 @@ public class login extends AppCompatActivity implements postInterface{
     public void buttonLogin(View view)
     {
 
-        PostHelper requestHandler = new PostHelper(this);
-        requestHandler.login(apiService,"");
+       // PostHelper requestHandler = new PostHelper(this);
+        //requestHandler.login(apiService,"");
         /*if(username.equals(userText.getText().toString())) {
             if (password.equals(pass.getText().toString()))
             {
@@ -87,17 +87,17 @@ public class login extends AppCompatActivity implements postInterface{
         startActivity(intent);
     }
 
-    @Override
+    /*@Override
     public void onResponseSuccess(String data) {
         // Start the new activity on successful response
         Intent intent = new Intent(login.this, MainScreen.class);
         intent.putExtra("key", data);
         startActivity(intent);
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onResponseFailure(Throwable t) {
         // Handle the failure case
         Toast.makeText(login.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }

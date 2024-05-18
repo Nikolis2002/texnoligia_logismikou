@@ -5,26 +5,28 @@ USE app_database;
 
 CREATE TABLE user
 (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR(32) NOT NULL,
+    username VARCHAR(32) NOT NULL UNIQUE,
     password VARCHAR(32) NOT NULL,
     name VARCHAR(32) NOT NULL,
     lname VARCHAR(32) NOT NULL,
     email VARCHAR(32) NOT NULL,
+    phone VARCHAR(32) NOT NULL,
 
-    PRIMARY KEY(id)
+    PRIMARY KEY(username)
 );
 
 
 CREATE TABLE customer
 (
-    id INT UNSIGNED NOT NULL,
+    username VARCHAR(32) NOT NULL UNIQUE,
     license VARCHAR(32),
     license_image LONGBLOB,
     points INT UNSIGNED NOT NULL,
-
-    CONSTRAINT fk_customer_id 
-        FOREIGN KEY(id) REFERENCES user(id)
+    
+    PRIMARY KEY(username),
+    
+    CONSTRAINT fk_customer_username
+        FOREIGN KEY(username) REFERENCES user(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -32,14 +34,14 @@ CREATE TABLE customer
 CREATE TABLE payment
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    customer_id INT UNSIGNED NOT NULL,
+    customer_username VARCHAR(32) NOT NULL ,
     payment_value DECIMAL(10, 2) NOT NULL,
     payment_method ENUM('WALLET','CASH'),
 
     PRIMARY KEY(id),
 
     CONSTRAINT customersPaymentId
-        FOREIGN KEY(customer_id) REFERENCES customer(id)
+        FOREIGN KEY(customer_username) REFERENCES customer(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 
@@ -49,7 +51,7 @@ CREATE TABLE service
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     creation_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    payment_id INT UNSIGNED,
+    payment_id  INT UNSIGNED,
     service_status ENUM('ONGOING', 'COMPLETED', 'CANCELLED') NOT NULL DEFAULT 'ONGOING',
     status_date DATETIME, -- Cancellation or completion date. Originally NULL
 
@@ -63,11 +65,11 @@ CREATE TABLE service
 
 CREATE TABLE customer_history
 (
-    customer_id INT UNSIGNED NOT NULL,
+    customer_username VARCHAR(32) NOT NULL,
     service_id INT UNSIGNED NOT NULL,
     
     CONSTRAINT fk_customer_history_id 
-        FOREIGN KEY(customer_id) REFERENCES customer(id)
+        FOREIGN KEY(customer_username) REFERENCES customer(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
 
@@ -80,12 +82,20 @@ CREATE TABLE customer_history
 
 CREATE TABLE transport
 (
+<<<<<<< Updated upstream
     id INT UNSIGNED NOT NULL,
+=======
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+>>>>>>> Stashed changes
     model VARCHAR(32) NOT NULL,
     manuf_year YEAR NOT NULL,
     manufacturer VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(id)
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 );
 
 CREATE TABLE taxi
@@ -172,14 +182,14 @@ CREATE TABLE electric_scooter
 
 CREATE TABLE taxi_driver
 (
-    id INT UNSIGNED NOT NULL,
+    username VARCHAR(32) NOT NULL UNIQUE,
     taxi INT UNSIGNED NOT NULL,
     free_status BOOLEAN NOT NULL,
 
-    PRIMARY KEY(id),
+    PRIMARY KEY(username),
 
     CONSTRAINT fk_taxi_driver_id 
-        FOREIGN KEY(id) REFERENCES user(id)
+        FOREIGN KEY(username) REFERENCES user(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
 
@@ -192,21 +202,20 @@ CREATE TABLE taxi_driver
 
 CREATE TABLE wallet
 (
-    id INT UNSIGNED NOT NULL,
-    user_id INT UNSIGNED NOT NULL,
+    username VARCHAR(32) NOT NULL UNIQUE,
     balance DECIMAL(10, 2) NOT NULL,
 
-    PRIMARY KEY(id),
+    PRIMARY KEY(username),
 
     CONSTRAINT fk_wallet_user
-        FOREIGN KEY(user_id) REFERENCES user(id)
+        FOREIGN KEY(username) REFERENCES user(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE  
 );
 
 CREATE table card
 (
-    wallet_id INT UNSIGNED NOT NULL,
+    username VARCHAR(32) NOT NULL,
     card_number VARCHAR(32) NOT NULL,
     card_holder VARCHAR(32) NOT NULL,
     expiration_date VARCHAR(32) NOT NULL,
@@ -216,7 +225,7 @@ CREATE table card
     PRIMARY KEY(card_number),
 
     CONSTRAINT fk_card_wallet
-        FOREIGN KEY(wallet_id) REFERENCES wallet(id)
+        FOREIGN KEY(username) REFERENCES wallet(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -232,10 +241,10 @@ CREATE TABLE coupon
 CREATE TABLE customer_coupon
 (
     coupon_id VARCHAR(32) NOT NULL,
-    customer_id INT UNSIGNED NOT NULL,
+    customer_username VARCHAR(32) NOT NULL,
     assignment_date DATETIME,
 
-    PRIMARY KEY(coupon_id, customer_id),
+    PRIMARY KEY(coupon_id, customer_username),
 
     CONSTRAINT couponId
         FOREIGN KEY(coupon_id) REFERENCES coupon(id)
@@ -243,7 +252,7 @@ CREATE TABLE customer_coupon
         ON DELETE CASCADE,
 
     CONSTRAINT customerId
-        FOREIGN KEY(customer_id) REFERENCES customer(id)
+        FOREIGN KEY(customer_username) REFERENCES customer(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -388,7 +397,7 @@ CREATE TABLE taxi_request
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     pickup_location POINT NOT NULL,
     destination POINT NOT NULL,
-    assigned_driver INT UNSIGNED,
+    assigned_driver VARCHAR(32),
     assignment_time DATETIME, -- Originally NULL, until a driver is assigned
     pickup_time DATETIME, -- Originally NULL, until the driver picks up the customer
 
@@ -413,8 +422,13 @@ CREATE TABLE taxi_service
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 
+<<<<<<< Updated upstream
     CONSTRAINT fk_taxi_service_taxi_request
     FOREIGN KEY(request_id) REFERENCES taxi_request(id)
+=======
+    CONSTRAINT fk_taxi_request_driver
+    FOREIGN KEY(assigned_driver) REFERENCES taxi_driver(username)
+>>>>>>> Stashed changes
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 
@@ -473,23 +487,17 @@ CREATE TABLE garage_vehicle
 
 DROP TABLE IF EXISTS bank;
 CREATE TABLE bank(
-    id INT UNSIGNED NOT NULL,
+    username VARCHAR(32) NOT NULL,
     card_owner VARCHAR(64) NOT NULL,
     card_number VARCHAR(32) NOT NULL,
     card_exp_date VARCHAR(10) NOT NULL,
     cvv VARCHAR(8) NOT NULL,
     owner_balance INT NOT NULL default '500',
-    PRIMARY KEY(id,card_number),
-    CONSTRAINT fk_customer_bank_id
-        FOREIGN KEY(id) REFERENCES customer(id)
+    PRIMARY KEY(username,card_number),
+    CONSTRAINT fk_customer_bank_user
+        FOREIGN KEY(username) REFERENCES customer(username)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
 -- ////////////////////////////////////////////////////////////////////////////////////END////////////////////////////////////////////////////////////////////////////
-
-INSERT INTO user VALUES(NULL,"bill","Vasilis","Kourtakis","test@gmail.com");
-INSERT INTO customer VALUES(1,"A2","test",0);
-INSERT INTO bank VALUES(1,"VASILIS KOURTAKIS","1234567891011123","05/26","888",1000);
-CALL checkCredentials("VASILIS KOURTAKIS","1234567891011123","05/26","888",1000,@res);
-SELECT @res;

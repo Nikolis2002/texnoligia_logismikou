@@ -1,24 +1,19 @@
 package com.ceid.model.users;
 
 public class User {
-    private int id;
     private String username;
     private String name;
+    private String password;
     private String lname;
     private String email;
 
-    public User(int id,String username,String name,String lname,String email){
-        this.id=id;
+    public User(String username,String password,String name,String lname,String email){
         this.username=username;
+        this.password=password;
         this.name=name;
         this.lname=lname;
         this.email=email;
     }
-
-    public int idGetter(){
-        return this.id;
-    }
-
     public String usernameGetter(){
         return this.username;
     }
@@ -33,10 +28,6 @@ public class User {
 
     public String emailGetter(){
         return this.email;
-    }
-
-    protected void idSetter(int id){
-         this.id=id;
     }
 
     protected void usernameSetter(String Username){

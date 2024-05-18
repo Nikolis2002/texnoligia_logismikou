@@ -34,4 +34,9 @@ public abstract class Transport implements Serializable
     public int getId() {
         return id;
     }
+
+    public String getTitle()
+    {
+        return String.format("%s %s (%s)", manufacturer, model, manuf_year);
+    }
 }
