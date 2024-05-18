@@ -19,5 +19,5 @@ public interface ApiService {
     Call<Void> postUser(@Body String userString);
 
     @POST("/check_user")
-    Call<Void> checkUser(@Body String userParams);
+    Call<ResponseBody> checkUser(@Body String userParams);
 }

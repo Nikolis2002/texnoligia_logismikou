@@ -5,16 +5,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import retrofit2.Call;
-import retrofit2.Callback;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,10 +24,13 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
+import com.ceid.model.users.Customer;
+import com.ceid.model.users.User;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 public class MainScreen extends AppCompatActivity implements postInterface
 {
@@ -44,7 +44,7 @@ public class MainScreen extends AppCompatActivity implements postInterface
         ApiService api = ApiClient.getApiService();
 
         PostHelper postLogin = new PostHelper(this);
-        String username="kort";
+        String username="bill";
         String password="123";
 
         Map<String, String> data = new HashMap<>();
@@ -99,9 +99,13 @@ public class MainScreen extends AppCompatActivity implements postInterface
         startActivity(intent);
     }
 
-    @Override
-    public void onResponseSuccess(String Data) {
-        Log.d("kort","yes");
+    public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(response.body().string());
+        User ca= jsonStringParser.parseJson(jsonNode);
+        Customer c=(Customer)ca;
+        c.logCustomerDetails();
+
     }
 
     @Override

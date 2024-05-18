@@ -67,7 +67,12 @@ app.post("/check_user",async (req,res)=>{
     try{
         const data=req.body;
         console.log(data);
-        res.status(200).send("success!!!!!!!!!");
+        jsonObj=JSON.parse(data);
+        let queryString= "CALL checkDriver(?,?)";
+        console.log(`${jsonObj.username} and ${jsonObj.password}`);
+        let tableData=await helper.queryPromise(con,queryString,[jsonObj.username,jsonObj.password]);
+        console.log(tableData.result);
+        res.status(200).send(tableData.result);
     }
     catch(err){
         console.error("Error processing request:", err);

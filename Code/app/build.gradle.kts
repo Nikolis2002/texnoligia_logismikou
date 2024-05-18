@@ -52,7 +52,7 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.5")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
 }
 
 secrets {
