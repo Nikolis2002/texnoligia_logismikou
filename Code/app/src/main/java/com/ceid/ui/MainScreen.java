@@ -64,7 +64,7 @@ public class MainScreen extends AppCompatActivity implements postInterface
                 int id = item.getItemId();
                 Fragment selectedFragment = null;
 
-                if (id == R.id.page_request)
+                if (id == R.id.page_home)
                 {
                     selectedFragment = new MainScreenFragment();
                 }
