@@ -152,6 +152,12 @@
     <string name="unlock_vehicle">Unlock vehicle</string>
     <string name="pickup_cost_1_5">Pickup cost: 1.5€</string>
     <string name="accept">Accept</string>
+    <string name="requests">Requests</string>
+    <string name="requestimage">RequestImage</string>
+    <string name="profile">Profile</string>
+    <string name="profileimagebutton">profileImageButton</string>
+    <string name="activity">Activity</string>
+    <string name="activityimagebutton">activityImageButton</string>
 
 
 </resources>
