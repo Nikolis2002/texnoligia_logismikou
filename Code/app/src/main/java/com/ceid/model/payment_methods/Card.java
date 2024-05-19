@@ -1,7 +1,9 @@
 package com.ceid.model.payment_methods;
 import com.ceid.util.DateFormat;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
     private String cardnumber;
     private String cardholderName;
     private String expirationDate;

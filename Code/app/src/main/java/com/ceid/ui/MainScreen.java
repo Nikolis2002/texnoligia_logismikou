@@ -30,36 +30,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 
-public class MainScreen extends AppCompatActivity 
-{
+public class MainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
-        
+
 
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener()
-        {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item)
-            {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 Fragment selectedFragment = null;
 
-                if (id == R.id.page_home)
-                {
+                if (id == R.id.page_home) {
                     selectedFragment = new MainScreenFragment();
-                }
-                else if (id == R.id.page_history)
-                {
+                } else if (id == R.id.page_history) {
                     selectedFragment = new RouteHistory();
-                }
-                else if (id == R.id.page_profile)
-                {
+                } else if (id == R.id.page_profile) {
                     selectedFragment = new CustomerProfile();
                 }
 
@@ -70,16 +62,16 @@ public class MainScreen extends AppCompatActivity
         });
     }
 
-    public void inCity(View view)
-    {
+    public void inCity(View view) {
         Intent intent = new Intent(this, InCityScreen.class);
         startActivity(intent);
     }
 
-    public void outCity(View view)
-    {
+    public void outCity(View view) {
         Intent intent = new Intent(this, OutCityScreen.class);
         startActivity(intent);
     }
+
+}
 
    

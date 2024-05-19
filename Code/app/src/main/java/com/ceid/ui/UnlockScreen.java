@@ -24,7 +24,7 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class UnlockVehicle extends AppCompatActivity implements MapWrapperReadyListener {
+public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyListener {
 
     private Map map;
     private Coordinates car_loc;
@@ -67,7 +67,7 @@ public class UnlockVehicle extends AppCompatActivity implements MapWrapperReadyL
     public void unlockVehicle(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            IntentIntegrator qrScanner = new IntentIntegrator(UnlockVehicle.this);
+            IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
             qrScanner.setCaptureActivity(QrCamera.class);
             qrScanner.setOrientationLocked(false);
             qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
@@ -84,7 +84,7 @@ public class UnlockVehicle extends AppCompatActivity implements MapWrapperReadyL
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                IntentIntegrator qrScanner = new IntentIntegrator(UnlockVehicle.this);
+                IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
                 qrScanner.setCaptureActivity(QrCamera.class);
                 qrScanner.setOrientationLocked(false);
                 qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
