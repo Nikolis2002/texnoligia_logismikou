@@ -1,6 +1,8 @@
 package com.ceid.Network;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.transport.Taxi;
@@ -9,6 +11,7 @@ import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -19,6 +22,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class jsonStringParser {
 
@@ -113,6 +119,14 @@ public class jsonStringParser {
 
         }
 
+    }
+
+    public static boolean getbooleanFromJson(@NonNull Response<ResponseBody> response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(response.body().string());
+        String booleanString=jsonNode.get(0).get(0).get("result").asText();
+
+        return Boolean.parseBoolean(booleanString);
     }
 
 

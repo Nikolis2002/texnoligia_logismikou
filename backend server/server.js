@@ -63,6 +63,25 @@ app.get("/getTableData",async (req,res)=>{
     
 });
 
+app.post("/getFunctionWithParams",async (req,res)=>{
+    try{
+        const param=req.body;
+        jsonObj=JSON.parse(data);
+        
+        jsonMap=helper.getPostParamsJson(jsonObj);
+        jsonArray=Array.from(jsonMap.values());
+        let query=`CALL ${param}(?)`;
+
+        let response= await helper.queryPromise(con,query,jsonMap);
+        console.log(response.result[0][0].result);
+        res.status(200).send(response.result);
+    }
+    catch(err){
+        console.log("here2");
+        res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
+    }
+});
+
 app.post("/check_user",async (req,res)=>{
     try{
         const data=req.body;

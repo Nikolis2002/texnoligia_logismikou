@@ -4,20 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -54,6 +48,32 @@ public class login extends AppCompatActivity implements postInterface{
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
         apiService = ApiClient.getApiService();
+
+        ApiService api=ApiClient.getApiService();
+        Call<ResponseBody> call =api.getFunction("tesy");
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        boolean test=jsonStringParser.getbooleanFromJson(response);
+                        Log.d("test", String.valueOf(test));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                } else {
+                    //test2
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                System.out.println("Error message");
+            }
+        });
+
 
     }
     public void onClickVisib(View view) {

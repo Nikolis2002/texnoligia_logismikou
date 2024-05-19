@@ -15,6 +15,12 @@ public interface ApiService {
     @GET("/getTableData")
     Call<String> getTableData(@Query("tableName") String tableName);
 
+    @POST("/getFunctionWithParams")
+    Call<ResponseBody> getFunction(@Body String jsonfunction);
+
+    @POST("/getFunctionNoParams")
+    Call<String> getFuncNoParams(@Body String jsonfunction);
+
     @POST("/insert_user")
     Call<Void> postUser(@Body String userString);
 

@@ -8,11 +8,19 @@ begin
     update service set status_date=now() where id=service_id;
 end $
 
-create procedure checkQrId(in id int,in vehicle_id int,out result int)
+create procedure checkQrId(in id int,in vehicle_id int)
 begin
 	IF EXISTS(SELECT selected_vehicle FROM rental_service WHERE selected_vehicle=service_id and service_id=id) THEN
-		set result=1;	
+		SELECT "TRUE" AS result;	
 	ELSE
-		set result=0;
+		SELECT "FALSE" AS result;
 	END IF;
 end $
+
+
+delimiter $
+CREATE PROCEDURE test()
+BEGIN
+	SELECT "TRUE" AS result;
+END$
+delimiter ;

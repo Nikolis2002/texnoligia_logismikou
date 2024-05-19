@@ -93,6 +93,19 @@ END $$
 
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS getCarsAndGarage;
+DELIMITER $$
+CREATE PROCEDURE getCarsAndGarage()
+BEGIN
+    SELECT
+    FROM garage g 
+    INNER  JOIN out_city_transport ot on g.id=ot.garage_id
+    LEFT JOIN out_city_car oc on oc.id=ot.id
+    LEFT JOIN out_city_van ov ON ov.id=ot.id;
+END $$
+DELIMITER ;
+
+
 -- //////////////////////BANK MOCK
 INSERT INTO user VALUES("bill","123","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill","A2","test",0);
