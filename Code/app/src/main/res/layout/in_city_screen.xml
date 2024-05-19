@@ -12,154 +12,218 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/linearLayoutTaxi"
-            android:layout_width="184dp"
-            android:layout_height="152dp"
-            android:layout_marginTop="84dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-            <TextView
-                android:id="@+id/textview_taxi"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/main_screen_taxi"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:layout_margin="20dp"
+                app:cardCornerRadius="20dp">
 
-            <ImageButton
-                android:id="@+id/img_taxi"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#00FFFFFF"
-                android:onClick="onTaxiClick"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/local_taxi_fill0_wght400_grad0_opsz24" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Select a vehicle"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/linearLayout6"
-            android:layout_width="148dp"
-            android:layout_height="139dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout5">
-
-            <TextView
-                android:id="@+id/textview_rent_car"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/main_screen_rent_car"
-                android:textAlignment="center"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/img_rent_car"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#00FFFFFF"
-                android:onClick="onClick"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/directions_car_fill0_wght400_grad0_opsz24" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="15dp">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linearLayout6"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="144dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout6"
-            app:layout_constraintTop_toTopOf="parent">
+                        <TextView
+                            android:id="@+id/textview_rent_car"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00FFFFFF"
+                            android:text="@string/main_screen_rent_car"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textview_rent_motorcycle"
-                android:layout_width="match_parent"
+                        <ImageButton
+                            android:id="@+id/img_rent_car"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#00FFFFFF"
+                            android:onClick="onClick"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/directions_car_fill0_wght400_grad0_opsz24" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textview_rent_motorcycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00FFFFFF"
+                            android:text="@string/main_screen_rent_motorcycle"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+
+                        <ImageButton
+                            android:id="@+id/img_rent_motorcycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#00FFFFFF"
+                            android:onClick="onClick"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/two_wheeler_fill0_wght400_grad0_opsz24" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/main_screen_rent_motorcycle"
-                android:textAlignment="center"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/img_rent_motorcycle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#00FFFFFF"
-                android:onClick="onClick"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/two_wheeler_fill0_wght400_grad0_opsz24" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="15dp">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linearLayout8"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout7"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="56dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout8"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+                        <TextView
+                            android:id="@+id/textview_rent_bike"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00FFFFFF"
+                            android:text="@string/main_screen_rent_bike"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textview_rent_scooter"
-                android:layout_width="match_parent"
+                        <ImageButton
+                            android:id="@+id/img_rent_bike"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#00FFFFFF"
+                            android:onClick="onClick"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/pedal_bike_fill0_wght400_grad0_opsz24" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="30dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout7"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textview_rent_scooter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00FFFFFF"
+                            android:text="@string/main_screen_rent_scooter"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+
+                        <ImageButton
+                            android:id="@+id/img_rent_scooter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#00FFFFFF"
+                            android:onClick="onClick"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/electric_scooter_fill0_wght400_grad0_opsz24" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/main_screen_rent_scooter"
-                android:textAlignment="center"
-                android:textSize="16sp" />
+                android:layout_margin="30dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="15dp">
 
-            <ImageButton
-                android:id="@+id/img_rent_scooter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#00FFFFFF"
-                android:onClick="onClick"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/electric_scooter_fill0_wght400_grad0_opsz24" />
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayoutTaxi"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout8"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="4dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout7">
+                    <TextView
+                        android:id="@+id/textview_taxi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00FFFFFF"
+                        android:text="@string/main_screen_taxi"
+                        android:textAlignment="center"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textview_rent_bike"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/main_screen_rent_bike"
-                android:textAlignment="center"
-                android:textSize="16sp" />
+                    <ImageButton
+                        android:id="@+id/img_taxi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#00FFFFFF"
+                        android:onClick="onTaxiClick"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/local_taxi_fill0_wght400_grad0_opsz24" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-            <ImageButton
-                android:id="@+id/img_rent_bike"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#00FFFFFF"
-                android:onClick="onClick"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/pedal_bike_fill0_wght400_grad0_opsz24" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
