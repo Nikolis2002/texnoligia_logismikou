@@ -158,6 +158,12 @@
     <string name="profileimagebutton">profileImageButton</string>
     <string name="activity">Activity</string>
     <string name="activityimagebutton">activityImageButton</string>
+    <string name="select_a_vehicle">Select a vehicle</string>
+    <string name="car_image">car image</string>
+    <string name="scooter_image">scooter image</string>
+    <string name="motorcycle_image">motorcycle image</string>
+    <string name="bike_image">bike image</string>
+    <string name="taxi_image_2">taxi image</string>
 
 
 </resources>
