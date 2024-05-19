@@ -83,9 +83,9 @@ CREATE TABLE customer_history
 CREATE TABLE transport
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    manufacturer VARCHAR(32) NOT NULL,
     model VARCHAR(32) NOT NULL,
     manuf_year YEAR NOT NULL,
-    manufacturer VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(id)
 );
@@ -337,29 +337,6 @@ CREATE TABLE rental_service
     ON DELETE SET NULL
 );
 
-CREATE TABLE out_city_transport
-(
-    id INT UNSIGNED NOT NULL,
-    garage_id INT UNSIGNED NOT NULL,
-    out_city_license VARCHAR(32) NOT NULL,
-    seat_capacity INT UNSIGNED NOT NULL,
-    gas INT UNSIGNED NOT NULL,
-    free_status VARCHAR(32) NOT NULL,
-    rate DECIMAL(5, 2) NOT NULL,
-    
-    CONSTRAINT fk_out_city_transport 
-    FOREIGN KEY(id) REFERENCES transport(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-
-    CONSTRAINT fk_garage_vehicle_garage
-    FOREIGN KEY(garage_id) REFERENCES garage(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-    
-    PRIMARY KEY(id)
-);
-
 CREATE TABLE garage
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -371,6 +348,29 @@ CREATE TABLE garage
     PRIMARY KEY(id)
 );
 
+CREATE TABLE out_city_transport
+(
+    id INT UNSIGNED NOT NULL,
+    out_city_license VARCHAR(32) NOT NULL,
+    seat_capacity INT UNSIGNED NOT NULL,
+    gas INT UNSIGNED NOT NULL,
+    garage INT UNSIGNED NOT NULL,
+    free_status VARCHAR(32) NOT NULL,
+    rate DECIMAL(5, 2) NOT NULL,
+
+    PRIMARY KEY(id),
+    
+    CONSTRAINT fk_out_city_transport_transport
+    FOREIGN KEY(id) REFERENCES transport(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_out_city_transport_garage
+    FOREIGN KEY(garage) REFERENCES garage(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
 CREATE TABLE out_city_service
 (
     service_id INT UNSIGNED NOT NULL,
@@ -380,7 +380,7 @@ CREATE TABLE out_city_service
     PRIMARY KEY(service_id),
 
     CONSTRAINT fk_out_city_service_service
-    FOREIGN KEY(service_id) REFERENCES service
+    FOREIGN KEY(service_id) REFERENCES service(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
 

@@ -68,7 +68,7 @@
             android:cursorVisible="true"
             android:focusable="true"
             android:gravity="top"
-            android:hint="Comment:"
+            android:hint="@string/rating_comment"
             android:inputType="text|textMultiLine"
             android:minLines="3" />
 

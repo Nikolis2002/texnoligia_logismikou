@@ -29,9 +29,23 @@ public abstract class Service implements Serializable
         this.transport = transport;
     }
 
-    public void rate()
+    public Rating rate(Float vehicleStars, Float otherStars, String comment)
     {
 
+        if (this instanceof RentalService)
+        {
+            rating = new Rating(comment, vehicleStars.intValue());
+        }
+        else if (this instanceof OutCityService)
+        {
+            rating = new Rating(comment, vehicleStars.intValue(), otherStars.intValue(), RatingType.OUTCITY);
+        }
+        else
+        {
+            rating = new Rating(comment, vehicleStars.intValue(), otherStars.intValue(), RatingType.TAXI);
+        }
+
+        return rating;
     }
 
     public Rating getRating()
