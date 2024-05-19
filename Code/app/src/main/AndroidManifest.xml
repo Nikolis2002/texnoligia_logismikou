@@ -23,7 +23,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".MainScreen"
+            android:name=".MainScreenTaxi"
             android:exported="true"
             android:theme="@style/Theme.Texnolgia_logismikou">
             <intent-filter>
@@ -39,6 +39,9 @@
         <activity android:name=".UnlockVehicle" />
         <activity android:name=".RouteHistory" />
         <activity android:name=".TaxiWaitScreen" />
+        <activity android:name=".TaxiRideScreen" />
+        <activity android:name=".TransportScreen" />
+        <activity android:name=".TaxiRequestsScreen" />
         <activity
             android:name=".QrCamera"
             android:theme="@style/zxing_CaptureTheme"
