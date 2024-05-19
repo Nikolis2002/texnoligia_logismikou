@@ -29,6 +29,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 {
 	private Context context;
 	private ArrayList<Service> dataList;
+	private boolean clickable;
 
 	private static final int TAXI = 0;
 	private static final int RENTAL = 1;
@@ -109,6 +110,15 @@ public class HistoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	{
 		this.context = context;
 		this.dataList = dataList;
+		this.clickable = true;
+	}
+
+	public HistoryListAdapter(Context context, Service data)
+	{
+		this.context = context;
+		this.dataList = new ArrayList<>();
+		this.dataList.add(data);
+		this.clickable = false;
 	}
 
 	@Override
@@ -212,11 +222,14 @@ public class HistoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	@Override
 	public void onClick(View view)
 	{
-		Service service = dataList.get((int)view.getTag());
+		if (this.clickable)
+		{
+			Service service = dataList.get((int)view.getTag());
 
-		Intent intent = new Intent(context, RatingScreen.class);
-		intent.putExtra("service", service);
-		context.startActivity(intent);
+			Intent intent = new Intent(context, RatingScreen.class);
+			intent.putExtra("service", service);
+			context.startActivity(intent);
+		}
 	}
 
 	@Override

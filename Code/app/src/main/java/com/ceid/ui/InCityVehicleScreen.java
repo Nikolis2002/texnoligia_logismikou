@@ -198,7 +198,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         //Log.d("CLICK", String.format("Position: %d", position));
 
         Rental rental = (Rental) clickedItem.getTag();
-        map.smoothTransition(rental.getTracker().getCoords());
+        map.smoothTransition(rental.getTracker().getCoords(), map.getZoom() < 16 ? 16:map.getZoom());
     }
 
     //Clicking on the location screen

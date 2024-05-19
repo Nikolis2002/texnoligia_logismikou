@@ -204,6 +204,11 @@ public class Map implements OnMapReadyCallback
 		gmap.animateCamera(CameraUpdateFactory.newLatLng(coords.toLatLng()));
 	}
 
+	public void smoothTransition(Coordinates coords, float zoom)
+	{
+		gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(coords.toLatLng(), zoom));
+	}
+
 	public float getZoom()
 	{
 		return gmap.getCameraPosition().zoom;
