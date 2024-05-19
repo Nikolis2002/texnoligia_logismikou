@@ -91,25 +91,6 @@ public class login extends AppCompatActivity implements postInterface{
         Log.d("kort",jsonString);
         postLogin.login(api,jsonString);
 
-       // PostHelper requestHandler = new PostHelper(this);
-        //requestHandler.login(apiService,"");
-        /*if(username.equals(userText.getText().toString())) {
-            if (password.equals(pass.getText().toString()))
-            {
-                Intent intent = new Intent(this,MainScreen.class);
-                startActivity(intent);
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(), "Wrong Password!",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), "Wrong Username!",
-                    Toast.LENGTH_LONG).show();
-        }*/
     }
     public void signUp(View view)
     {
@@ -120,16 +101,20 @@ public class login extends AppCompatActivity implements postInterface{
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(response.body().string());
-        User ca= jsonStringParser.parseJson(jsonNode);
+        User user= jsonStringParser.parseJson(jsonNode);
 
-        if( ca instanceof TaxiDriver){
+        if( user instanceof TaxiDriver){
             Log.d("taxi","yessirTaxi");
-            ca.printUser();
-            Intent intent= new Intent(this,)
-        } else if (ca instanceof Customer) {
+            user.printUser();
+            Intent intent= new Intent(getApplicationContext(), MainScreenTaxi.class);
+            intent.putExtra("taxi driver",user);
+            startActivity(intent);
+        } else if (user instanceof Customer) {
             Log.d("Customer","yessirCustomer");
-            ca.printUser();
-            Customer c= (Customer)ca;
+            user.printUser();
+            Intent intent= new Intent(getApplicationContext(), MainScreen.class);
+            intent.putExtra("customer",user);
+            startActivity(intent);
         }
 
     }
@@ -137,6 +122,9 @@ public class login extends AppCompatActivity implements postInterface{
     @Override
     public void onResponseFailure(Throwable t) {
         Log.d("kort","no");
+
+        Toast.makeText(getApplicationContext(), "Invalid Credentials!",
+                Toast.LENGTH_LONG).show();
     }
 
 }

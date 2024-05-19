@@ -1,7 +1,9 @@
 package com.ceid.model.users;
 import com.ceid.util.PositiveInteger;
 
-public class Points {
+import java.io.Serializable;
+
+public class Points implements Serializable {
     PositiveInteger points;
 
 public Points(int points){

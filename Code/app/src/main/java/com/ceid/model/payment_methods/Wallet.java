@@ -2,10 +2,11 @@ package com.ceid.model.payment_methods;
 
 import com.ceid.util.DateFormat;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wallet {
+public class Wallet implements Serializable {
     private ArrayList<Card> cards=new ArrayList<>();
     private Currency cash;
 
