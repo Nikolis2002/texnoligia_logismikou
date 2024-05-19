@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="Select a vehicle"
+                android:text="@string/select_a_vehicle"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -64,6 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
+                            android:contentDescription="@string/car_image"
                             android:onClick="onClick"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/directions_car_fill0_wght400_grad0_opsz24" />
@@ -100,6 +100,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
+                            android:contentDescription="@string/motorcycle_image"
                             android:onClick="onClick"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/two_wheeler_fill0_wght400_grad0_opsz24" />
@@ -141,6 +142,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
+                            android:contentDescription="@string/bike_image"
                             android:onClick="onClick"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/pedal_bike_fill0_wght400_grad0_opsz24" />
@@ -158,6 +160,8 @@
                         android:id="@+id/linearLayout7"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -174,6 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
+                            android:contentDescription="@string/scooter_image"
                             android:onClick="onClick"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/electric_scooter_fill0_wght400_grad0_opsz24" />
@@ -212,6 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/taxi_image_2"
                         android:onClick="onTaxiClick"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/local_taxi_fill0_wght400_grad0_opsz24" />
