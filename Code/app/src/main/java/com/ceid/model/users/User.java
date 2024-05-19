@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public class User implements Serializable
 {
+    private static User currentUser;
+
     private String username;
     private String name;
     private String password;
@@ -57,4 +59,14 @@ public class User implements Serializable
     }
 
     public void printUser(){}
+
+    public static void setCurrentUser(User user)
+    {
+        User.currentUser = user;
+    }
+
+    public static User currentUser()
+    {
+        return User.currentUser;
+    }
 }

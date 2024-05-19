@@ -103,6 +103,8 @@ public class login extends AppCompatActivity implements postInterface{
         JsonNode jsonNode = mapper.readTree(response.body().string());
         User user= jsonStringParser.parseJson(jsonNode);
 
+        User.setCurrentUser(user);
+
         if( user instanceof TaxiDriver){
             Log.d("taxi","yessirTaxi");
             user.printUser();
