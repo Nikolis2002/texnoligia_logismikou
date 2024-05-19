@@ -25,6 +25,7 @@ import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
 import com.ceid.model.users.Customer;
+import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +33,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 
-public class MainScreen extends AppCompatActivity implements postInterface
+public class MainScreen extends AppCompatActivity 
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +41,7 @@ public class MainScreen extends AppCompatActivity implements postInterface
         setContentView(R.layout.main_screen);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
-
-        ApiService api = ApiClient.getApiService();
-
-        PostHelper postLogin = new PostHelper(this);
-        String username="bill";
-        String password="123";
-
-        Map<String, String> data = new HashMap<>();
-        data.put("username", username);
-        data.put("password", password);
-
-        // Convert the map to a JSON string
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(data);
-        Log.d("kort",jsonString);
-        postLogin.login(api,jsonString);
+        
 
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -99,17 +85,4 @@ public class MainScreen extends AppCompatActivity implements postInterface
         startActivity(intent);
     }
 
-    public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(response.body().string());
-        User ca= jsonStringParser.parseJson(jsonNode);
-        Customer c=(Customer)ca;
-        c.logCustomerDetails();
-
-    }
-
-    @Override
-    public void onResponseFailure(Throwable t) {
-        Log.d("kort","no");
-    }
-}
+   

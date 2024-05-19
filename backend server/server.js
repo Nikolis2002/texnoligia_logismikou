@@ -68,11 +68,38 @@ app.post("/check_user",async (req,res)=>{
         const data=req.body;
         console.log(data);
         jsonObj=JSON.parse(data);
-        let queryString= "CALL checkDriver(?,?)";
+
+        let queryUser= "CALL checkCustomer(?,?)";
+        let queryDriver= "CALL checkDriver(?,?)";
+
         console.log(`${jsonObj.username} and ${jsonObj.password}`);
-        let tableData=await helper.queryPromise(con,queryString,[jsonObj.username,jsonObj.password]);
-        console.log(tableData.result);
-        res.status(200).send(tableData.result);
+        let tableUser=await helper.queryPromise(con,queryUser,[jsonObj.username,jsonObj.password]);
+        let tableDriver=await helper.queryPromise(con,queryDriver,[jsonObj.username,jsonObj.password]);
+
+        if(tableUser.result[0][0].result==0 && tableDriver.result[0][0].result==0 ){
+            console.log(tableUser.result);
+            console.log("here dista");
+            res.status(500).send(new helper.ResponseMessage("User not registered").string());
+        }
+        else if(tableUser.result[0][0].result==0){
+            console.log("here dista2");
+            
+            
+            let coords=tableDriver.result[0][0].taxi_coords;
+            delete tableDriver.result[0][0].taxi_coords;
+            
+            tableDriver.result[0][0].lat=coords.x;
+            tableDriver.result[0][0].lng=coords.y;
+
+            console.log(tableDriver.result);
+            
+            res.status(200).send(tableDriver.result);
+        }
+        else{
+            console.log("here dista3");
+            console.log(tableUser.result);
+            res.status(200).send(tableUser.result);
+        }
     }
     catch(err){
         console.error("Error processing request:", err);

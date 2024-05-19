@@ -3,8 +3,11 @@ import android.util.Log;
 
 import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Wallet;
+import com.ceid.model.transport.Taxi;
 import com.ceid.model.users.Customer;
+import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
+import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -69,12 +72,47 @@ public class jsonStringParser {
             );
         }
         else{
-            JsonNode taxiNode = data.get(1);
+            JsonNode taxiNode = data.get(0).get(0);
+            Coordinates coords;
 
+            Wallet wallet = new Wallet(taxiNode.get("wallet_balance").asDouble());
+
+            // Extract card information
+            JsonNode cardsNode = data.get(1);
+            for (JsonNode card : cardsNode) {
+                Card newCard = new Card(
+                        card.get("card_number").asText(),
+                        card.get("card_holder").asText(),
+                        card.get("expiration_date").asText(),
+                        card.get("cvv").asText(),
+                        card.get("card_type").asText()
+                );
+                wallet.addCard(newCard); // Assuming you have a method to add a card to the wallet
+            }
+
+            Taxi taxi = new Taxi(
+                    taxiNode.get("taxi_id").asInt(),
+                    taxiNode.get("taxi_model").asText(),
+                    taxiNode.get("taxi_year").asText(),
+                    taxiNode.get("manuf").asText(),
+                    taxiNode.get("licensePlate").asText(),
+                    coords= new Coordinates(taxiNode.get("lat").asDouble(),taxiNode.get("lng").asDouble())
+            );
+
+
+            return new TaxiDriver(
+                    taxiNode.get("username").asText(),
+                    taxiNode.get("password").asText(),
+                    taxiNode.get("name").asText(),
+                    taxiNode.get("lname").asText(),
+                    taxiNode.get("email").asText(),
+                    wallet,
+                    Boolean.parseBoolean(taxiNode.get("taxi_status").asText()),
+                    taxi
+            );
 
         }
 
-        return  user;
     }
 
 

@@ -109,7 +109,7 @@ CREATE TABLE rental
     id INT UNSIGNED NOT NULL,
     rate DECIMAL(5, 2) NOT NULL,
     coords POINT NOT NULL,
-    free_status BOOLEAN NOT NULL,
+    free_status VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(id),
 
@@ -176,7 +176,7 @@ CREATE TABLE taxi_driver
 (
     username VARCHAR(32) NOT NULL UNIQUE,
     taxi INT UNSIGNED NOT NULL,
-    free_status BOOLEAN NOT NULL,
+    free_status VARCHAR(32) NOT NULL,
 
     PRIMARY KEY(username),
 
@@ -293,7 +293,7 @@ CREATE TABLE refill
     station_id INT UNSIGNED NOT NULL,
     initial_gas_quantity INT UNSIGNED NOT NULL,
     added_gas_quantity INT UNSIGNED NOT NULL DEFAULT 0,
-    success BOOLEAN NOT NULL, -- If tracker fails after refill, mark this refill session as incomplete. Return money to customer at a later date
+    success VARCHAR(32) NOT NULL, -- If tracker fails after refill, mark this refill session as incomplete. Return money to customer at a later date
 
     PRIMARY KEY(date),
 
@@ -343,7 +343,7 @@ CREATE TABLE out_city_transport
     out_city_license VARCHAR(32) NOT NULL,
     seat_capacity INT UNSIGNED NOT NULL,
     gas INT UNSIGNED NOT NULL,
-    free_status BOOLEAN NOT NULL,
+    free_status VARCHAR(32) NOT NULL,
     rate DECIMAL(5, 2) NOT NULL,
     
     CONSTRAINT fk_out_city_transport 
@@ -396,9 +396,9 @@ CREATE TABLE taxi_request
     PRIMARY KEY(id),
 
     CONSTRAINT fk_taxi_request_driver
-    FOREIGN KEY(assigned_driver) REFERENCES taxi_driver(id)
+    FOREIGN KEY(assigned_driver) REFERENCES taxi_driver(username)
     ON UPDATE CASCADE
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
 );
 
 CREATE TABLE taxi_service

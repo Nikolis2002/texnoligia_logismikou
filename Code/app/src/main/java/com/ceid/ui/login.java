@@ -15,20 +15,32 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
+import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
+import com.ceid.model.users.Customer;
+import com.ceid.model.users.TaxiDriver;
+import com.ceid.model.users.User;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
-public class login extends AppCompatActivity{
+public class login extends AppCompatActivity implements postInterface{
     private String username,password;
     private EditText userText,pass;
     private ImageView visib;
@@ -60,6 +72,24 @@ public class login extends AppCompatActivity{
     }
     public void buttonLogin(View view)
     {
+        ApiService api = ApiClient.getApiService();
+
+        PostHelper postLogin = new PostHelper(this);
+
+        username=userText.getText().toString();
+        password=pass.getText().toString();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("username", username);
+        data.put("password", password);
+
+
+
+        // Convert the map to a JSON string
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(data);
+        Log.d("kort",jsonString);
+        postLogin.login(api,jsonString);
 
        // PostHelper requestHandler = new PostHelper(this);
         //requestHandler.login(apiService,"");
@@ -87,17 +117,26 @@ public class login extends AppCompatActivity{
         startActivity(intent);
     }
 
-    /*@Override
-    public void onResponseSuccess(String data) {
-        // Start the new activity on successful response
-        Intent intent = new Intent(login.this, MainScreen.class);
-        intent.putExtra("key", data);
-        startActivity(intent);
-    }*/
+    public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(response.body().string());
+        User ca= jsonStringParser.parseJson(jsonNode);
 
-   /* @Override
+        if( ca instanceof TaxiDriver){
+            Log.d("taxi","yessirTaxi");
+            ca.printUser();
+            Intent intent= new Intent(this,)
+        } else if (ca instanceof Customer) {
+            Log.d("Customer","yessirCustomer");
+            ca.printUser();
+            Customer c= (Customer)ca;
+        }
+
+    }
+
+    @Override
     public void onResponseFailure(Throwable t) {
-        // Handle the failure case
-        Toast.makeText(login.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-    }*/
+        Log.d("kort","no");
+    }
+
 }

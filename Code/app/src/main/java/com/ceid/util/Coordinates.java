@@ -26,6 +26,15 @@ public class Coordinates implements Serializable
     {
         this.lat = coords.latitude;
         this.lng = coords.longitude;
+
+    }
+
+    public static Coordinates parseCoords(String coordsString){
+        coordsString=coordsString.replace("POINT(", "").replace(")", "");
+        String[] coords= coordsString.split(" ");
+        double lat=Double.parseDouble(coords[0]);
+        double lng=Double.parseDouble(coords[1]);
+        return new Coordinates(lat,lng);
     }
 
 	public double getLat() {

@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 
 public class Customer extends User {
 
-    private Wallet wallet;
     private Points points;
     private byte[] img;
 
@@ -14,8 +13,7 @@ public class Customer extends User {
     private CustomerHistory history;
 
    public Customer(String username,String password,String name,String lname,String email,byte[] img,Wallet wallet,String license,int points){
-        super(username,password,name,lname,email);
-        this.wallet=wallet;
+        super(username,password,name,lname,email,wallet);
         this.license=license;
         this.img=img;
         this.points=new Points(points);
@@ -23,10 +21,6 @@ public class Customer extends User {
 
     public CustomerHistory getHistory(){
         return this.history;
-    }
-
-    public Wallet getWallet(){
-        return this.wallet;
     }
 
     public String getLicense(){
@@ -50,7 +44,8 @@ public class Customer extends User {
         return gson.toJson(this);
     }
 
-    public void logCustomerDetails() {
+    @Override
+    public void printUser() {
         Log.d("Customer", "Username: " + this.usernameGetter());
         Log.d("Customer", "Name: " + this.nameGetter());
         Log.d("Customer", "Last Name: " + this.lnameGetter());
@@ -60,7 +55,7 @@ public class Customer extends User {
 
         // Log wallet details
         Log.d("Customer", "Wallet Cards: ");
-        for (Card card : this.wallet.getCards()) {
+        for (Card card : this.getWallet().getCards()) {
             Log.d("Customer", "Card Number: " + card.getCardnumber());
             Log.d("Customer", "Card Holder: " + card.getCardholderName());
             Log.d("Customer", "Card Expiration Date: " + card.getExpirationDate());
@@ -68,7 +63,7 @@ public class Customer extends User {
             Log.d("Customer", "Card Type: " + card.getType());
         }
 
-        Log.d("Customer", "Wallet Balance: " + this.wallet.getCash().toString());
+        Log.d("Customer", "Wallet Balance: " + this.getWallet().getCash().toString());
 
         // Log history if needed
         // Log.d("Customer", "History: " + this.history.toString()); // Assuming CustomerHistory has a meaningful toString method
