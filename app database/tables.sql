@@ -373,6 +373,11 @@ CREATE TABLE out_city_service
 
     PRIMARY KEY(service_id),
 
+    CONSTRAINT fk_out_city_service_service
+    FOREIGN KEY(service_id) REFERENCES service
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
     CONSTRAINT fk_out_city_rating
     FOREIGN KEY(rating_id) REFERENCES out_city_rating(id)
     ON UPDATE CASCADE
