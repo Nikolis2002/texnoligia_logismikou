@@ -19,50 +19,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/UnlockButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/unlockbutton"
-        android:onClick="unlockVehicle"
-        android:text="@string/unlock_vehicle"
-        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/googleMap" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#FF0000"
-        android:text="@android:string/cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/UnlockButton"
-        app:layout_constraintTop_toBottomOf="@+id/googleMap" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/googleMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/maplocation"
-        app:layout_constraintBottom_toTopOf="@+id/UnlockButton"
+        android:layout_marginBottom="150dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upperText" />
+        app:layout_constraintTop_toBottomOf="@+id/upperText"
+        app:layout_constraintVertical_bias="0.5">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/googleMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/maplocation" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+        <Button
+            android:id="@+id/UnlockButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:contentDescription="@string/unlockbutton"
+            android:onClick="unlockVehicle"
+            android:text="@string/unlock_vehicle" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF0000"
+            android:text="@android:string/cancel" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/you_will_transferred_to_your_camera_to_scan_a_qr_code_make_sure_to_allow_all_permitions"
@@ -70,5 +89,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UnlockButton" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout12" />
 </androidx.constraintlayout.widget.ConstraintLayout>

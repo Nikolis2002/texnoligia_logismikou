@@ -66,7 +66,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
     public void unlockVehicle(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED) {
             IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
             qrScanner.setCaptureActivity(QrCamera.class);
             qrScanner.setOrientationLocked(false);
@@ -74,7 +74,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
             qrScanner.setPrompt("Scan QR on vehicle");
             qrScanner.initiateScan();
         }else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+            ActivityCompat.requestPermissions(UnlockScreen.this, new String[]{Manifest.permission.CAMERA},
                     CAMERA_REQUEST_CODE);
         }
     }
@@ -90,8 +90,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                 qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
                 qrScanner.setPrompt("Scan QR on vehicle");
                 qrScanner.initiateScan();
-            } else {
-                Toast.makeText(this, "Camera permission required", Toast.LENGTH_SHORT).show();
+            }else{
+                Intent intent = new Intent(this,MainScreen.class);
+                startActivity(intent);
             }
         }
     }
