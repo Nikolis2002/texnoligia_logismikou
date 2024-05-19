@@ -16,7 +16,12 @@ public class MainScreenTaxi extends AppCompatActivity{
     }
 
     public void taxiRequests(View view){
-        Intent intent= new Intent(MainScreenTaxi.this,TaxiRequestsScreen.class);
+        Intent intent = new Intent(MainScreenTaxi.this,TaxiRequestsScreen.class);
+        startActivity(intent);
+    }
+
+    public void profile(View view){
+        Intent intent = new Intent(MainScreenTaxi.this, ProfileTaxiScreen.class);
         startActivity(intent);
     }
 
