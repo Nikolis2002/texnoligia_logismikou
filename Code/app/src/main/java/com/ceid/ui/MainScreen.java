@@ -9,15 +9,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;

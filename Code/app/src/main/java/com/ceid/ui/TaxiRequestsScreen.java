@@ -23,7 +23,15 @@ public class TaxiRequestsScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_request_screen);
+        taxiRequestSelect();
+    }
 
+    public void taxiRequestSelect(){
+        requestView = findViewById(R.id.requestView);
+        requestView.setLayoutManager(new LinearLayoutManager(this));
+        List<String> taxiRequestList = Arrays.asList("test","test2","test3","test4","test5","test6","test7","test8","test9");
+        requestAdapter = new TaxiRequestAdapter(taxiRequestList,this);
+        requestView.setAdapter(requestAdapter);
     }
 
     public void taxiRequestSelect(View view){
