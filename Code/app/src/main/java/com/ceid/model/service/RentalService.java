@@ -10,7 +10,7 @@ public class RentalService extends Service{
 	private Refill refill = null;
 
 	public RentalService(int id, LocalDateTime creationDate, Payment payment, Rating rating, Transport transport) {
-		super(id, creationDate, payment, rating, transport);
+		super(creationDate, payment, rating, transport);
 	}
 
 	public void setRefill(Refill refill)

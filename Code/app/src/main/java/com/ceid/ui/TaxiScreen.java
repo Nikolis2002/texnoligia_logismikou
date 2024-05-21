@@ -20,12 +20,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
+import com.ceid.model.payment_methods.Payment;
+import com.ceid.model.service.Rating;
+import com.ceid.model.service.TaxiRequest;
+import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,16 +86,33 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
             RadioButton paymentRadioButton = findViewById(selectedPayment);
             String payment = paymentRadioButton.getText().toString().toUpperCase();
 
+
             if(payment.equals("CASH")){
+
+                TaxiService taxiService = new TaxiService(
+                        LocalDateTime.now(),
+                        new Payment(Payment.Method.CASH),
+                        null,
+                        null
+                );
+
+                TaxiRequest taxiRequest = new TaxiRequest(
+                        (Coordinates) location,
+                        destinationCoord,
+                        new Payment(Payment.Method.CASH)
+                );
+
+
+
                 List<Map<String, Object>> values = new ArrayList<>();
-                Map<String, Object> taxiRequest = new HashMap<>();
-                taxiRequest.put("id","null");
-                taxiRequest.put("pickup_location",(Coordinates) location);
-                taxiRequest.put("destination",(Coordinates) location);
-                taxiRequest.put("assigned_driver","null");
-                taxiRequest.put("assignment_time","null");
-                taxiRequest.put("pickup_time","null");
-                values.add(taxiRequest);
+                Map<String, Object> taxiServiceDB = new HashMap<>();
+                taxiServiceDB.put("id",null);
+                taxiServiceDB.put("pickup_location",(Coordinates) location);
+                taxiServiceDB.put("destination",(Coordinates) location);
+                taxiServiceDB.put("assigned_driver","null");
+                taxiServiceDB.put("assignment_time","null");
+                taxiServiceDB.put("pickup_time","null");
+                values.add(taxiServiceDB);
 
                 String jsonString = jsonStringParser.createJsonString("user",values);
 
@@ -101,6 +123,13 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
                         startActivity(intent);
+                        if(response.isSuccessful()){
+                            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
+                            startActivity(intent);
+                        }else{
+
+                        }
+
                     }
                     @Override
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {

@@ -34,5 +34,5 @@ public interface ApiService {
     Call<ResponseBody> checkUser(@Body String userParams);
 
     @POST("/add_card")
-    Call<ResponseBody> addCard(@Body String userParams);
+    Call<ResponseBody> addCard(@Body String cardParams);
 }

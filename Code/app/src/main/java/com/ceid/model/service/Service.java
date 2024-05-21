@@ -14,8 +14,7 @@ public abstract class Service implements Serializable
     private Rating rating = null;
     private Transport transport;
 
-    public Service(int id, LocalDateTime creationDate, Payment payment, Rating rating, Transport transport) {
-        this.id = id;
+    public Service(LocalDateTime creationDate, Payment payment, Rating rating, Transport transport) {
         this.creationDate = creationDate;
         this.payment = payment;
         this.rating = rating;

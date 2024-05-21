@@ -15,7 +15,7 @@ public class OutCityService extends Service{
 	private int garageId;
 
 	public OutCityService(String garageName, int garageId, int id, LocalDateTime creationDate, Payment payment, Rating rating, Transport transport) {
-		super(id, creationDate, payment, rating, transport);
+		super(creationDate, payment, rating, transport);
 
 		this.garageName = garageName;
 		this.garageId = garageId;
