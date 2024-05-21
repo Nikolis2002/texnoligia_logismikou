@@ -57,7 +57,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     public void endRoute(){
         stopTimer=timer.stopTimer();
         long elapsedTime=timer.elapsedTime(startTimer,stopTimer);
-        Intent intent = new Intent(TransportScreen.this,TaxiRequestsScreen.class);
+        Intent intent = new Intent(TransportScreen.this,MainScreenTaxi.class);
         startActivity(intent);
 
     }

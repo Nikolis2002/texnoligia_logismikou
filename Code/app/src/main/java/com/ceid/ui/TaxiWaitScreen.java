@@ -19,6 +19,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
 
     private Handler handler;
     private boolean status=false;
+    Timer reservationTimer;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -27,7 +28,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
         handler = new Handler();
         rideStatus();
 
-        Timer reservationTimer = new Timer();
+        reservationTimer = new Timer();
 
         reservationTimer.schedule(new TimerTask() {
             @Override
@@ -61,7 +62,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
         @Override
         public void run() {
 
-            if(!status) {
+            if(status) {
                 Intent intent = new Intent(TaxiWaitScreen.this, TaxiRideScreen.class);
                 startActivity(intent);
             }else{
@@ -79,11 +80,13 @@ public class TaxiWaitScreen extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         handler.removeCallbacks(taxiFoundCheck);
+        reservationTimer.cancel();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacks(taxiFoundCheck);
+        reservationTimer.cancel();
     }
 }
