@@ -154,6 +154,14 @@ app.post("/check_user",async (req,res)=>{
         res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
     }
 });
+app.post("add_card"),async(req,res)=>{
+    const data=req.body;
+    console.log(data);
+    jsonObj=JSON.parse(data);
+    let obj="CALL insertCard(?,?,?,?)";
+    let query= await helper.queryPromise(con,obj,[jsonObj.cardNum,jsonObj.expDate,jsonObj.owner,jsonObj.ccv]);
+    
+}
 
 const ip_adress=jsonPass.ip;
 const port=3000;

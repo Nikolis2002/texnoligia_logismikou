@@ -29,4 +29,7 @@ public interface ApiService {
 
     @POST("/check_user")
     Call<ResponseBody> checkUser(@Body String userParams);
+
+    @POST("/add_card")
+    Call<ResponseBody> addCard(@Body String userParams);
 }

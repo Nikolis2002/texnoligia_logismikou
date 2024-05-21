@@ -6,205 +6,239 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/remCard2"
-        android:layout_width="156dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#000000"
-        android:text="@string/remCardText"
-        android:textColor="@android:color/white"
-        android:textSize="11sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="364dp"
+        android:layout_height="267dp"
+        android:background="@drawable/background_stroke"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-    <TextView
-        android:id="@+id/ccvText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ccvText"
-        app:layout_constraintBottom_toTopOf="@+id/ccvField"
-        app:layout_constraintStart_toStartOf="@+id/ccvField" />
-
-    <RelativeLayout
-        android:id="@+id/expDateField"
-        android:layout_width="80dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center|start"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/username_email"
-        android:gravity="center"
-
-        app:layout_constraintEnd_toStartOf="@+id/ownerField"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.083">
 
         <TextView
-            android:id="@+id/expDate"
-            android:layout_width="match_parent"
+            android:id="@+id/ccvText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:lineSpacingExtra="3sp"
-            android:text="@string/expDateText"
-            android:textAppearance="@style/label" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/ccvField"
-        android:layout_width="106dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center|start"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/username_email"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.26"
-        app:layout_constraintStart_toEndOf="@+id/ownerField"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/ccv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:lineSpacingExtra="3sp"
             android:text="@string/ccvText"
-            android:textAppearance="@style/label" />
+            app:layout_constraintBottom_toTopOf="@+id/ccvField"
+            app:layout_constraintStart_toStartOf="@+id/ccvField" />
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/expDateField"
+            android:layout_width="91dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center|start"
+            android:layout_marginTop="148dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
 
-    <RelativeLayout
-        android:id="@+id/ownerField"
-        android:layout_width="120dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center|start"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/username_email"
-        android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/ownerField"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <EditText
+                android:id="@+id/expDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:hint="@string/expDateText"
+                android:textAppearance="@style/label" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ccvField"
+            android:layout_width="106dp"
+            android:layout_height="49dp"
+            android:layout_gravity="center|start"
+            android:layout_marginTop="148dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.36"
+            app:layout_constraintStart_toEndOf="@+id/ownerField"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/ccv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:hint="@string/ccvText"
+                android:textAppearance="@style/label" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ownerField"
+            android:layout_width="120dp"
+            android:layout_height="49dp"
+            android:layout_gravity="center|start"
+            android:layout_marginTop="148dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/owner"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:hint="@string/ownerText"
+                android:textAppearance="@style/label" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/cardNumField"
+            android:layout_width="338dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|start"
+            android:layout_marginTop="68dp"
+            android:background="@drawable/username_email"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/cardNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:hint="@string/cardNumText"
+                android:textAppearance="@style/label" />
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/owner"
-            android:layout_width="102dp"
+            android:id="@+id/cardNumText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:lineSpacingExtra="3sp"
-            android:text="@string/ownerText"
-            android:textAppearance="@style/label" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/cardNumField"
-        android:layout_width="338dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center|start"
-        android:layout_marginTop="128dp"
-        android:background="@drawable/username_email"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/cardNum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:lineSpacingExtra="3sp"
             android:text="@string/cardNumText"
-            android:textAppearance="@style/label" />
+            app:layout_constraintBottom_toTopOf="@+id/cardNumField"
+            app:layout_constraintStart_toStartOf="@+id/cardNumField" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/expDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expDateText"
+            app:layout_constraintBottom_toTopOf="@+id/expDateField"
+            app:layout_constraintStart_toStartOf="@+id/expDateField" />
 
-    <TextView
-        android:id="@+id/cardNumText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cardNumText"
-        app:layout_constraintBottom_toTopOf="@+id/cardNumField"
-        app:layout_constraintStart_toStartOf="@+id/cardNumField" />
+        <TextView
+            android:id="@+id/cardOwnerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ownerText"
+            app:layout_constraintBottom_toTopOf="@+id/ownerField"
+            app:layout_constraintStart_toStartOf="@+id/ownerField" />
 
-    <TextView
-        android:id="@+id/expDateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/expDateText"
-        app:layout_constraintBottom_toTopOf="@+id/expDateField"
-        app:layout_constraintStart_toStartOf="@+id/expDateField" />
+        <Button
+            android:id="@+id/signUpButton2"
+            android:layout_width="156dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#000000"
+            android:text="@string/addCard"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:onClick="addCardButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.926" />
 
-    <TextView
-        android:id="@+id/cardOwnerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ownerText"
-        app:layout_constraintBottom_toTopOf="@+id/ownerField"
-        app:layout_constraintStart_toStartOf="@+id/ownerField" />
+        <TextView
+            android:id="@+id/addCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/addCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/signUpButton2"
-        android:layout_width="156dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="280dp"
-        android:backgroundTint="#000000"
-        android:text="@string/addCard"
-        android:textColor="@android:color/white"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/addCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="@string/addCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/remCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
-        android:text="@string/remCard"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="363dp"
+        android:layout_height="194dp"
+        android:background="@drawable/background_stroke"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.256">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="292dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="400dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/remCard2"
+            android:layout_width="156dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#000000"
+            android:onClick="remCard"
+            android:text="@string/remCardText"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+
+        <TextView
+            android:id="@+id/remCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+            android:text="@string/remCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="292dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
