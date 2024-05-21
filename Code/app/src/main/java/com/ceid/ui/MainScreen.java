@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -31,6 +32,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 
 public class MainScreen extends AppCompatActivity {
+    Customer customer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,8 @@ public class MainScreen extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
 
+        Intent userDataIntent = getIntent();
+        customer= (Customer) userDataIntent.getSerializableExtra("customer");
 
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -64,6 +68,7 @@ public class MainScreen extends AppCompatActivity {
 
     public void inCity(View view) {
         Intent intent = new Intent(this, InCityScreen.class);
+        intent.putExtra("customer",customer);
         startActivity(intent);
     }
 
