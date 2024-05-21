@@ -165,6 +165,7 @@
     <string name="bike_image">bike image</string>
     <string name="taxi_image_2">taxi image</string>
     <string name="rating_comment">Comment (max 150 chars):</string>
+    <string name="mail">Email</string>
 
 
 </resources>

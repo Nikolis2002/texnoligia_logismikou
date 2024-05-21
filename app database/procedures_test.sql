@@ -105,7 +105,20 @@ BEGIN
 END $$
 DELIMITER ;
 
-
+DROP PROCEDURE IF EXISTS insertCard;
+DELIMITER $
+CREATE PROCEDURE insertCard(IN user VARCHAR(32),IN cardNum VARCHAR(32),IN expDate VARCHAR(32),IN cOwner VARCHAR(32),IN cvv VARCHAR(32))
+BEGIN
+    DECLARE c INT UNSIGNED;
+    DECLARE balance VARCHAR(32);
+    SELECT count(*),owner_balance INTO c,balance FROM bank WHERE cardNum=bank.card_number AND expDate=bank.card_exp_date AND  cOwner=bank.card_owner AND cvv=bank.cvv GROUP BY owner_balance;
+    IF (c=1) THEN
+        INSERT INTO card VALUES(user,cardNum,expDate,cOwner,cvv,"credit");
+    END IF;
+END $
+DELIMITER ;
+INSERT INTO bank VALUES("Billkort","072","123","999",default);
+CALL insertCard("Bill","072","123","Billkort","999");
 -- //////////////////////BANK MOCK
 INSERT INTO user VALUES("bill","123","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill","A2","test",0);
