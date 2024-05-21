@@ -51,8 +51,9 @@ app.get("/getTableData",async (req,res)=>{
         let queryString=`SELECT * FROM ${param}`;
         console.log(queryString);
         let tableData=await helper.getTableData(con,param);
-
-        res.status(200).send(tableData);
+        let json=JSON.parse(tableData);
+        console.log(json.result);
+        res.status(200).send(json.result);
         
     }
     catch(err){
@@ -73,15 +74,32 @@ app.post("/insertTable", async (req, res) => {
         const promises = [];
 
         for (const row of values) {
-            const fields = Object.keys(row).join(', ');
-            const placeholders = Object.values(row).map(() => '?').join(', ');
-            const sql = `INSERT INTO ${table} (${fields}) VALUES (${placeholders})`;
-            const valuesArray = Object.values(row);
+            // Prepare the fields and values for the SQL query
+            const fields = [];
+            const placeholders = [];
+            const valuesArray = [];
+
+            for (const [key, value] of Object.entries(row)) {
+                fields.push(key);
+
+                if (key === 'pickup_location' || key === 'destination') {
+                    // Parse the JSON string to extract latitude and longitude
+                    const coords = JSON.parse(value);
+                    const lat = parseFloat(coords.lat);
+                    const lng = parseFloat(coords.lng);
+                    placeholders.push(`ST_GeomFromText('POINT(${lat} ${lng})')`);
+                } else {
+                    placeholders.push('?');
+                    valuesArray.push(value === 'null' ? null : value);
+                }
+            }
+
+            const sql = `INSERT INTO ${table} (${fields.join(', ')}) VALUES (${placeholders.join(', ')})`;
 
             promises.push(helper.queryPromise(con, sql, valuesArray));
         }
 
-        const results=await Promise.all(promises);
+        const results = await Promise.all(promises);
         const insertIds = results.map(result => {
             if (result && result.result && result.result.insertId !== undefined) {
                 return result.result.insertId;
@@ -96,6 +114,9 @@ app.post("/insertTable", async (req, res) => {
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
     }
 });
+
+
+
 
 
 app.post("/getFunctionWithParams",async (req,res)=>{

@@ -19,9 +19,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -30,17 +33,6 @@ import retrofit2.Response;
 
 public class jsonStringParser {
 
-
-    public static JsonArray extractResult(String jsonString) {
-        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-
-        // If the object contains the "result" key
-        if (jsonObject.has("result")) {
-            return jsonObject.getAsJsonArray("result");
-        }
-
-        return null;
-    }
     public static User parseJson(JsonNode data) throws IOException {
         User user=null;
         JsonNode userNode = data.get(0).get(0);
@@ -138,23 +130,6 @@ public class jsonStringParser {
         Log.d("JsonArray", jsonString);
     }
 
-    public static <T> ArrayList<T> jsonArrayToArrayList(JsonArray jsonArray,Class<T> objectClass){
-        ArrayList<T> array = new ArrayList<>();
-        Gson gson= new Gson();
-
-        for(JsonElement element : jsonArray){
-            T object = gson.fromJson(element,objectClass);
-            array.add(object);
-        }
-
-        return array;
-    }
-
-    public static <T> T jsonArraytoObj(JsonArray jsonArray, Class<T> objectClass) {
-            ArrayList<T> array = jsonArrayToArrayList(jsonArray, objectClass);
-        return array.get(0);
-        }
-
 
     public static String createJsonString(String tableName, List<Map<String, Object>> values) {
         ObjectMapper mapper = new ObjectMapper();
@@ -222,6 +197,27 @@ public class jsonStringParser {
         }
         // Return an empty array if insertIds are not found or if there's an error
         return new int[0];
+    }
+
+    public static <T> List<T> parseDataList(String response, Class<T> targetClass) throws JsonSyntaxException {
+        if (response == null || response.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Gson gson = new Gson();
+        List<T> dataList = new ArrayList<>();
+        try {
+            // Parse the response as a list of Maps
+            List<Map<String, Object>> mapList = gson.fromJson(response, new TypeToken<List<Map<String, Object>>>(){}.getType());
+            for (Map<String, Object> data : mapList) {
+                // Convert each map to the target class object
+                T obj = gson.fromJson(gson.toJson(data), targetClass);
+                dataList.add(obj);
+            }
+        } catch (JsonSyntaxException e) {
+            // Handle parsing exception (optional)
+            throw e;
+        }
+        return dataList;
     }
 
 }

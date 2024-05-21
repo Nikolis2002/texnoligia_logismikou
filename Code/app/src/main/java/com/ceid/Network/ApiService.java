@@ -1,5 +1,7 @@
 package com.ceid.Network;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -13,7 +15,8 @@ public interface ApiService {
     Call<String> getMessage();
 
     @GET("/getTableData")
-    Call<String> getTableData(@Query("tableName") String tableName);
+    Call<List<Map<String, Object>>> getTableData(@Query("tableName") String tableName);
+
 
     @POST("/getFunctionWithParams")
     Call<ResponseBody> getFunction(@Body String jsonfunction);

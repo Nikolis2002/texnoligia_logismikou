@@ -29,12 +29,16 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
+import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
+import com.ceid.util.Location;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 public class login extends AppCompatActivity implements postInterface{
     private String username,password;
@@ -53,8 +57,10 @@ public class login extends AppCompatActivity implements postInterface{
         ApiService api=ApiClient.getApiService();
 
         List<Map<String, Object>> values = new ArrayList<>();
+        Map<String, Object> user1 = new HashMap<>();
 
-        /*user1.put("username", "john_doe5");
+        /*
+        user1.put("username", "john_doe6");
         user1.put("password", "password1");
         user1.put("name", "John");
         user1.put("lname", "Doe");
@@ -63,7 +69,7 @@ public class login extends AppCompatActivity implements postInterface{
         values.add(user1);
 
         Map<String, Object> user2 = new HashMap<>();
-        user2.put("username", "jane_doe5");
+        user2.put("username", "jane_doe6");
         user2.put("password", "password2");
         user2.put("name", "Jane");
         user2.put("lname", "Doe");
@@ -71,6 +77,7 @@ public class login extends AppCompatActivity implements postInterface{
         user2.put("phone", "9876543210");
         values.add(user2);*/
 
+        /*
         Map<String, Object> tr1 = new HashMap<>();
         tr1.put("id",null);
         tr1.put("manufacturer","f0rd1234");
@@ -83,33 +90,72 @@ public class login extends AppCompatActivity implements postInterface{
         tr2.put("manufacturer","f0rd2234");
         tr2.put("model","ferd223");
         tr2.put("manuf_year",2008);
+
         values.add(tr2);
+         */
+        Location l1=new Location(1,4,"abc");
+        Location l2=new Location(1,21,"abc");
+        Map<String, Double> map=new HashMap<>();
+        map.put("lat", 1.0);
+        map.put("lng", 4.0);
+        String freaky;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+             freaky=mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        Map<String, Object> taxiRequest = new HashMap<>();
+        taxiRequest.put("id","null");
+        taxiRequest.put("pickup_location",freaky);
+        taxiRequest.put("destination",freaky);
+        taxiRequest.put("assigned_driver","null");
+        taxiRequest.put("assignment_time","null");
+        taxiRequest.put("pickup_time","null");
+        values.add(taxiRequest);
 
 
-        String jsonString = jsonStringParser.createJsonString("transport", values);
 
-        Call<ResponseBody> call =api.insertTable(jsonString);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        String jsonString = jsonStringParser.createJsonString("taxi_request", values);
+        String test = "taxi_request";
+        Call<List<Map<String, Object>>> call = api.getTableData(test);
+
+        call.enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<List<Map<String, Object>>> call, @NonNull Response<List<Map<String, Object>>> response) {
                 if (response.isSuccessful()) {
-                int[] ids= jsonStringParser.extractInsertIds(response);
-                    Log.d("id_kourt","these are the ids:");
-                for(int id:ids){
-                    Log.d("id_kourt", String.valueOf(id));
-                }
+                    List<Map<String, Object>> dataList = response.body();
+                    if (dataList != null && !dataList.isEmpty()) {
+                        // Convert JSON maps to TaxiRequest objects using Gson
+                        Gson gson = new Gson();
+                        List<TaxiRequest> taxiRequestList = new ArrayList<>();
+                        for (Map<String, Object> data : dataList) {
+                            String json = gson.toJson(data);
+                            TaxiRequest taxiRequest = gson.fromJson(json, TaxiRequest.class);
+                            taxiRequestList.add(taxiRequest);
+                        }
 
+                        // Now you have a list of TaxiRequest objects
+                        for (TaxiRequest taxiRequest : taxiRequestList) {
+                            Log.d("TaxiRequest", String.valueOf(taxiRequest.getPickupLocation().getLat()));
+                        }
+                    } else {
+                        Log.d("Response", "Empty data list");
+                    }
                 } else {
-                    //test2
+                    Log.d("Response", "Unsuccessful");
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                System.out.println("Error message");
+            public void onFailure(@NonNull Call<List<Map<String, Object>>> call, @NonNull Throwable t) {
+                Log.e("Error", "Failed to fetch data: " + t.getMessage());
             }
         });
+
+
 
 
     }
