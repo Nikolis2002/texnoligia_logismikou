@@ -50,11 +50,20 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
             public void run() {
 
                 runOnUiThread(() -> {
-
+                        Toast.makeText(getApplicationContext(), "Reservation time passed", Toast.LENGTH_SHORT).show();
                 });
             }
         },5000);
 
+    }
+
+    public void openCamera(){
+        IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
+        qrScanner.setCaptureActivity(QrCamera.class);
+        qrScanner.setOrientationLocked(false);
+        qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        qrScanner.setPrompt("Scan QR on vehicle");
+        qrScanner.initiateScan();
     }
 
     @SuppressLint("MissingSuperCall")
@@ -67,12 +76,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     public void unlockVehicle(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-            IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
-            qrScanner.setCaptureActivity(QrCamera.class);
-            qrScanner.setOrientationLocked(false);
-            qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-            qrScanner.setPrompt("Scan QR on vehicle");
-            qrScanner.initiateScan();
+                openCamera();
         }else {
             ActivityCompat.requestPermissions(UnlockScreen.this, new String[]{Manifest.permission.CAMERA},
                     CAMERA_REQUEST_CODE);
@@ -84,13 +88,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
-                qrScanner.setCaptureActivity(QrCamera.class);
-                qrScanner.setOrientationLocked(false);
-                qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-                qrScanner.setPrompt("Scan QR on vehicle");
-                qrScanner.initiateScan();
+               openCamera();
             }else{
+                Toast.makeText(getApplicationContext(), "App do not have camera permission", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,MainScreen.class);
                 startActivity(intent);
             }
@@ -100,16 +100,20 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        IntentResult qrResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult qrResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if(qrResult!=null){
+        if (qrResult != null) {
             String qr = qrResult.getContents();
-            if(qr!=null){
-
+            if (qr != null) {
+                Toast.makeText(getApplicationContext(), qr, Toast.LENGTH_SHORT).show();
             }
-        }else{
-            super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void cancelReservation(View view){
+        Intent intent = new Intent(this,MainScreen.class);
+        startActivity(intent);
     }
 
     @Override
@@ -124,6 +128,14 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (reservationTimer != null) {
+            reservationTimer.cancel();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         if (reservationTimer != null) {
             reservationTimer.cancel();
         }
