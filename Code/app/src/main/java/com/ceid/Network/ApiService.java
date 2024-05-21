@@ -22,7 +22,7 @@ public interface ApiService {
     Call<String> getFuncNoParams(@Body String jsonfunction);
 
     @POST("/insertTable")
-    Call<Void> insertTable(@Body String jsonTable);
+    Call<ResponseBody> insertTable(@Body String jsonTable);
 
     @POST("/insert_user")
     Call<Void> postUser(@Body String userString);

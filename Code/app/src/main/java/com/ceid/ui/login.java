@@ -53,8 +53,8 @@ public class login extends AppCompatActivity implements postInterface{
         ApiService api=ApiClient.getApiService();
 
         List<Map<String, Object>> values = new ArrayList<>();
-        Map<String, Object> user1 = new HashMap<>();
-        user1.put("username", "john_doe");
+
+        /*user1.put("username", "john_doe5");
         user1.put("password", "password1");
         user1.put("name", "John");
         user1.put("lname", "Doe");
@@ -63,23 +63,42 @@ public class login extends AppCompatActivity implements postInterface{
         values.add(user1);
 
         Map<String, Object> user2 = new HashMap<>();
-        user2.put("username", "jane_doe");
+        user2.put("username", "jane_doe5");
         user2.put("password", "password2");
         user2.put("name", "Jane");
         user2.put("lname", "Doe");
         user2.put("email", "jane@example.com");
         user2.put("phone", "9876543210");
-        values.add(user2);
+        values.add(user2);*/
 
-        String jsonString = jsonStringParser.createJsonString("user", values);
+        Map<String, Object> tr1 = new HashMap<>();
+        tr1.put("id",null);
+        tr1.put("manufacturer","f0rd1234");
+        tr1.put("model","ferd22");
+        tr1.put("manuf_year",2007);
+        values.add(tr1);
 
-        Call<Void> call =api.insertTable(jsonString);
+        Map<String, Object> tr2 = new HashMap<>();
+        tr2.put("id",null);
+        tr2.put("manufacturer","f0rd2234");
+        tr2.put("model","ferd223");
+        tr2.put("manuf_year",2008);
+        values.add(tr2);
 
-        call.enqueue(new Callback<Void>() {
+
+        String jsonString = jsonStringParser.createJsonString("transport", values);
+
+        Call<ResponseBody> call =api.insertTable(jsonString);
+
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                   Log.d("test","yes");
+                int[] ids= jsonStringParser.extractInsertIds(response);
+                    Log.d("id_kourt","these are the ids:");
+                for(int id:ids){
+                    Log.d("id_kourt", String.valueOf(id));
+                }
 
                 } else {
                     //test2
@@ -87,7 +106,7 @@ public class login extends AppCompatActivity implements postInterface{
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 System.out.println("Error message");
             }
         });

@@ -10,7 +10,6 @@ import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
-import com.ceid.util.DateFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -25,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -180,7 +178,12 @@ public class jsonStringParser {
                     jsonObject.put(key, (Double) val);
                 } else if (val instanceof Boolean) {
                     jsonObject.put(key, (Boolean) val);
-                } else {
+
+                }
+                else if (val == null) {
+                    // Handle null values
+                    jsonObject.putNull(key);}
+                else {
                     // Handle other types or convert to string
                     jsonObject.put(key, val.toString());
                 }
@@ -199,6 +202,26 @@ public class jsonStringParser {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static int[] extractInsertIds(Response<ResponseBody> response) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(response.body().string());
+            JsonNode insertIdsNode = rootNode.get("insertIds");
+
+            if (insertIdsNode != null && insertIdsNode.isArray() && insertIdsNode.size() > 0) {
+                int[] insertIds = new int[insertIdsNode.size()];
+                for (int i = 0; i < insertIdsNode.size(); i++) {
+                    insertIds[i] = insertIdsNode.get(i).asInt();
+                }
+                return insertIds;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Return an empty array if insertIds are not found or if there's an error
+        return new int[0];
     }
 
 }

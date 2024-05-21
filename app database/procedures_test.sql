@@ -117,6 +117,8 @@ BEGIN
     END IF;
 END $
 DELIMITER ;
+
+
 INSERT INTO bank VALUES("Billkort","072","123","999",default);
 CALL insertCard("Bill","072","123","Billkort","999");
 -- //////////////////////BANK MOCK

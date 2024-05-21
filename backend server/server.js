@@ -63,36 +63,40 @@ app.get("/getTableData",async (req,res)=>{
     
 });
 
-app.post("/insertTable",async (req,res)=>{
+app.post("/insertTable", async (req, res) => {
+    try {
+        const param = req.body;
+        let jsonObj = JSON.parse(param);
+        console.log(jsonObj);
 
-        try {
+        const { table, values } = jsonObj; // Extract table name and values array from request body
+        const promises = [];
 
-            const param=req.body;
-            let jsonObj=JSON.parse(param);
-            console.log(jsonObj);
-            const { table, values } = jsonObj; // Extract table name and values array from request body
-            const promises = [];
-    
-            for (const row of values) {
-                
-                const fields = Object.keys(row).join(', ');
-                const placeholders = Object.values(row).map(() => '?').join(', ');
-                const sql = `INSERT INTO ${table} (${fields}) VALUES (${placeholders})`;
-                const values = Object.values(row);
-    
-                
-                promises.push(helper.queryPromise(con,sql,values));
-            }
+        for (const row of values) {
+            const fields = Object.keys(row).join(', ');
+            const placeholders = Object.values(row).map(() => '?').join(', ');
+            const sql = `INSERT INTO ${table} (${fields}) VALUES (${placeholders})`;
+            const valuesArray = Object.values(row);
 
-            await Promise.all(promises);
-    
-            res.status(200).send("Success");
-        } catch (error) {
-            console.error("Error:", error);
-            res.status(500).send("Error");
+            promises.push(helper.queryPromise(con, sql, valuesArray));
         }
 
+        const results=await Promise.all(promises);
+        const insertIds = results.map(result => {
+            if (result && result.result && result.result.insertId !== undefined) {
+                return result.result.insertId;
+            } else {
+                console.error("Unexpected result format:", result);
+                return null;
+            }
+        });
+        res.status(200).json({ insertIds });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
+    }
 });
+
 
 app.post("/getFunctionWithParams",async (req,res)=>{
     try{
@@ -103,12 +107,10 @@ app.post("/getFunctionWithParams",async (req,res)=>{
         jsonArray=Array.from(jsonMap.values());
         let query=`CALL ${param}(?)`;
 
-        let response= await helper.queryPromise(con,query,jsonMap);
-        console.log(response.result[0][0].result);
+        let response= await helper.queryPromise(con,query,jsonArray);
         res.status(200).send(response.result);
     }
     catch(err){
-        console.log("here2");
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
     }
 });
@@ -116,7 +118,6 @@ app.post("/getFunctionWithParams",async (req,res)=>{
 app.post("/check_user",async (req,res)=>{
     try{
         const data=req.body;
-        console.log(data);
         jsonObj=JSON.parse(data);
 
         let queryUser= "CALL checkCustomer(?,?)";
@@ -128,7 +129,6 @@ app.post("/check_user",async (req,res)=>{
 
         if(tableUser.result[0][0].result==0 && tableDriver.result[0][0].result==0 ){
             console.log(tableUser.result);
-            console.log("here dista");
             res.status(500).send(new helper.ResponseMessage("User not registered").string());
         }
         else if(tableUser.result[0][0].result==0){
@@ -156,9 +156,10 @@ app.post("/check_user",async (req,res)=>{
         res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
     }
 });
+
+
 app.post("add_card"),async(req,res)=>{
     const data=req.body;
-    console.log(data);
     jsonObj=JSON.parse(data);
     let obj="CALL insertCard(?,?,?,?)";
     let query= await helper.queryPromise(con,obj,[jsonObj.cardNum,jsonObj.expDate,jsonObj.owner,jsonObj.ccv]);
