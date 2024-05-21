@@ -63,6 +63,35 @@ app.get("/getTableData",async (req,res)=>{
     
 });
 
+app.post("/insertTable",async (req,res)=>{
+
+    try {
+        const data = req.body; // Assuming req.body is an array of JSON objects
+        const promises = [];
+
+        for (const row of data) {
+            // Assuming each row object contains fields like tableName, field1, field2, etc.
+            const { tableName, field1, field2 } = row;
+
+            // Construct your SQL query based on the row data
+            const sql = `INSERT INTO ${tableName} (field1, field2) VALUES (?, ?)`;
+            const values = [field1, field2];
+
+            // Perform the query and push the promise to the array
+            promises.push(queryPromise(sql, values));
+        }
+
+        // Wait for all queries to complete
+        await Promise.all(promises);
+
+        res.status(200).send("Success");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error");
+    }
+
+});
+
 app.post("/getFunctionWithParams",async (req,res)=>{
     try{
         const param=req.body;

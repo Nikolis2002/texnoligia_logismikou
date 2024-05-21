@@ -12,6 +12,8 @@ import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -21,6 +23,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import okhttp3.ResponseBody;
@@ -152,5 +156,49 @@ public class jsonStringParser {
             ArrayList<T> array = jsonArrayToArrayList(jsonArray, objectClass);
         return array.get(0);
         }
-    
+
+
+    public static String createJsonString(String tableName, List<Map<String, Object>> values) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Data to insert
+        ArrayNode dataArray = mapper.createArrayNode();
+        for (Map<String, Object> value : values) {
+            ObjectNode jsonObject = mapper.createObjectNode();
+            for (Map.Entry<String, Object> entry : value.entrySet()) {
+                String key = entry.getKey();
+                Object val = entry.getValue();
+
+                // Explicitly cast values to their corresponding types
+                if (val instanceof String) {
+                    jsonObject.put(key, (String) val);
+                } else if (val instanceof Integer) {
+                    jsonObject.put(key, (Integer) val);
+                } else if (val instanceof Long) {
+                    jsonObject.put(key, (Long) val);
+                } else if (val instanceof Double) {
+                    jsonObject.put(key, (Double) val);
+                } else if (val instanceof Boolean) {
+                    jsonObject.put(key, (Boolean) val);
+                } else {
+                    // Handle other types or convert to string
+                    jsonObject.put(key, val.toString());
+                }
+            }
+            dataArray.add(jsonObject);
+        }
+
+        // Create JSON object
+        ObjectNode jsonObject = mapper.createObjectNode();
+        jsonObject.put("table", tableName);
+        jsonObject.set("values", dataArray);
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

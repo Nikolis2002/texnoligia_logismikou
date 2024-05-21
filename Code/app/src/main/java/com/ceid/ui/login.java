@@ -11,7 +11,9 @@ import android.widget.Toast;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -38,7 +40,7 @@ public class login extends AppCompatActivity implements postInterface{
     private String username,password;
     private EditText userText,pass;
     private ImageView visib;
-    private ApiService apiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +49,32 @@ public class login extends AppCompatActivity implements postInterface{
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
-        apiService = ApiClient.getApiService();
 
         ApiService api=ApiClient.getApiService();
-        Call<ResponseBody> call =api.getFunction("tesy");
 
-        call.enqueue(new Callback<ResponseBody>() {
+        List<Map<String, Object>> values = new ArrayList<>();
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("id", 1);
+        map1.put("name", "John Doe");
+        map1.put("age", 30);
+        values.add(map1);
+
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("id", 2);
+        map2.put("name", "Jane Doe");
+        map2.put("age", 25);
+        values.add(map2);
+
+
+        String jsonString = jsonStringParser.createJsonString("myTable", values);
+
+        Call<Void> call =api.insertTable(jsonString);
+
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    try {
-                        boolean test=jsonStringParser.getbooleanFromJson(response);
-                        Log.d("test", String.valueOf(test));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                   Log.d("test","yes");
 
                 } else {
                     //test2
@@ -69,7 +82,7 @@ public class login extends AppCompatActivity implements postInterface{
             }
 
             @Override
-            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 System.out.println("Error message");
             }
         });

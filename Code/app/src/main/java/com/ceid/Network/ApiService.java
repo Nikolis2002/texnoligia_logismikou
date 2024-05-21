@@ -21,6 +21,9 @@ public interface ApiService {
     @POST("/getFunctionNoParams")
     Call<String> getFuncNoParams(@Body String jsonfunction);
 
+    @POST("/insertTable")
+    Call<Void> insertTable(@Body String jsonTable);
+
     @POST("/insert_user")
     Call<Void> postUser(@Body String userString);
 
