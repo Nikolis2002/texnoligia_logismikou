@@ -156,14 +156,19 @@ app.post("/check_user",async (req,res)=>{
         res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
     }
 });
-
-
-app.post("add_card"),async(req,res)=>{
+app.post("/add_card"),async(req,res)=>{
+    try{
+    console.log("dista");
     const data=req.body;
     jsonObj=JSON.parse(data);
     let obj="CALL insertCard(?,?,?,?)";
     let query= await helper.queryPromise(con,obj,[jsonObj.cardNum,jsonObj.expDate,jsonObj.owner,jsonObj.ccv]);
-    
+    console.log(query[0][0].result);
+    }
+    catch(err){
+        console.error("Error processing request:", err);
+        res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
+    }
 }
 
 const ip_adress=jsonPass.ip;

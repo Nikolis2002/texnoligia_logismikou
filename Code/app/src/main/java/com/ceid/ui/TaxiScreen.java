@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -93,16 +94,16 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                 String jsonString = jsonStringParser.createJsonString("taxi_request",values);
 
-                Call<Void> call = api.insertTable(jsonString);
+                Call<ResponseBody> call = api.insertTable(jsonString);
 
-                call.enqueue(new Callback<Void>() {
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
                         startActivity(intent);
                     }
                     @Override
-                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable throwable) {
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
                         System.out.println("Error message");
                     }
                 });
