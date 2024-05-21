@@ -49,7 +49,7 @@ public class RouteHistory extends Fragment
 		data.add(new RentalService(
 				1,
 				LocalDateTime.now(),
-				new Payment(new Currency(87), Payment.Method.WALLET),
+				new Payment(87, Payment.Method.WALLET),
 				null,
 				new CityCar(
 						"ABC-1234",
@@ -70,7 +70,7 @@ public class RouteHistory extends Fragment
 				1,
 				1,
 				LocalDateTime.now(),
-				new Payment(new Currency(87), Payment.Method.WALLET),
+				new Payment(87, Payment.Method.WALLET),
 				null,
 				new Van(
 						"ABC-1234",
@@ -83,10 +83,10 @@ public class RouteHistory extends Fragment
 				)
 		));
 
-		data.add(new TaxiService(
+		/*data.add(new TaxiService(
 				1,
 				LocalDateTime.now(),
-				new Payment(new Currency(87), Payment.Method.WALLET),
+				new Payment(87, Payment.Method.WALLET),
 				null,
 				new Taxi(
 						1,
@@ -100,7 +100,7 @@ public class RouteHistory extends Fragment
 						new Coordinates(39.2442870,22.7326153),
 						Payment.Method.WALLET
 				)
-		));
+		));*/
 
 		data.addAll(data);
 		data.addAll(data);
