@@ -467,17 +467,12 @@ CREATE TABLE out_city_van
 
 DROP TABLE IF EXISTS bank;
 CREATE TABLE bank(
-    username VARCHAR(32) NOT NULL,
     card_owner VARCHAR(64) NOT NULL,
     card_number VARCHAR(32) NOT NULL,
     card_exp_date VARCHAR(10) NOT NULL,
     cvv VARCHAR(8) NOT NULL,
     owner_balance INT NOT NULL default '500',
-    PRIMARY KEY(username,card_number),
-    CONSTRAINT fk_customer_bank_user
-        FOREIGN KEY(username) REFERENCES customer(username)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    PRIMARY KEY(card_number)
 );
 
 -- ////////////////////////////////////////////////////////////////////////////////////END////////////////////////////////////////////////////////////////////////////

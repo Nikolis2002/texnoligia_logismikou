@@ -79,7 +79,7 @@ BEGIN
     DECLARE cus_licence VARCHAR(32);
     DECLARE img LONGBLOB;
     DECLARE cus_points INT UNSIGNED;
-    DECLARE wallet_balance DECIMAL(10,2) NOT NULL;
+    DECLARE wallet_balance DECIMAL(10,2);
     DECLARE crd_number VARCHAR(32);
     DECLARE crd_holder VARCHAR(32);
     DECLARE exp_date VARCHAR(32);
@@ -98,7 +98,7 @@ BEGIN
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET not_found = TRUE;
 
-    OPEN cur 
+    OPEN cur ;
     FETCH cur INTO cus_id,cus_username,cus_password,cus_name,cus_lname,email,cus_licence,img,cus_points,wallet_balance,crd_number,crd_holder,exp_date,crd_cvv,crd_type;
 
     IF not_found THEN

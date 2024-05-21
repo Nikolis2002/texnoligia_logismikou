@@ -64,4 +64,31 @@ public class PostHelper {
             }
         });
     }
-}
+    public void card(ApiService api,String cardParams){
+        {
+            Call<ResponseBody> call= api.addCard(cardParams);
+            Log.d("kort","kort was send successfully!!");
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        if(callback!=null) {
+                            try {
+                                callback.onResponseSuccess(response);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    } else {
+                        if (callback != null)
+                            callback.onResponseFailure(new Throwable("Request failed"));
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                    System.out.println("Error message");
+                }
+            });
+    }
+}}
