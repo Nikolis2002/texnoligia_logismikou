@@ -211,8 +211,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			((TaxiViewHolder) holder).idField.setText("ID: " + String.format("%d", service.getId()));
 			((TaxiViewHolder) holder).amountField.setText("Amount: " + service.getPayment().toString());
 			((TaxiViewHolder) holder).dateField.setText("Date: " + service.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-			((TaxiViewHolder) holder).fromField.setText("From: " + service.getRequest().getPickupLocation().toString());
-			((TaxiViewHolder) holder).toField.setText("To: " + service.getRequest().getDestination().toString());
+			//((TaxiViewHolder) holder).fromField.setText("From: " + service.getRequest().getPickupLocation().toString());
+			//((TaxiViewHolder) holder).toField.setText("To: " + service.getRequest().getDestination().toString());
 		}
 
 		holder.itemView.setOnClickListener(this);
