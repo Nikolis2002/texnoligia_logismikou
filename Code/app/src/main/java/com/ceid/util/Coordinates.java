@@ -108,7 +108,7 @@ public class Coordinates implements Serializable
     public double estimateTaxiCost(Coordinates endPoint){
         float distance=this.distance(endPoint);
 
-        return 0.003 * distance;
+        return 0.002 * distance;
     }
 
 
