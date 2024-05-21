@@ -65,37 +65,39 @@ app.get("/getTableData",async (req,res)=>{
 
 app.post("/insertTable",async (req,res)=>{
 
-    try {
-        const data = req.body; // Assuming req.body is an array of JSON objects
-        const promises = [];
+        try {
 
-        for (const row of data) {
-            // Assuming each row object contains fields like tableName, field1, field2, etc.
-            const { tableName, field1, field2 } = row;
+            const param=req.body;
+            let jsonObj=JSON.parse(param);
+            console.log(jsonObj);
+            const { table, values } = jsonObj; // Extract table name and values array from request body
+            const promises = [];
+    
+            for (const row of values) {
+                
+                const fields = Object.keys(row).join(', ');
+                const placeholders = Object.values(row).map(() => '?').join(', ');
+                const sql = `INSERT INTO ${table} (${fields}) VALUES (${placeholders})`;
+                const values = Object.values(row);
+    
+                
+                promises.push(helper.queryPromise(con,sql,values));
+            }
 
-            // Construct your SQL query based on the row data
-            const sql = `INSERT INTO ${tableName} (field1, field2) VALUES (?, ?)`;
-            const values = [field1, field2];
-
-            // Perform the query and push the promise to the array
-            promises.push(queryPromise(sql, values));
+            await Promise.all(promises);
+    
+            res.status(200).send("Success");
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).send("Error");
         }
-
-        // Wait for all queries to complete
-        await Promise.all(promises);
-
-        res.status(200).send("Success");
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).send("Error");
-    }
 
 });
 
 app.post("/getFunctionWithParams",async (req,res)=>{
     try{
         const param=req.body;
-        jsonObj=JSON.parse(data);
+        let jsonObj=JSON.parse(param);
         
         jsonMap=helper.getPostParamsJson(jsonObj);
         jsonArray=Array.from(jsonMap.values());
