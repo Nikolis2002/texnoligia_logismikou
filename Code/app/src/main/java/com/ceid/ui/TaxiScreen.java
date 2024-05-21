@@ -1,10 +1,8 @@
 package com.ceid.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -18,8 +16,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ceid.model.payment_methods.Payment;
-import com.ceid.model.service.TaxiRequest;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TaxiSelect extends AppCompatActivity implements ActivityResultCallback<ActivityResult>{
+public class TaxiScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>{
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private Bundle destinationScreenData;
     private Location location;
@@ -39,7 +35,7 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.taxi_select);
+        setContentView(R.layout.taxi_screen);
         enableTaxiBtn(false);
         gpsLocation();
 
@@ -74,14 +70,14 @@ public class TaxiSelect extends AppCompatActivity implements ActivityResultCallb
 
             }
 
-            Intent intent = new Intent(TaxiSelect.this, TaxiWaitScreen.class);
+            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
             startActivity(intent);
         }
 
     }
 
     public void insertDestination(View view){
-        Intent destinationIntent = new Intent(TaxiSelect.this, LocationScreen.class);
+        Intent destinationIntent = new Intent(TaxiScreen.this, LocationScreen.class);
         destinationScreenData = new Bundle();
         destinationScreenData.putSerializable("coords",destinationCoord);
         destinationScreenData.putString("text","Choose your Destination");

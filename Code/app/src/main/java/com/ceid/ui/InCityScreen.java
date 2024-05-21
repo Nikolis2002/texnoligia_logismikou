@@ -2,14 +2,9 @@ package com.ceid.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class InCityScreen extends AppCompatActivity
 {
@@ -32,7 +27,7 @@ public class InCityScreen extends AppCompatActivity
 
         //Initialize intent
         intent = new Intent(this, InCityVehicleScreen.class);
-        taxiIntent = new Intent(this, TaxiSelect.class);
+        taxiIntent = new Intent(this, TaxiScreen.class);
     }
 
     public void onClick(View view)
