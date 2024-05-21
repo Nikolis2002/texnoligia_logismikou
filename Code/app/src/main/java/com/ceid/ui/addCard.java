@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
+import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
 import com.ceid.model.users.User;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,7 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -39,21 +43,24 @@ public class addCard extends AppCompatActivity implements postInterface {
         expDate = findViewById(R.id.expDate);
         owner = findViewById(R.id.owner);
         ccv = findViewById(R.id.ccv);
-        ApiService api = ApiClient.getApiService();
-        PostHelper addc = new PostHelper(this);
+
+
     }
     public void addCardButton(View view)
     {
-        Map<String, String> data = new HashMap<>();
-        user= User.currentUser();
-        data.put("username",user.usernameGetter());
-        data.put("cardNum",cardNum.getText().toString());
-        data.put("expDate",expDate.getText().toString());
-        data.put("owner",owner.getText().toString());
-        data.put("ccv",ccv.getText().toString());
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(data);
-        Log.d("kort",jsonString);
+        List<Map<String, Object>> values = new ArrayList<>();
+        Map<String, Object> cardCred = new HashMap<>();
+        user= currentUser();
+        cardCred.put("username",user.usernameGetter());
+        //data.put("username","bill");
+        cardCred.put("cardNum",cardNum.getText().toString());
+        cardCred.put("expDate",expDate.getText().toString());
+        cardCred.put("owner",owner.getText().toString());
+        cardCred.put("ccv",ccv.getText().toString());
+        values.add(cardCred);
+        String jsonString = jsonStringParser.createJsonString("card", values);
+        PostHelper addc = new PostHelper(this);
+        ApiService api = ApiClient.getApiService();
         addc.card(api,jsonString);
 
     }
@@ -64,12 +71,14 @@ public class addCard extends AppCompatActivity implements postInterface {
 
     @Override
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
-
+        Toast.makeText(getApplicationContext(), "test!",
+                Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void onResponseFailure(Throwable t) {
-
+        Toast.makeText(getApplicationContext(), "test2!",
+                Toast.LENGTH_LONG).show();
     }
 }

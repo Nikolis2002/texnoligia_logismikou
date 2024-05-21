@@ -114,6 +114,8 @@ BEGIN
     SELECT count(*),owner_balance INTO c,balance FROM bank WHERE cardNum=bank.card_number AND expDate=bank.card_exp_date AND  cOwner=bank.card_owner AND cvv=bank.cvv GROUP BY owner_balance;
     IF (c=1) THEN
         INSERT INTO card VALUES(user,cardNum,expDate,cOwner,cvv,"credit");
+    ELSE
+        SELECT FALSE AS result;
     END IF;
 END $
 DELIMITER ;
