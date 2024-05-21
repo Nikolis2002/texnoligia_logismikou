@@ -53,20 +53,25 @@ public class login extends AppCompatActivity implements postInterface{
         ApiService api=ApiClient.getApiService();
 
         List<Map<String, Object>> values = new ArrayList<>();
-        Map<String, Object> map1 = new HashMap<>();
-        map1.put("id", 1);
-        map1.put("name", "John Doe");
-        map1.put("age", 30);
-        values.add(map1);
+        Map<String, Object> user1 = new HashMap<>();
+        user1.put("username", "john_doe");
+        user1.put("password", "password1");
+        user1.put("name", "John");
+        user1.put("lname", "Doe");
+        user1.put("email", "john@example.com");
+        user1.put("phone", "1234567890");
+        values.add(user1);
 
-        Map<String, Object> map2 = new HashMap<>();
-        map2.put("id", 2);
-        map2.put("name", "Jane Doe");
-        map2.put("age", 25);
-        values.add(map2);
+        Map<String, Object> user2 = new HashMap<>();
+        user2.put("username", "jane_doe");
+        user2.put("password", "password2");
+        user2.put("name", "Jane");
+        user2.put("lname", "Doe");
+        user2.put("email", "jane@example.com");
+        user2.put("phone", "9876543210");
+        values.add(user2);
 
-
-        String jsonString = jsonStringParser.createJsonString("myTable", values);
+        String jsonString = jsonStringParser.createJsonString("user", values);
 
         Call<Void> call =api.insertTable(jsonString);
 
