@@ -14,16 +14,27 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
+import com.ceid.Network.jsonStringParser;
+import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TaxiScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>{
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -31,13 +42,18 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     private Location location;
     private Coordinates destinationCoord;
     private float zoom;
-
+    Customer customer;
+    ApiService api= ApiClient.getApiService();
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.taxi_screen);
         enableTaxiBtn(false);
         gpsLocation();
+
+        Intent userDataIntent = getIntent();
+        customer= (Customer) userDataIntent.getSerializableExtra("customer");
+        Toast.makeText(getApplicationContext(), customer.nameGetter(), Toast.LENGTH_SHORT).show();
 
         this.activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),this
@@ -46,7 +62,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     }
 
 
-    public void findTaxiButton(View view){
+    public void findTaxi(View view){
         boolean fieldCheck=checkLocField();
 
         if(!fieldCheck){
@@ -65,13 +81,36 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
             String payment = paymentRadioButton.getText().toString().toUpperCase();
 
             if(payment.equals("CASH")){
+                List<Map<String, Object>> values = new ArrayList<>();
+                Map<String, Object> taxiRequest = new HashMap<>();
+                taxiRequest.put("id","null");
+                taxiRequest.put("pickup_location",(Coordinates) location);
+                taxiRequest.put("destination",(Coordinates) location);
+                taxiRequest.put("assigned_driver","null");
+                taxiRequest.put("assignment_time","null");
+                taxiRequest.put("pickup_time","null");
+                values.add(taxiRequest);
 
+                String jsonString = jsonStringParser.createJsonString("taxi_request",values);
+
+                Call<Void> call = api.insertTable(jsonString);
+
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
+                        startActivity(intent);
+                    }
+                    @Override
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable throwable) {
+                        System.out.println("Error message");
+                    }
+                });
             }else{
 
             }
 
-            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
-            startActivity(intent);
+
         }
 
     }

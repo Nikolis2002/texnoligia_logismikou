@@ -30,11 +30,11 @@ public class TaxiRideScreen extends AppCompatActivity {
         @Override
         public void run() {
 
-            if(status) {
+            if(!status) {
                 Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
                 startActivity(intent);
             }else{
-                Toast.makeText(getApplicationContext(), "No!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No!!!", Toast.LENGTH_SHORT).show();
             }
             handler.postDelayed(this, 2000);
         }
