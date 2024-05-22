@@ -91,7 +91,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                 List<Map<String,Object>> values = new ArrayList<>();
                 Map<String, Object> taxiReservation = new HashMap<>();
-                taxiReservation.put("payment_customer_username",customer.usernameGetter());
+                taxiReservation.put("payment_customer_username",customer.getUsername());
                 taxiReservation.put("payment_method",payment);
                 taxiReservation.put("service_creation_date",)
 
