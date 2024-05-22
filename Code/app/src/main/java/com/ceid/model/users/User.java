@@ -23,38 +23,47 @@ public class User implements Serializable
         this.email=email;
         this.wallet=wallet;
     }
-    public String usernameGetter(){
+    public String getUsername(){
         return this.username;
     }
 
     public Wallet getWallet(){
         return this.wallet;
     }
-    public String nameGetter(){
+
+    public String getName(){
         return this.name;
     }
 
-    public String lnameGetter(){
+    public String getLname(){
         return this.lname;
     }
 
-    public String emailGetter(){
+    public String getLastname(){
+    return this.lname;
+}
+
+    public String getEmail(){
         return this.email;
     }
 
-    protected void usernameSetter(String Username){
+    protected void setUsername(String Username){
          this.username=Username;
     }
 
-    protected void nameSetter(String name){
+    protected void setName(String name){
          this.name=name;
     }
 
-    protected void lnameSetter(String lname){
+    protected void setLname(String lname){
          this.lname=lname;
     }
 
-    protected void emailSetter(String email){
+    protected void setLastname(String lname){
+        this.lname=lname;
+    }
+
+    protected void setEmail(String email){
          this.email=email;
     }
 
@@ -66,6 +75,11 @@ public class User implements Serializable
     }
 
     public static User currentUser()
+    {
+        return User.currentUser;
+    }
+
+    public static User getCurrentUser()
     {
         return User.currentUser;
     }

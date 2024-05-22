@@ -51,7 +51,7 @@ public class addCard extends AppCompatActivity implements postInterface {
         List<Map<String, Object>> values = new ArrayList<>();
         Map<String, Object> cardCred = new HashMap<>();
         user= currentUser();
-        cardCred.put("username",user.usernameGetter());
+        cardCred.put("username",user.getUsername());
         //data.put("username","bill");
         cardCred.put("cardNum",cardNum.getText().toString());
         cardCred.put("expDate",expDate.getText().toString());

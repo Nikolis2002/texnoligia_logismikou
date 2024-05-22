@@ -36,5 +36,10 @@ public class Payment implements Serializable
     public void setMethod(Method method) {
         this.method = method;
     }
+
+    public String toString()
+    {
+        return String.format("%.02f€", amount);
+    }
 }
 

@@ -59,7 +59,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
         Intent userDataIntent = getIntent();
         customer= (Customer) userDataIntent.getSerializableExtra("customer");
-        Toast.makeText(getApplicationContext(), customer.nameGetter(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), customer.getName(), Toast.LENGTH_SHORT).show();
 
         this.activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),this
@@ -133,7 +133,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                         if(response.isSuccessful()){
                             //Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
-                            startActivity(intent);
+                            //startActivity(intent);
                         }else{
 
                         }

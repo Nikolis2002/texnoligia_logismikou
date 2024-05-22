@@ -25,10 +25,10 @@ public class TaxiDriver extends User{
 
     @Override
     public void printUser() {
-        Log.d("taxi", "Username: " + this.usernameGetter());
-        Log.d("taxi", "Name: " + this.nameGetter());
-        Log.d("taxi", "Last Name: " + this.lnameGetter());
-        Log.d("taxi", "Email: " + this.emailGetter());
+        Log.d("taxi", "Username: " + this.getUsername());
+        Log.d("taxi", "Name: " + this.getName());
+        Log.d("taxi", "Last Name: " + this.getLname());
+        Log.d("taxi", "Email: " + this.getEmail());
         Log.d("taxi", "Free Status: " + this.isFreeStatus());
 
         Taxi taxi = this.getTaxi();

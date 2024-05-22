@@ -40,8 +40,9 @@ public class MainScreen extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
 
-        Intent userDataIntent = getIntent();
-        customer= (Customer) userDataIntent.getSerializableExtra("customer");
+        //Welcome the user
+        Customer customer = (Customer) User.currentUser();
+
 
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
