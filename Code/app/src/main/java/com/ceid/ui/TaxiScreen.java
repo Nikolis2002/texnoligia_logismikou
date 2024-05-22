@@ -20,10 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
-import com.ceid.model.payment_methods.Payment;
-import com.ceid.model.service.Rating;
-import com.ceid.model.service.TaxiRequest;
-import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
@@ -37,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,26 +87,29 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 Map<String, Object> taxiReservation = new HashMap<>();
                 taxiReservation.put("payment_customer_username",customer.getUsername());
                 taxiReservation.put("payment_method",payment);
-                //taxiReservation.put("service_creation_date",)
+                taxiReservation.put("service_creation_date",LocalDateTime.now());
+                taxiReservation.put("taxiReq_pickup_location",location.coordsToJson());
+                taxiReservation.put("taxiReq_destination",destinationCoord.coordsToJson());
+                values.add(taxiReservation);
 
-               
+                String jsonString = jsonStringParser.createJsonString(values);
 
-                Call<ResponseBody> call = api.insertTable(jsonString);
+                Call<Void> call = api.insertTaxiService(jsonString);
 
-                call.enqueue(new Callback<ResponseBody>() {
+                call.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
 
                         if(response.isSuccessful()){
-                            //Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
-                            //startActivity(intent);
+                            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
+                            startActivity(intent);
                         }else{
 
                         }
 
                     }
                     @Override
-                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable throwable) {
                         System.out.println("Error message");
                     }
                 });
