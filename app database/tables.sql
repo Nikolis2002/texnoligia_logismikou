@@ -35,7 +35,7 @@ CREATE TABLE payment
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     customer_username VARCHAR(32) NOT NULL ,
-    payment_value DECIMAL(10, 2) NOT NULL,
+    payment_value DECIMAL(10, 2),
     payment_method ENUM('WALLET','CASH'),
 
     PRIMARY KEY(id),
