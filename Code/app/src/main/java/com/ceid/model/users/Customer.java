@@ -46,10 +46,10 @@ public class Customer extends User {
 
     @Override
     public void printUser() {
-        Log.d("Customer", "Username: " + this.usernameGetter());
-        Log.d("Customer", "Name: " + this.nameGetter());
-        Log.d("Customer", "Last Name: " + this.lnameGetter());
-        Log.d("Customer", "Email: " + this.emailGetter());
+        Log.d("Customer", "Username: " + this.getUsername());
+        Log.d("Customer", "Name: " + this.getName());
+        Log.d("Customer", "Last Name: " + this.getLname());
+        Log.d("Customer", "Email: " + this.getEmail());
         Log.d("Customer", "License: " + this.getLicense());
         Log.d("Customer", "Points: " + this.getPoints().getPoints());
 
