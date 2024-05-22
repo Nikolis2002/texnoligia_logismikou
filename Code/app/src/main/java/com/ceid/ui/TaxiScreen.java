@@ -97,6 +97,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 );
 
                 TaxiService taxiService = new TaxiService(
+                        1,
                         LocalDateTime.now(),
                         new Payment(Payment.Method.CASH),
                         null,
