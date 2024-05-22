@@ -190,8 +190,8 @@ public class Login extends AppCompatActivity implements postInterface{
         password="password";
 
         Map<String, String> data = new HashMap<>();
-        data.put("username", username);
-        data.put("password", password);
+        //data.put("username", username);
+        //data.put("password", password);
 
         // Convert the map to a JSON string
         Gson gson = new Gson();
