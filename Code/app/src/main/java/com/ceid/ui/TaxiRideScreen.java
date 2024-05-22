@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,7 @@ public class TaxiRideScreen extends AppCompatActivity {
         @Override
         public void run() {
 
-            if(!status) {
+            if(status) {
                 Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
                 startActivity(intent);
             }else{
@@ -42,6 +43,12 @@ public class TaxiRideScreen extends AppCompatActivity {
 
     public  void rideStatus() {
         handler.post(taxiRideCheck);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
     }
 
     @Override
