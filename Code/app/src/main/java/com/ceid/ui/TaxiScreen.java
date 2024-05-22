@@ -64,7 +64,6 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         this.activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),this
         );
-
     }
 
 
