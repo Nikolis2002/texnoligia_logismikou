@@ -8,17 +8,12 @@ public class Card implements Serializable {
     private String cardholderName;
     private String expirationDate;
     private String cvv;
-    private String type;
 
-    public Card(String number, String name, String Date, String cvv, String cardType){
+    public Card(String number, String name, String Date, String cvv){
         this.cardnumber=number;
         this.cardholderName=name;
         this.expirationDate=Date;
         this.cvv=cvv;
-    }
-
-    protected void setType(String type){
-        this.type=type;
     }
 
     public void changeInfo(String number,String name,String Date,String cvv){
@@ -47,11 +42,4 @@ public class Card implements Serializable {
     public String getCvv() {
         return cvv;
     }
-
-    // Getter for type
-    public String getType() {
-        return type;
-    }
-
-    
 }
