@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Wallet;
+import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.transport.Taxi;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
@@ -263,6 +264,17 @@ public class jsonStringParser {
             throw e;
         }
         return dataList;
+    }
+
+    public static ArrayList<TaxiRequest> parseTaxiRequest(Response<ResponseBody> response) throws IOException {
+        ObjectMapper mapper=new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(response.body().string());
+        ArrayList<TaxiRequest> requestList= new ArrayList<>();
+
+
+        return requestList;
+
+
     }
 
 }
