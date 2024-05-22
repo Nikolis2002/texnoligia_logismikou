@@ -71,7 +71,18 @@ app.post("/insertTaxiService", async (req,res)=>{
         let queryString="CALL taxiReservation(?)";
 
         let jsonMap=helper.getPostParamsJson(jsonObj);
-        let jsonArray=Array.from(jsonMap.values());
+
+        const updatedJsonMap = jsonMap.map(field => {
+            if (field.key === 'pickup_location' || field.key === 'destination') {
+                const { lat, lng } = field.value;
+                const latFloat = parseFloat(lat);
+                const lngFloat = parseFloat(lng);
+                field.value = `ST_GeomFromText('POINT(${latFloat} ${lngFloat})')`;
+            }
+            return field;
+        });
+        
+        let jsonArray=Array.from(updatedJsonMap.values());
 
 
         let response= await helper.queryPromise(con,queryString,jsonArray);
@@ -103,7 +114,7 @@ app.post("/insertTable", async (req, res) => {
             for (const [key, value] of Object.entries(row)) {
                 fields.push(key);
 
-                if (key === 'pickup_location' || key === 'destination') {
+                if (key === 'pickup_location' || key === 'destination'|| key==="coords") {
                     // Parse the JSON string to extract latitude and longitude
                     const coords = JSON.parse(value);
                     const lat = parseFloat(coords.lat);
