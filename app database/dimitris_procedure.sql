@@ -31,7 +31,7 @@ begin
 	insert into payment values(null,payment_customer_username,null,payment_method);
 	set payment_id=LAST_INSERT_ID();
 	
-	insert into service values(null,service_creation_date,payment_id,'ONGOING',null);
+	insert into service values(null,service_creation_date,payment_id,'ONGOING',now());
 	set service_id=LAST_INSERT_ID();
 	
 	insert into taxi_request values(null,taxiReq_pickup_location,taxiReq_destination,null,null,null);
@@ -42,7 +42,6 @@ begin
 end$
 delimiter ;
 
-
 DROP PROCEDURE IF EXISTS resumeService;
 delimiter $
 create procedure resumeService(in service_id int)
@@ -50,4 +49,24 @@ begin
 	update service set service_status="ONGOING" where id=service_id;
     update service set status_date=now() where id=service_id;
 end$
+delimiter ;
 
+DROP PROCEDURE IF EXISTS checkTaxiReservation;
+delimiter $
+create procedure checkTaxiReservation(in service_id_check int)
+begin
+	declare taxiRequest int;
+	declare date_check DATETIME;
+	
+	select request_id into taxiRequest from taxi_service where service_id=service_id_check;
+	select assignment_time into date_check from taxi_request where id=taxiRequest;
+	
+	if date_check IS NULL THEN
+		SELECT "FALSE" AS result;	
+	ELSE
+		SELECT "TRUE" AS result;
+	END IF;
+
+	
+end$
+delimiter ;
