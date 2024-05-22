@@ -90,19 +90,19 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
             if(payment.equals("CASH")){
 
                 TaxiService taxiService = new TaxiService(
+                        1,
                         LocalDateTime.now(),
                         new Payment(Payment.Method.CASH),
                         null,
-                        null
+                        null,
+                        new TaxiRequest(
+                                (Coordinates) location,
+                                destinationCoord,
+                                Payment.Method.CASH
+                        )
                 );
 
-                TaxiRequest taxiRequest = new TaxiRequest(
-                        (Coordinates) location,
-                        destinationCoord,
-                        Payment.Method.CASH
-                );
-
-
+                TaxiRequest taxiRequest = taxiService.getRequest();
 
                 List<Map<String, Object>> values = new ArrayList<>();
                 Map<String, Object> serviceDB = new HashMap<>();
