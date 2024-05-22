@@ -167,13 +167,8 @@ CREATE TABLE electric_scooter
     PRIMARY KEY(id),
 
     CONSTRAINT fk_electric_scooter_rental
-    FOREIGN KEY(id) REFERENCES rental(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
-
-CREATE TABLE taxi_driver
-(
+    FOREIGN 
+    CONSTRAINT fk_taxi_service_r
     username VARCHAR(32) NOT NULL UNIQUE,
     taxi INT UNSIGNED NOT NULL,
     free_status VARCHAR(32) NOT NULL,

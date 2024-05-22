@@ -25,6 +25,13 @@ public class TaxiRequest implements Serializable
         this.payment=payment;
     }
 
+    public TaxiRequest(int id, Coordinates pickUp, Coordinates dest, Payment.Method payment) {
+        this.id=id;
+        this.pickupLocation=pickUp;
+        this.destination=dest;
+        this.payment= payment;
+    }
+
     public Payment.Method getPaymentMethod() {
         return payment;
     }

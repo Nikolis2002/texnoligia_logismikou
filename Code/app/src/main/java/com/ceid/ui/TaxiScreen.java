@@ -50,13 +50,15 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_screen);
-
         enableTaxiBtn(false);
         gpsLocation();
 
         Intent userDataIntent = getIntent();
         customer= (Customer) userDataIntent.getSerializableExtra("customer");
-        Toast.makeText(getApplicationContext(), customer.getName(), Toast.LENGTH_SHORT).show();
+
+        TextView textView = findViewById(R.id.balance);
+        String balance= customer.getWallet().getBalance() + "€";
+        textView.setText(balance);
 
         this.activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),this
@@ -104,8 +106,12 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                     public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
 
                         if(response.isSuccessful()){
+                            String service=response.body();
+                            int serviceId= Integer.parseInt(service);
                             Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
+                            intent.putExtra("serviceId",serviceId);
                             startActivity(intent);
+                            finish();
                         }else{
                             System.out.println("Error message");
                         }
@@ -118,6 +124,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 });
             }else{
                 double balance=customer.getWallet().getBalance();
+
                 if(balance<finalCostEstimated){
                     Toast.makeText(getApplicationContext(), "Υou don't have the estimated amount in your wallet ", Toast.LENGTH_SHORT).show();
                 }else{
@@ -140,10 +147,11 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                             if(response.isSuccessful()){
                                 String service=response.body();
-                                int serviceId= Integer.parseInt(service);
-                                Toast.makeText(getApplicationContext(),serviceId, Toast.LENGTH_LONG).show();
+                                int serviceId = Integer.parseInt(service);
                                 Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
+                                intent.putExtra("serviceId",serviceId);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 System.out.println("Error message");
                             }
