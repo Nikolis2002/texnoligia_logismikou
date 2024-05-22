@@ -89,32 +89,40 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
             if(payment.equals("CASH")){
 
+
+                TaxiRequest taxiRequest = new TaxiRequest(
+                        (Coordinates) location,
+                        destinationCoord,
+                        Payment.Method.CASH
+                );
+
                 TaxiService taxiService = new TaxiService(
-                        1,
                         LocalDateTime.now(),
                         new Payment(Payment.Method.CASH),
                         null,
                         null,
-                        new TaxiRequest(
-                                (Coordinates) location,
-                                destinationCoord,
-                                Payment.Method.CASH
-                        )
+                        taxiRequest
                 );
 
-                TaxiRequest taxiRequest = taxiService.getRequest();
-
-                List<Map<String, Object>> values = new ArrayList<>();
+                List<Map<String, Object>> serviceDBvalues = new ArrayList<>();
                 Map<String, Object> serviceDB = new HashMap<>();
                 serviceDB.put("id",null);
-                serviceDB.put("pickup_location",taxiService.getCreationDate());
-                serviceDB.put("destination",(Coordinates) location);
-                serviceDB.put("assigned_driver","null");
-                serviceDB.put("assignment_time","null");
-                serviceDB.put("pickup_time","null");
-                values.add(serviceDB);
+                serviceDB.put("creation_date",taxiService.getCreationDate());
+                serviceDB.put("payment_id",null);
+                serviceDB.put("service_status","ONGOING");
+                serviceDB.put("status_date","null");
+                serviceDBvalues.add(serviceDB);
 
-                String jsonString = jsonStringParser.createJsonString("user",values);
+                List<Map<String, Object>> paymentDBvalues = new ArrayList<>();
+                Map<String, Object> paymentDB = new HashMap<>();
+                paymentDB.put("id",null);
+                paymentDB.put("creation_date",taxiService.getCreationDate());
+                paymentDB.put("payment_id",null);
+                paymentDB.put("service_status","ONGOING");
+                paymentDB.put("status_date","null");
+                paymentDBvalues.add(paymentDB);
+
+                String jsonString = jsonStringParser.createJsonString("user",serviceDBvalues);
 
                 Call<ResponseBody> call = api.insertTable(jsonString);
 
