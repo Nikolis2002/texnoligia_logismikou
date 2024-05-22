@@ -39,7 +39,8 @@ begin
 	set taxi_request_id=LAST_INSERT_ID();
 	
 	insert into taxi_service values(service_id,taxi_request_id,null);
-    
+	
+	select service_id;
 end$
 
 delimiter ;

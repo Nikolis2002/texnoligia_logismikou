@@ -40,7 +40,7 @@
         <activity android:name=".TaxiScreen" />
         <activity android:name=".UnlockScreen" />
         <activity android:name=".RouteHistory" />
-        <activity android:name=".TaxiWaitScreen" />
+        <activity android:name=".TaxiRequestWaitScreen" />
         <activity android:name=".TaxiRideScreen" />
         <activity android:name=".TransportScreen" />
         <activity android:name=".TaxiRequestsScreen" />

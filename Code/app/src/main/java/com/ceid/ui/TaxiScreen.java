@@ -29,7 +29,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +45,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     private Coordinates destinationCoord;
     private float zoom;
     Customer customer;
+    double finalCostEstimated;
     ApiService api= ApiClient.getApiService();
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -103,10 +103,10 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
 
                         if(response.isSuccessful()){
-                            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
+                            Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
                             startActivity(intent);
                         }else{
-
+                            System.out.println("Error message");
                         }
 
                     }
@@ -116,6 +116,42 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                     }
                 });
             }else{
+                double balance=customer.getWallet().getBalance();
+                if(balance<finalCostEstimated){
+                    Toast.makeText(getApplicationContext(), "Υou don't have the estimated amount in your wallet ", Toast.LENGTH_SHORT).show();
+                }else{
+                    List<Map<String,Object>> values = new ArrayList<>();
+                    Map<String, Object> taxiReservation = new LinkedHashMap<>();
+                    taxiReservation.put("payment_customer_username",customer.getUsername());
+                    taxiReservation.put("payment_method",payment);
+                    taxiReservation.put("service_creation_date", DateFormat.format(LocalDateTime.now()));
+                    taxiReservation.put("taxiReq_pickup_location",location.coordsToJson());
+                    taxiReservation.put("taxiReq_destination",destinationCoord.coordsToJson());
+                    values.add(taxiReservation);
+
+                    String jsonString = jsonStringParser.createJsonString(values);
+
+                    Call<Void> call = api.insertTaxiService(jsonString);
+
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+
+                            if(response.isSuccessful()){
+                                int servide_id=jsonStringParser.extractInsertIds(response);
+                                Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
+                                startActivity(intent);
+                            }else{
+                                System.out.println("Error message");
+                            }
+
+                        }
+                        @Override
+                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable throwable) {
+                            System.out.println("Error message");
+                        }
+                    });
+                }
 
             }
 
@@ -123,6 +159,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         }
 
     }
+
+
 
     public void insertDestination(View view){
         Intent destinationIntent = new Intent(TaxiScreen.this, LocationScreen.class);
@@ -221,7 +259,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 String taxiCostFormat = taxiCostFormatted + "€";
                 estimateCost.setText(taxiCostFormat);
                 TextView finalCostText = findViewById(R.id.finalCost);
-                double finalCostEstimated = taxiCost + 1.5;
+                finalCostEstimated = taxiCost + 1.5;
                 String finaCostEstimatedString = new DecimalFormat ("#.00").format(finalCostEstimated);
                 String finalCost = finaCostEstimatedString + "€";
                 finalCostText.setText(finalCost);
