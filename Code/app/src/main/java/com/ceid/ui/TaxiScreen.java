@@ -49,8 +49,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     ApiService api= ApiClient.getApiService();
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.taxi_screen);
+
         enableTaxiBtn(false);
         gpsLocation();
 
@@ -96,11 +96,11 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                 String jsonString = jsonStringParser.createJsonString(values);
 
-                Call<Void> call = api.insertTaxiService(jsonString);
+                Call<String> call = api.insertTaxiService(jsonString);
 
-                call.enqueue(new Callback<Void>() {
+                call.enqueue(new Callback<String>() {
                     @Override
-                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
 
                         if(response.isSuccessful()){
                             Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
@@ -111,7 +111,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                     }
                     @Override
-                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable throwable) {
+                    public void onFailure(@NonNull Call<String> call, @NonNull Throwable throwable) {
                         System.out.println("Error message");
                     }
                 });
@@ -131,14 +131,16 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                     String jsonString = jsonStringParser.createJsonString(values);
 
-                    Call<Void> call = api.insertTaxiService(jsonString);
+                    Call<String> call = api.insertTaxiService(jsonString);
 
-                    call.enqueue(new Callback<Void>() {
+                    call.enqueue(new Callback<String>() {
                         @Override
-                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
 
                             if(response.isSuccessful()){
-                                int servide_id=jsonStringParser.extractInsertIds(response);
+                                String service=response.body();
+                                int serviceId= Integer.parseInt(service);
+                                Toast.makeText(getApplicationContext(),serviceId, Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
                                 startActivity(intent);
                             }else{
@@ -147,7 +149,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
                         }
                         @Override
-                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable throwable) {
+                        public void onFailure(@NonNull Call<String> call, @NonNull Throwable throwable) {
                             System.out.println("Error message");
                         }
                     });
