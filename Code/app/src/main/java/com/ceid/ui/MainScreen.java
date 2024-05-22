@@ -41,7 +41,7 @@ public class MainScreen extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
 
         //Welcome the user
-        Customer customer = (Customer) User.currentUser();
+        customer = (Customer) User.currentUser();
 
 
         //Bottom navigation
