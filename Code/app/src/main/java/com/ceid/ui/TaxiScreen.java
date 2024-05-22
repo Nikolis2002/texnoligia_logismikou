@@ -88,41 +88,13 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
             if(payment.equals("CASH")){
 
+                List<Map<String,Object>> values = new ArrayList<>();
+                Map<String, Object> taxiReservation = new HashMap<>();
+                taxiReservation.put("payment_customer_username",customer.usernameGetter());
+                taxiReservation.put("payment_method",payment);
+                taxiReservation.put("service_creation_date",)
 
-                TaxiRequest taxiRequest = new TaxiRequest(
-                        (Coordinates) location,
-                        destinationCoord,
-                        Payment.Method.CASH
-                );
-
-                TaxiService taxiService = new TaxiService(
-                        1,
-                        LocalDateTime.now(),
-                        new Payment(Payment.Method.CASH),
-                        null,
-                        null,
-                        taxiRequest
-                );
-
-                List<Map<String, Object>> serviceDBvalues = new ArrayList<>();
-                Map<String, Object> serviceDB = new HashMap<>();
-                serviceDB.put("id",null);
-                serviceDB.put("creation_date",taxiService.getCreationDate());
-                serviceDB.put("payment_id",null);
-                serviceDB.put("service_status","ONGOING");
-                serviceDB.put("status_date","null");
-                serviceDBvalues.add(serviceDB);
-
-                List<Map<String, Object>> paymentDBvalues = new ArrayList<>();
-                Map<String, Object> paymentDB = new HashMap<>();
-                paymentDB.put("id",null);
-                paymentDB.put("creation_date",taxiService.getCreationDate());
-                paymentDB.put("payment_id",null);
-                paymentDB.put("service_status","ONGOING");
-                paymentDB.put("status_date","null");
-                paymentDBvalues.add(paymentDB);
-
-                String jsonString = jsonStringParser.createJsonString("user",serviceDBvalues);
+               
 
                 Call<ResponseBody> call = api.insertTable(jsonString);
 
