@@ -64,6 +64,9 @@ app.get("/getTableData",async (req,res)=>{
     
 });
 
+
+
+
 app.post("/insertTable", async (req, res) => {
     try {
         const param = req.body;
