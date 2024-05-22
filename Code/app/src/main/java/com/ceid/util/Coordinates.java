@@ -1,10 +1,14 @@
 package com.ceid.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 import android.location.Location;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Coordinates implements Serializable
 {
@@ -109,6 +113,21 @@ public class Coordinates implements Serializable
         float distance=this.distance(endPoint);
 
         return 0.002 * distance;
+    }
+
+    public String coordsToJson(){
+        Map<String, Double> map=new HashMap<>();
+        map.put("lat", this.lat);
+        map.put("lng", this.lng);
+        String jsonString;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            jsonString=mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return jsonString;
     }
 
 
