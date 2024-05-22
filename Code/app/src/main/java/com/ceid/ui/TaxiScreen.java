@@ -132,7 +132,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
                         if(response.isSuccessful()){
-                            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
+                            //Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
                             startActivity(intent);
                         }else{
 
