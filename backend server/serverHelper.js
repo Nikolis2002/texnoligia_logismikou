@@ -262,9 +262,8 @@ async function burnCookie(con,sessionId)
 
 //=======================================POST RELATED FUNCTIONS         
 async function getPostParamsJson(req){
-    let body = await readBody(req);
 
-    const json=JSON.parse(body);
+    const json=JSON.parse(req.body);
     jsonMap=objectMapped(json); // returns  the posted information as a json
 
     return jsonMap;

@@ -30,6 +30,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -85,7 +86,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
             if(payment.equals("CASH")){
 
                 List<Map<String,Object>> values = new ArrayList<>();
-                Map<String, Object> taxiReservation = new HashMap<>();
+                Map<String, Object> taxiReservation = new LinkedHashMap<>();
                 taxiReservation.put("payment_customer_username",customer.getUsername());
                 taxiReservation.put("payment_method",payment);
                 taxiReservation.put("service_creation_date", DateFormat.format(LocalDateTime.now()));

@@ -1,5 +1,6 @@
 USE app_database;
 
+DROP PROCEDURE IF EXISTS cancelService;
 delimiter $
 
 create procedure cancelService(in service_id int)
@@ -16,7 +17,11 @@ begin
 		SELECT "FALSE" AS result;
 	END IF;
 end $
+delimiter ; 
 
+
+DROP PROCEDURE IF EXISTS taxiReservation;
+delimiter $
 create procedure taxiReservation(in payment_customer_username VARCHAR(32),in payment_method ENUM('WALLET','CASH'),
 in service_creation_date DATETIME,in taxiReq_pickup_location POINT,in taxiReq_destination POINT)
 begin

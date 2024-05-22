@@ -67,26 +67,34 @@ app.get("/getTableData",async (req,res)=>{
 app.post("/insertTaxiService", async (req,res)=>{
     try{
         const param=req.body;
+
+        const queryString = `CALL taxiReservation(?, ?, ?, ST_GeomFromText(?), ST_GeomFromText(?))`;
+
+
         let jsonObj=JSON.parse(param);
-        let queryString="CALL taxiReservation(?)";
-
-        let jsonMap=helper.getPostParamsJson(jsonObj);
-
-        const updatedJsonMap = jsonMap.map(field => {
-            if (field.key === 'pickup_location' || field.key === 'destination') {
-                const { lat, lng } = field.value;
-                const latFloat = parseFloat(lat);
-                const lngFloat = parseFloat(lng);
-                field.value = `ST_GeomFromText('POINT(${latFloat} ${lngFloat})')`;
-            }
-            return field;
-        });
+        console.log(jsonObj);
         
-        let jsonArray=Array.from(updatedJsonMap.values());
+        const array=jsonObj.values[0];
 
+        let pickupCoords = JSON.parse(array.taxiReq_pickup_location);
+        let pickupLat = parseFloat(pickupCoords.lat);
+        let pickupLng = parseFloat(pickupCoords.lng);
+        array.taxiReq_pickup_location = array.taxiReq_pickup_location = `POINT(${pickupLat} ${pickupLng})`;
 
-        let response= await helper.queryPromise(con,queryString,jsonArray);
-        res.status(200).send(response.result);
+        // Convert destination to ST_GeomFromText format
+        let destinationCoords = JSON.parse(array.taxiReq_destination);
+        let destinationLat = parseFloat(destinationCoords.lat);
+        let destinationLng = parseFloat(destinationCoords.lng);
+        array.taxiReq_destination = `POINT(${destinationLat} ${destinationLng})`;
+
+        // Extract values from the array object
+        const arrayValues = Object.values(array);
+        console.log(array);
+        console.log(arrayValues);
+
+        // Your database query function
+        let response = await helper.queryPromise(con, queryString, arrayValues);
+        res.status(200).send("success");
     }
     catch(err){
         console.error(err);
@@ -140,8 +148,7 @@ app.post("/insertTable", async (req, res) => {
                 return null;
             }
         });
-        res.status(200).jsonjsonMap=helper.getPostParamsJson(jsonObj);
-        jsonArray=Array.from(jsonMap.values());({ insertIds });
+        res.status(200).send(insertIds);
     } catch (error) {
         console.error(error);
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
@@ -155,9 +162,8 @@ app.post("/insertTable", async (req, res) => {
 app.post("/getFunctionWithParams",async (req,res)=>{
     try{
         const param=req.body;
-        let jsonObj=JSON.parse(param);
         
-        jsonMap=helper.getPostParamsJson(jsonObj);
+        jsonMap=await helper.getPostParamsJson(param);
         jsonArray=Array.from(jsonMap.values());
         let query=`CALL ${param}(?)`;
 
