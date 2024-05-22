@@ -70,9 +70,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                         finish();
                     });
                     builder.setNegativeButton("Cancel", (alertDialog, which) -> {
-                        Intent intent = new Intent(TaxiRequestWaitScreen.this, InCityScreen.class);
-                        intent.putExtra("customer",customer);
-                        startActivity(intent);
+
                         finish();
                     });
 
@@ -81,7 +79,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
                 });
             }
-        },20000);
+        },5000);
     }
 
     Runnable taxiFoundCheck = new Runnable() {
