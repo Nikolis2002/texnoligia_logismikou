@@ -17,10 +17,21 @@ begin
 	END IF;
 end $
 
+create procedure taxiReservation(in payment_customer_username VARCHAR(32),in payment_method ENUM,
+in service_creation_date DATETIME,in taxiReq_pickup_location POINT,in taxiReq_destination POINT,
+out payment_id int,out service_id int,out taxi_request_id int)
+begin
+	
+	insert into payment values(null,payment_customer_username,null,payment_method);
+	set payment_id=LAST_INSERT_ID();
+	
+	insert into service(null,service_creation_date,payment_id,'ONGOING',null);
+	set service_id=LAST_INSERT_ID();
+	
+	insert into taxi_request values(null,taxiReq_pickup_location,taxiReq_destination,null,null,null);
+	set taxi_request_id=LAST_INSERT_ID();
+	
+	insert into taxi_service(service_id,taxi_request_id,null);
+end$
 
-delimiter $
-CREATE PROCEDURE test()
-BEGIN
-	SELECT "TRUE" AS result;
-END$
 delimiter ;
