@@ -38,4 +38,7 @@ public interface ApiService {
 
     @POST("/add_card")
     Call<ResponseBody> addCard(@Body String cardParams);
+
+    @GET("/check_reservation")
+    Call<String> checkReservation(@Query("vehicle") int id);
 }

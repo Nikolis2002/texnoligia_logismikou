@@ -93,13 +93,14 @@ public class InCityScreen extends AppCompatActivity
                 });
 
                 builder.create().show();
+
+                return;
             }
             else
             {
                 //Check if license is valid
 
-                if (true)
-                //if (!selectedVehicle.validLicense(customer.getLicense()))
+                if (!selectedVehicle.validLicense(customer.getLicense()))
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -118,14 +119,14 @@ public class InCityScreen extends AppCompatActivity
                     AlertDialog dialog = builder.create();
 
                     dialog.show();
+
+                    return;
                 }
             }
         }
-        else
-        {
-            //Display InCityVehicleScreen
-            startActivity(rentalIntent);
-        }
+
+        //Display InCityVehicleScreen
+        startActivity(rentalIntent);
     }
 
     public void onTaxiClick(View view)

@@ -24,9 +24,13 @@ import android.widget.TextView;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.model.payment_methods.Currency;
+import com.ceid.model.transport.Bicycle;
 import com.ceid.model.transport.CityCar;
+import com.ceid.model.transport.ElectricScooter;
+import com.ceid.model.transport.Motorcycle;
 import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
+import com.ceid.util.GenericCallback;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
 import com.ceid.util.PositiveInteger;
@@ -41,6 +45,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -193,10 +198,42 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 @Override
                 public void onClick(View v)
                 {
+
+                    //Check if reservation exists
+
+                    ApiService api = ApiClient.getApiService();
+                    Call<String> call = api.checkReservation(car.getId());
+
+                    call.enqueue(new Callback<String>()
+                    {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response)
+                        {
+
+
+                            if (response.isSuccessful())
+                            {
+                                Log.d("MYTEST", response.body());
+                            }
+                            else
+                            {
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable throwable)
+                        {
+
+                        }
+                    });
+
+                    /*
+
                     Intent intent = new Intent(v.getContext(), UnlockScreen.class);
                     intent.putExtra("vehicle_id",car.getId());
                     intent.putExtra("vehicle_location", car.getTracker().getCoords());
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             });
         }
@@ -245,44 +282,48 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 vehicleMap.setPosition(selectedCoords);
 
                 //Retrieve vehicles
-                this.vehicleList = this.getVehicles();
-
-                vehicleMap.placePin(selectedCoords, true);
-
-                ArrayList<Rental> validVehicles = new ArrayList<>();
-
-                //Place pins
-                for (Rental rental : vehicleList)
+                this.vehicleList = this.getVehicles(new GenericCallback<ArrayList<Rental>>()
                 {
-                    if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
+                    @Override
+                    public void onSuccess(ArrayList<Rental> list)
                     {
-                        Marker marker = vehicleMap.placePin(rental.getTracker().getCoords(), false, markerIcon);
-                        marker.setTag(rental);
-                        validVehicles.add(rental);
+                        vehicleMap.placePin(selectedCoords, true);
+
+                        ArrayList<Rental> validVehicles = new ArrayList<>();
+
+                        //Place pins
+                        for (Rental rental : vehicleList)
+                        {
+                            if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
+                            {
+                                Marker marker = vehicleMap.placePin(rental.getTracker().getCoords(), false, markerIcon);
+                                marker.setTag(rental);
+                                validVehicles.add(rental);
+                            }
+                        }
+
+                        ListView listView = (ListView) findViewById(R.id.listViewId);
+
+                        listView.setAdapter(new VehicleListAdapter(InCityVehicleScreen.this,  validVehicles, InCityVehicleScreen.this.markerIcon, selectedCoords));
+                        listView.setOnItemClickListener(InCityVehicleScreen.this);
                     }
-                }
 
-                ListView listView = (ListView) findViewById(R.id.listViewId);
+                    @Override
+                    public void onFailure(Exception e)
+                    {
 
-                listView.setAdapter(new VehicleListAdapter(this,  validVehicles, this.markerIcon, selectedCoords));
-                listView.setOnItemClickListener(this);
+                    }
+                });
             }
         }
     }
 
-    public ArrayList<Rental> getVehicles()
+    public ArrayList<Rental> getVehicles(GenericCallback<ArrayList<Rental>> callback)
     {
         ArrayList<Rental> vehicleList = new ArrayList<>();
 
-        //Communicate with database
-        //...
-        //...
-        //...
-        //Communication complete
-
         ApiService api = ApiClient.getApiService();
-
-        Call<ResponseBody> call = api.getTableData("rental_cars");
+        Call<ResponseBody> call = api.getTableData(String.format("rental_%ss", type));
 
         call.enqueue(new Callback<ResponseBody>()
         {
@@ -298,28 +339,99 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 					{
                         String body = response.body().string();
                         Log.d("MYTEST", body);
-						vehicles = mapper.readTree(body);
+                        vehicles = mapper.readTree(body);
 					}
 					catch (IOException e)
 					{
 						throw new RuntimeException(e);
 					}
 
+                    //Log.d("TYPE", InCityVehicleScreen.this.type);
+
                     for (JsonNode vehicle : vehicles)
                     {
-                        Log.d("MYTEST", vehicle.get("manufacturer").asText());
+                        if (Objects.equals(InCityVehicleScreen.this.type, "car"))
+                        {
+                            //Log.d("TYPE", "car");
+                            vehicleList.add(new CityCar(
+                                    vehicle.get("license_plate").asText(),
+                                    true,
+                                    vehicle.get("id").asInt(),
+                                    vehicle.get("model").asText(),
+                                    vehicle.get("manufacturer").asText(),
+                                    vehicle.get("manuf_year").asText(),
+                                    new Currency(vehicle.get("rate").asDouble()),
+                                    new Coordinates(
+                                            vehicle.get("coords").get("x").asDouble(),
+                                            vehicle.get("coords").get("y").asDouble()
+                                    ),
+                                    new PositiveInteger(vehicle.get("gas_level").asInt())
+                            ));
+                        }
+                        else if (Objects.equals(InCityVehicleScreen.this.type, "motorcycle"))
+                        {
+                            //Log.d("TYPE", "motor");
+                            vehicleList.add(new Motorcycle(
+                                    vehicle.get("license_plate").asText(),
+                                    true,
+                                    vehicle.get("id").asInt(),
+                                    vehicle.get("model").asText(),
+                                    vehicle.get("manufacturer").asText(),
+                                    vehicle.get("manuf_year").asText(),
+                                    new Currency(vehicle.get("rate").asDouble()),
+                                    new Coordinates(
+                                            vehicle.get("coords").get("x").asDouble(),
+                                            vehicle.get("coords").get("y").asDouble()
+                                    ),
+                                    new PositiveInteger(vehicle.get("gas_level").asInt())
+                            ));
+                        }
+                        else if (Objects.equals(InCityVehicleScreen.this.type, "bike"))
+                        {
+                            //Log.d("TYPE", "bike");
+                            vehicleList.add(new Bicycle(
+                                    true,
+                                    vehicle.get("id").asInt(),
+                                    vehicle.get("model").asText(),
+                                    vehicle.get("manufacturer").asText(),
+                                    vehicle.get("manuf_year").asText(),
+                                    new Currency(vehicle.get("rate").asDouble()),
+                                    new Coordinates(
+                                            vehicle.get("coords").get("x").asDouble(),
+                                            vehicle.get("coords").get("y").asDouble()
+                                    )
+                            ));
+                        }
+                        else
+                        {
+                            //Log.d("TYPE", "scooter");
+                            vehicleList.add(new ElectricScooter(
+                                    true,
+                                    vehicle.get("id").asInt(),
+                                    vehicle.get("model").asText(),
+                                    vehicle.get("manufacturer").asText(),
+                                    vehicle.get("manuf_year").asText(),
+                                    new Currency(vehicle.get("rate").asDouble()),
+                                    new Coordinates(
+                                            vehicle.get("coords").get("x").asDouble(),
+                                            vehicle.get("coords").get("y").asDouble()
+                                    )
+                            ));
+                        }
                     }
+
+                    callback.onSuccess(vehicleList);
 				}
                 else
                 {
-
+                    callback.onFailure(new Exception());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t)
             {
-                System.out.println("Error message");
+                callback.onFailure(new Exception(t));
             }
         });
 

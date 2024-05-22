@@ -484,3 +484,24 @@ FROM car
 INNER JOIN rental ON car.id = rental.id
 INNER JOIN transport on car.id = transport.id
 WHERE free_status = "TRUE";
+
+CREATE VIEW rental_motorcycles AS
+SELECT license_plate, motorcycle.id, manufacturer, model, manuf_year, rate, coords, gas_level
+FROM motorcycle
+INNER JOIN rental ON motorcycle.id = rental.id
+INNER JOIN transport on motorcycle.id = transport.id
+WHERE free_status = "TRUE";
+
+CREATE VIEW rental_bikes AS
+SELECT bicycle.id, manufacturer, model, manuf_year, rate, coords
+FROM bicycle
+INNER JOIN rental ON bicycle.id = rental.id
+INNER JOIN transport on bicycle.id = transport.id
+WHERE free_status = "TRUE";
+
+CREATE VIEW rental_scooters AS
+SELECT electric_scooter.id, manufacturer, model, manuf_year, rate, coords
+FROM electric_scooter
+INNER JOIN rental ON electric_scooter.id = rental.id
+INNER JOIN transport on electric_scooter.id = transport.id
+WHERE free_status = "TRUE";

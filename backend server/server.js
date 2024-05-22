@@ -238,6 +238,7 @@ app.post("/check_user",async (req,res)=>{
         res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
     }
 });
+
 app.post("/add_card"),async(req,res)=>{
     try{
     console.log("dista");
@@ -252,6 +253,30 @@ app.post("/add_card"),async(req,res)=>{
         res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
     }
 }
+
+app.get("/check_reservation", async(req,res)=>
+{
+    try
+    {
+        const data=req.body;
+        jsonObj=JSON.parse(data);
+
+        let tableData = await helper.queryPromise(con, "SELECT COUNT(*) AS result FROM rental_service INNER JOIN service ON service_id = id WHERE selected_vehicle = ? AND service_status = 'ONGOING'", [req.query.vehicle]);
+
+        if(tableUser.result[0].result > 0){
+            res.status(500).send(new helper.ResponseMessage("Reservation exists").string());
+        }
+        else
+        {
+            res.status(200).send("ok");
+        }
+    }
+    catch(err)
+    {
+        console.error("Error processing request:", err);
+        res.status(500).send(new helper.ResponseMessage("Could not process request").string());
+    }
+});
 
 const ip_adress=jsonPass.ip;
 const port=3000;
