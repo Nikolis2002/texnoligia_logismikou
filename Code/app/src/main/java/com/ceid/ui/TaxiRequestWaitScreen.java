@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
-import com.ceid.model.users.Customer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
     Timer reservationTimer;
     private int serviceId;
     ApiService api= ApiClient.getApiService();
-    Customer customer;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -43,7 +41,6 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
         Intent intent = getIntent();
         serviceId = intent.getIntExtra("serviceId",0);
-        customer= (Customer) intent.getSerializableExtra("customer");
 
         handler = new Handler();
         rideStatus();
@@ -65,7 +62,6 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                         resumeTaxiReservation();
                         Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRequestWaitScreen.class);
                         intent.putExtra("serviceId",serviceId);
-                        intent.putExtra("customer",customer);
                         startActivity(intent);
                         finish();
                     });

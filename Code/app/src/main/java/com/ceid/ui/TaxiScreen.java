@@ -109,7 +109,6 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                             int serviceId= Integer.parseInt(service);
                             Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
                             intent.putExtra("serviceId",serviceId);
-                            intent.putExtra("customer",customer);
                             startActivity(intent);
                             finish();
                         }else{
