@@ -186,12 +186,12 @@ public class Login extends AppCompatActivity implements postInterface{
         username=userText.getText().toString();
         password=pass.getText().toString();
 
-        username="customer";
-        password="password";
+        //username="customer";
+        //password="password";
 
         Map<String, String> data = new HashMap<>();
-        //data.put("username", username);
-        //data.put("password", password);
+        data.put("username", username);
+        data.put("password", password);
 
         // Convert the map to a JSON string
         Gson gson = new Gson();
