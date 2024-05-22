@@ -4,6 +4,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.ceid.model.payment_methods.Card;
+import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.transport.Taxi;
@@ -24,6 +25,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -250,26 +252,36 @@ public class jsonStringParser {
             return Collections.emptyList();
         }
         Gson gson = new Gson();
-        List<T> dataList = new ArrayList<>();
-        try {
-            // Parse the response as a list of Maps
-            List<Map<String, Object>> mapList = gson.fromJson(response, new TypeToken<List<Map<String, Object>>>(){}.getType());
-            for (Map<String, Object> data : mapList) {
-                // Convert each map to the target class object
-                T obj = gson.fromJson(gson.toJson(data), targetClass);
-                dataList.add(obj);
-            }
-        } catch (JsonSyntaxException e) {
-            // Handle parsing exception (optional)
-            throw e;
-        }
-        return dataList;
+        Type type = TypeToken.getParameterized(List.class, targetClass).getType();
+        return gson.fromJson(response, type);
     }
 
     public static ArrayList<TaxiRequest> parseTaxiRequest(Response<ResponseBody> response) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         JsonNode rootNode = mapper.readTree(response.body().string());
         ArrayList<TaxiRequest> requestList= new ArrayList<>();
+
+        JsonNode arrayNode=rootNode.get(0);
+
+        for(JsonNode node : arrayNode){
+
+            JsonNode pickUpLocationNode=node.get("pickup_location");
+            Coordinates pickUp= new Coordinates(pickUpLocationNode.get("x").asDouble(),pickUpLocationNode.get("y").asDouble());
+
+            JsonNode destLocationNode=node.get("destination");
+            Coordinates dest= new Coordinates(destLocationNode.get("x").asDouble(),destLocationNode.get("y").asDouble());
+
+            Payment.Method method= Payment.Method.valueOf(node.get("payment_method").asText());
+
+            requestList.add( new TaxiRequest(
+                    Integer.parseInt(node.get("id").asText()),
+                    pickUp,
+                    dest,
+                    method
+                    )
+                    );
+
+        }
 
 
         return requestList;

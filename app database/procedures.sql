@@ -1,20 +1,3 @@
-DROP PROCEDURE IF EXISTS checkCredentials;
-DELIMITER $
-CREATE PROCEDURE checkCredentials(IN c_own VARCHAR(64),IN c_number VARCHAR(32),IN c_exp_date VARCHAR(10),IN c_cvv VARCHAR(8),IN price INT,OUT res SMALLINT)
-BEGIN
-    DECLARE c_id INT UNSIGNED;
-    DECLARE balance INT UNSIGNED;
-    SELECT count(*),id,MAX(owner_balance) INTO res,c_id,balance FROM bank WHERE c_own=bank.card_owner AND c_number=bank.card_number AND c_exp_date=bank.card_exp_date AND c_cvv=bank.cvv GROUP BY bank.id;
-    IF (res=1 AND balance>=price) THEN
-        UPDATE bank SET owner_balance=owner_balance-price WHERE c_id=bank.id;
-    ELSEIF(balance<price) THEN
-        SET res=-1;
-    ELSEIF(res=0) THEN
-        SET res=-2;
-    END IF;
-END $
-DELIMITER ;
-
 
 DROP PROCEDURE IF EXISTS checkDriver;
 DELIMITER $
@@ -98,7 +81,7 @@ BEGIN
     ELSE
         SELECT 'customer' AS type, cus_username, cus_password, cus_name, cus_lname, email, cus_licence, img, cus_points, wallet_balance;
 
-        SELECT 'card' AS type, ca.card_number, ca.card_holder, ca.expiration_date, ca.cvv, ca.card_type
+        SELECT 'card' AS type, ca.card_number, ca.card_holder, ca.expiration_date, ca.cvv,ca.card_type
         FROM card ca
         LEFT JOIN wallet w ON ca.username = w.username
         WHERE w.username = cus_username;
@@ -108,18 +91,6 @@ BEGIN
 
 END $$
 
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS getCarsAndGarage;
-DELIMITER $$
-CREATE PROCEDURE getCarsAndGarage()
-BEGIN
-    SELECT
-    FROM garage g 
-    INNER  JOIN out_city_transport ot on g.id=ot.garage_id
-    LEFT JOIN out_city_car oc on oc.id=ot.id
-    LEFT JOIN out_city_van ov ON ov.id=ot.id;
-END $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS insertCard;
@@ -137,9 +108,15 @@ BEGIN
 END $
 DELIMITER ;
 
+DROR VIEW IF EXISTS selectTaxiRequests;
+CREATE VIEW newRequests AS
+SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination
+FROM taxi_request tr 
+INNER JOIN taxi_service ts ON tr.id=ts.request_id
+INNER JOIN service ser  ON ts.request_id=ser.id
+INNER JOIN payment p  ON  p.id=ser.payment_id
+WHERE tr.assignment_date is NULL;
 
-INSERT INTO bank VALUES("Billkort","072","123","999",default);
-CALL insertCard("Bill","072","123","Billkort","999");
 -- //////////////////////BANK MOCK
 INSERT INTO user VALUES("bill","123","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill","A2","test",0);
@@ -152,7 +129,7 @@ INSERT INTO user VALUES("bill2","1234","Vasilis2","Kourtakis2","test2@gmail.com"
 INSERT INTO wallet VALUES("bill2",100);
 INSERT INTO card VALUES("bill2","1235","kort","123","086","credit");
 INSERT INTO card VALUES("bill2","1246","kort2","1234","0862","credit");
-INSERT INTO transport VALUES(NULL,"MONDEO","2007","FORD");
+INSERT INTO transport VALUES(NULL,"FORD","MONDEO","2007");
 INSERT INTO taxi VALUES(1,"1234",ST_GeomFromText('POINT(1.23 4.56)'));
 INSERT INTO taxi_driver VALUES("bill2",1,"TRUE");
 
