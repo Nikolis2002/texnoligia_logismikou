@@ -62,7 +62,7 @@ public class Customer extends User {
             Log.d("Customer", "Card CVV: " + card.getCvv());
         }
 
-        Log.d("Customer", "Wallet Balance: " + this.getWallet().getCash().toString());
+        Log.d("Customer", "Wallet Balance: " + this.getWallet().getBalance());
 
         // Log history if needed
         // Log.d("Customer", "History: " + this.history.toString()); // Assuming CustomerHistory has a meaningful toString method

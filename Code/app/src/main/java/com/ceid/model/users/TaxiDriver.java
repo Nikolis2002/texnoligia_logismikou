@@ -44,6 +44,6 @@ public class TaxiDriver extends User{
             Log.d("taxi", "Card CVV: " + card.getCvv());
         }
 
-        Log.d("taxi", "Wallet Balance: " + this.getWallet().getCash().toString());
+        Log.d("taxi", "Wallet Balance: " + this.getWallet().getBalance());
     }
 }
