@@ -22,6 +22,7 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
+import com.ceid.util.DateFormat;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -87,7 +88,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 Map<String, Object> taxiReservation = new HashMap<>();
                 taxiReservation.put("payment_customer_username",customer.getUsername());
                 taxiReservation.put("payment_method",payment);
-                taxiReservation.put("service_creation_date",LocalDateTime.now());
+                taxiReservation.put("service_creation_date", DateFormat.format(LocalDateTime.now()));
                 taxiReservation.put("taxiReq_pickup_location",location.coordsToJson());
                 taxiReservation.put("taxiReq_destination",destinationCoord.coordsToJson());
                 values.add(taxiReservation);

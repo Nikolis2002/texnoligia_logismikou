@@ -41,7 +41,7 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.main_screen);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
-
+        customer = (Customer)User.currentUser();
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
