@@ -177,6 +177,53 @@ public class jsonStringParser {
         }
     }
 
+    public static String createJsonString(List<Map<String, Object>> values) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Data to insert
+        ArrayNode dataArray = mapper.createArrayNode();
+        for (Map<String, Object> value : values) {
+            ObjectNode jsonObject = mapper.createObjectNode();
+            for (Map.Entry<String, Object> entry : value.entrySet()) {
+                String key = entry.getKey();
+                Object val = entry.getValue();
+
+                // Explicitly cast values to their corresponding types
+                if (val instanceof String) {
+                    jsonObject.put(key, (String) val);
+                } else if (val instanceof Integer) {
+                    jsonObject.put(key, (Integer) val);
+                } else if (val instanceof Long) {
+                    jsonObject.put(key, (Long) val);
+                } else if (val instanceof Double) {
+                    jsonObject.put(key, (Double) val);
+                } else if (val instanceof Boolean) {
+                    jsonObject.put(key, (Boolean) val);
+
+                }
+                else if (val == null) {
+                    // Handle null values
+                    jsonObject.putNull(key);}
+                else {
+                    // Handle other types or convert to string
+                    jsonObject.put(key, val.toString());
+                }
+            }
+            dataArray.add(jsonObject);
+        }
+
+        // Create JSON object
+        ObjectNode jsonObject = mapper.createObjectNode();
+        jsonObject.set("values", dataArray);
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static int[] extractInsertIds(Response<ResponseBody> response) {
         try {
             ObjectMapper mapper = new ObjectMapper();
