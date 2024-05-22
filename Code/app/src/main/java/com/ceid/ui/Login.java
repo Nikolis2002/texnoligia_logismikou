@@ -120,7 +120,7 @@ public class Login extends AppCompatActivity implements postInterface{
         String jsonString = jsonStringParser.createJsonString("taxi_request", values);
         String test = "taxi_request";
         Call<List<Map<String, Object>>> call = api.getTableData(test);
-
+    /*
         call.enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
             public void onResponse(@NonNull Call<List<Map<String, Object>>> call, @NonNull Response<List<Map<String, Object>>> response) {
@@ -137,7 +137,7 @@ public class Login extends AppCompatActivity implements postInterface{
                         }
 
 
-
+                        /*
                         // Now you have a list of TaxiRequest objects
                         for (TaxiRequest taxiRequest : taxiRequestList) {
                             if(taxiRequest.getPickupLocation()==null){
@@ -159,7 +159,7 @@ public class Login extends AppCompatActivity implements postInterface{
             }
         });
 
-
+        */
 
 
     }

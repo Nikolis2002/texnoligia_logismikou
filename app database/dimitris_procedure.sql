@@ -35,7 +35,6 @@ begin
 	
 	insert into taxi_service values(service_id,taxi_request_id,null);
     
-    SELECT payment_id,service_id,taxi_request_id;
 end$
 
 delimiter ;
