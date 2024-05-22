@@ -138,7 +138,7 @@ public class Login extends AppCompatActivity implements postInterface{
 
                         // Now you have a list of TaxiRequest objects
                         for (TaxiRequest taxiRequest : taxiRequestList) {
-                            Log.d("TaxiRequest", String.valueOf(taxiRequest.getPickupLocation().getLat()));
+                            //Log.d("TaxiRequest", String.valueOf(taxiRequest.getPickupLocation().getLat()));
                         }
                     } else {
                         Log.d("Response", "Empty data list");
