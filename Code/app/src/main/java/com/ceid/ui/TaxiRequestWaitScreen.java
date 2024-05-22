@@ -1,6 +1,5 @@
 package com.ceid.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,11 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public class TaxiWaitScreen extends AppCompatActivity {
+public class TaxiRequestWaitScreen extends AppCompatActivity {
 
     private Handler handler;
     private boolean status=false;
@@ -35,18 +31,16 @@ public class TaxiWaitScreen extends AppCompatActivity {
             public void run() {
 
                 runOnUiThread(() -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(TaxiWaitScreen.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TaxiRequestWaitScreen.this);
                     builder.setMessage("Select a option");
-                    builder.setTitle("Taxi do not found");
+                    builder.setTitle("Taxi was not found");
                     builder.setCancelable(false);
                     builder.setPositiveButton("Resend", (alertDialog, which) -> {
 
-                        Intent intent = new Intent(TaxiWaitScreen.this, TaxiWaitScreen.class);
-                        startActivity(intent);
                     });
                     builder.setNegativeButton("Cancel", (alertDialog, which) -> {
 
-                        Intent intent = new Intent(TaxiWaitScreen.this, InCityScreen.class);
+                        Intent intent = new Intent(TaxiRequestWaitScreen.this, InCityScreen.class);
                         startActivity(intent);
                     });
 
@@ -63,7 +57,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
         public void run() {
 
             if(status) {
-                Intent intent = new Intent(TaxiWaitScreen.this, TaxiRideScreen.class);
+                Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRideScreen.class);
                 startActivity(intent);
             }else{
                 Toast.makeText(getApplicationContext(), "No!!", Toast.LENGTH_SHORT).show();

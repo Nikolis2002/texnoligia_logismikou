@@ -8,15 +8,15 @@ import java.util.List;
 
 public class Wallet implements Serializable {
     private ArrayList<Card> cards=new ArrayList<>();
-    private Currency cash;
+    private double cash;
 
     public Wallet(Card card,double cash) {
         cards.add(card);
-        this.cash=new Currency(cash);
+        this.cash= cash;
     }
 
     public Wallet(double cash) {
-        this.cash=new Currency(cash);
+        this.cash=cash;
     }
 
     public void addCard(Card card){
@@ -25,7 +25,7 @@ public class Wallet implements Serializable {
     public List<Card> getCards() {
         return cards;
     }
-    public Currency getCash() {
+    public double getBalance() {
         return cash;
     }
 }

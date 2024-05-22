@@ -2,7 +2,6 @@ USE app_database;
 
 DROP PROCEDURE IF EXISTS cancelService;
 delimiter $
-
 create procedure cancelService(in service_id int)
 begin
     update service set service_status="CANCELLED" where id=service_id;
@@ -39,9 +38,17 @@ begin
 	set taxi_request_id=LAST_INSERT_ID();
 	
 	insert into taxi_service values(service_id,taxi_request_id,null);
-
+	
 	select service_id;
-    
+end$
+delimiter ;
+
+
+DROP PROCEDURE IF EXISTS resumeService;
+delimiter $
+create procedure resumeService(in service_id int)
+begin
+	update service set service_status="ONGOING" where id=service_id;
+    update service set status_date=now() where id=service_id;
 end$
 
-delimiter ;

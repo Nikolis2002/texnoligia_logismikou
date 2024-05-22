@@ -105,17 +105,6 @@ public class Login extends AppCompatActivity implements postInterface{
             throw new RuntimeException(e);
         }
 
-        Map<String, Object> taxiRequest = new HashMap<>();
-        taxiRequest.put("id","null");
-        taxiRequest.put("pickup_location",freaky);
-        taxiRequest.put("destination",freaky);
-        taxiRequest.put("assigned_driver","null");
-        taxiRequest.put("assignment_time","null");
-        taxiRequest.put("pickup_time","null");
-        values.add(taxiRequest);
-
-
-
 
         String jsonString = jsonStringParser.createJsonString("taxi_request", values);
         String test = "taxi_request";
