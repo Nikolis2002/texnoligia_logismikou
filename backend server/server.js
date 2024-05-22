@@ -94,7 +94,8 @@ app.post("/insertTaxiService", async (req,res)=>{
 
         // Your database query function
         let response = await helper.queryPromise(con, queryString, arrayValues);
-        res.status(200).send("success");
+        console.log(response.result[0][0].service_id);
+        res.status(200).send(JSON.stringify(response.result[0][0].service_id));
     }
     catch(err){
         console.error(err);
@@ -159,21 +160,42 @@ app.post("/insertTable", async (req, res) => {
 
 
 
-app.post("/getFunctionWithParams",async (req,res)=>{
-    try{
-        const param=req.body;
+app.post("/getFunctionWithParams", async (req, res) => {
+    try {
+        const param = req.body;
+        let jsonObj = JSON.parse(param);
+        const { table, values } = jsonObj;
         
-        jsonMap=await helper.getPostParamsJson(param);
-        jsonArray=Array.from(jsonMap.values());
-        let query=`CALL ${param}(?)`;
+        let queryString = `CALL ${table}(`;
+        const array = values[0];
+        let queryParams = [];
 
-        let response= await helper.queryPromise(con,query,jsonArray);
+        // Iterate over the keys and values of the array
+        for (let [key, value] of Object.entries(array)) {
+            if (key === "coords") {
+                let dbCoords = JSON.parse(value);
+                let dbLat = parseFloat(dbCoords.lat);
+                let dbLng = parseFloat(dbCoords.lng);
+                queryString += "ST_GeomFromText(POINT(?, ?)),";
+                queryParams.push(dbLat, dbLng);
+            } else {
+                queryString += "?,";
+                queryParams.push(value);
+            }
+        }
+
+        // Remove the trailing comma and close the parenthesis
+        queryString = queryString.slice(0, -1) + ")";
+        
+        // Execute the query
+        let response = await helper.queryPromise(con, queryString, queryParams);
         res.status(200).send(response.result);
-    }
-    catch(err){
+    } catch (err) {
+        console.error(err);
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
     }
 });
+
 
 app.post("/check_user",async (req,res)=>{
     try{
