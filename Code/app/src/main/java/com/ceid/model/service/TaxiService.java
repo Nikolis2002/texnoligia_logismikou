@@ -15,6 +15,12 @@ public class TaxiService extends Service{
         this.request = request;
     }
 
+    public TaxiService(LocalDateTime creationDate, Payment payment, Rating rating, Transport transport, TaxiRequest request) {
+        super(creationDate, payment, rating, transport);
+
+        this.request = request;
+    }
+
     public TaxiRequest getRequest()
     {
         return request;
