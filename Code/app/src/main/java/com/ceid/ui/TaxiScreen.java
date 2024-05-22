@@ -111,6 +111,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                             intent.putExtra("serviceId",serviceId);
                             intent.putExtra("customer",customer);
                             startActivity(intent);
+                            finish();
                         }else{
                             System.out.println("Error message");
                         }
@@ -150,6 +151,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                                 Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
                                 intent.putExtra("serviceId",serviceId);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 System.out.println("Error message");
                             }
