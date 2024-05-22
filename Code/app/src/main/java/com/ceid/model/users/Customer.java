@@ -60,7 +60,6 @@ public class Customer extends User {
             Log.d("Customer", "Card Holder: " + card.getCardholderName());
             Log.d("Customer", "Card Expiration Date: " + card.getExpirationDate());
             Log.d("Customer", "Card CVV: " + card.getCvv());
-            Log.d("Customer", "Card Type: " + card.getType());
         }
 
         Log.d("Customer", "Wallet Balance: " + this.getWallet().getCash().toString());

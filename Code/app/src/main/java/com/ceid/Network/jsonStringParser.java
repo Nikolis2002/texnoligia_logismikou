@@ -49,8 +49,7 @@ public class jsonStringParser {
                         card.get("card_number").asText(),
                         card.get("card_holder").asText(),
                         card.get("expiration_date").asText(),
-                        card.get("cvv").asText(),
-                        card.get("card_type").asText()
+                        card.get("cvv").asText()
                 );
                 wallet.addCard(newCard); // Assuming you have a method to add a card to the wallet
             }
@@ -84,8 +83,7 @@ public class jsonStringParser {
                         card.get("card_number").asText(),
                         card.get("card_holder").asText(),
                         card.get("expiration_date").asText(),
-                        card.get("cvv").asText(),
-                        card.get("card_type").asText()
+                        card.get("cvv").asText()
                 );
                 wallet.addCard(newCard); // Assuming you have a method to add a card to the wallet
             }

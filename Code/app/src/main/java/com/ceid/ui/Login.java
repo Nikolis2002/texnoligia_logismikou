@@ -38,9 +38,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
-public class login extends AppCompatActivity implements postInterface{
+public class Login extends AppCompatActivity implements postInterface{
     private String username,password;
     private EditText userText,pass;
     private ImageView visib;

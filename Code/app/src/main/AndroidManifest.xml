@@ -23,7 +23,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".login"
+            android:name=".Login"
             android:exported="true"
             android:theme="@style/Theme.Texnolgia_logismikou">
             <intent-filter>

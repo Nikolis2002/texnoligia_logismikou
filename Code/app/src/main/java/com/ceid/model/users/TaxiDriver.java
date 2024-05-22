@@ -42,7 +42,6 @@ public class TaxiDriver extends User{
             Log.d("taxi", "Card Holder: " + card.getCardholderName());
             Log.d("taxi", "Card Expiration Date: " + card.getExpirationDate());
             Log.d("taxi", "Card CVV: " + card.getCvv());
-            Log.d("taxi", "Card Type: " + card.getType());
         }
 
         Log.d("taxi", "Wallet Balance: " + this.getWallet().getCash().toString());
