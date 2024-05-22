@@ -17,9 +17,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -32,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Response;
 
 public class jsonStringParser {
@@ -227,7 +225,7 @@ public class jsonStringParser {
         }
     }
 
-    public static int[] extractInsertIds(Response<ResponseBody> response) {
+    /*public static int[] extractInsertIds(Call<String> response) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(response.body().string());
@@ -245,7 +243,7 @@ public class jsonStringParser {
         }
         // Return an empty array if insertIds are not found or if there's an error
         return new int[0];
-    }
+    }*/
 
     public static <T> List<T> parseDataList(String response, Class<T> targetClass) throws JsonSyntaxException {
         if (response == null || response.isEmpty()) {

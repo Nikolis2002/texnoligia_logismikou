@@ -1,4 +1,6 @@
 package com.ceid.model.payment_methods;
+import android.util.Log;
+
 import com.ceid.util.DateFormat;
 
 import java.io.Serializable;
@@ -41,5 +43,13 @@ public class Card implements Serializable {
     // Getter for cvv
     public String getCvv() {
         return cvv;
+    }
+    public String printCard(){
+
+        return "Card Number: " + this.getCardnumber() + "\n" +
+                "Cardholder Name: " + this.getCardholderName() + "\n" +
+                "Expiration Date: " + this.getExpirationDate() + "\n" +
+                "CVV: " + this.getCvv();
+
     }
 }

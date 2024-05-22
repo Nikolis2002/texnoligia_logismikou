@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity implements postInterface{
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
-
+        /*
         ApiService api=ApiClient.getApiService();
 
         List<Map<String, Object>> values = new ArrayList<>();
@@ -91,6 +91,7 @@ public class Login extends AppCompatActivity implements postInterface{
         tr2.put("manuf_year",2008);
 
         values.add(tr2);
+
          */
 
         /*

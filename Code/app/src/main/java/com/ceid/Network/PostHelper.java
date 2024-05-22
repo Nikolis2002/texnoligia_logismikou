@@ -66,7 +66,7 @@ public class PostHelper {
     }
     public void card(ApiService api,String cardParams){
         {
-            Call<ResponseBody> call= api.addCard(cardParams);
+            Call<ResponseBody> call= api.getFunction(cardParams);
             Log.d("kort","kort was send successfully!!");
             call.enqueue(new Callback<ResponseBody>() {
                 @Override

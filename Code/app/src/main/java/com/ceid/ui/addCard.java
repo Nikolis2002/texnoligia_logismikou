@@ -2,6 +2,7 @@ package com.ceid.ui;
 
 import static com.ceid.model.users.User.currentUser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
+import com.ceid.model.payment_methods.Card;
 import com.ceid.model.users.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +26,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,18 +52,19 @@ public class addCard extends AppCompatActivity implements postInterface {
     public void addCardButton(View view)
     {
         List<Map<String, Object>> values = new ArrayList<>();
-        Map<String, Object> cardCred = new HashMap<>();
-        user= currentUser();
-        cardCred.put("username",user.getUsername());
-        //data.put("username","bill");
+        Map<String, Object> cardCred=new LinkedHashMap<>();
+        //user= User.currentUser();
+        //cardCred.put("username",user.getUsername());
+        cardCred.put("username","bill");
         cardCred.put("cardNum",cardNum.getText().toString());
         cardCred.put("expDate",expDate.getText().toString());
         cardCred.put("owner",owner.getText().toString());
         cardCred.put("ccv",ccv.getText().toString());
         values.add(cardCred);
-        String jsonString = jsonStringParser.createJsonString("card", values);
+        String jsonString = jsonStringParser.createJsonString("insertCard", values);
         PostHelper addc = new PostHelper(this);
         ApiService api = ApiClient.getApiService();
+        api.getFunction(jsonString);
         addc.card(api,jsonString);
 
     }
@@ -71,14 +75,30 @@ public class addCard extends AppCompatActivity implements postInterface {
 
     @Override
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
-        Toast.makeText(getApplicationContext(), "test!",
+        boolean bool=jsonStringParser.getbooleanFromJson(response);
+        if(!bool)
+        {
+            Toast.makeText(getApplicationContext(), "Wrong card information!",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Card added successfully!",
+                    Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(getApplicationContext(), MainScreen.class);
+            startActivity(intent);
+        }
+        /*List<Card> card=jsonStringParser.parseDataList(response.body().string(), Card.class);
+        Log.d("card",card.get(0).printCard());
+        Toast.makeText(getApplicationContext(), "Card added successfully!",
                 Toast.LENGTH_LONG).show();
-
+        //Intent intent= new Intent(getApplicationContext(), addCard.class);
+        //startActivity(intent);
+        */
     }
 
     @Override
     public void onResponseFailure(Throwable t) {
-        Toast.makeText(getApplicationContext(), "test2!",
+        Toast.makeText(getApplicationContext(), "Card already exists!",
                 Toast.LENGTH_LONG).show();
     }
 }

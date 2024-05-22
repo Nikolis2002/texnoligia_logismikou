@@ -101,7 +101,7 @@ BEGIN
     DECLARE balance VARCHAR(32);
     SELECT count(*),owner_balance INTO c,balance FROM bank WHERE cardNum=bank.card_number AND expDate=bank.card_exp_date AND  cOwner=bank.card_owner AND cvv=bank.cvv GROUP BY owner_balance;
     IF (c=1) THEN
-        INSERT INTO card VALUES(user,cardNum,expDate,cOwner,cvv,"credit");
+        INSERT INTO card VALUES(user,cardNum,cOwner,expDate,cvv,"credit");
     ELSE
         SELECT FALSE AS result;
     END IF;
@@ -136,3 +136,5 @@ INSERT INTO taxi_driver VALUES("bill2",1,"TRUE");
 
 INSERT INTO user VALUES("bill3","1235","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill3","A2","test",0);
+
+CALL insertCard("Bill","072","123","Billkort","999");

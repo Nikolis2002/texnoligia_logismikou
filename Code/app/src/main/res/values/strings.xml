@@ -167,6 +167,10 @@
     <string name="rating_comment">Comment (max 150 chars):</string>
     <string name="mail">Email</string>
     <string name="waiting_for_the_taxi_ride_to_end">Waiting for the taxi ride to end</string>
+    <string name="username2">Username</string>
+    <string name="password2">Password</string>
+    <string name="payment_methods">Payment methods</string>
+    <string name="points2">Points gained</string>
 
 
 </resources>

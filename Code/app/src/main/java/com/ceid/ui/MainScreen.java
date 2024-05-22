@@ -83,6 +83,11 @@ public class MainScreen extends AppCompatActivity {
         Intent intent = new Intent(this, OutCityScreen.class);
         startActivity(intent);
     }
+    public void addCardButton2(View view)
+    {
+        Intent intent=new Intent(getApplicationContext(),addCard.class);
+        startActivity(intent);
+    }
 
 }
 
