@@ -1,59 +1,49 @@
 package com.ceid.util;
 
 import java.time.LocalDate;
-import java.time.DateTimeException;
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-//our own primitive date type to help us with programming the rest of the app
 
 public class DateFormat {
-    private int day;
-    private int month;
-    private int year;
-    private LocalDate localDate;
 
-    public DateFormat(int date,int month,int year){
-        if(!isValid(day,month,year))
-            throw new IllegalArgumentException("Not a valid date");
+    private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        this.day=day;
-        this.month=month;
-        this.year=year;
+    //Format
+    //========================================================================
+
+    public static String format(LocalDate date)
+    {
+        return dateFormatter.format(date);
     }
 
-    public DateFormat(String dateString) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.localDate = LocalDate.parse(dateString, formatter);
-            this.year = localDate.getYear();
-            this.month = localDate.getMonthValue();
-            this.day = localDate.getDayOfMonth();
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Not a valid date string: " + dateString);
-        }
+    public static String format(LocalTime time)
+    {
+        return timeFormatter.format(time);
     }
 
-    public DateFormat(int date,int month,int year,LocalDate localDate){
-
-        this.day=day;
-        this.month=month;
-        this.year=year;
-        this.localDate=localDate;
+    public static String format(LocalDateTime datetime)
+    {
+        return datetimeFormatter.format(datetime);
     }
 
-    private boolean isValid(int day,int month,int year){
-        try {
-            localDate=LocalDate.of(year, month, day);
-            return true; 
-        } catch (DateTimeException e) {
-            return false; 
-        }
+    //Parse
+    //========================================================================
+
+    public static LocalDate parseDate(String dateStr)
+    {
+        return LocalDate.parse(dateStr, dateFormatter);
     }
 
-     public String toSqlDateString() {
-        return String.format("%04d-%02d-%02d", year, month, day);
+    public static LocalTime parseTime(String timeStr)
+    {
+        return LocalTime.parse(timeStr, timeFormatter);
     }
 
+    public static LocalDateTime parseDatetime(String datetimeStr)
+    {
+        return LocalDateTime.parse(datetimeStr, datetimeFormatter);
+    }
 }
