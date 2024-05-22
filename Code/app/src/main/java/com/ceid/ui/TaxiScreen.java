@@ -99,20 +99,20 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 TaxiRequest taxiRequest = new TaxiRequest(
                         (Coordinates) location,
                         destinationCoord,
-                        new Payment(Payment.Method.CASH)
+                        Payment.Method.CASH
                 );
 
 
 
                 List<Map<String, Object>> values = new ArrayList<>();
-                Map<String, Object> taxiServiceDB = new HashMap<>();
-                taxiServiceDB.put("id",null);
-                taxiServiceDB.put("pickup_location",(Coordinates) location);
-                taxiServiceDB.put("destination",(Coordinates) location);
-                taxiServiceDB.put("assigned_driver","null");
-                taxiServiceDB.put("assignment_time","null");
-                taxiServiceDB.put("pickup_time","null");
-                values.add(taxiServiceDB);
+                Map<String, Object> serviceDB = new HashMap<>();
+                serviceDB.put("id",null);
+                serviceDB.put("pickup_location",taxiService.getCreationDate());
+                serviceDB.put("destination",(Coordinates) location);
+                serviceDB.put("assigned_driver","null");
+                serviceDB.put("assignment_time","null");
+                serviceDB.put("pickup_time","null");
+                values.add(serviceDB);
 
                 String jsonString = jsonStringParser.createJsonString("user",values);
 
@@ -121,8 +121,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                        Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
-                        startActivity(intent);
+
                         if(response.isSuccessful()){
                             Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
                             startActivity(intent);

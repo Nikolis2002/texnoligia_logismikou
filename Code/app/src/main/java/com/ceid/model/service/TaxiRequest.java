@@ -14,22 +14,22 @@ public class TaxiRequest implements Serializable
     private int id;
     private Coordinates pickupLocation;
     private Coordinates destination;
-    private Payment payment;
+    private Payment.Method payment;
     private TaxiDriver taxiDriver = null;
     private LocalDateTime assignmentTime = null;
     private LocalDateTime pickupTime = null;
 
-    public TaxiRequest(Coordinates pickupLocation, Coordinates destination, Payment payment) {
+    public TaxiRequest(Coordinates pickupLocation, Coordinates destination, Payment.Method payment) {
         this.pickupLocation = pickupLocation;
         this.destination = destination;
         this.payment=payment;
     }
 
-    public Payment getPaymentMethod() {
+    public Payment.Method getPaymentMethod() {
         return payment;
     }
 
-    public void setPaymentMethod(Payment payment) {
+    public void setPaymentMethod(Payment.Method payment) {
         this.payment = payment;
     }
 
