@@ -64,6 +64,24 @@ app.get("/getTableData",async (req,res)=>{
     
 });
 
+app.post("/insertTaxiService", async (req,res)=>{
+    try{
+        const param=req.body;
+        let jsonObj=JSON.parse(param);
+        let queryString="CALL taxiReservation(?)";
+
+        let jsonMap=helper.getPostParamsJson(jsonObj);
+        let jsonArray=Array.from(jsonMap.values());
+
+
+        let response= await helper.queryPromise(con,queryString,jsonArray);
+        res.status(200).send(response.result);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
+    }
+});
 
 
 
@@ -111,7 +129,8 @@ app.post("/insertTable", async (req, res) => {
                 return null;
             }
         });
-        res.status(200).json({ insertIds });
+        res.status(200).jsonjsonMap=helper.getPostParamsJson(jsonObj);
+        jsonArray=Array.from(jsonMap.values());({ insertIds });
     } catch (error) {
         console.error(error);
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
