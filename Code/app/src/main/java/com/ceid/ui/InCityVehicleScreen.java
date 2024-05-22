@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.transport.CityCar;
 import com.ceid.model.transport.Rental;
@@ -27,19 +30,29 @@ import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
 import com.ceid.util.PositiveInteger;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InCityVehicleScreen extends AppCompatActivity implements ActivityResultCallback<ActivityResult>, MapWrapperReadyListener, AdapterView.OnItemClickListener, GoogleMap.OnMarkerClickListener
 {
 
     private Intent locationIntent;
     private ActivityResultLauncher<Intent> activityResultLauncher;
-    private Map map;
+    private Map vehicleMap;
     private Coordinates selectedCoords = null;
     private Bundle locationScreenData = null;
 
@@ -73,8 +86,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
         //Initialize map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
-        map = new Map(mapFragment, this, this);
-        map.setMarkerListener(this);
+        vehicleMap = new Map(mapFragment, this, this);
+        vehicleMap.setMarkerListener(this);
 
         //Other
 
@@ -121,8 +134,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     public void onMapWrapperReady()
     {
         Coordinates Patra = new Coordinates( 38.246639, 21.734573);
-        map.setZoom(12);
-        map.setPosition(Patra);
+        vehicleMap.setZoom(12);
+        vehicleMap.setPosition(Patra);
     }
 
     @Override
@@ -198,7 +211,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         //Log.d("CLICK", String.format("Position: %d", position));
 
         Rental rental = (Rental) clickedItem.getTag();
-        map.smoothTransition(rental.getTracker().getCoords(), map.getZoom() < 16 ? 16:map.getZoom());
+        vehicleMap.smoothTransition(rental.getTracker().getCoords(), vehicleMap.getZoom() < 16 ? 16:vehicleMap.getZoom());
     }
 
     //Clicking on the location screen
@@ -228,13 +241,13 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
 
                 //Set view around selected position
-                map.setZoom(locationScreenData.getFloat("zoom"));
-                map.setPosition(selectedCoords);
+                vehicleMap.setZoom(locationScreenData.getFloat("zoom"));
+                vehicleMap.setPosition(selectedCoords);
 
                 //Retrieve vehicles
                 this.vehicleList = this.getVehicles();
 
-                map.placePin(selectedCoords, true);
+                vehicleMap.placePin(selectedCoords, true);
 
                 ArrayList<Rental> validVehicles = new ArrayList<>();
 
@@ -243,7 +256,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 {
                     if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
                     {
-                        Marker marker = map.placePin(rental.getTracker().getCoords(), false, markerIcon);
+                        Marker marker = vehicleMap.placePin(rental.getTracker().getCoords(), false, markerIcon);
                         marker.setTag(rental);
                         validVehicles.add(rental);
                     }
@@ -267,6 +280,51 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         //...
         //Communication complete
 
+        ApiService api = ApiClient.getApiService();
+
+        Call<ResponseBody> call = api.getTableData("rental_cars");
+
+        call.enqueue(new Callback<ResponseBody>()
+        {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response)
+            {
+                if (response.isSuccessful())
+                {
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode vehicles;
+
+					try
+					{
+                        String body = response.body().string();
+                        Log.d("MYTEST", body);
+						vehicles = mapper.readTree(body);
+					}
+					catch (IOException e)
+					{
+						throw new RuntimeException(e);
+					}
+
+                    for (JsonNode vehicle : vehicles)
+                    {
+                        Log.d("MYTEST", vehicle.get("manufacturer").asText());
+                    }
+				}
+                else
+                {
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t)
+            {
+                System.out.println("Error message");
+            }
+        });
+
+        /*
+
         vehicleList.add(new CityCar(
                 "ABC-1234",
                 true,
@@ -274,7 +332,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "MONDEO",
                 "FORD",
                 "1993",
-                null,
                 new Currency(1.40),
                 new Coordinates(38.2442870,21.7326153),
                 new PositiveInteger(0)
@@ -287,7 +344,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "CIVIC",
                 "HONDA",
                 "2006",
-                null,
                 new Currency(1.30),
                 new Coordinates(38.2466208,21.7325087),
                 new PositiveInteger(0)
@@ -300,7 +356,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "AZTEK",
                 "PONTIAC",
                 "2004",
-                null,
                 new Currency(1.20),
                 new Coordinates(38.2481327,21.7374738),
                 new PositiveInteger(0)
@@ -313,7 +368,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "ESTEEM",
                 "SUZUKI",
                 "1998",
-                null,
                 new Currency(1.00),
                 new Coordinates(38.2442388,21.7405935),
                 new PositiveInteger(0)
@@ -326,7 +380,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "ESTEEM",
                 "SUZUKI",
                 "1998",
-                null,
                 new Currency(1.00),
                 new Coordinates(38.2442388,21.7405935),
                 new PositiveInteger(0)
@@ -339,7 +392,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "ESTEEM",
                 "SUZUKI",
                 "1998",
-                null,
                 new Currency(1.00),
                 new Coordinates(38.2442388,21.7405935),
                 new PositiveInteger(0)
@@ -352,11 +404,11 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 "PATTY WAGON",
                 "KRUSTY KRAB",
                 "2004",
-                null,
                 new Currency(5.00),
                 new Coordinates(38.2473288,21.6084180),
                 new PositiveInteger(0)
         ));
+        */
 
         return vehicleList;
     }

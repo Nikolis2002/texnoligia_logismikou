@@ -9,27 +9,33 @@ import java.util.ArrayList;
 
 public abstract class Rental extends InCityTransport
 {
-    private ArrayList<String>  accessibilityFeatures;
     private Currency rate;
     private VehicleTracker tracker;
     private boolean freeStatus;
 
-    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords)
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, Coordinates coords)
     {
         super(id, model, manufacturer, manuf_year);
 
-        this.accessibilityFeatures = accessibilityFeatures;
         this.rate = rate;
         this.freeStatus = freeStatus;
 
         this.tracker = new VehicleTracker(coords);
     }
 
-    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, VehicleTracker tracker)
+    public Rental()
+    {
+        super();
+
+        this.rate = null;
+        this.freeStatus = false;
+        this.tracker = null;
+    }
+
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, VehicleTracker tracker)
     {
         super(id, model, manufacturer, manuf_year);
 
-        this.accessibilityFeatures = accessibilityFeatures;
         this.rate = rate;
         this.freeStatus = freeStatus;
 
@@ -37,21 +43,6 @@ public abstract class Rental extends InCityTransport
     }
 
     //public updatePosition(Coordinates coords)
-
-    public ArrayList<String> getAccessibilityFeatures()
-    {
-        return accessibilityFeatures;
-    }
-
-    public void setAccessibilityFeatures(ArrayList<String> accessibilityFeatures)
-    {
-        this.accessibilityFeatures = accessibilityFeatures;
-    }
-
-    public void addAccessibilityFeature(String feature)
-    {
-        this.accessibilityFeatures.add(feature);
-    }
 
     public Currency getRate()
     {

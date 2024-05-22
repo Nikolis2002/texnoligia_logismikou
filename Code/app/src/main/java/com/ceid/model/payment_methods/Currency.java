@@ -38,8 +38,8 @@ public class Currency implements Serializable
         return this;
     }
 
-    public BigDecimal getValue(){
-        return this.value;
+    public double getValue(){
+        return this.value.doubleValue();
     }
 
     public String getCurrencySymbol(){

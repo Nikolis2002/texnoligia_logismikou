@@ -12,9 +12,15 @@ public class CityCar extends Rental {
     //private PositiveInteger gas;
     private String license_plate;
 
-    public CityCar(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, ArrayList<String> accessibilityFeatures, Currency rate, Coordinates coords, PositiveInteger gas) {
-        super(freeStatus, id, model, manufacturer, manuf_year, accessibilityFeatures, rate, new SpecializedTracker(coords, gas));
+    public CityCar(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, Coordinates coords, PositiveInteger gas) {
+        super(freeStatus, id, model, manufacturer, manuf_year, rate, new SpecializedTracker(coords, gas));
         this.license_plate = license_plate;
+    }
+
+    public CityCar()
+    {
+        super();
+        this.license_plate = null;
     }
 
     //rest of  the car todo!

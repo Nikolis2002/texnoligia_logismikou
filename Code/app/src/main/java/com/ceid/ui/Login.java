@@ -92,6 +92,8 @@ public class Login extends AppCompatActivity implements postInterface{
 
         values.add(tr2);
          */
+
+        /*
         Location l1=new Location(1,4,"abc");
         Location l2=new Location(1,21,"abc");
         Map<String, Double> map=new HashMap<>();
@@ -109,6 +111,8 @@ public class Login extends AppCompatActivity implements postInterface{
         String jsonString = jsonStringParser.createJsonString("taxi_request", values);
         String test = "taxi_request";
         Call<List<Map<String, Object>>> call = api.getTableData(test);
+
+        */
     /*
         call.enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
@@ -197,7 +201,8 @@ public class Login extends AppCompatActivity implements postInterface{
         JsonNode jsonNode = mapper.readTree(response.body().string());
         User user= jsonStringParser.parseJson(jsonNode);
 
-        User.setCurrentUser(user);
+        App app = (App) getApplicationContext();
+        app.setUser(user);
 
         if( user instanceof TaxiDriver){
             Log.d("taxi","yessirTaxi");

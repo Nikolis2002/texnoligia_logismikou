@@ -48,7 +48,8 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:onClick="onClick"
-                android:text="@string/location" />
+                android:text="@string/location"
+                android:textColor="#000000" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.cardview.widget.CardView>

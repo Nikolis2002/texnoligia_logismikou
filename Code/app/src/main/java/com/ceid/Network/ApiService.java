@@ -15,7 +15,7 @@ public interface ApiService {
     Call<String> getMessage();
 
     @GET("/getTableData")
-    Call<List<Map<String, Object>>> getTableData(@Query("tableName") String tableName);
+    Call<ResponseBody> getTableData(@Query("tableName") String tableName);
 
 
     @POST("/getFunctionWithParams")

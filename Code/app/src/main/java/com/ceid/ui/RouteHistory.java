@@ -58,7 +58,6 @@ public class RouteHistory extends Fragment
 						"MONDEO",
 						"FORD",
 						"1993",
-						null,
 						new Currency(1.40),
 						new Coordinates(38.2442870,21.7326153),
 						new PositiveInteger(0)

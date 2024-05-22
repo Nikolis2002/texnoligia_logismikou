@@ -18,7 +18,7 @@ public class MainScreenFragment extends Fragment
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.main_screen_fragment, container, false);
-		Customer customer = (Customer)User.currentUser();
+		Customer customer = (Customer)((App) getActivity().getApplicationContext()).getUser();
 
 		((TextView)view.findViewById(R.id.welcomeText)).setText(String.format("Welcome, %s", customer.getName()));
 		return view;

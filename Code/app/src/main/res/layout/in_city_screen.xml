@@ -64,7 +64,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
                             android:contentDescription="@string/car_image"
-                            android:onClick="onClick"
+                            android:onClick="onVehicleSelect"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/directions_car_fill0_wght400_grad0_opsz24" />
 
@@ -100,7 +100,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
                             android:contentDescription="@string/motorcycle_image"
-                            android:onClick="onClick"
+                            android:onClick="onVehicleSelect"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/two_wheeler_fill0_wght400_grad0_opsz24" />
 
@@ -142,7 +142,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
                             android:contentDescription="@string/bike_image"
-                            android:onClick="onClick"
+                            android:onClick="onVehicleSelect"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/pedal_bike_fill0_wght400_grad0_opsz24" />
                     </LinearLayout>
@@ -178,7 +178,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="#00FFFFFF"
                             android:contentDescription="@string/scooter_image"
-                            android:onClick="onClick"
+                            android:onClick="onVehicleSelect"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/electric_scooter_fill0_wght400_grad0_opsz24" />
                     </LinearLayout>

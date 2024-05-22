@@ -476,3 +476,16 @@ CREATE TABLE bank(
 );
 
 -- ////////////////////////////////////////////////////////////////////////////////////END////////////////////////////////////////////////////////////////////////////
+
+
+
+-- Views
+-- ==========================================================================================================================
+
+
+CREATE VIEW rental_cars AS
+SELECT license_plate, car.id, manufacturer, model, manuf_year, rate, coords, gas_level
+FROM car
+INNER JOIN rental ON car.id = rental.id
+INNER JOIN transport on car.id = transport.id
+WHERE free_status = "TRUE";

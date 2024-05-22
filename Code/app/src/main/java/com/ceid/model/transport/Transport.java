@@ -19,6 +19,14 @@ public abstract class Transport implements Serializable
         this.manuf_year = manuf_year;
     }
 
+    public Transport()
+    {
+        this.id = -1;
+        this.model = null;
+        this.manufacturer = null;
+        this.manuf_year = null;
+    }
+
     public String getModel() {
         return model;
     }

@@ -41,7 +41,7 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.main_screen);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
-        customer = (Customer)User.currentUser();
+        customer = (Customer)((App) getApplicationContext()).getUser();
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -66,9 +66,17 @@ public class MainScreen extends AppCompatActivity {
     }
 
     public void inCity(View view) {
-        Intent intent = new Intent(this, InCityScreen.class);
-        intent.putExtra("customer",customer);
-        startActivity(intent);
+
+        //Check if wallet is overdrawn
+        if (customer.getWallet().isOverdrawn())
+        {
+            //ERROR
+        }
+        else
+        {
+            Intent intent = new Intent(this, InCityScreen.class);
+            startActivity(intent);
+        }
     }
 
     public void outCity(View view) {
