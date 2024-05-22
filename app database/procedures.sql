@@ -29,7 +29,6 @@ DELIMITER $
 
 CREATE PROCEDURE checkDriver(IN username VARCHAR(32), IN password VARCHAR(32))
 BEGIN
-    DECLARE driver_id INT UNSIGNED;
     DECLARE driver_username VARCHAR(32);
     DECLARE driver_password VARCHAR(32);
     DECLARE driver_name VARCHAR(32);
@@ -41,12 +40,12 @@ BEGIN
     DECLARE manuf VARCHAR(32);
     DECLARE licensePlate VARCHAR(32);
     DECLARE taxi_coords POINT;
-    DECLARE not_found BOOLEAN DEFAULT TRUE;
+    DECLARE not_found BOOLEAN DEFAULT FALSE;
 
     DECLARE cur CURSOR FOR 
-        SELECT u.id, u.username, u.password, u.name, u.lname,u.email,t.id,tr.model,tr.manuf_year,tr.manufacturer,t.license_plate,t.coords
+        SELECT u.username, u.password, u.name, u.lname,u.email,t.id,tr.model,tr.manuf_year,tr.manufacturer,t.license_plate,t.coords
         FROM taxi_driver taxiD
-        INNER JOIN user u ON u.id = taxiD.id
+        INNER JOIN user u ON u.username = taxiD.username
         INNER JOIN taxi t ON t.id =taxiD.taxi
         INNER JOIN transport tr ON t.id=tr.id
         WHERE u.username = username AND u.password = password;
@@ -54,12 +53,12 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET not_found = TRUE;
 
     OPEN cur;
-    FETCH cur INTO driver_id, driver_username, driver_password, driver_name, driver_lname,email,taxi_id,taxi_model,taxi_year,manuf,licensePlate,taxi_coords;
+    FETCH cur INTO driver_username, driver_password, driver_name, driver_lname,email,taxi_id,taxi_model,taxi_year,manuf,licensePlate,taxi_coords;
     
     IF not_found THEN
         SELECT FALSE AS result;
     ELSE
-        SELECT "taxi driver" AS type,driver_id AS id, driver_username AS username, driver_password AS password, driver_name AS name, driver_lname AS lname, email,taxi_id,taxi_model,taxi_year,manuf,licensePlate,taxi_coords;
+        SELECT "taxi driver" AS type, driver_username AS username, driver_password AS password, driver_name AS name, driver_lname AS lname, email,taxi_id,taxi_model,taxi_year,manuf,licensePlate,taxi_coords;
     END IF;
 
     CLOSE cur;
@@ -70,7 +69,6 @@ DROP PROCEDURE IF EXISTS checkCustomer;
 DELIMITER $
 CREATE PROCEDURE checkCustomer(IN username VARCHAR(32),IN password VARCHAR(32))
 BEGIN
-    DECLARE cus_id INT UNSIGNED;
     DECLARE cus_username VARCHAR(32);
     DECLARE cus_password VARCHAR(32);
     DECLARE cus_name VARCHAR(32);
@@ -85,26 +83,26 @@ BEGIN
     DECLARE exp_date VARCHAR(32);
     DECLARE crd_cvv VARCHAR(32);
     DECLARE crd_type VARCHAR(32);
-    DECLARE not_found BOOLEAN DEFAULT TRUE;
+    DECLARE not_found BOOLEAN DEFAULT FALSE;
 
 
     DECLARE cur CURSOR FOR 
-        SELECT u.id,u.username,u.password,u.name,u.lname,u.email,c.license,c.license_image,c.points,w.balance,ca.card_number,ca.card_holder,ca.expiration_date,ca.cvv,ca.card_type
+        SELECT u.username,u.password,u.name,u.lname,u.email,c.license,c.license_image,c.points,w.balance,ca.card_number,ca.card_holder,ca.expiration_date,ca.cvv,ca.card_type
         FROM customer c 
-        INNER JOIN user u on u.id=c.id 
-        RIGHT JOIN wallet w on w.user_id=u.id 
-        RIGHT JOIN card ca on  ca.wallet_id=w.id
-    WHERE u.username = username AND u.password= password;
+        INNER JOIN user u on u.username=c.username 
+        RIGHT JOIN wallet w on w.username=u.username 
+        RIGHT JOIN card ca on  ca.username=w.username
+    WHERE u.username = username AND u.password = password;
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET not_found = TRUE;
 
     OPEN cur ;
-    FETCH cur INTO cus_id,cus_username,cus_password,cus_name,cus_lname,email,cus_licence,img,cus_points,wallet_balance,crd_number,crd_holder,exp_date,crd_cvv,crd_type;
+    FETCH cur INTO cus_username,cus_password,cus_name,cus_lname,email,cus_licence,img,cus_points,wallet_balance,crd_number,crd_holder,exp_date,crd_cvv,crd_type;
 
     IF not_found THEN
         SELECT FALSE AS result;
     ELSE
-        SELECT "customer" AS type,cus_id,cus_username,cus_password,cus_name,cus_lname,email,cus_licence,img,cus_points,wallet_balance,crd_number,crd_holder,exp_date,crd_cvv,crd_type;
+        SELECT "customer" AS type,cus_username,cus_password,cus_name,cus_lname,email,cus_licence,img,cus_points,wallet_balance,crd_number,crd_holder,exp_date,crd_cvv,crd_type;
 
     END IF;
 
