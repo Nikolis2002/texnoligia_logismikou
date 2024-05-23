@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
@@ -27,8 +29,8 @@ import java.util.TimerTask;
 public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyListener {
 
     private Map map;
-    private Coordinates car_loc;
-    private int car_id;
+    private Rental rental;
+    private int serviceId;
     private Timer reservationTimer;
     private static final int CAMERA_REQUEST_CODE = 200;
 
@@ -40,8 +42,10 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         map = new Map(mapFragment, this, this);
 
         Intent data = getIntent();
-        car_id = data.getIntExtra("vehicle_id",-1);
-        car_loc = (Coordinates) data.getSerializableExtra("vehicle_location");
+        this.rental = (Rental)data.getSerializableExtra("vehicle");
+        this.serviceId = data.getIntExtra("service_id", -1);
+
+        Log.d("DISTATEST", rental.toString());
 
         reservationTimer = new Timer();
 
@@ -119,7 +123,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     @Override
     public void onMapWrapperReady()
     {
-        Coordinates location = new Coordinates(car_loc.getLat(),car_loc.getLng());
+        Coordinates location = new Coordinates(rental.getTracker().getCoords().getLat(),rental.getTracker().getCoords().getLng());
         map.setZoom(15);
         map.setPosition(location);
         map.placePin(location,true);

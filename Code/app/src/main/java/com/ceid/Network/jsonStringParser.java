@@ -8,12 +8,12 @@ import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.service.GasStation;
 import com.ceid.model.service.TaxiRequest;
-import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.Taxi;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -31,10 +31,23 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 
 public class jsonStringParser {
+
+    public static JsonNode parseJson(String str)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = null;
+
+        try
+        {
+            jsonNode = mapper.readTree(str);
+        }
+        catch(JsonProcessingException ignored){}
+
+        return jsonNode;
+    }
 
     public static User parseJson(JsonNode data) throws IOException {
         User user=null;

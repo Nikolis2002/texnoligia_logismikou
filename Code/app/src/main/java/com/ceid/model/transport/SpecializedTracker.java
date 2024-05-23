@@ -13,4 +13,9 @@ public class SpecializedTracker extends VehicleTracker
 
 		this.gas = gas;
 	}
+
+	public PositiveInteger getGas()
+	{
+		return gas;
+	}
 }

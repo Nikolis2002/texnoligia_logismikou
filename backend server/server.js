@@ -287,6 +287,8 @@ app.post("/reserveRental", async(req,res)=>
         let serviceInsert = await helper.queryPromise(con, "INSERT INTO service VALUES(?, NOW(), ?, 'ONGOING', ?)", [null, null, null]);
         let rentalInsert = await helper.queryPromise(con, "INSERT INTO rental_service VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [serviceInsert.result.insertId, data.selected_vehicle, null, null, null, null, null, null]);
 
+        await helper.queryPromise(con, "UPDATE rental SET free_status = 'FALSE' WHERE id = ?", [data.selected_vehicle])
+
         res.status(200).send({id: serviceInsert.result.insertId});
     }
     catch(err)

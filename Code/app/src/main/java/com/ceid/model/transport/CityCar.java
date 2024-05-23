@@ -1,4 +1,6 @@
 package com.ceid.model.transport;
+import androidx.annotation.NonNull;
+
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.util.Coordinates;
 import com.ceid.util.PositiveInteger;
@@ -41,5 +43,11 @@ public class CityCar extends Rental {
     public String getLicensePlate()
     {
         return license_plate;
+    }
+
+    @NonNull
+    public String toString()
+    {
+        return String.format("=======================================\nType: CityCar\nID: %d\nLicense Plate: %s\nModel: %s %s (%s)\nRate: %f\nCoords: (%f, %f)\nGas: %d\n=======================================", this.getId(), this.license_plate, this.getManufacturer(), this.getModel(), this.getManufYear(), this.getRate().getValue(), this.getTracker().getCoords().getLat(), this.getTracker().getCoords().getLng(), ((SpecializedTracker)this.getTracker()).getGas().getValue());
     }
 }

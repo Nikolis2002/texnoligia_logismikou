@@ -1,5 +1,7 @@
 package com.ceid.model.transport;
 
+import androidx.annotation.NonNull;
+
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
@@ -66,4 +68,7 @@ public abstract class Rental extends InCityTransport
 
     public abstract boolean requiresLicense();
     public abstract boolean validLicense(String license);
+
+    @NonNull
+    public abstract String toString();
 }

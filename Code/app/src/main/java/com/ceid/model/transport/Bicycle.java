@@ -1,4 +1,6 @@
 package com.ceid.model.transport;
+import androidx.annotation.NonNull;
+
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
@@ -31,5 +33,11 @@ public class Bicycle extends Rental {
 	{
 		//License is always valid
 		return true;
+	}
+
+	@NonNull
+	public String toString()
+	{
+		return String.format("=======================================\nType: Bicycle\nID: %d\nModel: %s %s (%s)\nRate: %f\nCoords: (%f, %f)\n=======================================", this.getId(), this.getManufacturer(), this.getModel(), this.getManufYear(), this.getRate().getValue(), this.getTracker().getCoords().getLat(), this.getTracker().getCoords().getLng());
 	}
 }

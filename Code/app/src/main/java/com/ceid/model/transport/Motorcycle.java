@@ -1,4 +1,6 @@
 package com.ceid.model.transport;
+import androidx.annotation.NonNull;
+
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
@@ -9,10 +11,9 @@ import com.ceid.util.PositiveInteger;
 import java.util.ArrayList;
 
 
-public class Motorcycle extends Rental implements Fuel {
+public class Motorcycle extends Rental {
 
 	//?
-	private PositiveInteger gas;
 	private String license_plate;
 
 	public Motorcycle(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, Coordinates coords, PositiveInteger gas) {
@@ -25,20 +26,6 @@ public class Motorcycle extends Rental implements Fuel {
 	{
 		super();
 		this.license_plate = null;
-	}
-
-	//rest of  the car todo!
-
-	@Override
-	public PositiveInteger getFuel() {
-		// TODO
-
-		return this.gas;
-	}
-
-	@Override
-	public void setFuel(int value) {
-		// TODO
 	}
 
 	@Override
@@ -57,5 +44,11 @@ public class Motorcycle extends Rental implements Fuel {
 	public String getLicensePlate()
 	{
 		return license_plate;
+	}
+
+	@NonNull
+	public String toString()
+	{
+		return String.format("=======================================\nType: Motorcycle\nID: %d\nLicense Plate: %s\nModel: %s %s (%s)\nRate: %f\nCoords: (%f, %f)\nGas: %d\n=======================================", this.getId(), this.license_plate, this.getManufacturer(), this.getModel(), this.getManufYear(), this.getRate().getValue(), this.getTracker().getCoords().getLat(), this.getTracker().getCoords().getLng(), ((SpecializedTracker)this.getTracker()).getGas().getValue());
 	}
 }
