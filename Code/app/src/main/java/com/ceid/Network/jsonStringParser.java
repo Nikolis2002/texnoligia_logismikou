@@ -295,7 +295,7 @@ public class jsonStringParser {
 
         for(JsonNode node:rootNode){
 
-            JsonNode coords=node.get("coords")
+            JsonNode coords=node.get("coords");
         }
 
         return garageList;

@@ -275,18 +275,19 @@ app.get("/check_reservation", async(req,res)=>
     }
 });
 
-app.get("/reserve_rental", async(req,res)=>
+app.post("/reserveRental", async(req,res)=>
 {
     try
     {
-        const data=req.body;
+        let data=req.body;
 
         console.log(`Reservation information: ${data}`)
+        data=JSON.parse(data);
 
         let serviceInsert = await helper.queryPromise(con, "INSERT INTO service VALUES(?, NOW(), ?, 'ONGOING', ?)", [null, null, null]);
-        let rentalInsert = await helper.queryPromise(con, "INSERT INTO rental_service VALUES(?, ?)", [serviceInsert.result.id, data.selecte_vehicle]);
+        let rentalInsert = await helper.queryPromise(con, "INSERT INTO rental_service VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [serviceInsert.result.insertId, data.selected_vehicle, null, null, null, null, null, null]);
 
-        res.status(200).send({id: paymentInsert.result.insertId});
+        res.status(200).send({id: serviceInsert.result.insertId});
     }
     catch(err)
     {

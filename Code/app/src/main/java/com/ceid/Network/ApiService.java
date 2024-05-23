@@ -43,5 +43,5 @@ public interface ApiService {
     Call<String> checkReservation(@Query("vehicle") String id);
 
     @POST("/reserveRental")
-    Call<String> reserveRental(@Body String jsonfunction);
+    Call<ResponseBody> reserveRental(@Body String jsonfunction);
 }

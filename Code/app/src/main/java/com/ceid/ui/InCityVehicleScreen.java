@@ -71,7 +71,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     private String type;
     private int markerIcon;
 
-    private ArrayList<Rental> vehicleList;
+    //private ArrayList<Rental> vehicleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -102,9 +102,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         vehicleMap.setMarkerListener(this);
 
         //Other
-
-        this.vehicleList = new ArrayList<>();
-
         this.type = extras.getString("type");
 
         TextView tview = (TextView) findViewById(R.id.nearbyText);
@@ -278,8 +275,10 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     ObjectMapper mapper = new ObjectMapper();
                                     ObjectNode jsonObject = mapper.createObjectNode();
 
-                                    jsonObject.put("username", ((App)getApplicationContext()).getUser().getUsername());
+                                    //jsonObject.put("username", ((App)getApplicationContext()).getUser().getUsername());
                                     jsonObject.put("selected_vehicle", rental.getId());
+
+                                    Log.d("JSONTEST", "ID: " + String.valueOf(rental.getId()));
 
                                     String jsonString = "";
 
@@ -296,16 +295,24 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                                     ApiService api=ApiClient.getApiService();
 
-                                    Call<String> reserveCall = api.reserveRental(jsonString);
+                                    Call<ResponseBody> reserveCall = api.reserveRental(jsonString);
 
-                                    reserveCall.enqueue(new Callback<String>() {
+                                    reserveCall.enqueue(new Callback<ResponseBody>() {
 
                                         @Override
-                                        public void onResponse(Call<String> call, Response<String> response)
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
                                         {
-                                            String data = response.body();
+											String data = null;
+											try
+											{
+												data = response.body().string();
+											}
+											catch (IOException e)
+											{
+												throw new RuntimeException(e);
+											}
 
-                                            Log.d("JSONTEST", data);
+											Log.d("JSONTEST", data);
 
                                             if (response.isSuccessful())
                                             {
@@ -323,7 +330,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                         }
 
                                         @Override
-                                        public void onFailure(Call<String> call, Throwable throwable)
+                                        public void onFailure(Call<ResponseBody> call, Throwable throwable)
                                         {
 
                                         }
@@ -418,10 +425,10 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 vehicleMap.setPosition(selectedCoords);
 
                 //Retrieve vehicles
-                this.vehicleList = this.getVehicles(new GenericCallback<ArrayList<Rental>>()
+                this.getVehicles(new GenericCallback<ArrayList<Rental>>()
                 {
                     @Override
-                    public void onSuccess(ArrayList<Rental> list)
+                    public void onSuccess(ArrayList<Rental> vehicleList)
                     {
                         vehicleMap.placePin(selectedCoords, true);
 
@@ -454,10 +461,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         }
     }
 
-    public ArrayList<Rental> getVehicles(GenericCallback<ArrayList<Rental>> callback)
+    public void getVehicles(GenericCallback<ArrayList<Rental>> callback)
     {
-        ArrayList<Rental> vehicleList = new ArrayList<>();
-
         ApiService api = ApiClient.getApiService();
         Call<ResponseBody> call = api.getTableData(String.format("rental_%ss", type));
 
@@ -468,6 +473,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             {
                 if (response.isSuccessful())
                 {
+                    ArrayList<Rental> vehicleList = new ArrayList<>();
+
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode vehicles;
 
@@ -570,94 +577,5 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 callback.onFailure(new Exception(t));
             }
         });
-
-        /*
-
-        vehicleList.add(new CityCar(
-                "ABC-1234",
-                true,
-                0,
-                "MONDEO",
-                "FORD",
-                "1993",
-                new Currency(1.40),
-                new Coordinates(38.2442870,21.7326153),
-                new PositiveInteger(0)
-        ));
-
-        vehicleList.add(new CityCar(
-                "DEF-1234",
-                true,
-                1,
-                "CIVIC",
-                "HONDA",
-                "2006",
-                new Currency(1.30),
-                new Coordinates(38.2466208,21.7325087),
-                new PositiveInteger(0)
-        ));
-
-        vehicleList.add(new CityCar(
-                "GHI-1234",
-                true,
-                2,
-                "AZTEK",
-                "PONTIAC",
-                "2004",
-                new Currency(1.20),
-                new Coordinates(38.2481327,21.7374738),
-                new PositiveInteger(0)
-        ));
-
-        vehicleList.add(new CityCar(
-                "JKL-1234",
-                true,
-                3,
-                "ESTEEM",
-                "SUZUKI",
-                "1998",
-                new Currency(1.00),
-                new Coordinates(38.2442388,21.7405935),
-                new PositiveInteger(0)
-        ));
-
-        vehicleList.add(new CityCar(
-                "JKL-1234",
-                true,
-                3,
-                "ESTEEM",
-                "SUZUKI",
-                "1998",
-                new Currency(1.00),
-                new Coordinates(38.2442388,21.7405935),
-                new PositiveInteger(0)
-        ));
-
-        vehicleList.add(new CityCar(
-                "JKL-1234",
-                true,
-                3,
-                "ESTEEM",
-                "SUZUKI",
-                "1998",
-                new Currency(1.00),
-                new Coordinates(38.2442388,21.7405935),
-                new PositiveInteger(0)
-        ));
-
-        vehicleList.add(new CityCar(
-                "2-GO",
-                true,
-                4,
-                "PATTY WAGON",
-                "KRUSTY KRAB",
-                "2004",
-                new Currency(5.00),
-                new Coordinates(38.2473288,21.6084180),
-                new PositiveInteger(0)
-        ));
-        */
-
-        return vehicleList;
     }
 }
