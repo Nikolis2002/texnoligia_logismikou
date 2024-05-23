@@ -48,3 +48,6 @@ INSERT INTO car VALUES
     (2, "DEF-1234", 25, 4),
     (3, "GHI-1234", 40, 4),
     (4, "JKL-1234", 50, 4);
+
+INSERT INTO service VALUES
+    (1, '2024-05-23 10:48:59', 1, 'ONGOING', )

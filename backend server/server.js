@@ -23,6 +23,8 @@ const con = mysql.createConnection(
 );
 
 const app=express();
+
+
 app.use((req, res, next) => {
     if (req.is('application/json')) {
         let data = '';
@@ -257,19 +259,14 @@ app.post("/add_card"),async(req,res)=>{
 app.get("/check_reservation", async(req,res)=>
 {
     try
-    {
+    {   
         const data=req.body;
-        jsonObj=JSON.parse(data);
 
-        let tableData = await helper.queryPromise(con, "SELECT COUNT(*) AS result FROM rental_service INNER JOIN service ON service_id = id WHERE selected_vehicle = ? AND service_status = 'ONGOING'", [req.query.vehicle]);
+        let tableData = await helper.queryPromise(con, "CALL check_rental_available(?)", [req.query.vehicle]);
 
-        if(tableUser.result[0].result > 0){
-            res.status(500).send(new helper.ResponseMessage("Reservation exists").string());
-        }
-        else
-        {
-            res.status(200).send("ok");
-        }
+        console.log(`"Available: ${tableData.result[0][0].result}"`)
+
+        res.status(200).send(`${tableData.result[0][0].result}`);
     }
     catch(err)
     {
