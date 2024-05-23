@@ -259,7 +259,7 @@ public class jsonStringParser {
         JsonNode rootNode = mapper.readTree(response.body().string());
         ArrayList<TaxiRequest> requestList= new ArrayList<>();
 
-        JsonNode arrayNode=rootNode.get(0);
+        JsonNode arrayNode=rootNode;
 
         for(JsonNode node : arrayNode){
 
@@ -268,7 +268,6 @@ public class jsonStringParser {
 
             JsonNode destLocationNode=node.get("destination");
             Coordinates dest= new Coordinates(destLocationNode.get("x").asDouble(),destLocationNode.get("y").asDouble());
-
             Payment.Method method= Payment.Method.valueOf(node.get("payment_method").asText());
 
             requestList.add( new TaxiRequest(

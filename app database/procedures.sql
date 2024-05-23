@@ -152,10 +152,38 @@ INSERT INTO taxi_driver VALUES("bill2",1,"TRUE");
 
 INSERT INTO user VALUES("bill3","1235","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill3","A2","test",0);
-
+INSERT INTO wallet VALUES("bill3",50);
 CALL insertCard("Bill","072","123","Billkort","999");
 
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+INSERT INTO user VALUES("bill4","12356","Vasilis","Kourtakis","test@gmail2.com","6911234567");
+INSERT INTO customer VALUES("bill4","A2","test",0);
+INSERT INTO wallet VALUES("bill4",50);
+
+
+-- Insert into taxi_request
+INSERT INTO taxi_request
+VALUES 
+    (null,ST_GeomFromText('POINT(40.7128 -74.0060)'), ST_GeomFromText('POINT(34.0522 -118.2437)'), 'bill2', '2024-05-20 08:30:00', NULL),
+    (null,ST_GeomFromText('POINT(37.7749 -122.4194)'), ST_GeomFromText('POINT(36.1699 -115.1398)'), NULL, NULL, NULL),
+    (null,ST_GeomFromText('POINT(37.7749 -122.4194)'), ST_GeomFromText('POINT(36.1699 -115.1398)'), NULL, NULL, NULL);
+
+-- Insert into payment
+INSERT INTO payment 
+VALUES 
+    (null,'bill', 50.00, 'WALLET'),
+    (null,'bill3', 30.50, 'CASH'),
+    (null,'bill4', 30.50, 'CASH');
+
+-- Insert into service
+INSERT INTO service 
+VALUES 
+    (null,CURRENT_TIMESTAMP, 1, 'ONGOING', NULL),
+    (null,CURRENT_TIMESTAMP, 2, 'ONGOING', NULL),
+    (null,CURRENT_TIMESTAMP, 3, 'ONGOING', NULL);
+
+-- Insert into taxi_service
+INSERT INTO taxi_service (service_id, request_id, rating_id)
+VALUES 
+    (1, 1, NULL),
+    (2, 2, NULL),
+    (3,3, NULL);

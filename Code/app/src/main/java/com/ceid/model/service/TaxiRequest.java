@@ -1,5 +1,7 @@
 package com.ceid.model.service;
 
+import androidx.annotation.NonNull;
+
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.transport.Transport;
 import com.ceid.model.users.TaxiDriver;
@@ -86,5 +88,14 @@ public class TaxiRequest implements Serializable
     public void setPickupTime(LocalDateTime time)
     {
         this.pickupTime = time;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("TaxiRequest{id=%d, pickupLocation=%s, destination=%s}",
+                id,
+                pickupLocation.toString(),
+                destination.toString());
     }
 }
