@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
+import com.ceid.Network.jsonStringParser;
 import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.transport.Bicycle;
 import com.ceid.model.transport.CityCar;
@@ -41,6 +42,7 @@ import com.ceid.util.PositiveInteger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
@@ -48,6 +50,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -262,7 +265,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                                             //Remove pin from the map
                                             marker.remove();
-
                                         }
                                     });
 
@@ -270,10 +272,62 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                 }
                                 else
                                 {
-                                    Intent intent = new Intent(v.getContext(), UnlockScreen.class);
-                                    intent.putExtra("vehicle", rental);
-                                    //intent.putExtra("service_id", );
-                                    startActivity(intent);
+                                    //Save reservation to database
+                                    java.util.Map<String, Object> values = new LinkedHashMap<String, Object>();
+
+                                    ObjectMapper mapper = new ObjectMapper();
+                                    ObjectNode jsonObject = mapper.createObjectNode();
+
+                                    jsonObject.put("username", ((App)getApplicationContext()).getUser().getUsername());
+                                    jsonObject.put("selected_vehicle", rental.getId());
+
+                                    String jsonString = "";
+
+                                    try
+                                    {
+                                        jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+                                    }
+                                    catch(IOException e)
+                                    {
+                                        e.printStackTrace();
+                                    }
+
+                                    Log.d("JSONTEST", jsonString);
+
+                                    ApiService api=ApiClient.getApiService();
+
+                                    Call<String> reserveCall = api.reserveRental(jsonString);
+
+                                    reserveCall.enqueue(new Callback<String>() {
+
+                                        @Override
+                                        public void onResponse(Call<String> call, Response<String> response)
+                                        {
+                                            String data = response.body();
+
+                                            Log.d("JSONTEST", data);
+
+                                            if (response.isSuccessful())
+                                            {
+                                                /*
+                                                Intent intent = new Intent(v.getContext(), UnlockScreen.class);
+                                                intent.putExtra("vehicle", rental);
+                                                //intent.putExtra("service_id", );
+                                                startActivity(intent);
+                                                */
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable throwable)
+                                        {
+
+                                        }
+                                    });
                                 }
                             }
                             else
