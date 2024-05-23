@@ -7,6 +7,7 @@ import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.service.TaxiRequest;
+import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.Taxi;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
@@ -225,7 +226,7 @@ public class jsonStringParser {
         }
     }
 
-    /*public static int[] extractInsertIds(Call<String> response) {
+    public static int[] extractInsertIds(Response<ResponseBody> response) throws IOException{
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(response.body().string());
@@ -243,7 +244,7 @@ public class jsonStringParser {
         }
         // Return an empty array if insertIds are not found or if there's an error
         return new int[0];
-    }*/
+    }
 
     public static <T> List<T> parseDataList(String response, Class<T> targetClass) throws JsonSyntaxException {
         if (response == null || response.isEmpty()) {
@@ -285,6 +286,19 @@ public class jsonStringParser {
         return requestList;
 
 
+    }
+
+    public static ArrayList<Garage> parseGarage(Response<ResponseBody> response) throws IOException {
+        ObjectMapper mapper=new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(response.body().string());
+        ArrayList<Garage> garageList= new ArrayList<>();
+
+        for(JsonNode node:rootNode){
+
+            JsonNode coords=node.get("coords")
+        }
+
+        return garageList;
     }
 
 }
