@@ -101,6 +101,7 @@ BEGIN
     DECLARE balance VARCHAR(32);
     SELECT count(*),owner_balance INTO c,balance FROM bank WHERE cardNum=bank.card_number AND expDate=bank.card_exp_date AND  cOwner=bank.card_owner AND cvv=bank.cvv GROUP BY owner_balance;
     IF (c=1) THEN
+        SELECT TRUE AS result;
         INSERT INTO card VALUES(user,cardNum,cOwner,expDate,cvv,"credit");
     ELSE
         SELECT FALSE AS result;
