@@ -6,12 +6,18 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ceid.model.users.Customer;
+import com.ceid.model.users.TaxiDriver;
+
 public class MainScreenTaxi extends AppCompatActivity{
+
+    TaxiDriver taxiDriver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_main_sceen);
+        taxiDriver = (TaxiDriver)((App) getApplicationContext()).getUser();
 
     }
 
