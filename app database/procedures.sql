@@ -155,6 +155,20 @@ INSERT INTO customer VALUES("bill3","A2","test",0);
 INSERT INTO wallet VALUES("bill3",50);
 CALL insertCard("Bill","072","123","Billkort","999");
 
+insert into user values("Dista","dim123","Dimitris","Stasinos","dimitris@gmail.com","6981472583");
+INSERT INTO customer VALUES("Dista","A2",null,0);
+INSERT INTO wallet VALUES("Dista",10);
+INSERT INTO card VALUES("Dista","456","dimitris","123","086","credit");
+
+insert into user values("Nikolis","nik789","Nikolaos","Andrianopoulos","nikolis@gmail.com","6987894561");
+INSERT INTO customer VALUES("Nikolis","A2",null,0);
+INSERT INTO wallet VALUES("Nikolis",20);
+INSERT INTO card VALUES("Nikolis","458","nikolaos","123","086","credit");
+
+insert into user values("Zoukos","zouk741","Panagiotis","Kalozoumis","panos@gmail.com","6988521346");
+INSERT INTO customer VALUES("Zoukos","A2",null,0);
+INSERT INTO wallet VALUES("Zoukos",10);
+INSERT INTO card VALUES("Zoukos","125","panagiotis","123","086","credit");
 INSERT INTO user VALUES("bill4","12356","Vasilis","Kourtakis","test@gmail2.com","6911234567");
 INSERT INTO customer VALUES("bill4","A2","test",0);
 INSERT INTO wallet VALUES("bill4",50);
