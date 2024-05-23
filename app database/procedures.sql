@@ -108,6 +108,22 @@ BEGIN
 END $
 DELIMITER ;
 
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS check_rental_available;
+DELIMITER $
+
+CREATE PROCEDURE check_rental_available(IN in_id INT UNSIGNED)
+BEGIN
+    SELECT COUNT(*) AS result
+    FROM rental
+    WHERE id = in_id AND free_status = 'TRUE';
+END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
 DROR VIEW IF EXISTS selectTaxiRequests;
 CREATE VIEW selectTaxiRequests AS
 SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination,p.payment_method as payment_method
@@ -138,3 +154,8 @@ INSERT INTO user VALUES("bill3","1235","Vasilis","Kourtakis","test@gmail.com","6
 INSERT INTO customer VALUES("bill3","A2","test",0);
 
 CALL insertCard("Bill","072","123","Billkort","999");
+
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
