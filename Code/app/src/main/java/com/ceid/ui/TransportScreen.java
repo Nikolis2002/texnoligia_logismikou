@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ceid.model.service.TaxiRequest;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
@@ -24,11 +25,15 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     Timer timer = new Timer();
     Instant startTimer;
     Instant stopTimer;
-
+    TaxiRequest taxiRequest;
 
    protected  void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.transport_screen);
+
+       Intent taxiRequestData = getIntent();
+       taxiRequest = (TaxiRequest) taxiRequestData.getSerializableExtra("taxiRequest");
+
        button = findViewById(R.id.startEndRouteButton);
        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapView);
        map = new Map(mapFragment, this, this);
@@ -38,9 +43,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
     @Override
     public void onMapWrapperReady() {
-        Coordinates customer = new Coordinates( 38.246638, 21.734573);
+        map.placePin(taxiRequest.getPickupLocation(),true);
         map.setZoom(14);
-        map.setPosition(customer);
+        map.setPosition(taxiRequest.getPickupLocation());
     }
 
     public void startRoute(){
