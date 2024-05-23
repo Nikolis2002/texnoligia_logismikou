@@ -75,7 +75,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
                 });
             }
-        },5000);
+        },20000);
     }
 
     Runnable taxiFoundCheck = new Runnable() {

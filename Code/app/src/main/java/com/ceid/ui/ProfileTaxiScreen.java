@@ -14,7 +14,6 @@ public class ProfileTaxiScreen extends AppCompatActivity {
 
         TaxiDriver taxiDriver=(TaxiDriver)((App) getApplicationContext()).getUser();
 
-
         TextView username = findViewById(R.id.usernameProfile);
         TextView name = findViewById(R.id.nameProfile);
         TextView surname = findViewById(R.id.surnameProfile);
@@ -26,6 +25,5 @@ public class ProfileTaxiScreen extends AppCompatActivity {
         surname.setText(taxiDriver.getLastname());
         email.setText(taxiDriver.getEmail());
         amount.setText(String.valueOf(taxiDriver.getWallet().getBalance()));
-
     }
 }
