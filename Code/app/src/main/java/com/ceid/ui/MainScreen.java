@@ -1,4 +1,5 @@
 package com.ceid.ui;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +64,12 @@ public class MainScreen extends AppCompatActivity {
                 return true; //successfully handled
             }
         });
+    }
+    
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
     }
 
     public void inCity(View view) {
