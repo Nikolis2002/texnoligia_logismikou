@@ -134,6 +134,8 @@ INNER JOIN service ser  ON ts.request_id=ser.id
 INNER JOIN payment p  ON  p.id=ser.payment_id
 WHERE tr.assignment_time is NULL;
 
+-- =====================================================================================================
+
 -- //////////////////////BANK MOCK
 INSERT INTO user VALUES("bill","123","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill","A2","test",0);

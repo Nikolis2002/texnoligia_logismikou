@@ -271,9 +271,30 @@ app.get("/check_reservation", async(req,res)=>
     catch(err)
     {
         console.error("Error processing request:", err);
+        res.status(500).send("Could not process request");
+    }
+});
+
+app.get("/reserve_rental", async(req,res)=>
+{
+    try
+    {
+        const data=req.body;
+
+        console.log(`Reservation information: ${data}`)
+
+        let serviceInsert = await helper.queryPromise(con, "INSERT INTO service VALUES(?, NOW(), ?, 'ONGOING', ?)", [null, null, null]);
+        let rentalInsert = await helper.queryPromise(con, "INSERT INTO rental_service VALUES(?, ?)", [serviceInsert.result.id, data.selecte_vehicle]);
+
+        res.status(200).send({id: paymentInsert.result.insertId});
+    }
+    catch(err)
+    {
+        console.error("Error processing request:", err);
         res.status(500).send(new helper.ResponseMessage("Could not process request").string());
     }
 });
+    
 
 const ip_adress=jsonPass.ip;
 const port=3000;
