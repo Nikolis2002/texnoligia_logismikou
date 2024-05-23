@@ -126,9 +126,6 @@ DELIMITER ;
 
 DROP VIEW IF EXISTS selectTaxiRequests;
 CREATE VIEW selectTaxiRequests AS
-SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination
-DROR VIEW IF EXISTS selectTaxiRequests;
-CREATE VIEW selectTaxiRequests AS
 SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination,p.payment_method as payment_method
 FROM taxi_request tr 
 INNER JOIN taxi_service ts ON tr.id=ts.request_id
