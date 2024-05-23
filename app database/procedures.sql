@@ -108,6 +108,22 @@ BEGIN
 END $
 DELIMITER ;
 
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS check_rental_available;
+DELIMITER $
+
+CREATE PROCEDURE check_rental_available(IN in_id INT UNSIGNED)
+BEGIN
+    SELECT COUNT(*) AS result
+    FROM rental
+    WHERE id = in_id AND free_status = 'TRUE';
+END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
 DROR VIEW IF EXISTS selectTaxiRequests;
 CREATE VIEW newRequests AS
 SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination
