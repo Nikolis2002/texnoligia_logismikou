@@ -109,8 +109,8 @@ END $
 DELIMITER ;
 
 DROR VIEW IF EXISTS selectTaxiRequests;
-CREATE VIEW newRequests AS
-SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination
+CREATE VIEW selectTaxiRequests AS
+SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination,p.payment_method as payment_method
 FROM taxi_request tr 
 INNER JOIN taxi_service ts ON tr.id=ts.request_id
 INNER JOIN service ser  ON ts.request_id=ser.id
