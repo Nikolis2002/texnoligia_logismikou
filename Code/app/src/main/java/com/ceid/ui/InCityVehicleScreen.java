@@ -5,10 +5,13 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -168,20 +172,49 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                     0
             );
 
+            ImageView icon = popupView.findViewById(R.id.imageView);
+
             TextView title = popupView.findViewById(R.id.text_title);
             TextView dista = popupView.findViewById(R.id.text_dista);
             TextView rate = popupView.findViewById(R.id.text_rate);
             TextView seats = popupView.findViewById(R.id.text_seats);
             TextView plate = popupView.findViewById(R.id.text_plate);
 
-            CityCar car = (CityCar)tag;
+            Rental rental = (Rental)tag;
 
-            title.setText(String.format("%s %s (%s)", car.getManufacturer(), car.getModel(), car.getManufYear()));
-            dista.setText(String.format("%s: %d m", "Distance", Math.round(selectedCoords.distance(car.getTracker().getCoords()))));
-            rate.setText(String.format("%s: %s/min", "Rate", car.getRate().toString()));
-            seats.setText(String.format("%s: %d", "Seats", 4));
-            plate.setText(String.format("%s: %s", "License Plate", car.getLicensePlate()));
+            title.setText(String.format("%s %s (%s)", rental.getManufacturer(), rental.getModel(), rental.getManufYear()));
+            dista.setText(String.format("%s: %d m", "Distance", Math.round(selectedCoords.distance(rental.getTracker().getCoords()))));
+            rate.setText(String.format("%s: %s/min", "Rate", rental.getRate().toString()));
 
+            if (rental instanceof CityCar)
+            {
+                icon.setImageResource(R.drawable.in_city_car);
+
+                seats.setText(String.format("%s: %d", "Seats", 4));
+                plate.setText(String.format("%s: %s", "License Plate", ((CityCar)rental).getLicensePlate()));
+            }
+            else if (rental instanceof Motorcycle)
+            {
+                icon.setImageResource(R.drawable.in_city_motorcycle);
+
+                seats.setVisibility(View.GONE);
+
+                plate.setText(String.format("%s: %s", "License Plate", ((Motorcycle)rental).getLicensePlate()));
+            }
+            else if (rental instanceof Bicycle)
+            {
+                icon.setImageResource(R.drawable.in_city_bicycle);
+
+                seats.setVisibility(View.GONE);
+                plate.setVisibility(View.GONE);
+            }
+            else
+            {
+                icon.setImageResource(R.drawable.in_city_scooter);
+
+                seats.setVisibility(View.GONE);
+                plate.setVisibility(View.GONE);
+            }
 
             Button cancel = popupView.findViewById(R.id.cancel);
             Button reserve = popupView.findViewById(R.id.reserve);
@@ -198,42 +231,91 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 @Override
                 public void onClick(View v)
                 {
-
                     //Check if reservation exists
-
                     ApiService api = ApiClient.getApiService();
-                    Call<String> call = api.checkReservation(car.getId());
+                    Call<String> call = api.checkReservation(String.valueOf(rental.getId()));
 
                     call.enqueue(new Callback<String>()
                     {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response)
                         {
-
-
-                            if (response.isSuccessful())
+							if (response.isSuccessful())
                             {
-                                Log.d("MYTEST", response.body());
+                                int rentalAvailable = Integer.parseInt(response.body());
+                                Log.d("MYTEST", String.valueOf(rentalAvailable));
+
+                                //Check if reservation exists
+                                if (rentalAvailable == 0)
+                                {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
+
+                                    builder.setTitle("Reservation error");
+                                    builder.setMessage("There is already a reservation for that vehicle");
+
+                                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            dialog.dismiss();
+
+                                            //Remove pin from the map
+                                            marker.remove();
+
+                                        }
+                                    });
+
+                                    builder.create().show();
+                                }
+                                else
+                                {
+                                    Intent intent = new Intent(v.getContext(), UnlockScreen.class);
+                                    intent.putExtra("vehicle", rental);
+                                    //intent.putExtra("service_id", );
+                                    startActivity(intent);
+                                }
                             }
                             else
                             {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
 
+                                builder.setTitle("Server");
+                                builder.setMessage("There was an error with the server");
+
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                builder.create().show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable throwable)
                         {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
 
+                            builder.setTitle("Communication error");
+                            builder.setMessage("Could not communicate with the server");
+
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            builder.create().show();
                         }
                     });
-
-                    /*
-
-                    Intent intent = new Intent(v.getContext(), UnlockScreen.class);
-                    intent.putExtra("vehicle_id",car.getId());
-                    intent.putExtra("vehicle_location", car.getTracker().getCoords());
-                    startActivity(intent);*/
                 }
             });
         }

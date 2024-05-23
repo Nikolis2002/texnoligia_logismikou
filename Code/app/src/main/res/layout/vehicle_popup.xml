@@ -50,9 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.254"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_plate"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/cancel"
@@ -70,16 +68,16 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/text_plate"
+            android:id="@+id/text_seats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="License Plate: "
+            android:text="Seats: "
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_seats" />
+            app:layout_constraintTop_toBottomOf="@+id/text_plate" />
 
         <TextView
             android:id="@+id/text_dista"
@@ -106,12 +104,12 @@
             app:layout_constraintTop_toBottomOf="@+id/text_dista" />
 
         <TextView
-            android:id="@+id/text_seats"
+            android:id="@+id/text_plate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Seats:"
+            android:text="License Plate:"
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"

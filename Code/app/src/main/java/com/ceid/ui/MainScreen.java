@@ -1,4 +1,5 @@
 package com.ceid.ui;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class MainScreen extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
         customer = (Customer)((App) getApplicationContext()).getUser();
+        User.setCurrentUser(customer);
+        //Customer customer=(Customer) User.setCurrentUser(customer);
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -63,6 +66,12 @@ public class MainScreen extends AppCompatActivity {
                 return true; //successfully handled
             }
         });
+    }
+    
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
     }
 
     public void inCity(View view) {
