@@ -124,14 +124,14 @@ DELIMITER ;
 
 -- =====================================================================================================
 
-DROR VIEW IF EXISTS selectTaxiRequests;
+DROP VIEW IF EXISTS newRequests;
 CREATE VIEW newRequests AS
 SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination
 FROM taxi_request tr 
 INNER JOIN taxi_service ts ON tr.id=ts.request_id
 INNER JOIN service ser  ON ts.request_id=ser.id
 INNER JOIN payment p  ON  p.id=ser.payment_id
-WHERE tr.assignment_date is NULL;
+WHERE tr.assignment_time is NULL;
 
 -- //////////////////////BANK MOCK
 INSERT INTO user VALUES("bill","123","Vasilis","Kourtakis","test@gmail.com","6911234567");
