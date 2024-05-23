@@ -101,6 +101,7 @@ BEGIN
     DECLARE balance VARCHAR(32);
     SELECT count(*),owner_balance INTO c,balance FROM bank WHERE cardNum=bank.card_number AND expDate=bank.card_exp_date AND  cOwner=bank.card_owner AND cvv=bank.cvv GROUP BY owner_balance;
     IF (c=1) THEN
+        SELECT TRUE AS result;
         INSERT INTO card VALUES(user,cardNum,cOwner,expDate,cvv,"credit");
     ELSE
         SELECT FALSE AS result;
@@ -152,10 +153,52 @@ INSERT INTO taxi_driver VALUES("bill2",1,"TRUE");
 
 INSERT INTO user VALUES("bill3","1235","Vasilis","Kourtakis","test@gmail.com","6911234567");
 INSERT INTO customer VALUES("bill3","A2","test",0);
-
+INSERT INTO wallet VALUES("bill3",50);
 CALL insertCard("Bill","072","123","Billkort","999");
 
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
-insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into user values("Dista","dim123","Dimitris","Stasinos","dimitris@gmail.com","6981472583");
+INSERT INTO customer VALUES("Dista","A2",null,0);
+INSERT INTO wallet VALUES("Dista",10);
+INSERT INTO card VALUES("Dista","456","dimitris","123","086","credit");
+
+insert into user values("Nikolis","nik789","Nikolaos","Andrianopoulos","nikolis@gmail.com","6987894561");
+INSERT INTO customer VALUES("Nikolis","A2",null,0);
+INSERT INTO wallet VALUES("Nikolis",20);
+INSERT INTO card VALUES("Nikolis","458","nikolaos","123","086","credit");
+
+insert into user values("Zoukos","zouk741","Panagiotis","Kalozoumis","panos@gmail.com","6988521346");
+INSERT INTO customer VALUES("Zoukos","A2",null,0);
+INSERT INTO wallet VALUES("Zoukos",10);
+INSERT INTO card VALUES("Zoukos","125","panagiotis","123","086","credit");
+INSERT INTO user VALUES("bill4","12356","Vasilis","Kourtakis","test@gmail2.com","6911234567");
+INSERT INTO customer VALUES("bill4","A2","test",0);
+INSERT INTO wallet VALUES("bill4",50);
+
+
+-- Insert into taxi_request
+INSERT INTO taxi_request
+VALUES 
+    (null,ST_GeomFromText('POINT(40.7128 -74.0060)'), ST_GeomFromText('POINT(34.0522 -118.2437)'), 'bill2', '2024-05-20 08:30:00', NULL),
+    (null,ST_GeomFromText('POINT(37.7749 -122.4194)'), ST_GeomFromText('POINT(36.1699 -115.1398)'), NULL, NULL, NULL),
+    (null,ST_GeomFromText('POINT(37.7749 -122.4194)'), ST_GeomFromText('POINT(36.1699 -115.1398)'), NULL, NULL, NULL);
+
+-- Insert into payment
+INSERT INTO payment 
+VALUES 
+    (null,'bill', 50.00, 'WALLET'),
+    (null,'bill3', 30.50, 'CASH'),
+    (null,'bill4', 30.50, 'CASH');
+
+-- Insert into service
+INSERT INTO service 
+VALUES 
+    (null,CURRENT_TIMESTAMP, 1, 'ONGOING', NULL),
+    (null,CURRENT_TIMESTAMP, 2, 'ONGOING', NULL),
+    (null,CURRENT_TIMESTAMP, 3, 'ONGOING', NULL);
+
+-- Insert into taxi_service
+INSERT INTO taxi_service (service_id, request_id, rating_id)
+VALUES 
+    (1, 1, NULL),
+    (2, 2, NULL),
+    (3,3, NULL);

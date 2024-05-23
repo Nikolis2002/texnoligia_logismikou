@@ -18,6 +18,7 @@ import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
 import com.ceid.model.payment_methods.Card;
+import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class addCard extends AppCompatActivity implements postInterface {
+    private Customer customer;
     private User user;
     private EditText cardNum,expDate,owner,ccv;
     private ApiService api;
@@ -53,9 +55,10 @@ public class addCard extends AppCompatActivity implements postInterface {
     {
         List<Map<String, Object>> values = new ArrayList<>();
         Map<String, Object> cardCred=new LinkedHashMap<>();
-        //user= User.currentUser();
-        //cardCred.put("username",user.getUsername());
-        cardCred.put("username","bill");
+        user= User.currentUser();
+        customer= (Customer) user;
+        cardCred.put("username",customer.getUsername());
+        //cardCred.put("username","bill");
         cardCred.put("cardNum",cardNum.getText().toString());
         cardCred.put("expDate",expDate.getText().toString());
         cardCred.put("owner",owner.getText().toString());
@@ -78,14 +81,15 @@ public class addCard extends AppCompatActivity implements postInterface {
         boolean bool=jsonStringParser.getbooleanFromJson(response);
         if(!bool)
         {
-            Toast.makeText(getApplicationContext(), "Wrong card information!",
-                    Toast.LENGTH_LONG).show();
-        }
-        else{
             Toast.makeText(getApplicationContext(), "Card added successfully!",
                     Toast.LENGTH_LONG).show();
             Intent intent=new Intent(getApplicationContext(), MainScreen.class);
             startActivity(intent);
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Wrong card information!",
+                    Toast.LENGTH_LONG).show();
         }
         /*List<Card> card=jsonStringParser.parseDataList(response.body().string(), Card.class);
         Log.d("card",card.get(0).printCard());

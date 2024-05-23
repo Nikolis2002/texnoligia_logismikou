@@ -114,13 +114,23 @@ public class Login extends AppCompatActivity implements postInterface{
 
         //List<Map<String, Object>> values = new ArrayList<>();
         //Map<String, Object> user1 = new HashMap<>();
+
         Call<ResponseBody> call= api.getTableData("selectTaxiRequests");
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    try {
+                        ArrayList<TaxiRequest> requestList=jsonStringParser.parseTaxiRequest(response);
 
+                        for (TaxiRequest request : requestList) {
+                            Log.d("test", request.toString());
+                        }
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                 } else {
                     Log.d("Response", "Unsuccessful");
