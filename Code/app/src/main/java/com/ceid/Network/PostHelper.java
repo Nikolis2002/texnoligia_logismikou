@@ -4,7 +4,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ceid.model.service.GasStation;
+import com.ceid.util.GenericCallback;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -65,7 +69,7 @@ public class PostHelper {
         });
     }
     public void card(ApiService api,String cardParams){
-        {
+
             Call<ResponseBody> call= api.getFunction(cardParams);
             Log.d("kort","kort was send successfully!!");
             call.enqueue(new Callback<ResponseBody>() {
@@ -90,5 +94,33 @@ public class PostHelper {
                     System.out.println("Error message");
                 }
             });
+
     }
-}}
+
+    public static void getGasStations(ApiService api, String params, GenericCallback<ArrayList<GasStation>> callback){
+        Call<ResponseBody> call=api.getTableData(params);
+        call.enqueue(new Callback<ResponseBody>(){
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if(callback!=null) {
+                        ArrayList<GasStation> array= null;
+                        try {
+                            array = jsonStringParser.parseGarage(response);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        callback.onSuccess(array);
+                    }
+                } else {
+                    callback.onFailure(new Exception());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure(new Exception(t));
+            }
+        });
+    }
+}

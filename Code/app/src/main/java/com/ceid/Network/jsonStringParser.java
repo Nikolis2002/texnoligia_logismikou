@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.payment_methods.Wallet;
+import com.ceid.model.service.GasStation;
 import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.Taxi;
@@ -288,17 +289,27 @@ public class jsonStringParser {
 
     }
 
-    public static ArrayList<Garage> parseGarage(Response<ResponseBody> response) throws IOException {
+    public static ArrayList<GasStation> parseGarage(Response<ResponseBody> response) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         JsonNode rootNode = mapper.readTree(response.body().string());
-        ArrayList<Garage> garageList= new ArrayList<>();
+        ArrayList<GasStation> gasStationList= new ArrayList<>();
 
         for(JsonNode node:rootNode){
 
-            JsonNode coords=node.get("coords")
+            JsonNode coordsJson=node.get("coords");
+
+            Coordinates coords=new Coordinates(coordsJson.get("x").asDouble(),coordsJson.get("y").asDouble());
+
+            gasStationList.add( new GasStation(
+                            Integer.parseInt(node.get("id").asText()),
+                            coords,
+                            Double.parseDouble(node.get("gas_price").asText())
+
+                    )
+                    );
         }
 
-        return garageList;
+        return gasStationList;
     }
 
 }

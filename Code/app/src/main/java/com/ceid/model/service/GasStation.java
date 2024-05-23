@@ -7,9 +7,9 @@ public class GasStation
 {
 	private int id;
 	private Coordinates coords;
-	private Currency gasPrice;
+	private double gasPrice;
 
-	public GasStation(int id, Coordinates coords, Currency gasPrice)
+	public GasStation(int id, Coordinates coords, double gasPrice)
 	{
 		this.id = id;
 		this.coords = coords;
@@ -26,13 +26,9 @@ public class GasStation
 		return coords;
 	}
 
-	public Currency getGasPrice()
+	public double getGasPrice()
 	{
 		return gasPrice;
 	}
 
-	public Currency calculateGasPrice(int amount)
-	{
-		return gasPrice.mulValue(amount);
-	}
 }
