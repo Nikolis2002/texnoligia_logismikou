@@ -42,6 +42,7 @@ public class TaxiRequest implements Serializable
         this.payment = payment;
     }
 
+
     public int getId() {
         return id;
     }
@@ -93,9 +94,10 @@ public class TaxiRequest implements Serializable
     @NonNull
     @Override
     public String toString() {
-        return String.format("TaxiRequest{id=%d, pickupLocation=%s, destination=%s}",
+        return String.format("TaxiRequest{id=%d, pickupLocation=%s, destination=%s, payment=%s}",
                 id,
                 pickupLocation.toString(),
-                destination.toString());
+                destination.toString(),
+                payment.toString());
     }
 }

@@ -268,7 +268,8 @@ public class jsonStringParser {
 
             JsonNode destLocationNode=node.get("destination");
             Coordinates dest= new Coordinates(destLocationNode.get("x").asDouble(),destLocationNode.get("y").asDouble());
-            Payment.Method method= Payment.Method.valueOf(node.get("payment_method").asText());
+            Payment.Method method = Payment.setPaymentType(node.get("payment_method").asText());
+
 
             requestList.add( new TaxiRequest(
                     Integer.parseInt(node.get("id").asText()),

@@ -21,6 +21,14 @@ public class Payment implements Serializable
         this.method = method;
     }
 
+    public static Method setPaymentType(String text) {
+        if (text.equals("WALLET")) {
+            return Method.WALLET;
+        } else {
+            return Method.CASH;
+        }
+    }
+
     public double getAmount() {
         return amount;
     }
