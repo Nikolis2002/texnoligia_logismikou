@@ -66,7 +66,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     }
 
 
-    /*
+
     public void findTaxi(View view){
         boolean fieldCheck=checkLocField();
 
@@ -170,8 +170,6 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         }
 
     }
-    */
-
 
 
     public void insertDestination(View view){
