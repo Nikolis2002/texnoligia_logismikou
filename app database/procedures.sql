@@ -138,3 +138,8 @@ INSERT INTO user VALUES("bill3","1235","Vasilis","Kourtakis","test@gmail.com","6
 INSERT INTO customer VALUES("bill3","A2","test",0);
 
 CALL insertCard("Bill","072","123","Billkort","999");
+
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
