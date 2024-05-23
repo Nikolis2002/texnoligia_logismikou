@@ -33,8 +33,6 @@ import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
-import com.ceid.util.Location;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -52,11 +50,10 @@ public class Login extends AppCompatActivity implements postInterface{
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
-        /*
+
         ApiService api=ApiClient.getApiService();
 
-        List<Map<String, Object>> values = new ArrayList<>();
-        Map<String, Object> user1 = new HashMap<>();
+
 
         /*
         user1.put("username", "john_doe6");
@@ -114,46 +111,29 @@ public class Login extends AppCompatActivity implements postInterface{
         Call<List<Map<String, Object>>> call = api.getTableData(test);
 
         */
-    /*
-        call.enqueue(new Callback<List<Map<String, Object>>>() {
+
+        //List<Map<String, Object>> values = new ArrayList<>();
+        //Map<String, Object> user1 = new HashMap<>();
+        Call<ResponseBody> call= api.getTableData("selectTaxiRequests");
+
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<List<Map<String, Object>>> call, @NonNull Response<List<Map<String, Object>>> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    List<Map<String, Object>> dataList = response.body();
-                    if (dataList != null && !dataList.isEmpty()) {
-                        // Convert JSON maps to TaxiRequest objects using Gson
-                        Gson gson = new Gson();
-                        List<TaxiRequest> taxiRequestList = new ArrayList<>();
-                        for (Map<String, Object> data : dataList) {
-                            String json = gson.toJson(data);
-                            TaxiRequest taxiRequest = gson.fromJson(json, TaxiRequest.class);
-                            taxiRequestList.add(taxiRequest);
-                        }
 
 
-                        /*
-                        // Now you have a list of TaxiRequest objects
-                        for (TaxiRequest taxiRequest : taxiRequestList) {
-                            if(taxiRequest.getPickupLocation()==null){
-                                Log.d("TaxiRequest", "i am null!");
-                            }
-                            Log.d("TaxiRequest", String.valueOf(taxiRequest.getPickupLocation().getLat()));
-                        }
-                    } else {
-                        Log.d("Response", "Empty data list");
-                    }
                 } else {
                     Log.d("Response", "Unsuccessful");
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Map<String, Object>>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Log.e("Error", "Failed to fetch data: " + t.getMessage());
             }
         });
 
-        */
+
 
 
     }

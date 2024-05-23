@@ -124,9 +124,12 @@ DELIMITER ;
 
 -- =====================================================================================================
 
-DROP VIEW IF EXISTS newRequests;
-CREATE VIEW newRequests AS
+DROP VIEW IF EXISTS selectTaxiRequests;
+CREATE VIEW selectTaxiRequests AS
 SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination
+DROR VIEW IF EXISTS selectTaxiRequests;
+CREATE VIEW selectTaxiRequests AS
+SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination,p.payment_method as payment_method
 FROM taxi_request tr 
 INNER JOIN taxi_service ts ON tr.id=ts.request_id
 INNER JOIN service ser  ON ts.request_id=ser.id
@@ -154,3 +157,8 @@ INSERT INTO user VALUES("bill3","1235","Vasilis","Kourtakis","test@gmail.com","6
 INSERT INTO customer VALUES("bill3","A2","test",0);
 
 CALL insertCard("Bill","072","123","Billkort","999");
+
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
+insert into taxi_request values(null,test('POINT((15 25)'),test('POINT((15 25)'),null,now(),null);
