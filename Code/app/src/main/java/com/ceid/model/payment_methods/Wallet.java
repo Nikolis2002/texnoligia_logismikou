@@ -28,8 +28,14 @@ public class Wallet implements Serializable {
     public double getBalance() {
         return cash;
     }
+
     public void addToWallet(double cash) {
         this.cash=getBalance()+cash;
+    }
+
+    public void withdraw(double cash)
+    {
+        this.cash -= cash;
     }
 
     public void setBalance(double balance)

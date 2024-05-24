@@ -9,8 +9,8 @@ public class TaxiService extends Service{
 
     private TaxiRequest request;
 
-    public TaxiService(int id, LocalDateTime creationDate, Payment payment, Rating rating, Transport transport, TaxiRequest request) {
-        super(id, creationDate, payment, rating, transport);
+    public TaxiService(int id, LocalDateTime creationDate, Payment payment, Rating rating, int earnedPoints, Transport transport, TaxiRequest request) {
+        super(id, creationDate, payment, rating, earnedPoints, transport);
 
         this.request = request;
     }
