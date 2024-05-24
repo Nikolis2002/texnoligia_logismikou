@@ -28,7 +28,9 @@ public class Wallet implements Serializable {
     public double getBalance() {
         return cash;
     }
-
+    public void addtoWallet(double cash) {
+        this.cash=getBalance()+cash;
+    }
     public boolean isOverdrawn()
     {
         return (cash < 0);

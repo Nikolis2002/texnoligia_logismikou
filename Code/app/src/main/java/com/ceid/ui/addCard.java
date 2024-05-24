@@ -66,8 +66,7 @@ public class addCard extends AppCompatActivity implements postInterface {
         values.add(cardCred);
         String jsonString = jsonStringParser.createJsonString("insertCard", values);
         PostHelper addc = new PostHelper(this);
-        ApiService api = ApiClient.getApiService();
-        api.getFunction(jsonString);
+
         addc.card(api,jsonString);
 
     }
@@ -79,7 +78,7 @@ public class addCard extends AppCompatActivity implements postInterface {
     @Override
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
         boolean bool=jsonStringParser.getbooleanFromJson(response);
-        if(!bool)
+        if(bool)
         {
             Toast.makeText(getApplicationContext(), "Card added successfully!",
                     Toast.LENGTH_LONG).show();
