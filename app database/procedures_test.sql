@@ -103,10 +103,28 @@ BEGIN
     IF (c=1) THEN
         INSERT INTO card VALUES(user,cardNum,expDate,cOwner,cvv,"credit");
     ELSE
-        SELECT FALSE AS result;
+        SELECT "false" AS result;
     END IF;
 END $
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS chargeWallet;
+DELIMITER $
+CREATE PROCEDURE chargeWallet(IN user VARCHAR(32),IN val VARCHAR(32),cardNum VARCHAR(32))
+BEGIN
+    DECLARE bankAmount VARCHAR(32);
+    SELECT owner_balance into bankAmount FROM bank INNER JOIN card ON bank.card_number=card.card_number where card.username=user;
+    IF(bankAmount>=val) THEN
+        UPDATE wallet SET balance=balance+val WHERE username=user;
+        UPDATE bank SET owner_balance=bankAmount-val WHERE card_number=cardNum;
+        SELECT "true" AS result;
+    ELSE
+        SELECT "false" AS result;
+    END IF;
+END $
+
+DELIMITER ;
+
 
 -- //////////////////////BANK MOCK
 INSERT INTO user VALUES("bill","123","Vasilis","Kourtakis","test@gmail.com","6911234567");
