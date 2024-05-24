@@ -102,7 +102,7 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
         {
             Toast.makeText(getApplicationContext(), "Value added successfully!",
                     Toast.LENGTH_LONG).show();
-            customer.getWallet().addtoWallet(Double.parseDouble(amount.getText().toString()));
+            customer.getWallet().addToWallet(Double.parseDouble(amount.getText().toString()));
             Intent intent=new Intent(getApplicationContext(), MainScreen.class);
             startActivity(intent);
         }

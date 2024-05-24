@@ -180,6 +180,6 @@ public class PostHelper {
             }
         });
 
-    }*/
+    }
 }
 
