@@ -439,7 +439,6 @@ CREATE TABLE taxi_service
 CREATE TABLE out_city_car
 (
     id INT UNSIGNED NOT NULL,
-    out_city_license VARCHAR(32) NOT NULL,
 
     CONSTRAINT fk_out_city_car
     FOREIGN KEY(id) REFERENCES out_city_transport(id)
@@ -452,7 +451,6 @@ CREATE TABLE out_city_car
 CREATE TABLE out_city_van
 (
     id INT UNSIGNED NOT NULL,
-    out_city_license VARCHAR(32) NOT NULL,
 
     CONSTRAINT fk_out_city_van
     FOREIGN KEY(id) REFERENCES out_city_transport(id)
@@ -510,3 +508,16 @@ FROM electric_scooter
 INNER JOIN rental ON electric_scooter.id = rental.id
 INNER JOIN transport on electric_scooter.id = transport.id
 WHERE free_status = "TRUE";
+
+DROP VIEW IF EXISTS garage_vehicles;
+
+CREATE VIEW garage_vehicles AS
+SELECT "van" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, oct.garage
+FROM transport t
+INNER JOIN out_city_transport oct ON t.id = oct.id
+INNER JOIN out_city_van ocv ON ocv.id = oct.id
+UNION
+SELECT "car" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, oct.garage
+FROM transport t
+INNER JOIN out_city_transport oct ON t.id = oct.id
+INNER JOIN out_city_car occ ON occ.id = oct.id;

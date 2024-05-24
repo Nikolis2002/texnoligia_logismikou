@@ -20,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
+import com.ceid.model.payment_methods.Payment;
+import com.ceid.model.service.TaxiRequest;
+import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
@@ -108,8 +111,12 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                         if(response.isSuccessful()){
                             String service=response.body();
                             int serviceId= Integer.parseInt(service);
+                            TaxiService taxiService = new TaxiService(
+                                    serviceId,
+                                    Payment.Method.CASH
+                            );
                             Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
-                            intent.putExtra("serviceId",serviceId);
+                            intent.putExtra("taxiService",taxiService);
                             startActivity(intent);
                             finish();
                         }else{
@@ -148,8 +155,12 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                             if(response.isSuccessful()){
                                 String service=response.body();
                                 int serviceId = Integer.parseInt(service);
+                                TaxiService taxiService = new TaxiService(
+                                        serviceId,
+                                        Payment.Method.WALLET
+                                );
                                 Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
-                                intent.putExtra("serviceId",serviceId);
+                                intent.putExtra("taxiService",taxiService);
                                 startActivity(intent);
                                 finish();
                             }else{

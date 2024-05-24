@@ -32,8 +32,9 @@ import retrofit2.Response;
 public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.RequestView> {
     private List<TaxiRequest> taxiRequests;
     private Context context;
-    ApiService api= ApiClient.getApiService();
-    TaxiDriver taxiDriver;
+    private ApiService api= ApiClient.getApiService();
+    private TaxiDriver taxiDriver;
+    private TaxiRequest taxiRequest;
 
     public TaxiRequestAdapter(List<TaxiRequest> taxiRequest, Context context, TaxiDriver taxiDriver){
         this.taxiRequests=taxiRequest;
@@ -65,81 +66,88 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
 
     @Override
     public void onBindViewHolder(RequestView holder, int position) {
-        TaxiRequest taxiRequest = taxiRequests.get(position);
+        taxiRequest = taxiRequests.get(position);
         holder.number.setText("Request " + (position+1));
         holder.start.setText(String.valueOf(taxiRequest.getPickupLocation()));
         holder.end.setText(String.valueOf(taxiRequest.getDestination()));
 
         holder.accept.setOnClickListener(v -> {
-
             taxiDriver.getTaxi().gpsLocation();
+            if(taxiDriver.getTaxi().getCoords().getLat()==-1 && taxiDriver.getTaxi().getCoords().getLng()==-1) {
+                Toast.makeText(context.getApplicationContext(),"The location could not be found", Toast.LENGTH_SHORT).show();
+            }else {
+                checkRequest();
+            }
+        });
+    }
 
-            List<Map<String,Object>> values = new ArrayList<>();
-            Map<String, Object> taxiReservationCheck = new LinkedHashMap<>();
-            taxiReservationCheck.put("request_id",taxiRequest.getId());
-            values.add(taxiReservationCheck);
+    public void checkRequest(){
+        List<Map<String,Object>> values = new ArrayList<>();
+        Map<String, Object> taxiReservationCheck = new LinkedHashMap<>();
+        taxiReservationCheck.put("request_id_in",taxiRequest.getId());
+        values.add(taxiReservationCheck);
 
-            String jsonString = jsonStringParser.createJsonString("checkTaxiReservation",values);
-            Call<ResponseBody> call = api.getFunction(jsonString);
+        String jsonString = jsonStringParser.createJsonString("checkTaxiRequest",values);
+        Call<ResponseBody> call = api.getFunction(jsonString);
 
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
-                    if(response.isSuccessful()){
-                        try {
-                            boolean status = jsonStringParser.getbooleanFromJson(response);
+                if(response.isSuccessful()){
+                    try {
+                        boolean status = jsonStringParser.getbooleanFromJson(response);
 
-                            if(status) {
-                                List<Map<String,Object>> values = new ArrayList<>();
-                                Map<String, Object> taxiReservationConfirm = new LinkedHashMap<>();
-                                taxiReservationConfirm.put("id",taxiRequest.getId());
-                                taxiReservationConfirm.put("username",taxiDriver.getUsername());
-                                values.add(taxiReservationConfirm);
-
-                                String jsonString = jsonStringParser.createJsonString("acceptTaxiRequest",values);
-                                Call<ResponseBody> call2 = api.getFunction(jsonString);
-
-                                call2.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(@NonNull Call<ResponseBody> call2, @NonNull Response<ResponseBody> response) {
-
-                                        if(response.isSuccessful()){
-                                            Intent intent = new Intent(context,TransportScreen.class);
-                                            intent.putExtra("taxiRequest",taxiRequest);
-                                            context.startActivity(intent);
-
-                                        }else{
-                                            System.out.println("Error message");
-                                        }
-
-                                    }
-                                    @Override
-                                    public void onFailure(@NonNull Call<ResponseBody> call2, @NonNull Throwable throwable) {
-                                        System.out.println("Error message");
-                                    }
-                                });
-
-
-                            }else{
-                                Toast.makeText(context.getApplicationContext(),"The request is not available", Toast.LENGTH_SHORT).show();
-
-                            }
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        if(status) {
+                            acceptRequest();
+                        }else{
+                            Toast.makeText(context.getApplicationContext(),"The request is not available", Toast.LENGTH_SHORT).show();
                         }
-
-                    }else{
-                        System.out.println("Error message");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
 
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+                }else{
                     System.out.println("Error message");
                 }
-            });
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+                System.out.println("Error message");
+            }
+        });
+    }
+
+    public void acceptRequest(){
+        List<Map<String,Object>> values = new ArrayList<>();
+        Map<String, Object> taxiReservationConfirm = new LinkedHashMap<>();
+        taxiReservationConfirm.put("id",taxiRequest.getId());
+        taxiReservationConfirm.put("username",taxiDriver.getUsername());
+        values.add(taxiReservationConfirm);
+
+        String jsonString = jsonStringParser.createJsonString("acceptTaxiRequest",values);
+        Call<ResponseBody> call = api.getFunction(jsonString);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(context,TransportScreen.class);
+                    intent.putExtra("taxiRequest",taxiRequest);
+                    context.startActivity(intent);
+
+                }else{
+                    System.out.println("Error message");
+                }
+
+            }
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+                System.out.println("Error message");
+            }
         });
     }
 

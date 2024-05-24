@@ -81,6 +81,77 @@ begin
 end$
 delimiter ;
 
+drop procedure if exists checkTaxiPickUp;
+delimiter $
+create procedure checkTaxiPickUp(in service_id_in int)
+begin 
+	declare taxi_req_id int;
+	declare pickTime DATETIME;
+	
+	select request_id into taxi_req_id from taxi_service where service_id=service_id_in;
+	select pickup_time into pickTime from pickTime where id=taxi_req_id;
+	
+	if pickTime is NULL then
+		SELECT "FALSE" AS result;
+	ELSE
+		SELECT "TRUE" AS result;
+	end if;
+	
+end$
+delimiter ;
+
+drop procedure if exist checkTaxiComplete;
+delimiter $
+create procedure checkTaxiComplete(in service_id int)
+begin
+	declare status ENUM;
+	
+	select service_status into status from service where id=service_id;
+	
+	if status='COMPLETE' THEN
+		SELECT 'TRUE' AS result;
+	else
+		select 'FALSE' AS result;
+	end if;
+	
+end$
+delimiter ;
+
+drop procedure if exists completeTaxiRequest;
+delimiter $
+create procedure completeTaxiRequest(in taxi_req_id int,in payment_method ENUM('WALLET','CASH'),in payment_value DECIMAL(10,2))
+begin
+	declare service_id_update int;
+	declare username VARCHAR(32);
+	
+	select service_id into service_id_update from taxi_service where request_id=taxi_req_id;
+	select customer_username into username from customer_history where service_id=service_id_update;
+	update service set service_status='COMPLETED' where id=service_id_update;
+	insert into payment values(null,username,payment_value,payment_method);
+	
+end$
+delimiter ;
+
+drop procedure if exists getPayment;
+delimiter $
+create procedure getPayment(in service_id int)
+begin
+	declare pay_id int;
+	
+	select payment_id into pay_id from service where id=service_id;
+	select payment_value,payment_method from payment where id=pay_id;
+	
+end$
+delimiter ;
+
+drop procedure if exists updatePickUpRequest;
+delimiter $
+create procedure updatePickUpRequest(in taxi_req_id int)
+begin
+	update taxi_request set pickup_time=now() where id=taxi_req_id;
+end$
+delimiter ;
+
 drop procedure if exists checkTaxiRequest;
 delimiter $
 create procedure checkTaxiRequest(in request_id int)
@@ -93,7 +164,7 @@ begin
 	select service_status into service_st from service where id=serviceId;
 	select assigned_driver into taxi_req__driver from taxi_request where id=request_id;
 	
-	if service_status='ONGOING' AND assigned_driver IS NULL THEN
+	if (service_status='ONGOING' AND assigned_driver IS NULL) THEN
 		SELECT "TRUE" AS result;
 	ELSE
 		SELECT "FALSE" AS result; 

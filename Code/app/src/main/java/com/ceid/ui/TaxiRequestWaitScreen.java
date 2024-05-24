@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
+import com.ceid.model.service.TaxiRequest;
+import com.ceid.model.service.TaxiService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +33,16 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
     private Handler handler;
     private boolean status=false;
-    Timer reservationTimer;
-    private int serviceId;
+    private Timer reservationTimer;
     ApiService api= ApiClient.getApiService();
+    private TaxiService taxiService;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_request_wait_screen);
 
         Intent intent = getIntent();
-        serviceId = intent.getIntExtra("serviceId",0);
+        taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
 
         handler = new Handler();
         rideStatus();
@@ -61,7 +63,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                     builder.setPositiveButton("Resend", (alertDialog, which) -> {
                         resumeTaxiReservation();
                         Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRequestWaitScreen.class);
-                        intent.putExtra("serviceId",serviceId);
+                        intent.putExtra("taxiService",taxiService);
                         startActivity(intent);
                         finish();
                     });
@@ -84,7 +86,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
             List<Map<String,Object>> values = new ArrayList<>();
             Map<String, Object> taxiReservationCheck = new LinkedHashMap<>();
-            taxiReservationCheck.put("checkTaxiReservation",serviceId);
+            taxiReservationCheck.put("checkTaxiReservation",taxiService.getId());
             values.add(taxiReservationCheck);
 
             String jsonString = jsonStringParser.createJsonString("checkTaxiReservation",values);
@@ -102,6 +104,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
                             if(status) {
                                 Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRideScreen.class);
+                                intent.putExtra("taxiService",taxiService);
                                 startActivity(intent);
                             }
                         } catch (IOException e) {
@@ -126,7 +129,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
         List<Map<String,Object>> values = new ArrayList<>();
         Map<String, Object> taxiReservationCancel = new LinkedHashMap<>();
-        taxiReservationCancel.put("cancelService",serviceId);
+        taxiReservationCancel.put("cancelService",taxiService.getId());
         values.add(taxiReservationCancel);
 
         String jsonString = jsonStringParser.createJsonString("cancelService",values);
@@ -162,7 +165,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
         List<Map<String,Object>> values = new ArrayList<>();
         Map<String, Object> taxiReservationCancel = new LinkedHashMap<>();
-        taxiReservationCancel.put("resumeService",serviceId);
+        taxiReservationCancel.put("resumeService",taxiService.getId());
         values.add(taxiReservationCancel);
 
         String jsonString = jsonStringParser.createJsonString("resumeService",values);

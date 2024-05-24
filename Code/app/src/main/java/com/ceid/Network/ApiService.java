@@ -51,4 +51,6 @@ public interface ApiService {
     @POST("/reserveRental")
     Call<ResponseBody> reserveRental(@Body String jsonfunction);
 
+    @GET("/getGarages")
+    Call<ResponseBody> getGarages();
 }

@@ -130,5 +130,13 @@ public class Coordinates implements Serializable
         return jsonString;
     }
 
+    public String calculateEta(Coordinates taxiCoords){
+
+        float distance=this.distance(taxiCoords);
+        double timeCalc= (distance*0.1)/60;
+
+        return String.format("%.2f", timeCalc);
+    }
+
 
 }

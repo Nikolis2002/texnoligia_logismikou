@@ -28,6 +28,10 @@ public abstract class Service implements Serializable
         this.transport = transport;
     }
 
+
+    public Service(int id, Payment.Method payment) {
+    }
+
     public Rating rate(Float vehicleStars, Float otherStars, String comment)
     {
 

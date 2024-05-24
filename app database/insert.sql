@@ -34,7 +34,14 @@ INSERT INTO transport VALUES
 
     (13, "Segway", "Ninebot MAX", 2022),
     (14, "Xiaomi", "Mi Electric Scooter Pro 2", 2023),
-    (15, "GoTrax", "GXL V2", 2022);
+    (15, "GoTrax", "GXL V2", 2022),
+
+    (16, "Tesla", "Model S", 2023),
+    (17, "Mercedes-Benz", "S-Class", 2022),
+    (18, "Toyota", "Corolla", 2022),
+
+    (19, "Ford", "Transit", 2024),
+    (20, "Mercedes-Benz", "Transporter", 2023);
 
 INSERT INTO taxi VALUES
     (5, "TAX-1234", POINT(38.2406297, 21.7409815)),
@@ -92,3 +99,61 @@ INSERT INTO electric_scooter VALUES
     (13),
     (14),
     (15);
+
+INSERT INTO garage VALUES
+    (1, "Kort Rentals", POINT(38.2442870,21.7326153), "Mitsou 17", "Mon-Fri 08:00-20:00"),
+    (2, "TurboRide Rentals", POINT(38.2466208,21.7325087), "Dista 1", "Mon-Fri 10:00-19:00"),
+    (3, "Movfast Official", POINT(38.2481327,21.7374738), "Thiseos 64", "Mon-Sat 09:00-17:00"),
+    (4, "GearShift Garage", POINT(38.2442388,21.7405935), "Meg. Alexandrou 32", "Mon-Fri 08:00-20:00"),
+    (5, "AutoHaven", POINT(38.2442388,21.7405935), "Ikarou 99", "Mon-Fri 08:00-20:00");
+
+INSERT INTO out_city_transport VALUES
+    (16, "VWX-9012", 4, 50, 1, "TRUE", 40),
+    (17,"YZA-3456", 4, 64, 1, "TRUE", 50),
+    (18, "BCD-7890", 4, 60, 1, "TRUE", 55),
+
+    (19, "EFG-1234", 15, 70, 1, "TRUE", 80),
+    (20,"HIJ-5678", 12, 80, 1, "TRUE", 90);
+
+INSERT INTO out_city_car VALUES
+    (16),
+    (17),
+    (18);
+
+INSERT INTO out_city_van VALUES
+    (19),
+    (20);
+
+INSERT INTO payment VALUES
+    (1, 'a', '40.00', 'WALLET'),
+    (2, 'a', '15.76', 'WALLET'),
+    (3, 'a', '14.28', 'CASH'),
+    (4, 'a', '23.06', 'WALLET');
+
+INSERT INTO service VALUES
+    (1, '2024-05-24 20:21:26', 1, 'COMPLETED', '2024-05-24 21:21:26'),
+    (2, '2023-02-04 18:07:14', 2, 'COMPLETED', '2023-02-04 19:07:14'),
+    (3, '2024-05-11 19:15:59', 3, 'COMPLETED', '2024-05-11 20:15:59'),
+    (4, '2024-04-13 19:36:52', 4, 'COMPLETED', '2024-04-13 20:36:52');
+
+INSERT INTO customer_history VALUES
+    ("a", 1),
+    ("a", 2),
+    ("a", 3),
+    ("a", 4);
+
+INSERT INTO rental_rating VALUES
+    (1, 1, "an mporousa na balo 0 asteria tha to ekana!! pragmatika den exo ksanadei xeirotero autokinhto sti zoi mou. kat arxas to vrikame xoris katholoy venzini, kyriolektika mas emeine ston dromo. LIGO ELEOS DHLADH, DEN MPOREITE KAN NA GEMIZETE TA OXHMATA SAS?? epipleon afou to gemisame, pali den empaine bros ekane enan ixo 'ASIIII' kai meta esbhnea amesos. gia na mhn anafero thn katastasi toy esoterikou. akoma prospathoyme na katalaboume ti htan ekeinoi oi lekedes sta piso kathismata... genika exo pei se olous moy tous gnostous na min kleinoun amaxia apo authn thn efarmogh, oxi tipota allo mhn kollhsoume kai tipota. POTE KSANA!!! movfast, more like moufa!!!");
+
+INSERT INTO rental_service VALUES
+    (1, 7, null, null, null, null, null, null),
+    (4, 1, null, 1, null, null, null, null);
+
+INSERT INTO out_city_service VALUES
+    (2, 19, null, null, null, null, null, null);
+
+INSERT INTO taxi_request VALUES
+    (1, POINT(38.2442870,21.7326153), POINT(38.2466208,21.7325087), "FIRE_IT_UP", '2024-05-24 21:30:22', '2024-05-24 21:30:39');
+
+INSERT INTO taxi_service VALUES
+    (3, 1, null);

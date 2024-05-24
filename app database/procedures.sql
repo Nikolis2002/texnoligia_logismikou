@@ -132,7 +132,7 @@ FROM taxi_request tr
 INNER JOIN taxi_service ts ON tr.id=ts.request_id
 INNER JOIN service ser  ON ts.request_id=ser.id
 INNER JOIN payment p  ON  p.id=ser.payment_id
-WHERE tr.assignment_time is NULL;
+WHERE tr.assignment_time is NULL and ser.service_status='ONGOING';
 
 -- =====================================================================================================
 

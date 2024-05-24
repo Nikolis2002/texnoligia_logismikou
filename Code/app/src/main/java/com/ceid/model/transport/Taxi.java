@@ -58,6 +58,16 @@ public class Taxi extends InCityTransport {
         ));
 
         coordinatesList.add(new Coordinates(
+                -1,
+                -1
+        ));
+
+        coordinatesList.add(new Coordinates(
+                38.223895,
+                21.726609
+        ));
+
+        coordinatesList.add(new Coordinates(
                 38.221536,
                 21.750299
         ));

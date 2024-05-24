@@ -6,6 +6,17 @@
     android:layout_height="match_parent">
 
 
+    <Button
+        android:layout_width="129dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="356dp"
+        android:onClick="chargeWallet"
+        android:text="@string/chargeWallet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/fields"
         android:layout_width="fill_parent"
@@ -349,9 +360,12 @@
         android:id="@+id/button123123123123123123123"
         android:layout_width="129dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="356dp"
         android:onClick="addCardButton2"
         android:text="@string/addCard"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="358dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

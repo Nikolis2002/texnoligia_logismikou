@@ -95,6 +95,47 @@ app.get("/getTracker",async (req,res)=>{
     }
 });
 
+app.get("/check_reservation", async(req,res)=>
+{
+    try
+    {   
+        const data=req.body;
+
+        let tableData = await helper.queryPromise(con, "CALL check_rental_available(?)", [req.query.vehicle]);
+
+        console.log(`"Available: ${tableData.result[0][0].result}"`)
+
+        res.status(200).send(`${tableData.result[0][0].result}`);
+    }
+    catch(err)
+    {
+        console.error("Error processing request:", err);
+        res.status(500).send("Could not process request");
+    }
+});
+
+app.get("/getGarages", async(req,res)=>
+{
+    try
+    {   
+        let garageList = await helper.queryPromise(con, "SELECT * FROM garage");
+        garageList = garageList.result;
+
+        for (let garage of garageList)
+        {
+            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, rate, seats, gas FROM garage_vehicles WHERE garage = ?", [garage.id]);
+            garage.vehicles = vehicleList.result;
+        }
+
+        res.status(200).send(garageList);
+    }
+    catch(err)
+    {
+        console.error("Error processing request:", err);
+        res.status(500).send(new helper.ResponseMessage("Could not process request").string());
+    }
+});
+    
 app.post("/insertTaxiService", async (req,res)=>{
     try{
         const param=req.body;
@@ -284,25 +325,6 @@ app.post("/add_card"),async(req,res)=>{
         res.status(500).send(new helper.ResponseMessage("Could not retrieve data").string());
     }
 }
-
-app.get("/check_reservation", async(req,res)=>
-{
-    try
-    {   
-        const data=req.body;
-
-        let tableData = await helper.queryPromise(con, "CALL check_rental_available(?)", [req.query.vehicle]);
-
-        console.log(`"Available: ${tableData.result[0][0].result}"`)
-
-        res.status(200).send(`${tableData.result[0][0].result}`);
-    }
-    catch(err)
-    {
-        console.error("Error processing request:", err);
-        res.status(500).send("Could not process request");
-    }
-});
 
 app.post("/reserveRental", async(req,res)=>
 {
