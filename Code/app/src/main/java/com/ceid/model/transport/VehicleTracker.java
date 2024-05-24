@@ -7,15 +7,14 @@ import java.util.Timer;
 public class VehicleTracker extends Tracker
 {
 	private double distanceTraveled;
-	private int duration; //in seconds
+	private boolean isStopped;
 
 	//private Timer timer;
 
-	public VehicleTracker(Coordinates coords, int duration, double distanceTraveled)
+	public VehicleTracker(Coordinates coords, double distanceTraveled)
 	{
 		super(coords);
 
-		this.duration = duration;
 		this.distanceTraveled = distanceTraveled;
 	}
 
@@ -23,8 +22,13 @@ public class VehicleTracker extends Tracker
 	{
 		super(coords);
 
-		this.duration = 0;
 		this.distanceTraveled = 0;
+	}
+
+	public VehicleTracker(Coordinates coords, double distance, boolean isStopped) {
+		super(coords);
+		this.distanceTraveled=distance;
+		this.isStopped=isStopped;
 	}
 
 	public boolean checkStoppedVehicle()
@@ -32,14 +36,18 @@ public class VehicleTracker extends Tracker
 		return true;
 	}
 
-	public int getDuration()
-	{
-		return duration;
-	}
 
 	public double getDistanceTraveled()
 	{
 		return distanceTraveled;
+	}
+
+	public boolean isStopped() {
+		return isStopped;
+	}
+
+	public void setStopped(boolean stopped) {
+		isStopped = stopped;
 	}
 
 	//public void startTimer()

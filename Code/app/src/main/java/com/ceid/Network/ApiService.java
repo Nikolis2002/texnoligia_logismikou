@@ -17,6 +17,9 @@ public interface ApiService {
     @GET("/getTableData")
     Call<ResponseBody> getTableData(@Query("tableName") String tableName);
 
+    @GET("/getTracker")
+    Call<ResponseBody> getTracker(@Query("TrackerType") String TrackerType);
+
 
     @POST("/getFunctionWithParams")
     Call<ResponseBody> getFunction(@Body String jsonfunction);
@@ -44,4 +47,5 @@ public interface ApiService {
 
     @POST("/reserveRental")
     Call<ResponseBody> reserveRental(@Body String jsonfunction);
+
 }

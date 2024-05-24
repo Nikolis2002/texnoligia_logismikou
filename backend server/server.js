@@ -66,6 +66,31 @@ app.get("/getTableData",async (req,res)=>{
     
 });
 
+app.get("/getTracker",async (req,res)=>{
+    try{
+        const param=req.query.TrackerType;
+        let tracker={};
+        if(param==="vechicleTracker"){
+            tracker.type="simple";
+            tracker.coords={x:"38.2442870",y:"21.7326153"};
+            tracker.isStopped="true";
+            tracker.distance="5000";
+        }
+        else{
+            tracker.type="special";
+            tracker.coords={x:"38.2442870",y:"21.7326153"};
+            tracker.isStopped="true";
+            tracker.distance="5000";
+            tracker.gas="100";
+        }
+        res.status(200).send(tracker);
+
+    }
+    catch(err){
+        res.status(500).send(new helper.ResponseMessage("Could not coonect to tracker").string());
+    }
+});
+
 app.post("/insertTaxiService", async (req,res)=>{
     try{
         const param=req.body;
