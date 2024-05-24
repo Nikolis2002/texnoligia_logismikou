@@ -54,6 +54,7 @@ CREATE TABLE service
     payment_id  INT UNSIGNED,
     service_status ENUM('ONGOING', 'COMPLETED', 'CANCELLED') NOT NULL DEFAULT 'ONGOING',
     status_date DATETIME, -- Cancellation or completion date. Originally NULL
+    earned_points INT UNSIGNED NOT NULL DEFAULT 0,
 
     PRIMARY KEY(id),
 

@@ -31,12 +31,6 @@ public class VehicleTracker extends Tracker
 		this.isStopped=isStopped;
 	}
 
-	public boolean checkStoppedVehicle()
-	{
-		return true;
-	}
-
-
 	public double getDistanceTraveled()
 	{
 		return distanceTraveled;
@@ -44,10 +38,6 @@ public class VehicleTracker extends Tracker
 
 	public boolean isStopped() {
 		return isStopped;
-	}
-
-	public void setStopped(boolean stopped) {
-		isStopped = stopped;
 	}
 
 	//public void startTimer()
