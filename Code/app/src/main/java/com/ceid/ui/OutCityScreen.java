@@ -25,6 +25,7 @@ import com.ceid.model.transport.Rental;
 import com.ceid.model.transport.Van;
 import com.ceid.util.Coordinates;
 import com.ceid.util.GenericCallback;
+import com.ceid.util.Location;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -72,7 +74,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
         activityResultLauncher.launch(locationIntent);
     }
 
-    private ArrayList<Garage> retrieveGarages(GenericCallback<ArrayList<Garage>> callback)
+    private void retrieveGarages(GenericCallback<ArrayList<Garage>> callback)
     {
         ApiService api = ApiClient.getApiService();
 
@@ -112,28 +114,52 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                     for (JsonNode garageData : garageListData)
                     {
                         ArrayList<OutCityTransport> vehicleList = new ArrayList<>();
+                        ArrayNode garageVehicleDataNode = (ArrayNode)garageListData.get("vehicles");
 
-                        for (JsonNode vehicleData : (ArrayNode)garageListData.get("vehicles"))
+                        //Log.d("GARAGETEST", "Vehicles" + jsonStringParser.pars);
+
+                        if (garageVehicleDataNode != null)
                         {
-                            if (vehicleData.get("type").asText() == "car")
+                            for (JsonNode vehicleData : garageVehicleDataNode)
                             {
-                                /*
-                                vehicleList.add(new OutCityCar(
+                                if (Objects.equals(vehicleData.get("type").asText(), "car"))
+                                {
+                                    vehicleList.add(new OutCityCar(
                                         vehicleData.get("license_plate").asText(),
                                         vehicleData.get("rate").asDouble(),
                                         vehicleData.get("seats").asInt(),
-                                        vehicleData.get("license_plate").asDouble(),
-                                        vehicleData.get("license_plate").asDouble(),
-                                        vehicleData.get("license_plate").asDouble()
-                                ));*/
+                                        vehicleData.get("id").asInt(),
+                                        vehicleData.get("model").asText(),
+                                        vehicleData.get("manufacturer").asText(),
+                                        vehicleData.get("manuf_year").asText()
+                                    ));
+                                }
+                                else
+                                {
+                                    vehicleList.add(new Van(
+                                        vehicleData.get("license_plate").asText(),
+                                        vehicleData.get("rate").asDouble(),
+                                        vehicleData.get("seats").asInt(),
+                                        vehicleData.get("id").asInt(),
+                                        vehicleData.get("model").asText(),
+                                        vehicleData.get("manufacturer").asText(),
+                                        vehicleData.get("manuf_year").asText()
+                                    ));
+                                }
                             }
                         }
 
-
-                        /*
                         garageList.add(new Garage(
-
-                        ))*/
+                            garageData.get("id").asInt(),
+                            garageData.get("name").asText(),
+                            new Location(
+                                garageData.get("coords").get("x").asDouble(),
+                                garageData.get("coords").get("y").asDouble(),
+                                garageData.get("address").asText()
+                            ),
+                            garageData.get("available_hours").asText(),
+                            vehicleList
+                        ));
                     }
 
                     callback.onSuccess(garageList);
@@ -150,115 +176,6 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
 
             }
         });
-
-        ArrayList<Garage> garageList = new ArrayList<>();
-
-        ArrayList<OutCityTransport> l = new ArrayList<>();
-        l.add(new OutCityCar("1", 20, 1, 1,"dista", "1", "2024"));
-        l.add(new OutCityCar("2",20, 1, 1,"dista", "2", "2024"));
-        l.add(new Van("3",20, 1, 1,"dista", "3", "2024"));
-        l.add(new OutCityCar("4",20, 1,1, "dista", "4", "2024"));
-        l.add(new Van("5",20, 1,1, "dista", "5", "2024"));
-        l.add(new Van("6",20, 1,1, "dista", "6", "2024"));
-        l.add(new Van("7",20, 1,1, "dista", "7", "2024"));
-        l.add(new OutCityCar("8",20, 1,1, "dista", "8", "2024"));
-        l.add(new OutCityCar("9",20, 1,1, "dista", "9", "2024"));
-        l.add(new Van("10", 20,1,1, "dista", "10", "2024"));
-        l.add(new Van("11", 20, 1,1, "dista", "11", "2024"));
-        l.add(new OutCityCar("12",20, 1,1, "dista", "12", "2024"));
-        l.add(new OutCityCar("13",20, 1, 1,"dista", "13", "2024"));
-        l.add(new Van("14",20, 1,1, "dista", "14", "2024"));
-
-        garageList.add(new Garage(
-                0,
-                "Garage #1",
-                "Mitsou 17",
-                new Coordinates(38.2442870,21.7326153),
-                "Mon-Fri 08:00-20:00",
-                l
-        ));
-
-        garageList.add(new Garage(
-                1,
-                "Garage #2",
-                "Dista 1",
-                new Coordinates(38.2466208,21.7325087),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
-
-        return garageList;
     }
 
     @Override
@@ -278,12 +195,24 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
 
                 //Get garages
-                ArrayList<Garage> garageList = retrieveGarages(new GenericCallback<ArrayList<Garage>> (){
+                retrieveGarages(new GenericCallback<ArrayList<Garage>> ()
+                {
 
                     @Override
-                    public void onSuccess(ArrayList<Garage> data)
+                    public void onSuccess(ArrayList<Garage> garageList)
                     {
+                        if (garageList.isEmpty())
+                        {
+                            //alternate flow
+                        }
+                        else
+                        {
+                            //Add garages to list
+                            ListView listView = (ListView) findViewById(R.id.listViewId);
 
+                            listView.setAdapter(new GarageListAdapter(OutCityScreen.this,  garageList));
+                            listView.setOnItemClickListener(OutCityScreen.this);
+                        }
                     }
 
                     @Override
@@ -292,19 +221,6 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
 
                     }
                 });
-
-                if (garageList.isEmpty())
-                {
-                    //alternate flow
-                }
-                else
-                {
-                    //Add garages to list
-                    ListView listView = (ListView) findViewById(R.id.listViewId);
-
-                    listView.setAdapter(new GarageListAdapter(this,  garageList));
-                    listView.setOnItemClickListener(this);
-                }
             }
         }
     }

@@ -125,6 +125,7 @@ public class PostHelper {
         });
     }
 
+    /*
     public static void getTackerOfRental(ApiService api, String params, GenericCallback<VehicleTracker> callback){
         Call<ResponseBody> call=api.getTracker(params);
         call.enqueue(new Callback<ResponseBody>(){
@@ -151,6 +152,6 @@ public class PostHelper {
             }
         });
 
+    }*/
 
-    }
 }

@@ -26,7 +26,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".RefillScreen"
+            android:name=".Login"
             android:exported="true"
             android:theme="@style/Theme.Texnolgia_logismikou">
             <intent-filter>
@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"/>
+        <activity android:name=".RefillScreen"/>
         <activity android:name=".addCard"/>
         <activity android:name=".signUp"/>
         <activity android:name=".MainScreen" />
