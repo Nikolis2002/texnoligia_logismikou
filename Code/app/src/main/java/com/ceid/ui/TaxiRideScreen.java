@@ -168,7 +168,8 @@ public class TaxiRideScreen extends AppCompatActivity {
     }
 
     public double rideCost(){
-        return 0;
+        double test=1;
+        return test;
     }
 
     @SuppressLint("MissingSuperCall")
