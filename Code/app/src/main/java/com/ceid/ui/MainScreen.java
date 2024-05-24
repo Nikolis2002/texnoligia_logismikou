@@ -97,6 +97,11 @@ public class MainScreen extends AppCompatActivity {
         Intent intent=new Intent(getApplicationContext(),addCard.class);
         startActivity(intent);
     }
+    public void chargeWallet(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(),ChargeWallet.class);
+        startActivity(intent);
+    }
 
 }
 

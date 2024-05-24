@@ -3,6 +3,7 @@ package com.ceid.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,22 +16,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
 import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
 import com.ceid.model.transport.Rental;
 import com.ceid.model.transport.Van;
 import com.ceid.util.Coordinates;
+import com.ceid.util.GenericCallback;
+import com.ceid.util.Location;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OutCityScreen extends AppCompatActivity implements AdapterView.OnItemClickListener, ActivityResultCallback<ActivityResult> {
 
     private RecyclerView recyclerView;
     private GarageListAdapterOld adapter;
-    private ArrayList<Garage> garageList;
     private Bundle locationScreenData = null;
     private Intent locationIntent;
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -59,122 +74,108 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
         activityResultLauncher.launch(locationIntent);
     }
 
-    private ArrayList<Garage> retrieveGarages()
+    private void retrieveGarages(GenericCallback<ArrayList<Garage>> callback)
     {
-        //Communicate with database
-        //...
-        //...
-        //...
-        //Communication complete
+        ApiService api = ApiClient.getApiService();
 
-        garageList = new ArrayList<>();
+        Call<ResponseBody> call = api.getGarages();
 
-        ArrayList<OutCityTransport> l = new ArrayList<>();
-        l.add(new OutCityCar("1", 20, 1, 1,"dista", "1", "2024"));
-        l.add(new OutCityCar("2",20, 1, 1,"dista", "2", "2024"));
-        l.add(new Van("3",20, 1, 1,"dista", "3", "2024"));
-        l.add(new OutCityCar("4",20, 1,1, "dista", "4", "2024"));
-        l.add(new Van("5",20, 1,1, "dista", "5", "2024"));
-        l.add(new Van("6",20, 1,1, "dista", "6", "2024"));
-        l.add(new Van("7",20, 1,1, "dista", "7", "2024"));
-        l.add(new OutCityCar("8",20, 1,1, "dista", "8", "2024"));
-        l.add(new OutCityCar("9",20, 1,1, "dista", "9", "2024"));
-        l.add(new Van("10", 20,1,1, "dista", "10", "2024"));
-        l.add(new Van("11", 20, 1,1, "dista", "11", "2024"));
-        l.add(new OutCityCar("12",20, 1,1, "dista", "12", "2024"));
-        l.add(new OutCityCar("13",20, 1, 1,"dista", "13", "2024"));
-        l.add(new Van("14",20, 1,1, "dista", "14", "2024"));
+        call.enqueue(new Callback<ResponseBody> (){
 
-        garageList.add(new Garage(
-                0,
-                "Garage #1",
-                "Mitsou 17",
-                new Coordinates(38.2442870,21.7326153),
-                "Mon-Fri 08:00-20:00",
-                l
-        ));
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+                if (response.isSuccessful())
+                {
+                    ArrayList<Garage> garageList = new ArrayList<>();
+                    String jsonString = null;
 
-        garageList.add(new Garage(
-                1,
-                "Garage #2",
-                "Dista 1",
-                new Coordinates(38.2466208,21.7325087),
-                "Mon-Fri 08:00-20:00"
-        ));
+                    try
+                    {
+                        jsonString = response.body().string();
+                    }
+                    catch (IOException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                    ArrayNode garageListData;
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                    ObjectMapper mapper = new ObjectMapper();
+                    try
+                    {
+                        garageListData = (ArrayNode)mapper.readTree(jsonString);
+                    }
+                    catch (JsonProcessingException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                    for (JsonNode garageData : garageListData)
+                    {
+                        ArrayList<OutCityTransport> vehicleList = new ArrayList<>();
+                        ArrayNode garageVehicleDataNode = (ArrayNode)garageListData.get("vehicles");
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                        //Log.d("GARAGETEST", "Vehicles" + jsonStringParser.pars);
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                        if (garageVehicleDataNode != null)
+                        {
+                            for (JsonNode vehicleData : garageVehicleDataNode)
+                            {
+                                if (Objects.equals(vehicleData.get("type").asText(), "car"))
+                                {
+                                    vehicleList.add(new OutCityCar(
+                                        vehicleData.get("license_plate").asText(),
+                                        vehicleData.get("rate").asDouble(),
+                                        vehicleData.get("seats").asInt(),
+                                        vehicleData.get("id").asInt(),
+                                        vehicleData.get("model").asText(),
+                                        vehicleData.get("manufacturer").asText(),
+                                        vehicleData.get("manuf_year").asText()
+                                    ));
+                                }
+                                else
+                                {
+                                    vehicleList.add(new Van(
+                                        vehicleData.get("license_plate").asText(),
+                                        vehicleData.get("rate").asDouble(),
+                                        vehicleData.get("seats").asInt(),
+                                        vehicleData.get("id").asInt(),
+                                        vehicleData.get("model").asText(),
+                                        vehicleData.get("manufacturer").asText(),
+                                        vehicleData.get("manuf_year").asText()
+                                    ));
+                                }
+                            }
+                        }
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                        garageList.add(new Garage(
+                            garageData.get("id").asInt(),
+                            garageData.get("name").asText(),
+                            new Location(
+                                garageData.get("coords").get("x").asDouble(),
+                                garageData.get("coords").get("y").asDouble(),
+                                garageData.get("address").asText()
+                            ),
+                            garageData.get("available_hours").asText(),
+                            vehicleList
+                        ));
+                    }
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                    callback.onSuccess(garageList);
+                }
+                else
+                {
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+                }
+            }
 
-        garageList.add(new Garage(
-                2,
-                "Garage #3",
-                "Odos 3",
-                new Coordinates(38.2481327,21.7374738),
-                "Mon-Fri 08:00-20:00"
-        ));
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable)
+            {
 
-        return garageList;
+            }
+        });
     }
 
     @Override
@@ -194,38 +195,45 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                 text.setText(String.format("%s %s", getResources().getString(R.string.location),selectedCoords.toString()));
 
                 //Get garages
-                this.garageList = retrieveGarages();
-
-                if (garageList.isEmpty())
+                retrieveGarages(new GenericCallback<ArrayList<Garage>> ()
                 {
-                    //alternate flow
-                }
-                else
-                {
-                    //Add garages to list
-                    ListView listView = (ListView) findViewById(R.id.listViewId);
 
-                    listView.setAdapter(new GarageListAdapter(this,  garageList));
-                    listView.setOnItemClickListener(this);
-                }
+                    @Override
+                    public void onSuccess(ArrayList<Garage> garageList)
+                    {
+                        if (garageList.isEmpty())
+                        {
+                            //alternate flow
+                        }
+                        else
+                        {
+                            //Add garages to list
+                            ListView listView = (ListView) findViewById(R.id.listViewId);
+
+                            listView.setAdapter(new GarageListAdapter(OutCityScreen.this,  garageList));
+                            listView.setOnItemClickListener(OutCityScreen.this);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Exception e)
+                    {
+
+                    }
+                });
             }
         }
     }
 
-    /*
-    private void addGarage(String garage){
-        garageList.add(garage);
-        adapter.notifyItemInserted(garageList.size()-1);
-    }
-    */
-
     //Clicking on list item
     public void onItemClick(AdapterView<?> parent, View clickedItem, int position, long id)
     {
-        String test=garageList.get(position).getName();
+        Garage garage = (Garage)clickedItem.getTag();
+
+        String test=garage.getName();
         Intent intent=new Intent(OutCityScreen.this, GarageInfoScreen.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("garage", garageList.get(position));
+        bundle.putSerializable("garage", garage);
         intent.putExtras(bundle);
         startActivity(intent);
     }

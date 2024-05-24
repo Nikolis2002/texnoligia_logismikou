@@ -34,7 +34,14 @@ INSERT INTO transport VALUES
 
     (13, "Segway", "Ninebot MAX", 2022),
     (14, "Xiaomi", "Mi Electric Scooter Pro 2", 2023),
-    (15, "GoTrax", "GXL V2", 2022);
+    (15, "GoTrax", "GXL V2", 2022),
+
+    (16, "Tesla", "Model S", 2023),
+    (17, "Mercedes-Benz", "S-Class", 2022),
+    (18, "Toyota", "Corolla", 2022),
+
+    (19, "Ford", "Transit", 2024),
+    (20, "Mercedes-Benz", "Transporter", 2023);
 
 INSERT INTO taxi VALUES
     (5, "TAX-1234", POINT(38.2406297, 21.7409815)),
@@ -92,3 +99,27 @@ INSERT INTO electric_scooter VALUES
     (13),
     (14),
     (15);
+
+INSERT INTO garage VALUES
+    (1, "Kort Rentals", POINT(38.2442870,21.7326153), "Mitsou 17", "Mon-Fri 08:00-20:00"),
+    (2, "TurboRide Rentals", POINT(38.2466208,21.7325087), "Dista 1", "Mon-Fri 10:00-19:00"),
+    (3, "Movfast Official", POINT(38.2481327,21.7374738), "Thiseos 64", "Mon-Sat 09:00-17:00"),
+    (4, "GearShift Garage", POINT(38.2442388,21.7405935), "Meg. Alexandrou 32", "Mon-Fri 08:00-20:00"),
+    (5, "AutoHaven", POINT(38.2442388,21.7405935), "Ikarou 99", "Mon-Fri 08:00-20:00");
+
+INSERT INTO out_city_transport VALUES
+    (16, "VWX-9012", 4, 50, 1, "TRUE", 40),
+    (17,"YZA-3456", 4, 64, 1, "TRUE", 50),
+    (18, "BCD-7890", 4, 60, 1, "TRUE", 55),
+
+    (19, "EFG-1234", 15, 70, 1, "TRUE", 80),
+    (20,"HIJ-5678", 12, 80, 1, "TRUE", 90);
+
+INSERT INTO out_city_car VALUES
+    (16),
+    (17),
+    (18);
+
+INSERT INTO out_city_van VALUES
+    (19),
+    (20);
