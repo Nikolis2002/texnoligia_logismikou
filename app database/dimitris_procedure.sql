@@ -31,7 +31,7 @@ begin
 	insert into payment values(null,payment_customer_username,null,payment_method);
 	set payment_id=LAST_INSERT_ID();
 	
-	insert into service values(null,service_creation_date,payment_id,'ONGOING',null);
+	insert into service values(null,service_creation_date,payment_id,'ONGOING',null, 0);
 	set service_id=LAST_INSERT_ID();
 	
 	insert into taxi_request values(null,taxiReq_pickup_location,taxiReq_destination,null,null,null);

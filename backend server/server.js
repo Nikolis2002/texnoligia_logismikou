@@ -335,7 +335,7 @@ app.post("/reserveRental", async(req,res)=>
         console.log(`Reservation information: ${data}`)
         data=JSON.parse(data);
 
-        let serviceInsert = await helper.queryPromise(con, "INSERT INTO service VALUES(?, NOW(), ?, 'ONGOING', ?)", [null, null, null]);
+        let serviceInsert = await helper.queryPromise(con, "INSERT INTO service VALUES(?, NOW(), ?, 'ONGOING', ?, '0')", [null, null, null]);
         let rentalInsert = await helper.queryPromise(con, "INSERT INTO rental_service VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [serviceInsert.result.insertId, data.selected_vehicle, null, null, null, null, null, null]);
 
         await helper.queryPromise(con, "UPDATE rental SET free_status = 'FALSE' WHERE id = ?", [data.selected_vehicle])
