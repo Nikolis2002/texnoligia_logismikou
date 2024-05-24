@@ -70,4 +70,8 @@ public abstract class Rental extends InCityTransport
 
     @NonNull
     public abstract String toString();
+
+    public boolean checksGas(){
+        return (tracker instanceof SpecializedTracker);
+    }
 }

@@ -14,6 +14,13 @@ public class SpecializedTracker extends VehicleTracker
 		this.gas = gas;
 	}
 
+	public SpecializedTracker(Coordinates coords,double distance,boolean stopped ,PositiveInteger gas)
+	{
+		super(coords,distance,stopped);
+
+		this.gas = gas;
+	}
+
 	public PositiveInteger getGas()
 	{
 		return gas;

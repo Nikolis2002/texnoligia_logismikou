@@ -8,11 +8,14 @@ import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.service.GasStation;
 import com.ceid.model.service.TaxiRequest;
+import com.ceid.model.transport.SpecializedTracker;
 import com.ceid.model.transport.Taxi;
+import com.ceid.model.transport.VehicleTracker;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
+import com.ceid.util.PositiveInteger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -323,6 +326,37 @@ public class jsonStringParser {
         }
 
         return gasStationList;
+    }
+
+    public static VehicleTracker parseTracker(Response<ResponseBody> response)throws IOException{
+        ObjectMapper mapper=new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(response.body().string());
+        VehicleTracker tracker=null;
+
+        if(rootNode.get("type").asText().equals("simple")){
+            JsonNode coordsJson=rootNode.get("coords");
+            Coordinates coords=new Coordinates(coordsJson.get("x").asDouble(),coordsJson.get("y").asDouble());
+            tracker= new VehicleTracker(
+                    coords,
+                    rootNode.get("distance").asDouble(),
+                    rootNode.get("isStopped").asBoolean()
+
+
+            );
+        }
+        else{
+            JsonNode coordsJson=rootNode.get("coords");
+            Coordinates coords=new Coordinates(coordsJson.get("x").asDouble(),coordsJson.get("y").asDouble());
+            tracker= new SpecializedTracker(
+                    coords,
+                    rootNode.get("distance").asDouble(),
+                    rootNode.get("isStopped").asBoolean(),
+                    new PositiveInteger(rootNode.get("gas").asInt())
+
+            );
+        }
+
+        return tracker;
     }
 
 }

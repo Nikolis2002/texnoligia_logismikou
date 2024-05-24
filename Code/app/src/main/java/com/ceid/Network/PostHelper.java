@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.ceid.model.service.GasStation;
+import com.ceid.model.transport.VehicleTracker;
 import com.ceid.util.GenericCallback;
 
 import java.io.IOException;
@@ -122,5 +123,34 @@ public class PostHelper {
                 callback.onFailure(new Exception(t));
             }
         });
+    }
+
+    public static void getTackerOfRental(ApiService api, String params, GenericCallback<VehicleTracker> callback){
+        Call<ResponseBody> call=api.getTracker(params);
+        call.enqueue(new Callback<ResponseBody>(){
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if(callback!=null) {
+                        VehicleTracker tracker=null;
+                        try {
+                            tracker = jsonStringParser.parseTracker(response);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        callback.onSuccess(tracker);
+                    }
+                } else {
+                    callback.onFailure(new Exception());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure(new Exception(t));
+            }
+        });
+
+
     }
 }
