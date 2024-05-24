@@ -5,7 +5,7 @@ import com.ceid.model.transport.Transport;
 
 import java.time.LocalDateTime;
 
-public class TaxiService extends Service{
+public class TaxiService extends Service {
 
     private TaxiRequest request;
 
@@ -15,7 +15,7 @@ public class TaxiService extends Service{
         this.request = request;
     }
 
-    public TaxiService(int id, Payment.Method payment){
+    public TaxiService(int id, Payment payment){
         super(id,payment);
     }
 

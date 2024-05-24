@@ -71,6 +71,25 @@ begin
 end$
 delimiter ;
 
+DROP PROCEDURE IF EXISTS checkTaxiReservationSecond;
+delimiter $
+create procedure checkTaxiReservationSecond(in service_id_check int)
+begin
+	declare status_check VARCHAR(32);
+	
+	select service_status into status from service where id=service_id_check;
+
+	
+	if service_status='CANCELLED' THEN
+		SELECT "FALSE" AS result;	
+	ELSE
+		SELECT "TRUE" AS result;
+	END IF;
+
+	
+end$
+delimiter ;
+
 drop procedure if exists acceptTaxiRequest;
 delimiter $
 create procedure acceptTaxiRequest(in request_id int, in driver_username VARCHAR(32))
@@ -100,19 +119,21 @@ begin
 end$
 delimiter ;
 
-drop procedure if exist checkTaxiComplete;
+DROP PROCEDURE IF EXISTS checkTaxiReservationSecond;
 delimiter $
-create procedure checkTaxiComplete(in service_id int)
+create procedure checkTaxiReservationSecond(in service_id_check int)
 begin
-	declare status ENUM;
+	declare status_check ENUM('ONGOING', 'COMPLETED', 'CANCELLED');
 	
-	select service_status into status from service where id=service_id;
+	select service_status into status_check from service where id=service_id_check;
+
 	
-	if status='COMPLETE' THEN
-		SELECT 'TRUE' AS result;
-	else
-		select 'FALSE' AS result;
-	end if;
+	if service_status='CANCELLED' THEN
+		SELECT "FALSE" AS result;	
+	ELSE
+		SELECT "TRUE" AS result;
+	END IF;
+
 	
 end$
 delimiter ;

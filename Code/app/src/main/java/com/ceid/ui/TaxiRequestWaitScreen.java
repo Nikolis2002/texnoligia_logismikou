@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,7 +69,6 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                         finish();
                     });
                     builder.setNegativeButton("Cancel", (alertDialog, which) -> {
-
                         finish();
                     });
 
@@ -100,7 +100,6 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                     if(response.isSuccessful()){
                         try {
                             status = jsonStringParser.getbooleanFromJson(response);
-                            Toast.makeText(getApplicationContext(), String.valueOf(status), Toast.LENGTH_SHORT).show();
 
                             if(status) {
                                 Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRideScreen.class);
@@ -131,7 +130,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
         Map<String, Object> taxiReservationCancel = new LinkedHashMap<>();
         taxiReservationCancel.put("cancelService",taxiService.getId());
         values.add(taxiReservationCancel);
-
+        Log.d("test",String.valueOf(taxiService.getId()));
         String jsonString = jsonStringParser.createJsonString("cancelService",values);
 
         Call<ResponseBody> call = api.getFunction(jsonString);

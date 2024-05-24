@@ -32,7 +32,9 @@ public abstract class Service implements Serializable
     }
 
 
-    public Service(int id, Payment.Method payment) {
+    public Service(int id, Payment payment) {
+        this.id=id;
+        this.payment=payment;
     }
 
     public Rating rate(Float vehicleStars, Float otherStars, String comment)

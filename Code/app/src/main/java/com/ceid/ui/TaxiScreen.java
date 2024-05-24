@@ -113,7 +113,10 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                             int serviceId= Integer.parseInt(service);
                             TaxiService taxiService = new TaxiService(
                                     serviceId,
-                                    Payment.Method.CASH
+                                    new Payment(
+                                            0,
+                                            Payment.Method.CASH
+                                    )
                             );
                             Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
                             intent.putExtra("taxiService",taxiService);
@@ -157,7 +160,10 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                                 int serviceId = Integer.parseInt(service);
                                 TaxiService taxiService = new TaxiService(
                                         serviceId,
-                                        Payment.Method.WALLET
+                                        new Payment(
+                                                0,
+                                                Payment.Method.WALLET
+                                        )
                                 );
                                 Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
                                 intent.putExtra("taxiService",taxiService);

@@ -80,7 +80,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         taxiReservationCheck.put("request_id_in",taxiRequest.getId());
         values.add(taxiReservationCheck);
 
-        String jsonString = jsonStringParser.createJsonString("checkTaxiRequest",values);
+        String jsonString = jsonStringParser.createJsonString("checkTaxiReservationSecond",values);
         Call<ResponseBody> call = api.getFunction(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
@@ -108,7 +108,14 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
                                     if(response.isSuccessful()){
 
-
+                                        Coordinates destination = new Coordinates(38.246639, 21.734576);
+                                        map.setZoom(13);
+                                        map.setPosition(destination);
+                                        String text = "End Route";
+                                        startTimer = timer.startTimer();
+                                        button.setText(text);
+                                        View.OnClickListener endRouteListener = v -> endRoute();
+                                        button.setOnClickListener(endRouteListener);
                                     }else{
                                         System.out.println("Error message");
                                     }
@@ -120,14 +127,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                                 }
                             });
 
-                            Coordinates destination = new Coordinates(38.246639, 21.734576);
-                            map.setZoom(13);
-                            map.setPosition(destination);
-                            String text = "End Route";
-                            startTimer = timer.startTimer();
-                            button.setText(text);
-                            View.OnClickListener endRouteListener = v -> endRoute();
-                            button.setOnClickListener(endRouteListener);
+
                         }else{
                             Toast.makeText(TransportScreen.this,"The request is not available", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(TransportScreen.this,MainScreenTaxi.class);
