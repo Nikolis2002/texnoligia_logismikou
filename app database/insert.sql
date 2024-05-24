@@ -123,3 +123,37 @@ INSERT INTO out_city_car VALUES
 INSERT INTO out_city_van VALUES
     (19),
     (20);
+
+INSERT INTO payment VALUES
+    (1, 'a', '40.00', 'WALLET'),
+    (2, 'a', '15.76', 'WALLET'),
+    (3, 'a', '14.28', 'CASH'),
+    (4, 'a', '23.06', 'WALLET');
+
+INSERT INTO service VALUES
+    (1, '2024-05-24 20:21:26', 1, 'COMPLETED', '2024-05-24 21:21:26'),
+    (2, '2023-02-04 18:07:14', 2, 'COMPLETED', '2023-02-04 19:07:14'),
+    (3, '2024-05-11 19:15:59', 3, 'COMPLETED', '2024-05-11 20:15:59'),
+    (4, '2024-04-13 19:36:52', 4, 'COMPLETED', '2024-04-13 20:36:52');
+
+INSERT INTO customer_history VALUES
+    ("a", 1),
+    ("a", 2),
+    ("a", 3),
+    ("a", 4);
+
+INSERT INTO rental_rating VALUES
+    (1, 1, "an mporousa na balo 0 asteria tha to ekana!! pragmatika den exo ksanadei xeirotero autokinhto sti zoi mou. kat arxas to vrikame xoris katholoy venzini, kyriolektika mas emeine ston dromo. LIGO ELEOS DHLADH, DEN MPOREITE KAN NA GEMIZETE TA OXHMATA SAS?? epipleon afou to gemisame, pali den empaine bros ekane enan ixo 'ASIIII' kai meta esbhnea amesos. gia na mhn anafero thn katastasi toy esoterikou. akoma prospathoyme na katalaboume ti htan ekeinoi oi lekedes sta piso kathismata... genika exo pei se olous moy tous gnostous na min kleinoun amaxia apo authn thn efarmogh, oxi tipota allo mhn kollhsoume kai tipota. POTE KSANA!!! movfast, more like moufa!!!");
+
+INSERT INTO rental_service VALUES
+    (1, 7, null, null, null, null, null, null),
+    (4, 1, null, 1, null, null, null, null);
+
+INSERT INTO out_city_service VALUES
+    (2, 19, null, null, null, null, null, null);
+
+INSERT INTO taxi_request VALUES
+    (1, POINT(38.2442870,21.7326153), POINT(38.2466208,21.7325087), "FIRE_IT_UP", '2024-05-24 21:30:22', '2024-05-24 21:30:39');
+
+INSERT INTO taxi_service VALUES
+    (3, 1, null);

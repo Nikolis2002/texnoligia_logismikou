@@ -114,11 +114,9 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
                     for (JsonNode garageData : garageListData)
                     {
                         ArrayList<OutCityTransport> vehicleList = new ArrayList<>();
-                        ArrayNode garageVehicleDataNode = (ArrayNode)garageListData.get("vehicles");
+                        ArrayNode garageVehicleDataNode = (ArrayNode)garageData.get("vehicles");
 
-                        //Log.d("GARAGETEST", "Vehicles" + jsonStringParser.pars);
-
-                        if (garageVehicleDataNode != null)
+						if (garageVehicleDataNode != null)
                         {
                             for (JsonNode vehicleData : garageVehicleDataNode)
                             {

@@ -119,7 +119,7 @@ app.get("/getGarages", async(req,res)=>
 
         for (let garage of garageList)
         {
-            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, seats, gas FROM garage_vehicles WHERE garage = ?", [garage.id]);
+            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, rate, seats, gas FROM garage_vehicles WHERE garage = ?", [garage.id]);
             garage.vehicles = vehicleList.result;
         }
 

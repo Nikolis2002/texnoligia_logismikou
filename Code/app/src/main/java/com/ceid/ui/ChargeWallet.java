@@ -91,7 +91,7 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
         String jsonString = jsonStringParser.createJsonString("chargeWallet", values);
         PostHelper chargeValue=new PostHelper(this);
         ApiService api=ApiClient.getApiService();
-        chargeValue.charge(api,jsonString);
+        //chargeValue.charge(api,jsonString);
     }
 
 
