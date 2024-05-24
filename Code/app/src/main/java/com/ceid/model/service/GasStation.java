@@ -1,6 +1,5 @@
 package com.ceid.model.service;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.util.Coordinates;
 
 public class GasStation

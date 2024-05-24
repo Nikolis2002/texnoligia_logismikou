@@ -2,7 +2,6 @@ package com.ceid.model.transport;
 
 import androidx.annotation.NonNull;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
@@ -11,11 +10,11 @@ import java.util.ArrayList;
 
 public abstract class Rental extends InCityTransport
 {
-    private Currency rate;
+    private double rate;
     private VehicleTracker tracker;
     private boolean freeStatus;
 
-    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, Coordinates coords)
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, double rate, Coordinates coords)
     {
         super(id, model, manufacturer, manuf_year);
 
@@ -29,12 +28,12 @@ public abstract class Rental extends InCityTransport
     {
         super();
 
-        this.rate = null;
+        this.rate = 0;
         this.freeStatus = false;
         this.tracker = null;
     }
 
-    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, VehicleTracker tracker)
+    public Rental(boolean freeStatus, int id, String model, String manufacturer, String manuf_year, double rate, VehicleTracker tracker)
     {
         super(id, model, manufacturer, manuf_year);
 
@@ -46,7 +45,7 @@ public abstract class Rental extends InCityTransport
 
     //public updatePosition(Coordinates coords)
 
-    public Currency getRate()
+    public double getRate()
     {
         return rate;
     }

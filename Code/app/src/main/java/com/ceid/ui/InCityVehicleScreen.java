@@ -28,7 +28,6 @@ import android.widget.TextView;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.transport.Bicycle;
 import com.ceid.model.transport.CityCar;
 import com.ceid.model.transport.ElectricScooter;
@@ -184,7 +183,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
             title.setText(String.format("%s %s (%s)", rental.getManufacturer(), rental.getModel(), rental.getManufYear()));
             dista.setText(String.format("%s: %d m", "Distance", Math.round(selectedCoords.distance(rental.getTracker().getCoords()))));
-            rate.setText(String.format("%s: %s/min", "Rate", rental.getRate().toString()));
+            rate.setText(String.format("%s: %f/min", "Rate", rental.getRate()));
 
             if (rental instanceof CityCar)
             {
@@ -504,7 +503,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     vehicle.get("model").asText(),
                                     vehicle.get("manufacturer").asText(),
                                     vehicle.get("manuf_year").asText(),
-                                    new Currency(vehicle.get("rate").asDouble()),
+                                    vehicle.get("rate").asDouble(),
                                     new Coordinates(
                                             vehicle.get("coords").get("x").asDouble(),
                                             vehicle.get("coords").get("y").asDouble()
@@ -522,7 +521,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     vehicle.get("model").asText(),
                                     vehicle.get("manufacturer").asText(),
                                     vehicle.get("manuf_year").asText(),
-                                    new Currency(vehicle.get("rate").asDouble()),
+                                    vehicle.get("rate").asDouble(),
                                     new Coordinates(
                                             vehicle.get("coords").get("x").asDouble(),
                                             vehicle.get("coords").get("y").asDouble()
@@ -539,7 +538,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     vehicle.get("model").asText(),
                                     vehicle.get("manufacturer").asText(),
                                     vehicle.get("manuf_year").asText(),
-                                    new Currency(vehicle.get("rate").asDouble()),
+                                    vehicle.get("rate").asDouble(),
                                     new Coordinates(
                                             vehicle.get("coords").get("x").asDouble(),
                                             vehicle.get("coords").get("y").asDouble()
@@ -555,7 +554,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     vehicle.get("model").asText(),
                                     vehicle.get("manufacturer").asText(),
                                     vehicle.get("manuf_year").asText(),
-                                    new Currency(vehicle.get("rate").asDouble()),
+                                    vehicle.get("rate").asDouble(),
                                     new Coordinates(
                                             vehicle.get("coords").get("x").asDouble(),
                                             vehicle.get("coords").get("y").asDouble()

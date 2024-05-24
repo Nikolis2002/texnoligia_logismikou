@@ -3,7 +3,6 @@ package com.ceid.model.transport;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
@@ -17,10 +16,10 @@ public abstract class OutCityTransport extends Transport {
 
     private String licensePlate;
     private int seats;
-    private Currency rate;
+    private double rate;
     //private SpecializedTracker tracker;
 
-    public OutCityTransport(String license_plate, Currency rate, int seats, int id, String model, String manufacturer, String manuf_year) {
+    public OutCityTransport(String license_plate, double rate, int seats, int id, String model, String manufacturer, String manuf_year) {
         super(id, model, manufacturer, manuf_year);
         this.licensePlate = license_plate;
         this.seats = seats;
@@ -37,7 +36,7 @@ public abstract class OutCityTransport extends Transport {
         return seats;
     }
 
-    public Currency getRate()
+    public double getRate()
     {
         return rate;
     }

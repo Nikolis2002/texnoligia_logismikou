@@ -1,6 +1,5 @@
 package com.ceid.model.transport;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.util.Coordinates;
 
 import java.util.Timer;

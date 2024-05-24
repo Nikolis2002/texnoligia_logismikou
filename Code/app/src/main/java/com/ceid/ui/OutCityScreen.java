@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
@@ -71,20 +70,20 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
         garageList = new ArrayList<>();
 
         ArrayList<OutCityTransport> l = new ArrayList<>();
-        l.add(new OutCityCar("1", new Currency(20), 1, 1,"dista", "1", "2024"));
-        l.add(new OutCityCar("2",new Currency(20), 1, 1,"dista", "2", "2024"));
-        l.add(new Van("3",new Currency(20), 1, 1,"dista", "3", "2024"));
-        l.add(new OutCityCar("4",new Currency(20), 1,1, "dista", "4", "2024"));
-        l.add(new Van("5",new Currency(20), 1,1, "dista", "5", "2024"));
-        l.add(new Van("6",new Currency(20), 1,1, "dista", "6", "2024"));
-        l.add(new Van("7",new Currency(20), 1,1, "dista", "7", "2024"));
-        l.add(new OutCityCar("8",new Currency(20), 1,1, "dista", "8", "2024"));
-        l.add(new OutCityCar("9",new Currency(20), 1,1, "dista", "9", "2024"));
-        l.add(new Van("10", new Currency(20),1,1, "dista", "10", "2024"));
-        l.add(new Van("11", new Currency(20), 1,1, "dista", "11", "2024"));
-        l.add(new OutCityCar("12",new Currency(20), 1,1, "dista", "12", "2024"));
-        l.add(new OutCityCar("13",new Currency(20), 1, 1,"dista", "13", "2024"));
-        l.add(new Van("14",new Currency(20), 1,1, "dista", "14", "2024"));
+        l.add(new OutCityCar("1", 20, 1, 1,"dista", "1", "2024"));
+        l.add(new OutCityCar("2",20, 1, 1,"dista", "2", "2024"));
+        l.add(new Van("3",20, 1, 1,"dista", "3", "2024"));
+        l.add(new OutCityCar("4",20, 1,1, "dista", "4", "2024"));
+        l.add(new Van("5",20, 1,1, "dista", "5", "2024"));
+        l.add(new Van("6",20, 1,1, "dista", "6", "2024"));
+        l.add(new Van("7",20, 1,1, "dista", "7", "2024"));
+        l.add(new OutCityCar("8",20, 1,1, "dista", "8", "2024"));
+        l.add(new OutCityCar("9",20, 1,1, "dista", "9", "2024"));
+        l.add(new Van("10", 20,1,1, "dista", "10", "2024"));
+        l.add(new Van("11", 20, 1,1, "dista", "11", "2024"));
+        l.add(new OutCityCar("12",20, 1,1, "dista", "12", "2024"));
+        l.add(new OutCityCar("13",20, 1, 1,"dista", "13", "2024"));
+        l.add(new Van("14",20, 1,1, "dista", "14", "2024"));
 
         garageList.add(new Garage(
                 0,

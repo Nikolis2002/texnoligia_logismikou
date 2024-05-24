@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.service.OutCityService;
 import com.ceid.model.service.RentalService;
@@ -58,7 +57,7 @@ public class RouteHistory extends Fragment
 						"MONDEO",
 						"FORD",
 						"1993",
-						new Currency(1.40),
+						1.40,
 						new Coordinates(38.2442870,21.7326153),
 						new PositiveInteger(0)
 				)
@@ -73,7 +72,7 @@ public class RouteHistory extends Fragment
 				null,
 				new Van(
 						"ABC-1234",
-						new Currency(1.40),
+						1.40,
 						4,
 						0,
 						"MONDEO",

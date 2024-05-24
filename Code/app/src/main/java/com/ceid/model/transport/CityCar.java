@@ -1,7 +1,6 @@
 package com.ceid.model.transport;
 import androidx.annotation.NonNull;
 
-import com.ceid.model.payment_methods.Currency;
 import com.ceid.util.Coordinates;
 import com.ceid.util.PositiveInteger;
 
@@ -14,7 +13,7 @@ public class CityCar extends Rental {
     //private PositiveInteger gas;
     private String license_plate;
 
-    public CityCar(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, Currency rate, Coordinates coords, PositiveInteger gas) {
+    public CityCar(String license_plate, boolean freeStatus, int id, String model, String manufacturer, String manuf_year, double rate, Coordinates coords, PositiveInteger gas) {
         super(freeStatus, id, model, manufacturer, manuf_year, rate, new SpecializedTracker(coords, gas));
         this.license_plate = license_plate;
     }
@@ -48,6 +47,6 @@ public class CityCar extends Rental {
     @NonNull
     public String toString()
     {
-        return String.format("=======================================\nType: CityCar\nID: %d\nLicense Plate: %s\nModel: %s %s (%s)\nRate: %f\nCoords: (%f, %f)\nGas: %d\n=======================================", this.getId(), this.license_plate, this.getManufacturer(), this.getModel(), this.getManufYear(), this.getRate().getValue(), this.getTracker().getCoords().getLat(), this.getTracker().getCoords().getLng(), ((SpecializedTracker)this.getTracker()).getGas().getValue());
+        return String.format("=======================================\nType: CityCar\nID: %d\nLicense Plate: %s\nModel: %s %s (%s)\nRate: %f\nCoords: (%f, %f)\nGas: %d\n=======================================", this.getId(), this.license_plate, this.getManufacturer(), this.getModel(), this.getManufYear(), this.getRate(), this.getTracker().getCoords().getLat(), this.getTracker().getCoords().getLng(), ((SpecializedTracker)this.getTracker()).getGas().getValue());
     }
 }
