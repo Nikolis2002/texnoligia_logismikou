@@ -18,7 +18,10 @@ public interface ApiService {
     Call<ResponseBody> getTableData(@Query("tableName") String tableName);
 
     @GET("/getTracker")
-    Call<ResponseBody> getTracker(@Query("TrackerType") String TrackerType);
+    Call<ResponseBody> getTracker(
+            @Query("TrackerType") String TrackerType,
+            @Query("addTen") String ten
+    );
 
 
     @POST("/getFunctionWithParams")

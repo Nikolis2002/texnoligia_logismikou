@@ -23,7 +23,7 @@ const con = mysql.createConnection(
 );
 
 const app=express();
-
+let distance=
 
 app.use((req, res, next) => {
     if (req.is('application/json')) {
@@ -68,21 +68,25 @@ app.get("/getTableData",async (req,res)=>{
 
 app.get("/getTracker",async (req,res)=>{
     try{
+        
         const param=req.query.TrackerType;
+        let ten= +req.query.addTen+10;
+
         let tracker={};
         if(param==="vechicleTracker"){
             tracker.type="simple";
             tracker.coords={x:"38.2442870",y:"21.7326153"};
             tracker.isStopped="true";
-            tracker.distance="5000";
+            tracker.distance=ten;
         }
         else{
             tracker.type="special";
             tracker.coords={x:"38.2442870",y:"21.7326153"};
             tracker.isStopped="true";
-            tracker.distance="5000";
+            tracker.distance=ten;
             tracker.gas="100";
         }
+        console.log(tracker);
         res.status(200).send(tracker);
 
     }

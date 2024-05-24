@@ -168,6 +168,26 @@ public class Map implements OnMapReadyCallback
 		return clickedMarker;
 	}
 
+	public Marker placePin(Coordinates coords, boolean clear, int iconId, boolean draggable)
+	{
+		if (clear)
+			gmap.clear();
+
+		Bitmap b = BitmapFactory.decodeResource(mapFragment.getResources(), iconId);
+		Bitmap smallMarker = Bitmap.createScaledBitmap(b, 128, 128, false);
+
+		MarkerOptions opt = new MarkerOptions();
+		opt.draggable(draggable);
+		opt.position(coords.toLatLng());
+		opt.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+		clickedMarker = gmap.addMarker(opt);
+
+		pinCoords = coords;
+
+		return clickedMarker;
+	}
+
 	public void placeStartPin(Coordinates coords, boolean clear, int iconId)
 	{
 		if (clear)
