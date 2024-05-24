@@ -125,8 +125,8 @@ public class PostHelper {
         });
     }
 
-    public static void getTackerOfRental(ApiService api, String params, GenericCallback<VehicleTracker> callback){
-        Call<ResponseBody> call=api.getTracker(params);
+    public static void getTrackerOfRental(ApiService api, String params,String ten, GenericCallback<VehicleTracker> callback){
+        Call<ResponseBody> call=api.getTracker(params,ten);
         call.enqueue(new Callback<ResponseBody>(){
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {

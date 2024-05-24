@@ -23,4 +23,9 @@ public class PositiveInteger implements Serializable
             throw new IllegalArgumentException("NOT A POSITIVE INTEGER");
         }
     }
+
+    public int posDiff(PositiveInteger x){
+        return Math.abs(this.value-x.value);
+    }
 }
+

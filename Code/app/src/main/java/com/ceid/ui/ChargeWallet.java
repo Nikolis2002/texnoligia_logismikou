@@ -91,7 +91,7 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
         String jsonString = jsonStringParser.createJsonString("chargeWallet", values);
         PostHelper chargeValue=new PostHelper(this);
         ApiService api=ApiClient.getApiService();
-        chargeValue.charge(api,jsonString);
+        //chargeValue.charge(api,jsonString);
     }
 
 
@@ -102,7 +102,7 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
         {
             Toast.makeText(getApplicationContext(), "Value added successfully!",
                     Toast.LENGTH_LONG).show();
-            customer.getWallet().addtoWallet(Double.parseDouble(amount.getText().toString()));
+            customer.getWallet().addToWallet(Double.parseDouble(amount.getText().toString()));
             Intent intent=new Intent(getApplicationContext(), MainScreen.class);
             startActivity(intent);
         }

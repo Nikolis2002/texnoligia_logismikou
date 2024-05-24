@@ -140,6 +140,20 @@ public class jsonStringParser {
         return Boolean.parseBoolean(booleanString);
     }
 
+    public static ArrayList<String> getResults(@NonNull Response<ResponseBody> response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(response.body().string());
+
+        ArrayList<String> list=new ArrayList<>();
+        JsonNode root=jsonNode.get(0).get(0);
+
+        for(JsonNode node: jsonNode){
+            list.add(node.asText());
+        }
+
+        return list;
+    }
+
 
     public static void printJsonArray(JsonArray jsonArray) {
         Gson gson = new Gson();
