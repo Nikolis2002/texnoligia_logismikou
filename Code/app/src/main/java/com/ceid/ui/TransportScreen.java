@@ -65,7 +65,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     @Override
     public void onMapWrapperReady() {
         map.placePin(taxiRequest.getPickupLocation(),true,R.drawable.emoji_people);
-        map.placePin(taxiDriver.getTaxi().getCoords(), false,R.drawable.in_city_taxi);
+        map.placePin(taxiDriver.getTaxi().getCoords(), false,R.drawable.taxi_image);
         map.setZoom(14);
         map.setPosition(taxiRequest.getPickupLocation());
     }

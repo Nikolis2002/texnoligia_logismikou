@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class TaxiRequestWaitScreen extends AppCompatActivity {
 
     private Handler handler;
-    private boolean status=false;
+    private boolean status;
     private Timer reservationTimer;
     ApiService api= ApiClient.getApiService();
     private TaxiService taxiService;
