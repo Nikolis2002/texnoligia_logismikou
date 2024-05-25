@@ -171,6 +171,8 @@
     <string name="password2">Password</string>
     <string name="payment_methods">Payment methods</string>
     <string name="points2">Points gained</string>
+    <string name="logout">Logout</string>
+    <string name="adddriversLicense">Add a driver\'s license</string>
 
 
 </resources>

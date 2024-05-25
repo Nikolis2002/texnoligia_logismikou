@@ -35,7 +35,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RefillScreen"/>
+        <activity android:name=".addLicense"/>
+        <activity android:name=".ChargeWallet"/>
         <activity android:name=".addCard"/>
         <activity android:name=".signUp"/>
         <activity android:name=".MainScreen" />

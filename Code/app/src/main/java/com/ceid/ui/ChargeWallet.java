@@ -114,6 +114,7 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
 
     @Override
     public void onResponseFailure(Throwable t) {
-
+        Toast.makeText(getApplicationContext(), "error",
+                Toast.LENGTH_LONG).show();
     }
 }

@@ -12,6 +12,7 @@
         android:layout_marginTop="368dp"
         android:backgroundTint="#000000"
         android:text="@string/attachPhoto"
+        android:onClick="attachPhoto"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +27,7 @@
         android:layout_marginTop="528dp"
         android:backgroundTint="#000000"
         android:text="@string/sendForReview"
+        android:onClick="sendReview"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/button" />
+        android:background="@drawable/button" />
 
     <TextView
         android:id="@+id/textView5"

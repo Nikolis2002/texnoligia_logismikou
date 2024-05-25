@@ -53,4 +53,8 @@ public interface ApiService {
 
     @GET("/getGarages")
     Call<ResponseBody> getGarages();
+    @GET("/getLicense")
+    Call<ResponseBody> getLicense(@Body String jsonfunction);
+    @POST ("/savePhoto")
+    Call<ResponseBody> savePhoto(@Body String  json);
 }

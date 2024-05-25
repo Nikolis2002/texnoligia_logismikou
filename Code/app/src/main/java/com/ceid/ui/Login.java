@@ -95,6 +95,7 @@ public class Login extends AppCompatActivity implements postInterface{
     }
     public void onClickVisib(View view) {
         int cursorPosition = pass.getSelectionStart();
+        System.out.println(User.getCurrentUser());
         visib.setSelected(!visib.isSelected());
         if (visib.isSelected()) {
 

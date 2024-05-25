@@ -1,7 +1,4 @@
 package com.ceid.model.payment_methods;
-import android.util.Log;
-
-import com.ceid.util.DateFormat;
 
 import java.io.Serializable;
 

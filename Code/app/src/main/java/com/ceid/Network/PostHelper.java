@@ -19,18 +19,19 @@ import retrofit2.Response;
 public class PostHelper {
     private postInterface callback;
 
-    public PostHelper(postInterface callback){
-        this.callback=callback;
+    public PostHelper(postInterface callback) {
+        this.callback = callback;
     }
-    public void insertUser(ApiService api,String userString){
 
-        Call<Void> call= api.postUser(userString);
+    public void insertUser(ApiService api, String userString) {
+
+        Call<Void> call = api.postUser(userString);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                   System.out.println("success message");
+                    System.out.println("success message");
                 } else {
                     System.out.println("Error message");
                 }
@@ -43,14 +44,14 @@ public class PostHelper {
         });
     }
 
-    public void login(ApiService api,String userParams){
-        Call<ResponseBody> call= api.checkUser(userParams);
-        Log.d("kort","kort was send successfully!!");
+    public void login(ApiService api, String userParams) {
+        Call<ResponseBody> call = api.checkUser(userParams);
+        Log.d("kort", "kort was send successfully!!");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    if(callback!=null) {
+                    if (callback != null) {
                         try {
                             callback.onResponseSuccess(response);
                         } catch (IOException e) {
@@ -69,43 +70,44 @@ public class PostHelper {
             }
         });
     }
-    public void card(ApiService api,String cardParams){
 
-            Call<ResponseBody> call= api.getFunction(cardParams);
-            Log.d("kort","kort was send successfully!!");
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
-                        if(callback!=null) {
-                            try {
-                                callback.onResponseSuccess(response);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    } else {
-                        if (callback != null)
-                            callback.onResponseFailure(new Throwable("Request failed"));
-                    }
-                }
+    public void card(ApiService api, String cardParams) {
 
-                @Override
-                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                    System.out.println("Error message");
-                }
-            });
-
-    }
-
-    public static void getGasStations(ApiService api, String params, GenericCallback<ArrayList<GasStation>> callback){
-        Call<ResponseBody> call=api.getTableData(params);
-        call.enqueue(new Callback<ResponseBody>(){
+        Call<ResponseBody> call = api.getFunction(cardParams);
+        Log.d("kort", "kort was send successfully!!");
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    if(callback!=null) {
-                        ArrayList<GasStation> array= null;
+                    if (callback != null) {
+                        try {
+                            callback.onResponseSuccess(response);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } else {
+                    if (callback != null)
+                        callback.onResponseFailure(new Throwable("Request failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                System.out.println("Error message");
+            }
+        });
+
+    }
+
+    public static void getGasStations(ApiService api, String params, GenericCallback<ArrayList<GasStation>> callback) {
+        Call<ResponseBody> call = api.getTableData(params);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (callback != null) {
+                        ArrayList<GasStation> array = null;
                         try {
                             array = jsonStringParser.parseGarage(response);
                         } catch (IOException e) {
@@ -131,8 +133,8 @@ public class PostHelper {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    if(callback!=null) {
-                        VehicleTracker tracker=null;
+                    if (callback != null) {
+                        VehicleTracker tracker = null;
                         try {
                             tracker = jsonStringParser.parseTracker(response);
                         } catch (IOException e) {
@@ -153,15 +155,16 @@ public class PostHelper {
 
 
     }
-    public void charge(ApiService api,String value){
 
-        Call<ResponseBody> call= api.getFunction(value);
-        Log.d("kort","kort was send successfully!!");
+    public void charge(ApiService api, String value) {
+
+        Call<ResponseBody> call = api.getFunction(value);
+        Log.d("kort", "kort was send successfully!!");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    if(callback!=null) {
+                    if (callback != null) {
                         try {
                             callback.onResponseSuccess(response);
                         } catch (IOException e) {
@@ -180,6 +183,61 @@ public class PostHelper {
             }
         });
 
+
+    }
+
+    public void licenseCall(ApiService api, String license) {
+
+        Call<ResponseBody> call = api.savePhoto(license);
+        Log.d("kort", "kort was send successfully!!");
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (callback != null) {
+                        try {
+                            callback.onResponseSuccess(response);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } else {
+                    if (callback != null)
+                        callback.onResponseFailure(new Throwable("Request failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                System.out.println("Error message");
+            }
+        });
+    }
+    public void getLicense(ApiService api,String user)
+    {
+        Call<ResponseBody> call = api.savePhoto(user);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (callback != null) {
+                        try {
+                            callback.onResponseSuccess(response);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } else {
+                    if (callback != null)
+                        callback.onResponseFailure(new Throwable("Request failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                System.out.println("Error message");
+            }
+        });
     }
 }
 
