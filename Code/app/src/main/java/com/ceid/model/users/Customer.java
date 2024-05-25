@@ -23,6 +23,11 @@ public class Customer extends User {
         return this.history;
     }
 
+    public void setHistory(CustomerHistory history)
+    {
+        this.history = history;
+    }
+
     public String getLicense(){
         return this.license;
     }

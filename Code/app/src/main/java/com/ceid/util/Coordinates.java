@@ -57,16 +57,6 @@ public class Coordinates implements Serializable
         this.lng = lng;
     }
 
-    public void addCoords(Coordinates coord){
-        this.lat=this.lat +coord.lat;
-        this.lng=this.lng + coord.lng;
-    }
-
-    public void subCoords(Coordinates coord){
-        this.lat=this.lat -coord.lat;
-        this.lng=this.lng - coord.lng;
-    }
-
     @Override
     public String toString() {
         return String.format("(%.7f, %.7f)", lat, lng);
