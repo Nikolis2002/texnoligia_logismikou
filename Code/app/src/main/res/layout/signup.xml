@@ -358,6 +358,7 @@
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
+        android:onClick="signIn"
         android:text="@string/signIn"
         android:textColor="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"

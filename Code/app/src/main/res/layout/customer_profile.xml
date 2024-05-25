@@ -11,23 +11,24 @@
         android:layout_width="289dp"
         android:layout_height="62dp"
         android:backgroundTint="#B23636"
-        android:text="@string/logout"
         android:onClick="logout"
+        android:text="@string/logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintVertical_bias="0.91" />
 
     <Button
+        android:id="@+id/button6"
         android:layout_width="129dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="280dp"
         android:onClick="chargeWallet"
         android:text="@string/chargeWallet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.836"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toEndOf="@+id/button123123123123123123123"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -61,10 +62,8 @@
                  />
 
             <TextView
-
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -83,31 +82,7 @@
 
 
             android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/password"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@id/password"
-                android:lineSpacingExtra="3sp"
-                android:text="@string/password2"
-                android:textAppearance="@style/label" />
-
-
-        </RelativeLayout>
+            android:orientation="horizontal"/>
 
         <RelativeLayout
 
@@ -217,30 +192,7 @@
 
 
             android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@id/phone"
-                android:lineSpacingExtra="3sp"
-                android:text="@string/phone"
-                android:textAppearance="@style/label" />
-
-
-        </RelativeLayout>
+            android:orientation="horizontal"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -342,30 +294,7 @@
 
 
             android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/payment"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@id/payment"
-                android:lineSpacingExtra="3sp"
-                android:text="@string/payment_methods"
-                android:textAppearance="@style/label" />
-
-
-        </RelativeLayout>
+            android:orientation="horizontal"/>
 
     </LinearLayout>
 
@@ -373,11 +302,11 @@
         android:id="@+id/button123123123123123123123"
         android:layout_width="129dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="280dp"
         android:onClick="addCardButton2"
         android:text="@string/addCard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -386,10 +315,10 @@
         android:layout_height="wrap_content"
         android:onClick="addLicenseButton"
         android:text="@string/adddriversLicense"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.589" />
+        app:layout_constraintTop_toBottomOf="@+id/button6"
+        app:layout_constraintVertical_bias="0.439" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,33 +50,21 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chargewallet);
-
         money=findViewById(R.id.cardNum);
         arrayCards=findViewById(R.id.spinner);
         amount = findViewById(R.id.amount);
         user=User.getCurrentUser();
-        customer= (Customer) user;
-        Log.d("CustomerMoney",String.valueOf(customer.getWallet().getBalance()));
-        Log.d("UserMoney",String.valueOf(user.getWallet().getBalance()));
-        money.setText(String.valueOf(customer.getWallet().getBalance()));
+        money.setText(String.valueOf(user.getWallet().getBalance()));
         cards=user.getWallet().getCards();
         cardSpinner= new ArrayList<>();
         for (Card card :cards ) {
             cardSpinner.add(card.getCardnumber());
         }
-        //Log.d("test", String.valueOf(cards.get(0)));
         ArrayAdapter ad = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cardSpinner);
-        // set simple layout resource file
-        // for each item of spinner
         ad.setDropDownViewResource(
                 android.R.layout
                         .simple_spinner_dropdown_item);
-        // Set the ArrayAdapter (ad) data on the
-        // Spinner which binds data to spinner
-
         arrayCards.setAdapter(ad);
-
-
     }
 
 
@@ -91,7 +79,7 @@ public class ChargeWallet extends AppCompatActivity implements postInterface {
         String jsonString = jsonStringParser.createJsonString("chargeWallet", values);
         PostHelper chargeValue=new PostHelper(this);
         ApiService api=ApiClient.getApiService();
-        //chargeValue.charge(api,jsonString);
+        chargeValue.charge(api,jsonString);
     }
 
 

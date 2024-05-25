@@ -51,27 +51,20 @@ public class addCard extends AppCompatActivity implements postInterface {
 
 
     }
-    public void addCardButton(View view)
-    {
+    public void addCardButton(View view) {
         List<Map<String, Object>> values = new ArrayList<>();
-        Map<String, Object> cardCred=new LinkedHashMap<>();
-        user= User.currentUser();
-        customer= (Customer) user;
-        cardCred.put("username",customer.getUsername());
-        //cardCred.put("username","bill");
-        cardCred.put("cardNum",cardNum.getText().toString());
-        cardCred.put("expDate",expDate.getText().toString());
-        cardCred.put("owner",owner.getText().toString());
-        cardCred.put("ccv",ccv.getText().toString());
+        Map<String, Object> cardCred = new LinkedHashMap<>();
+        user = User.currentUser();
+        cardCred.put("username", user.getUsername());
+        cardCred.put("cardNum", cardNum.getText().toString());
+        cardCred.put("expDate", expDate.getText().toString());
+        cardCred.put("owner", owner.getText().toString());
+        cardCred.put("ccv", ccv.getText().toString());
         values.add(cardCred);
         String jsonString = jsonStringParser.createJsonString("insertCard", values);
         PostHelper addc = new PostHelper(this);
 
-        addc.card(api,jsonString);
-
-    }
-    public void remCard(View view)
-    {
+        addc.card(api, jsonString);
 
     }
 
