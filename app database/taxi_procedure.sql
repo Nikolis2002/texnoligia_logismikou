@@ -108,7 +108,7 @@ begin
 	declare pickTime DATETIME;
 	
 	select request_id into taxi_req_id from taxi_service where service_id=service_id_in;
-	select pickup_time into pickTime from pickTime where id=taxi_req_id;
+	select pickup_time into pickTime from taxi_request where id=taxi_req_id;
 	
 	if pickTime is NULL then
 		SELECT "FALSE" AS result;
