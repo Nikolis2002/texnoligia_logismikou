@@ -13,6 +13,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,84 +51,29 @@ public class Login extends AppCompatActivity implements postInterface{
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
-
+        /*
         ApiService api=ApiClient.getApiService();
 
+        List<Map<String,Object>> values = new ArrayList<>();
+        Map<String, Object> insert= new LinkedHashMap<>();
+        insert.put("id",1);
+        values.add(insert);
+
+        String parser=jsonStringParser.createJsonString("getPayment",values);
 
 
-        /*
-        user1.put("username", "john_doe6");
-        user1.put("password", "password1");
-        user1.put("name", "John");
-        user1.put("lname", "Doe");
-        user1.put("email", "john@example.com");
-        user1.put("phone", "1234567890");
-        values.add(user1);
-
-        Map<String, Object> user2 = new HashMap<>();
-        user2.put("username", "jane_doe6");
-        user2.put("password", "password2");
-        user2.put("name", "Jane");
-        user2.put("lname", "Doe");
-        user2.put("email", "jane@example.com");
-        user2.put("phone", "9876543210");
-        values.add(user2);*/
-
-        /*
-        Map<String, Object> tr1 = new HashMap<>();
-        tr1.put("id",null);
-        tr1.put("manufacturer","f0rd1234");
-        tr1.put("model","ferd22");
-        tr1.put("manuf_year",2007);
-        values.add(tr1);
-
-        Map<String, Object> tr2 = new HashMap<>();
-        tr2.put("id",null);
-        tr2.put("manufacturer","f0rd2234");
-        tr2.put("model","ferd223");
-        tr2.put("manuf_year",2008);
-
-        values.add(tr2);
-
-         */
-
-        /*
-        Location l1=new Location(1,4,"abc");
-        Location l2=new Location(1,21,"abc");
-        Map<String, Double> map=new HashMap<>();
-        map.put("lat", 1.0);
-        map.put("lng", 4.0);
-        String freaky;
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-             freaky=mapper.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        String jsonString = jsonStringParser.createJsonString("taxi_request", values);
-        String test = "taxi_request";
-        Call<List<Map<String, Object>>> call = api.getTableData(test);
-
-        */
-
-        //List<Map<String, Object>> values = new ArrayList<>();
-        //Map<String, Object> user1 = new HashMap<>();
-
-        Call<ResponseBody> call= api.getTableData("selectTaxiRequests");
+        Call<ResponseBody> call= api.getFunction(parser);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     try {
-                        ArrayList<TaxiRequest> requestList=jsonStringParser.parseTaxiRequest(response);
+                        ArrayList<String> tester=jsonStringParser.getResults(response);
 
-                        for (TaxiRequest request : requestList) {
-                            Log.d("test", request.toString());
+                        for(String str:tester){
+                            Log.d("test",str);
                         }
-
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -142,7 +88,7 @@ public class Login extends AppCompatActivity implements postInterface{
                 Log.e("Error", "Failed to fetch data: " + t.getMessage());
             }
         });
-
+        */
 
 
 

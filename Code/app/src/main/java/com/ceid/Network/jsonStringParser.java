@@ -147,7 +147,7 @@ public class jsonStringParser {
         ArrayList<String> list=new ArrayList<>();
         JsonNode root=jsonNode.get(0).get(0);
 
-        for(JsonNode node: jsonNode){
+        for(JsonNode node: root){
             list.add(node.asText());
         }
 

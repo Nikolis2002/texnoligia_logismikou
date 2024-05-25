@@ -258,9 +258,12 @@ app.post("/getFunctionWithParams", async (req, res) => {
 
         // Remove the trailing comma and close the parenthesis
         queryString = queryString.slice(0, -1) + ")";
+        console.log(queryString);
+        console.log(queryParams);
         
         // Execute the query
         let response = await helper.queryPromise(con, queryString, queryParams);
+        console.log(response.result)
         res.status(200).send(response.result);
     } catch (err) {
         console.error(err);
