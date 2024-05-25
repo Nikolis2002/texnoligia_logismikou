@@ -31,13 +31,15 @@ begin
 	insert into payment values(null,payment_customer_username,null,payment_method);
 	set payment_id=LAST_INSERT_ID();
 	
-	insert into service values(null,service_creation_date,payment_id,'ONGOING',null, 0);
+	insert into service values(null,service_creation_date,payment_id,'ONGOING',null,0);
 	set service_id=LAST_INSERT_ID();
 	
 	insert into taxi_request values(null,taxiReq_pickup_location,taxiReq_destination,null,null,null);
 	set taxi_request_id=LAST_INSERT_ID();
 	
+	insert into customer_history values(payment_customer_username,service_id);
 	insert into taxi_service values(service_id,taxi_request_id,null);
+	select service_id;
     
 end$
 delimiter ;
@@ -62,25 +64,6 @@ begin
 	select assignment_time into date_check from taxi_request where id=taxiRequest;
 	
 	if date_check IS NULL THEN
-		SELECT "FALSE" AS result;	
-	ELSE
-		SELECT "TRUE" AS result;
-	END IF;
-
-	
-end$
-delimiter ;
-
-DROP PROCEDURE IF EXISTS checkTaxiReservationSecond;
-delimiter $
-create procedure checkTaxiReservationSecond(in service_id_check int)
-begin
-	declare status_check VARCHAR(32);
-	
-	select service_status into status from service where id=service_id_check;
-
-	
-	if service_status='CANCELLED' THEN
 		SELECT "FALSE" AS result;	
 	ELSE
 		SELECT "TRUE" AS result;
@@ -143,12 +126,12 @@ delimiter $
 create procedure completeTaxiRequest(in taxi_req_id int,in payment_method ENUM('WALLET','CASH'),in payment_value DECIMAL(10,2))
 begin
 	declare service_id_update int;
-	declare username VARCHAR(32);
+	declare payment_id_update int;
 	
 	select service_id into service_id_update from taxi_service where request_id=taxi_req_id;
-	select customer_username into username from customer_history where service_id=service_id_update;
+	select payment_id into payment_id_update from service where id=service_id_update;
 	update service set service_status='COMPLETED' where id=service_id_update;
-	insert into payment values(null,username,payment_value,payment_method);
+	update payment set payment_value=payment_value where id=payment_id_update;
 	
 end$
 delimiter ;
@@ -193,3 +176,31 @@ begin
 	
 end$
 delimiter ;
+
+drop procedure if exists checkTaxiComplete;
+delimiter $
+create procedure checkTaxiComplete(in service_id int)
+begin
+	declare status_check ENUM('ONGOING', 'COMPLETED', 'CANCELLED');
+	
+	SELECT service_status into status_check
+	FROM service WHERE id = service_id and service_status='COMPLETED';
+
+	if (status_check is NOT NULL) THEN
+		SELECT "TRUE" AS result;	
+	ELSE
+		SELECT "FALSE" AS result;
+	END IF;
+end$
+delimiter ;
+
+drop procedure if exists updatePoints;
+delimiter $
+create procedure updatePoints(in service_id_in int,in points_in int,in username_in VARCHAR(32),in newPoints int)
+begin
+
+	update service set  earned_points=points_in where id=service_id_in;
+	update customer set points=newPoints where username=username_in;
+	
+end$
+delimiter ; 
