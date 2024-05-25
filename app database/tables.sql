@@ -226,7 +226,10 @@ CREATE table card
 CREATE TABLE coupon
 (
     id VARCHAR(32) NOT NULL,
+    name VARCHAR(32) NOT NULL,
     value DECIMAL(10, 2) NOT NULL,
+    points INT UNSIGNED NOT NULL,
+    expires DATE,
 
     PRIMARY KEY(id)
 );

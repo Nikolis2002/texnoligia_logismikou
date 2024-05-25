@@ -157,3 +157,9 @@ INSERT INTO taxi_request VALUES
 
 INSERT INTO taxi_service VALUES
     (3, 1, null);
+
+INSERT INTO coupon VALUES
+    (1, "!=!=!=! VERY SPECIAL DEAL - LIMITED TIME ONLY !=!=!=!", 10, 100),
+    (2, "SUMMER SPECIL", 10, 99),
+    (3, "BUY 1 GET NONE FREE", 0, 1),
+    (4, "THE GOLDEN", 100, 100, '2000-01-01');

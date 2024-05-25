@@ -58,7 +58,7 @@ public class GarageReservationForm extends AppCompatActivity
 		TextView plate = findViewById(R.id.textPlate);
 
 		title.setText(String.format("%s %s (%s)", vehicle.getManufacturer(), vehicle.getModel(), vehicle.getManufYear()));
-		rate.setText(String.format("%f/day", vehicle.getRate()));
+		rate.setText(String.format("%.02f€/day", vehicle.getRate()));
 		seats.setText(String.format("%d", vehicle.getSeats()));
 		plate.setText(String.format("%s", vehicle.getLicensePlate()));
 

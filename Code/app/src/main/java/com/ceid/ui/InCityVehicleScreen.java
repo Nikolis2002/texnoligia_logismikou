@@ -183,7 +183,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
             title.setText(String.format("%s %s (%s)", rental.getManufacturer(), rental.getModel(), rental.getManufYear()));
             dista.setText(String.format("%s: %d m", "Distance", Math.round(selectedCoords.distance(rental.getTracker().getCoords()))));
-            rate.setText(String.format("%s: %f/min", "Rate", rental.getRate()));
+            rate.setText(String.format("%s: %.02f€/min", "Rate", rental.getRate()));
 
             if (rental instanceof CityCar)
             {
