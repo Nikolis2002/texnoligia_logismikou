@@ -194,9 +194,9 @@ VALUES
 -- Insert into service
 INSERT INTO service 
 VALUES 
-    (null,CURRENT_TIMESTAMP, 1, 'ONGOING', NULL),
-    (null,CURRENT_TIMESTAMP, 2, 'ONGOING', NULL),
-    (null,CURRENT_TIMESTAMP, 3, 'ONGOING', NULL);
+    (null,CURRENT_TIMESTAMP, 1, 'ONGOING', NULL, 0),
+    (null,CURRENT_TIMESTAMP, 2, 'ONGOING', NULL, 0),
+    (null,CURRENT_TIMESTAMP, 3, 'ONGOING', NULL, 0);
 
 -- Insert into taxi_service
 INSERT INTO taxi_service (service_id, request_id, rating_id)

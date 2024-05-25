@@ -4,10 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.widget.Chronometer;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
-import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
 
@@ -138,7 +134,12 @@ public class TaxiRideScreen extends AppCompatActivity {
                         if(status){
                             handler.removeCallbacks(taxiRideCheck);
 
-                            rideCost();
+                            Thread rideCostThread = new Thread(() -> rideCost());
+                            rideCostThread.start();
+                            try {
+                                rideCostThread.join();
+                            } catch (InterruptedException ignored) {
+                            }
 
                             String payment = String.valueOf(taxiService.getPayment());
 
@@ -168,6 +169,32 @@ public class TaxiRideScreen extends AppCompatActivity {
     }
 
     public double rideCost(){
+        List<Map<String,Object>> values = new ArrayList<>();
+        Map<String, Object> paymentCheck = new LinkedHashMap<>();
+        paymentCheck.put("service_id",taxiService.getId());
+        values.add(paymentCheck);
+        String jsonString = jsonStringParser.createJsonString("getPayment",values);
+
+        Call<ResponseBody> call = api.getFunction(jsonString);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+
+                }else{
+                    System.out.println("Error message");
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+            }
+        });
+
+
         return 0;
     }
 

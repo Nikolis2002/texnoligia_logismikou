@@ -50,6 +50,7 @@ public class RouteHistory extends Fragment
 				LocalDateTime.now(),
 				new Payment(87, Payment.Method.WALLET),
 				null,
+				0,
 				new CityCar(
 						"ABC-1234",
 						true,
@@ -70,6 +71,7 @@ public class RouteHistory extends Fragment
 				LocalDateTime.now(),
 				new Payment(87, Payment.Method.WALLET),
 				null,
+				0,
 				new Van(
 						"ABC-1234",
 						1.40,
@@ -86,6 +88,7 @@ public class RouteHistory extends Fragment
 				LocalDateTime.now(),
 				new Payment(87, Payment.Method.WALLET),
 				null,
+				0,
 				new Taxi(
 						1,
 						"MONDEO",
