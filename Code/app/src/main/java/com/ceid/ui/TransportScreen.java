@@ -44,8 +44,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     private TaxiDriver taxiDriver;
     private ApiService api= ApiClient.getApiService();
     private boolean status;
-    long elapsedTime;
-    double costCalc;
+    private long elapsedTime;
+    private String costCalc;
 
     protected  void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
@@ -163,9 +163,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         List<java.util.Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> taxiReservationComplete = new LinkedHashMap<>();
         taxiReservationComplete.put("id",taxiRequest.getId());
-        taxiReservationComplete.put("method",String.valueOf(taxiRequest.getPaymentMethod()));
+        taxiReservationComplete.put("method",taxiRequest.getPaymentMethod());
         taxiReservationComplete.put("value",costCalc);
-
         values.add(taxiReservationComplete);
 
         String jsonString = jsonStringParser.createJsonString("completeTaxiRequest",values);
@@ -178,7 +177,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 if(response.isSuccessful()){
 
                     if(paymentString.equals("WALLET")){
-                        taxiDriver.getWallet().setBalance(costCalc);
+                        taxiDriver.getWallet().setBalance(Double.parseDouble(costCalc));
                     }
 
                     Intent intent = new Intent(TransportScreen.this,MainScreenTaxi.class);
@@ -206,8 +205,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
     public void calculateCost(){
         elapsedTime=getTime();
-        costCalc= elapsedTime*0.012;
-        costCalc += 1.5;
+        double cost= elapsedTime*0.012;
+        cost += 1.5;
+
+        costCalc=String.format("%.2f",cost);
     }
 
 

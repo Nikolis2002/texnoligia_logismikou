@@ -130,7 +130,6 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
         Map<String, Object> taxiReservationCancel = new LinkedHashMap<>();
         taxiReservationCancel.put("cancelService",taxiService.getId());
         values.add(taxiReservationCancel);
-        Log.d("test",String.valueOf(taxiService.getId()));
         String jsonString = jsonStringParser.createJsonString("cancelService",values);
 
         Call<ResponseBody> call = api.getFunction(jsonString);
