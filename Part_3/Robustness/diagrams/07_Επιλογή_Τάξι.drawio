@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="-z3Yh579_QSOd7VFaLvF" name="Page-1">
-        <mxGraphModel dx="1186" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="655" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -20,7 +20,7 @@
                         <mxPoint x="423.19500000000016" y="477" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="211" value="Επιλογή μεθόδου πληρωμής" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="26">
+                <mxCell id="211" value="Επιλογή μεθόδου πληρωμής" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="26" vertex="1" connectable="0">
                     <mxGeometry x="0.2574" y="1" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
@@ -42,7 +42,7 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="16" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="6" target="15" edge="1">
+                <mxCell id="16" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="6" target="15" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="Έχει ο πελάτης χρέος;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -101,17 +101,17 @@
                 <mxCell id="31" value="Έχει συμπληρωθεί η τοποθεσία" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="550" y="560" width="100" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="36" value="" style="edgeStyle=none;html=1;" parent="1" source="33" target="35" edge="1">
+                <mxCell id="36" value="" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="33" target="35" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="41" style="edgeStyle=none;html=1;entryX=1.03;entryY=0.516;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="33" target="40" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="33" value="Υπολογισμός κόστους μετακίνησης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="800" y="710" width="100" height="80" as="geometry"/>
+                    <mxGeometry x="800" y="720" width="100" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="35" value="Coordinates" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="815" y="825" width="70" height="70" as="geometry"/>
+                    <mxGeometry x="815" y="850" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="40" value="Εμφάνισε εκτίμηση κόστους&lt;br&gt;μαζί με κόστος επιβίβασης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="650" y="710" width="90" height="100" as="geometry"/>
@@ -199,7 +199,7 @@
                 <mxCell id="102" value="Όχι" style="edgeStyle=none;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;exitX=1.043;exitY=0.55;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="96" target="101" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="191" style="edgeStyle=none;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;fontSize=12;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" source="96" target="190" edge="1">
+                <mxCell id="191" style="edgeStyle=none;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;fontSize=12;fillColor=none;strokeColor=#b85450;strokeWidth=2;endArrow=none;endFill=0;" parent="1" source="96" target="190" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="96" value="Επαρκές υπόλοιπο;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">

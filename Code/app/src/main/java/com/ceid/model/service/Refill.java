@@ -55,7 +55,7 @@ public class Refill implements Serializable
 
 	public void calculatePoints(Service service)
 	{
-		int points = 0;
+		int points = 5;
 		service.addPoints(points);
 	}
 }

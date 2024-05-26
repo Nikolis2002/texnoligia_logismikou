@@ -49,7 +49,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
     protected  void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
-       setContentView(R.layout.transport_screen);
+       setContentView(R.layout.taxi_transport_screen);
 
        Intent taxiRequestData = getIntent();
        taxiRequest = (TaxiRequest) taxiRequestData.getSerializableExtra("taxiRequest");

@@ -1,9 +1,11 @@
 package com.ceid.model.transport;
 
+import com.ceid.model.service.GasStation;
 import com.ceid.util.*;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Tracker implements Serializable
 {

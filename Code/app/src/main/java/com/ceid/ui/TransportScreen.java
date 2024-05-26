@@ -49,6 +49,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     private double addNumber=20;
     Marker carMarker=null;
     private int[] disasterCounter= new int[2];
+    GasStation nearestGasStation = null;
 
 
     ArrayList<GasStation> gasStationList=null;
@@ -72,7 +73,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.refill);
+        setContentView(R.layout.transport_screen);
         disasterCounter[0]=disasterCounter[1]=0;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapViewRefill);
 
@@ -84,6 +85,52 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         timer.start();
     }
 
+    public void enableRefill(boolean status)
+    {
+        if(status)
+        {
+            trackerType="specialized";
+
+            if (gasStationList == null)
+            {
+                PostHelper.getGasStations(api, "gas_station", new GenericCallback<ArrayList<GasStation>>() {
+                    @Override
+                    public void onSuccess(ArrayList<GasStation> data) {
+
+                        gasStationList = data;
+
+                        for (GasStation station : data) {
+                            Marker marker = map.placePin(station.getCoords(), false);
+                            marker.setTag(station);
+                        }
+
+                        SpecializedTracker tracker = null;
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d("fail", "fail");
+                    }
+
+                });
+            }
+        }
+        else
+        {
+            trackerType="vechicleTracker";
+            TextView textView=findViewById(R.id.textView23);
+            textView.setText("Your Location:");
+
+            View view=findViewById(R.id.button7);
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    public void enableRefillButton(boolean status)
+    {
+        ((Button)findViewById(R.id.button7)).setEnabled(status);
+        ((Button)findViewById(R.id.button7)).setClickable(status);
+    }
 
     @Override
     public void onMapWrapperReady() {
@@ -108,39 +155,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         carMarker= map.placePin(car.getTracker().getCoords(), false,id);
         carMarker.setTag(car);
 
-
-
-        if(car.acceptsGas()) {
-            trackerType="specialized";
-            PostHelper.getGasStations(api, "gas_station", new GenericCallback<ArrayList<GasStation>>() {
-                @Override
-                public void onSuccess(ArrayList<GasStation> data) {
-
-                    for (GasStation station : data) {
-                        Marker marker = map.placePin(station.getCoords(), false);
-                        marker.setTag(station);
-                    }
-
-
-                    SpecializedTracker tracker = null;
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Log.d("fail", "fail");
-                }
-
-            });
-        }
-        else{
-            trackerType="vechicleTracker";
-            TextView textView=findViewById(R.id.textView23);
-            textView.setText("Your Location:");
-
-            View view=findViewById(R.id.button7);
-            view.setVisibility(View.GONE);
-        }
-
+        enableRefill(car.acceptsGas());
     }
 
     @Override
@@ -155,6 +170,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         TextInputEditText dista=findViewById(R.id.distaRefill);
                         addNumber=data.getDistanceTraveled();
                         dista.setText("Distance Travelled: "+ String.valueOf(addNumber));
+
+                        nearestGasStation = findNearestGasStation(data.getCoords(), gasStationList);
+
+						enableRefillButton(nearestGasStation != null);
                     }
 
                     @Override
@@ -166,6 +185,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                             disasterCounter[0]=0;
 
                         disasterCounter[0]++;
+
+                        enableRefillButton(false);
                     }
                 });
             }
@@ -177,13 +198,12 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
     }
 
-    public void refillBtn(View view){
+    public void onRefillStart(View view){
 
         PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(0),new GenericCallback<VehicleTracker>() {
 
             @Override
             public void onSuccess(VehicleTracker data) {
-                GasStation minGasStation=sortArrayList(car.getTracker().getCoords(), gasStationList);
 
                 View popupView = LayoutInflater.from(TransportScreen.this).inflate(R.layout.refill_popup, null);
 
@@ -211,7 +231,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     public void onClick(View v)
                     {
 
-                        callback(popupWindow,initTracker,minGasStation);
+                        callback(popupWindow,initTracker,nearestGasStation);
 
                     }
                 });
@@ -220,7 +240,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     @Override
                     public void onClick(View v)
                     {
-                        cancelRefill(popupWindow,initTracker,minGasStation);
+                        cancelRefill(popupWindow,initTracker,nearestGasStation);
                     }
                 });
 
@@ -234,14 +254,20 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         });
     }
 
-    public GasStation sortArrayList(Coordinates coords, ArrayList<GasStation> list){
+    public GasStation findNearestGasStation(Coordinates coords, ArrayList<GasStation> list){
         GasStation minGasStation=list.get(0);
+
         for(GasStation gasStation:list){
             if(coords.distance(gasStation.getCoords())<coords.distance(minGasStation.getCoords())){
                 minGasStation=gasStation;
             }
         }
-        return minGasStation;
+
+        if (coords.distance(minGasStation.getCoords()) < 500)
+        {
+            return minGasStation;
+        }
+        else return null;
     }
 
     public void showAlert(String msg){
@@ -300,8 +326,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
         //TODO
     }
+}
 
-    }
 
 
 
