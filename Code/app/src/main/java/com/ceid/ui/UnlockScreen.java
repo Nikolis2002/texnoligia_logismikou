@@ -15,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
+import com.ceid.Network.jsonStringParser;
 import com.ceid.model.transport.Rental;
+import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
@@ -23,8 +27,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyListener {
 
@@ -33,7 +46,8 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     private int serviceId;
     private Timer reservationTimer;
     private static final int CAMERA_REQUEST_CODE = 200;
-
+    private ApiService api= ApiClient.getApiService();
+    private Customer customer;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.unlock_screen);
@@ -42,8 +56,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         map = new Map(mapFragment, this, this);
 
         Intent data = getIntent();
-        this.rental = (Rental)data.getSerializableExtra("vehicle");
-        this.serviceId = data.getIntExtra("service_id", -1);
+        rental = (Rental)data.getSerializableExtra("vehicle");
+        serviceId = data.getIntExtra("service_id", -1);
+        customer= (Customer) data.getSerializableExtra("customer");
 
 
         reservationTimer = new Timer();
@@ -84,6 +99,66 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
+
+            List<java.util.Map<String,Object>> values = new ArrayList<>();
+            java.util.Map<String, Object> checkVehicle = new LinkedHashMap<>();
+            checkVehicle.put("id", serviceId);
+            checkVehicle.put("vehicle",rental.getId());
+            values.add(checkVehicle);
+
+            String jsonString = jsonStringParser.createJsonString("checkVehicleId",values);
+
+            Call<ResponseBody> call = api.getFunction(jsonString);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    try {
+                        boolean status = jsonStringParser.getbooleanFromJson(response);
+
+                        if(status){
+
+                            double balance= customer.getWallet().getBalance();
+
+                            if(balance>10){
+                                List<java.util.Map<String,Object>> values = new ArrayList<>();
+                                java.util.Map<String, Object> unlockDate = new LinkedHashMap<>();
+                                unlockDate.put("id", serviceId);
+                                values.add(checkVehicle);
+
+                                String jsonString = jsonStringParser.createJsonString("unlockVehicle",values);
+
+                                Call<ResponseBody> call_unlock = api.getFunction(jsonString);
+
+                                call_unlock.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+                                    }
+                                });
+                            }
+
+                        }
+
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+                }
+            });
+
+
         }else {
             ActivityCompat.requestPermissions(UnlockScreen.this, new String[]{Manifest.permission.CAMERA},
                     CAMERA_REQUEST_CODE);
