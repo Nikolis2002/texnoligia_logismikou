@@ -34,12 +34,13 @@ public class CustomerProfile extends Fragment
 		points=view.findViewById(R.id.points);
 		wallet=view.findViewById(R.id.wallet);
 
+
 		username.setText(user.getUsername());
 		name.setText(user.getName());
 		surname.setText(user.getLname());
 		email.setText(user.getEmail());
 		license.setText(customer.getLicense());
-		points.setText(String.valueOf(customer.getPoints()));
+		points.setText(String.valueOf(customer.getPoints().getPoints()));
 		wallet.setText(String.valueOf(user.getWallet().getBalance()));
 
 		return view;

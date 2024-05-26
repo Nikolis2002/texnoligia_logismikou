@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
-import com.ceid.util.Fuel;
 import com.ceid.util.PositiveInteger;
 
 import java.util.ArrayList;

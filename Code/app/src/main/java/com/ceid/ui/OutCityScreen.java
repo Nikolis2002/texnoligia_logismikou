@@ -45,7 +45,6 @@ import retrofit2.Response;
 public class OutCityScreen extends AppCompatActivity implements AdapterView.OnItemClickListener, ActivityResultCallback<ActivityResult> {
 
     private RecyclerView recyclerView;
-    private GarageListAdapterOld adapter;
     private Bundle locationScreenData = null;
     private Intent locationIntent;
     private ActivityResultLauncher<Intent> activityResultLauncher;

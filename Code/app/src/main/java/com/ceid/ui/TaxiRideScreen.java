@@ -1,6 +1,5 @@
 package com.ceid.ui;
 
-import java.util.concurrent.CountDownLatch;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
-import com.ceid.model.users.Points;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,23 +30,23 @@ import retrofit2.Response;
 public class TaxiRideScreen extends AppCompatActivity {
 
     private Chronometer timer;
-    private Handler handler;
+    private Handler handlerPickUp = new Handler();
+    private Handler handlerStatus;
+
     private Runnable taxiRideCheck;
     private Runnable taxiPickUp;
     private TaxiService taxiService;
     private ApiService api= ApiClient.getApiService();
     private Customer customer;
     private double cost;
-    private CountDownLatch waitCost;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_ride_screen);
         Intent intent = getIntent();
         customer = (Customer)((App) getApplicationContext()).getUser();
         taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
-        CountDownLatch waitCost = new CountDownLatch(1);
 
-        handler = new Handler();
 
 
         taxiPickUp = new Runnable() {
@@ -57,11 +55,11 @@ public class TaxiRideScreen extends AppCompatActivity {
 
                 isPickUp();
 
-                handler.postDelayed(this, 2000);
+                handlerPickUp.postDelayed(this, 2000);
             }
         };
 
-        handler.postDelayed(taxiPickUp, 2000);
+        handlerPickUp.postDelayed(taxiPickUp, 2000);
 
 
 
@@ -88,19 +86,19 @@ public class TaxiRideScreen extends AppCompatActivity {
                         boolean status = jsonStringParser.getbooleanFromJson(response);
 
                         if(status){
+                            handlerPickUp.removeCallbacks(taxiPickUp);
+                            handlerStatus = new Handler();
                             timer = findViewById(R.id.timer);
                             timer.start();
-                            handler.removeCallbacks(taxiPickUp);
-
                             taxiRideCheck = new Runnable() {
                                 @Override
                                 public void run() {
                                     rideStatus();
-                                    handler.postDelayed(this, 2000);
+                                    handlerStatus.postDelayed(this, 2000);
                                 }
                             };
 
-                            handler.postDelayed(taxiRideCheck, 2000);
+                            handlerStatus.postDelayed(taxiRideCheck, 2000);
 
                         }
 
@@ -138,65 +136,14 @@ public class TaxiRideScreen extends AppCompatActivity {
                     try {
                         boolean status = jsonStringParser.getbooleanFromJson(response);
 
-                        if(status){
-                            handler.removeCallbacks(taxiRideCheck);
+                        if(status) {
+                            timer.stop();
+                            handlerStatus.removeCallbacks(taxiRideCheck);
 
                             rideCost();
-
-
-                            String payment = String.valueOf(taxiService.getPayment().getMethod());
-
-                            if(payment.equals("CASH")){
-                                Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
-                                startActivity(intent);
-                                finish();
-                            }else{
-                                double balance = customer.getWallet().getBalance();
-                                if(balance>cost){
-                                    customer.getWallet().withdraw(cost);
-
-                                    int points = Points.calculatePoints(cost);
-                                    customer.addPoints(points);
-                                    taxiService.addPoints(points);
-
-                                    int new_points = customer.getPoints().getPoints();
-
-                                    List<Map<String,Object>> values = new ArrayList<>();
-                                    java.util.Map<String, Object> updatePoints = new LinkedHashMap<>();
-                                    updatePoints.put("service_id",taxiService.getId());
-                                    updatePoints.put("points",points);
-                                    updatePoints.put("username",customer.getUsername());
-                                    updatePoints.put("newpoints",new_points);
-                                    values.add(updatePoints);
-
-                                    String jsonString = jsonStringParser.createJsonString("updatePoints",values);
-                                    Call<ResponseBody> call_points = api.getFunction(jsonString);
-
-                                    call_points.enqueue(new Callback<ResponseBody>() {
-                                        @Override
-                                        public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                                            Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-
-                                        @Override
-                                        public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
-
-                                        }
-                                    });
-
-                                }else{
-                                    customer.getWallet().withdraw(cost);
-                                    Toast.makeText(getApplicationContext(), "Your wallet balance is negative", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(TaxiRideScreen.this,MainScreen.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
                             }
-                        }
 
-                    } catch (IOException | InterruptedException e) {
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
 
@@ -212,13 +159,13 @@ public class TaxiRideScreen extends AppCompatActivity {
         });
     }
 
-    public void rideCost() throws InterruptedException {
+    public void rideCost(){
         List<Map<String,Object>> values = new ArrayList<>();
         Map<String, Object> paymentCheck = new LinkedHashMap<>();
         paymentCheck.put("service_id",taxiService.getId());
         values.add(paymentCheck);
         String jsonString = jsonStringParser.createJsonString("getPayment",values);
-        waitCost.await();
+
         Call<ResponseBody> call = api.getFunction(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
@@ -228,8 +175,52 @@ public class TaxiRideScreen extends AppCompatActivity {
                     try {
                         ArrayList<String> responseArray = jsonStringParser.getResults(response);
                         cost = Double.parseDouble(responseArray.get(0));
-                        waitCost.countDown();
+                        String payment = String.valueOf(taxiService.getPayment().getMethod());
 
+                        if (payment.equals("CASH")) {
+                            Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            double balance = customer.getWallet().getBalance();
+                            if (balance > cost) {
+                                customer.getWallet().withdraw(cost);
+                                int points = customer.getPoints().calcPoints(cost);
+                                int new_points = points + customer.getPoints().getPoints();
+
+                                List<Map<String, Object>> values = new ArrayList<>();
+                                java.util.Map<String, Object> updatePoints = new LinkedHashMap<>();
+                                updatePoints.put("service_id", taxiService.getId());
+                                updatePoints.put("points", points);
+                                updatePoints.put("username", customer.getUsername());
+                                updatePoints.put("newPoints", new_points);
+                                values.add(updatePoints);
+
+                                String jsonString = jsonStringParser.createJsonString("updatePoints", values);
+                                Call<ResponseBody> call_points = api.getFunction(jsonString);
+
+                                call_points.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                                        Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+                                    }
+                                });
+
+                            } else {
+                                customer.getWallet().withdraw(cost);
+                                Toast.makeText(getApplicationContext(), "Your wallet balance is negative", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -237,8 +228,6 @@ public class TaxiRideScreen extends AppCompatActivity {
 
                 }else{
                     System.out.println("Error message");
-                    waitCost.countDown();
-
                 }
             }
 
@@ -247,6 +236,7 @@ public class TaxiRideScreen extends AppCompatActivity {
 
             }
         });
+
 
 
     }
@@ -260,15 +250,15 @@ public class TaxiRideScreen extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        handler.removeCallbacks(taxiPickUp);
-        handler.removeCallbacks(taxiRideCheck);
+       handlerPickUp.removeCallbacks(taxiPickUp);
+       handlerStatus.removeCallbacks(taxiRideCheck);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacks(taxiPickUp);
-        handler.removeCallbacks(taxiRideCheck);
+        handlerPickUp.removeCallbacks(taxiPickUp);
+        handlerStatus.removeCallbacks(taxiRideCheck);
     }
 
 }
