@@ -485,6 +485,7 @@ CREATE TABLE bank(
 -- Views
 -- ==========================================================================================================================
 
+DROP VIEW IF EXISTS rental_cars;
 
 CREATE VIEW rental_cars AS
 SELECT license_plate, car.id, manufacturer, model, manuf_year, rate, coords, gas_level
@@ -493,12 +494,20 @@ INNER JOIN rental ON car.id = rental.id
 INNER JOIN transport on car.id = transport.id
 WHERE free_status = "TRUE";
 
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS rental_motorcycles;
+
 CREATE VIEW rental_motorcycles AS
 SELECT license_plate, motorcycle.id, manufacturer, model, manuf_year, rate, coords, gas_level
 FROM motorcycle
 INNER JOIN rental ON motorcycle.id = rental.id
 INNER JOIN transport on motorcycle.id = transport.id
 WHERE free_status = "TRUE";
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS rental_bikes;
 
 CREATE VIEW rental_bikes AS
 SELECT bicycle.id, manufacturer, model, manuf_year, rate, coords
@@ -507,6 +516,10 @@ INNER JOIN rental ON bicycle.id = rental.id
 INNER JOIN transport on bicycle.id = transport.id
 WHERE free_status = "TRUE";
 
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS rental_scooters;
+
 CREATE VIEW rental_scooters AS
 SELECT electric_scooter.id, manufacturer, model, manuf_year, rate, coords
 FROM electric_scooter
@@ -514,15 +527,129 @@ INNER JOIN rental ON electric_scooter.id = rental.id
 INNER JOIN transport on electric_scooter.id = transport.id
 WHERE free_status = "TRUE";
 
-DROP VIEW IF EXISTS garage_vehicles;
+-- =========================================================================================================================
 
-CREATE VIEW garage_vehicles AS
-SELECT "van" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, oct.garage
+DROP VIEW IF EXISTS out_city_vehicles;
+
+CREATE VIEW out_city_vehicles AS
+SELECT "van" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, g.id AS "garage_id", g.name AS "garage_name"
 FROM transport t
 INNER JOIN out_city_transport oct ON t.id = oct.id
 INNER JOIN out_city_van ocv ON ocv.id = oct.id
+INNER JOIN garage g ON oct.garage = g.id
 UNION
-SELECT "car" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, oct.garage
+SELECT "car" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, g.id AS "garage_id", g.name AS "garage_name"
 FROM transport t
 INNER JOIN out_city_transport oct ON t.id = oct.id
-INNER JOIN out_city_car occ ON occ.id = oct.id;
+INNER JOIN out_city_car occ ON occ.id = oct.id
+INNER JOIN garage g ON oct.garage = g.id;
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS rental_vehicles;
+
+CREATE VIEW rental_vehicles AS
+SELECT "car" AS "type", license_plate, car.id, manufacturer, model, manuf_year, rate, coords, gas_level
+FROM car
+INNER JOIN rental ON car.id = rental.id
+INNER JOIN transport on car.id = transport.id
+UNION
+SELECT "motorcycle" AS "type", license_plate, motorcycle.id, manufacturer, model, manuf_year, rate, coords, gas_level
+FROM motorcycle
+INNER JOIN rental ON motorcycle.id = rental.id
+INNER JOIN transport on motorcycle.id = transport.id
+UNION
+SELECT "bicycle" AS "type", NULL AS "license_plate", bicycle.id, manufacturer, model, manuf_year, rate, coords, NULL AS "gas_level"
+FROM bicycle
+INNER JOIN rental ON bicycle.id = rental.id
+INNER JOIN transport on bicycle.id = transport.id
+UNION
+SELECT "scooter" AS "type", NULL AS "license_plate", electric_scooter.id, manufacturer, model, manuf_year, rate, coords, NULL AS "gas_level"
+FROM electric_scooter
+INNER JOIN rental ON electric_scooter.id = rental.id
+INNER JOIN transport on electric_scooter.id = transport.id;
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS taxi_vehicles;
+
+CREATE VIEW taxi_vehicles AS
+SELECT taxi.id, license_plate, coords, manufacturer, model, manuf_year
+FROM taxi
+INNER JOIN transport ON taxi.id = transport.id;
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS rental_history;
+
+CREATE VIEW rental_history AS
+SELECT
+    "rental" AS "type",
+    p.customer_username AS "user",
+    s.id, s.creation_date,
+    s.status_date AS "completion_date",
+    s.earned_points,
+    p.payment_value AS "amount",
+    p.payment_method,
+    rs.selected_vehicle AS "other_id", -- here it is vehicle id
+    rs.rating_id
+FROM service s
+INNER JOIN rental_service rs ON s.id = rs.service_id
+INNER JOIN payment p ON s.id = p.id
+WHERE s.service_status = "COMPLETED";
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS taxi_history;
+
+CREATE VIEW taxi_history AS
+SELECT
+    "taxi" AS "type",
+    p.customer_username AS "user",
+    s.id, s.creation_date,
+    s.status_date AS "completion_date",
+    s.earned_points,
+    p.payment_value AS "amount",
+    p.payment_method,
+    ts.request_id AS "other_id", -- here it is taxi request id
+    ts.rating_id
+FROM service s
+INNER JOIN taxi_service ts ON s.id = ts.service_id
+INNER JOIN payment p ON s.id = p.id
+WHERE s.service_status = "COMPLETED";
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS out_city_history;
+
+CREATE VIEW out_city_history AS
+SELECT
+    "out_city" AS "type",
+    p.customer_username AS "user",
+    s.id, s.creation_date,
+    s.status_date AS "completion_date",
+    s.earned_points,
+    p.payment_value AS "amount",
+    p.payment_method,
+    ocs.vehicle_id AS "other_id", -- here it is vehicle id
+    ocs.rating_id
+FROM service s
+INNER JOIN out_city_service ocs ON s.id = ocs.service_id
+INNER JOIN payment p ON s.id = p.id
+WHERE s.service_status = "COMPLETED";
+
+-- =========================================================================================================================
+
+DROP VIEW IF EXISTS history;
+
+CREATE VIEW history AS
+SELECT *
+FROM
+(
+    SELECT * FROM rental_history
+    UNION
+    SELECT * FROM taxi_history
+    UNION
+    SELECT * FROM out_city_history
+) t
+ORDER BY creation_date DESC;

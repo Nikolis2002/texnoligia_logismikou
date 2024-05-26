@@ -123,11 +123,78 @@ app.get("/getGarages", async(req,res)=>
 
         for (let garage of garageList)
         {
-            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, rate, seats, gas FROM garage_vehicles WHERE garage = ?", [garage.id]);
+            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, rate, seats, gas FROM out_city_vehicles WHERE garage_id = ?", [garage.id]);
             garage.vehicles = vehicleList.result;
         }
 
         res.status(200).send(garageList);
+    }
+    catch(err)
+    {
+        console.error("Error processing request:", err);
+        res.status(500).send(new helper.ResponseMessage("Could not process request").string());
+    }
+});
+
+app.get("/history", async(req, res)=>
+{
+    const user = req.query.user;
+
+    console.log(`User: ${user}`)
+
+    try
+    {   
+        let historyList = await helper.queryPromise(con, "SELECT * FROM history WHERE user = ?", [user]);
+        historyList = historyList.result;
+
+        for (let entry of historyList)
+        {
+            delete entry.user;
+            
+            //Give rating to every entry in history list, the same way for all services
+            let ratingData = await helper.queryPromise(con, `SELECT * FROM ${entry.type}_rating WHERE id = ?`, [entry.rating_id]);
+            delete entry.rating_id;
+            entry.rating = ratingData.result[0];
+
+            //Extra data for each service
+            switch(entry.type)
+            {
+                case "rental":
+                {
+                    //Vehicle data
+                    let vehicleData = await helper.queryPromise(con, "SELECT * FROM rental_vehicles WHERE id = ?", [entry.other_id]);
+                    delete entry.other_id;
+                    entry.vehicle = vehicleData.result[0];
+                }
+                break;
+
+                case "taxi":
+                {
+                    //Taxi request
+                    let requestData = await helper.queryPromise(con, "SELECT * FROM taxi_request WHERE id = ?", [entry.other_id]);
+                    delete entry.other_id;
+                    entry.taxi_request = requestData.result[0];
+
+                    let driverData = await helper.queryPromise(con, "SELECT * FROM taxi_driver WHERE username = ?", [entry.taxi_request.assigned_driver]);
+                    entry.taxi_request.assigned_driver = driverData.result[0];
+
+                    let vehicleData = await helper.queryPromise(con, "SELECT * FROM taxi_vehicles WHERE id = ?", [entry.taxi_request.assigned_driver.taxi]);
+                    entry.taxi_request.assigned_driver.taxi = vehicleData.result[0];
+                }
+                break;
+
+                case "out_city":
+                {
+                    //Vehicle data
+                    let vehicleData = await helper.queryPromise(con, "SELECT * FROM out_city_vehicles WHERE id = ?", [entry.other_id]);
+                    delete entry.other_id;
+                    entry.vehicle = vehicleData.result[0];
+                }
+                break;
+            }
+        }
+
+        res.status(200).send(historyList);
     }
     catch(err)
     {
