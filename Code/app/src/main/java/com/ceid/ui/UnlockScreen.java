@@ -71,7 +71,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                 runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(), "Reservation time passed", Toast.LENGTH_SHORT).show();
-
+                        cancelReservation();
                 });
             }
         },5000);
@@ -94,7 +94,30 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     }
 
     public void cancelReservation(){
-        
+        List<java.util.Map<String,Object>> values = new ArrayList<>();
+        java.util.Map<String, Object> cancelReservation = new LinkedHashMap<>();
+        cancelReservation.put("id", serviceId);
+        cancelReservation.put("vehicle",rental.getId());
+        values.add(cancelReservation);
+
+        String jsonString = jsonStringParser.createJsonString("cancelReservation",values);
+
+        Call<ResponseBody> call = api.getFunction(jsonString);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+            }
+        });
     }
 
     public void unlockVehicle(View view){
@@ -188,6 +211,10 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                                     }
                                 });
+                            }else{
+                                Toast.makeText(getApplicationContext(), "You don't have the required amount in your wallet", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Reservation canceled", Toast.LENGTH_SHORT).show();
+                                cancelReservation();
                             }
 
                         }
@@ -241,8 +268,10 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     }
 
     public void cancelReservation(View view){
+        cancelReservation();
         Intent intent = new Intent(this,MainScreen.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
