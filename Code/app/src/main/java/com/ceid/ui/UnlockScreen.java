@@ -123,10 +123,11 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                             double balance= customer.getWallet().getBalance();
 
                             if(balance>10){
+                                customer.getWallet().withdraw(10);
                                 List<java.util.Map<String,Object>> values = new ArrayList<>();
                                 java.util.Map<String, Object> unlockDate = new LinkedHashMap<>();
                                 unlockDate.put("id", serviceId);
-                                values.add(checkVehicle);
+                                values.add(unlockDate);
 
                                 String jsonString = jsonStringParser.createJsonString("unlockVehicle",values);
 
