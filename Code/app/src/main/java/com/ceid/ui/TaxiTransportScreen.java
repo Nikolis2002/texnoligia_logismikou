@@ -45,7 +45,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
     private ApiService api= ApiClient.getApiService();
     private boolean status;
     private long elapsedTime;
-    private String costCalc;
+    private double costCalc;
 
     protected  void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
@@ -177,7 +177,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
                 if(response.isSuccessful()){
 
                     if(paymentString.equals("WALLET")){
-                        taxiDriver.getWallet().setBalance(Double.parseDouble(costCalc));
+                        taxiDriver.getWallet().setBalance(costCalc);
                     }
 
                     Intent intent = new Intent(TaxiTransportScreen.this,MainScreenTaxi.class);
@@ -208,7 +208,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
         double cost= elapsedTime*0.012;
         cost += 1.5;
 
-        costCalc=String.format("%.2f",cost);
+        costCalc=cost;
     }
 
 
