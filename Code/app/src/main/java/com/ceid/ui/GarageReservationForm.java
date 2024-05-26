@@ -23,6 +23,7 @@ import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
 import com.ceid.model.transport.Van;
 import com.ceid.model.users.Customer;
+import com.ceid.util.DateFormat;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -264,6 +265,10 @@ public class GarageReservationForm extends AppCompatActivity
 								0,
 								0
 						);
+						String yourDate= DateFormat.format(selectedDatetime);
+						TextView textView=findViewById(R.id.textPop);
+						textView.setText("You can get you vehicle on the following date: "+yourDate);
+
 
 					} else {
 						Log.d("Response", "Unsuccessful");
