@@ -135,7 +135,7 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
                 if(response.isSuccessful()){
-                    Intent intent = new Intent(context,TransportScreen.class);
+                    Intent intent = new Intent(context, TaxiTransportScreen.class);
                     intent.putExtra("taxiRequest",taxiRequest);
                     context.startActivity(intent);
 

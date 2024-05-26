@@ -2,11 +2,7 @@ package com.ceid.model.transport;
 
 import androidx.annotation.NonNull;
 
-import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
-import com.ceid.util.DateFormat;
-
-import java.util.ArrayList;
 
 public abstract class Rental extends InCityTransport
 {
@@ -71,7 +67,7 @@ public abstract class Rental extends InCityTransport
     @NonNull
     public abstract String toString();
 
-    public boolean checksGas(){
+    public boolean acceptsGas(){
         return (tracker instanceof SpecializedTracker);
     }
 }

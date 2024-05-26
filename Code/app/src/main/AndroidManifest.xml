@@ -49,7 +49,7 @@
         <activity android:name=".RouteHistory" />
         <activity android:name=".TaxiRequestWaitScreen" />
         <activity android:name=".TaxiRideScreen" />
-        <activity android:name=".TransportScreen" />
+        <activity android:name=".TaxiTransportScreen" />
         <activity android:name=".TaxiRequestsScreen" />
         <activity android:name=".ProfileTaxiScreen" />
         <activity
