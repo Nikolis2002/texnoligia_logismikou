@@ -123,6 +123,15 @@ END$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS cancelReservation;
+delimiter $
+create procedure cancelReservation(in serviceId int,in rentalId int)
+begin
+	update service set service_status='CANCELLED',status_date=now() where id=serviceId;
+	update rental set free_status='TRUE' where id=rentalId;
+end$
+delimiter ; 
+
 -- =====================================================================================================
 
 DROP VIEW IF EXISTS selectTaxiRequests;

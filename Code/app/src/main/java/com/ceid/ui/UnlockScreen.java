@@ -45,7 +45,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         this.rental = (Rental)data.getSerializableExtra("vehicle");
         this.serviceId = data.getIntExtra("service_id", -1);
 
-        Log.d("DISTATEST", rental.toString());
 
         reservationTimer = new Timer();
 
@@ -55,6 +54,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                 runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(), "Reservation time passed", Toast.LENGTH_SHORT).show();
+
                 });
             }
         },5000);
@@ -76,6 +76,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
     }
 
+    public void cancelReservation(){
+        
+    }
 
     public void unlockVehicle(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
