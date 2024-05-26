@@ -24,6 +24,7 @@ import com.ceid.model.transport.CityCar;
 import com.ceid.model.transport.Motorcycle;
 import com.ceid.model.transport.Rental;
 import com.ceid.model.users.Customer;
+import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
@@ -32,7 +33,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -63,8 +68,8 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         Intent data = getIntent();
         rental = (Rental)data.getSerializableExtra("vehicle");
         serviceId = data.getIntExtra("service_id", -1);
-        customer= (Customer) data.getSerializableExtra("customer");
-
+        //customer= (Customer) data.getSerializableExtra("customer");
+        customer  = (Customer)User.getCurrentUser();
 
         reservationTimer = new Timer();
 
@@ -200,7 +205,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                         creationDate.put("service_id",serviceId);
                                         values.add(creationDate);
 
-                                        String jsonString = jsonStringParser.createJsonString("checkTaxiComplete",values);
+                                        String jsonString = jsonStringParser.createJsonString("rentalService",values);
                                         Call<ResponseBody> call_date = api.getFunction(jsonString);
 
                                         call_date.enqueue(new Callback<ResponseBody>() {
@@ -211,7 +216,12 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                                                     try {
                                                         ArrayList<String> responseArray = jsonStringParser.getResults(response);
-                                                        LocalDateTime date = LocalDateTime.parse(responseArray.get(0));
+
+                                                        Instant instant = Instant.parse(responseArray.get(0));
+                                                        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+                                                        LocalDateTime date = zonedDateTime.toLocalDateTime();
+
+                                                        //LocalDateTime date = LocalDateTime.parse(, DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss"));
 
                                                         RentalService rentalService = new RentalService(
                                                                 serviceId,
