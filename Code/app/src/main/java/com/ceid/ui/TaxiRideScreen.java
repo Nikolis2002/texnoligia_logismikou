@@ -15,6 +15,7 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
+import com.ceid.model.users.Points;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -185,8 +186,12 @@ public class TaxiRideScreen extends AppCompatActivity {
                             double balance = customer.getWallet().getBalance();
                             if (balance > cost) {
                                 customer.getWallet().withdraw(cost);
-                                int points = customer.getPoints().calcPoints(cost);
-                                int new_points = points + customer.getPoints().getPoints();
+
+                                int points = Points.calculatePoints(cost);
+                                customer.addPoints(points);
+                                taxiService.addPoints(points);
+
+                                int new_points = customer.getPoints().getPoints();
 
                                 List<Map<String, Object>> values = new ArrayList<>();
                                 java.util.Map<String, Object> updatePoints = new LinkedHashMap<>();
