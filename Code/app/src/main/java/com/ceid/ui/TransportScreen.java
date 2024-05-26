@@ -83,10 +83,54 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         timer = findViewById(R.id.timer2);
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
-
-        enableRefillButton(false);
     }
 
+    public void enableRefill(boolean status)
+    {
+        if(status)
+        {
+            trackerType="specialized";
+
+            if (gasStationList == null)
+            {
+                PostHelper.getGasStations(api, "gas_station", new GenericCallback<ArrayList<GasStation>>() {
+                    @Override
+                    public void onSuccess(ArrayList<GasStation> data) {
+
+                        gasStationList = data;
+
+                        for (GasStation station : data) {
+                            Marker marker = map.placePin(station.getCoords(), false);
+                            marker.setTag(station);
+                        }
+
+                        SpecializedTracker tracker = null;
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d("fail", "fail");
+                    }
+
+                });
+            }
+        }
+        else
+        {
+            trackerType="vechicleTracker";
+            TextView textView=findViewById(R.id.textView23);
+            textView.setText("Your Location:");
+
+            View view=findViewById(R.id.button7);
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    public void enableRefillButton(boolean status)
+    {
+        ((Button)findViewById(R.id.button7)).setEnabled(status);
+        ((Button)findViewById(R.id.button7)).setClickable(status);
+    }
 
     @Override
     public void onMapWrapperReady() {
@@ -111,38 +155,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         carMarker= map.placePin(car.getTracker().getCoords(), false,id);
         carMarker.setTag(car);
 
-
-
-        if(car.acceptsGas()) {
-            trackerType="specialized";
-            PostHelper.getGasStations(api, "gas_station", new GenericCallback<ArrayList<GasStation>>() {
-                @Override
-                public void onSuccess(ArrayList<GasStation> data) {
-
-                    for (GasStation station : data) {
-                        Marker marker = map.placePin(station.getCoords(), false);
-                        marker.setTag(station);
-                    }
-
-                    SpecializedTracker tracker = null;
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Log.d("fail", "fail");
-                }
-
-            });
-        }
-        else{
-            trackerType="vechicleTracker";
-            TextView textView=findViewById(R.id.textView23);
-            textView.setText("Your Location:");
-
-            View view=findViewById(R.id.button7);
-            view.setVisibility(View.GONE);
-        }
-
+        enableRefill(car.acceptsGas());
     }
 
     @Override
@@ -172,6 +185,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                             disasterCounter[0]=0;
 
                         disasterCounter[0]++;
+
+                        enableRefillButton(false);
                     }
                 });
             }
@@ -311,13 +326,6 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
         //TODO
     }
-
-    public void enableRefillButton(boolean status)
-    {
-        ((Button)findViewById(R.id.button7)).setEnabled(status);
-        ((Button)findViewById(R.id.button7)).setClickable(status);
-    }
-
 }
 
 
