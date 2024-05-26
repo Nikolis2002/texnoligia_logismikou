@@ -312,6 +312,7 @@ CREATE TABLE rental_service
     service_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     selected_vehicle INT UNSIGNED NOT NULL,
     refill_date DATETIME, -- NULL, unless the customer refills the vehicle
+	unlock_vehicle datetime,
     rating_id INT UNSIGNED,
     left_side_img LONGBLOB,
     right_side_img LONGBLOB,

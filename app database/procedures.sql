@@ -158,6 +158,31 @@ begin
 end$
 delimiter ; 
 
+drop procedure if EXISTS checkVehicleId;
+delimiter $
+create procedure checkVehicleId(in serviceId int,in vehicle_id int)
+begin
+	declare check_id int;
+	
+	select selected_vehicle into check_id where service_id=serviceId;
+	
+	if vehocle_id=check_id then
+		Select 'TRUE' as result;
+	else
+		select 'FALSE' as result;
+	end if;
+	
+end$
+delimiter ;
+
+drop procedure if exists unlockVehicle;
+delimiter $
+create procedure unlockVehicle(in serviceId int)
+begin
+	update rental_service set unlock_vehicle=now() where service_id=serviceId;
+end$
+delimiter ;
+
 -- =====================================================================================================
 
 DROP VIEW IF EXISTS selectTaxiRequests;
