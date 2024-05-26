@@ -43,11 +43,13 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/timeString" />
 
             <TextView
                 android:id="@+id/timeString"
-                android:layout_width="110dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
 
                 android:layout_alignParentStart="true"
@@ -55,7 +57,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
-                android:text="@string/time"
+                android:text="@string/timesec"
                 android:textAppearance="@style/label" />
 
 
@@ -76,11 +78,13 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/costString" />
 
             <TextView
                 android:id="@+id/costString"
-                android:layout_width="110dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
 
                 android:layout_alignParentStart="true"
@@ -109,11 +113,13 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="11dp"
+                android:layout_toEndOf="@+id/pointsString" />
 
             <TextView
                 android:id="@+id/pointsString"
-                android:layout_width="110dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
 
                 android:layout_alignParentStart="true"
