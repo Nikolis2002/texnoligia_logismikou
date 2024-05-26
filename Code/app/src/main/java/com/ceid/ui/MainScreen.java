@@ -23,8 +23,7 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.main_screen);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
-        customer = (Customer)((App) getApplicationContext()).getUser();
-        User.setCurrentUser(customer);
+        //User.setCurrentUser(customer);
         //Customer customer=(Customer) User.setCurrentUser(customer);
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -90,8 +89,12 @@ public class MainScreen extends AppCompatActivity {
     }
     public void logout(View view)
     {
+        User.wipeCurrentUser();
+
+        Intent intent = new Intent(getApplicationContext(),Login.class);
+        startActivity(intent);
         finish();
-        System.exit(0);
+        //System.exit(0);
     }
 
 }

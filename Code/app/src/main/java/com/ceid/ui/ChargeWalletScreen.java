@@ -32,7 +32,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class ChargeWalletScreen extends AppCompatActivity implements postInterface {
-    protected User user;
+    private User user;
     protected Customer customer;
     private TextView money;
     private List<Card> cards;
@@ -45,10 +45,12 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chargewallet);
+
         money=findViewById(R.id.cardNum);
         arrayCards=findViewById(R.id.spinner);
         amount = findViewById(R.id.amount);
         user=User.getCurrentUser();
+        Wallet wallet=user.getWallet();
         money.setText(String.valueOf(user.getWallet().getBalance()));
         cards=user.getWallet().getCards();
         cardSpinner= new ArrayList<>();
@@ -66,7 +68,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     public void chargeWalletButton(View view){
         List<Map<String, Object>> values = new ArrayList<>();
         Map<String, Object> charge=new LinkedHashMap<>();
-        charge.put("username", customer.getUsername());
+        charge.put("username",user.getUsername());
         charge.put("amount",amount.getText().toString());
         charge.put("value",arrayCards.getSelectedItem().toString());
 
@@ -85,9 +87,8 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         {
             Toast.makeText(getApplicationContext(), "Value added successfully!",
                     Toast.LENGTH_LONG).show();
-            customer.getWallet().addToWallet(Double.parseDouble(amount.getText().toString()));
-            Intent intent=new Intent(getApplicationContext(), MainScreen.class);
-            startActivity(intent);
+            user.getWallet().addToWallet(Double.parseDouble(amount.getText().toString()));
+            finish();
         }
         else{
             Toast.makeText(getApplicationContext(), "No money!",

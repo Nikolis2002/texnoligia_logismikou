@@ -13,6 +13,7 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.users.TaxiDriver;
+import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Location;
 import com.google.android.material.textfield.TextInputEditText;
@@ -37,7 +38,7 @@ public class TaxiRequestsScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_request_screen);
-        taxiDriver = (TaxiDriver)((App) getApplicationContext()).getUser();
+        taxiDriver = (TaxiDriver) User.getCurrentUser();
         taxiRequestSelect();
     }
 

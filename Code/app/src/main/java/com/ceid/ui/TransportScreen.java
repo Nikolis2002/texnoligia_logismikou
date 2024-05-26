@@ -78,7 +78,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             car
     );
     String trackerType;
-    //Customer customer =(Customer)((App) getApplicationContext()).getUser();
+
     private final ApiService api= ApiClient.getApiService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

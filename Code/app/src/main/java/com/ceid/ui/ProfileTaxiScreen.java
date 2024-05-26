@@ -6,13 +6,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.model.users.TaxiDriver;
+import com.ceid.model.users.User;
 
 public class ProfileTaxiScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_profile_screen);
 
-        TaxiDriver taxiDriver=(TaxiDriver)((App) getApplicationContext()).getUser();
+        TaxiDriver taxiDriver=(TaxiDriver) User.getCurrentUser();
 
         TextView username = findViewById(R.id.usernameProfile);
         TextView name = findViewById(R.id.nameProfile);

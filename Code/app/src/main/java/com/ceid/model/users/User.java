@@ -83,4 +83,6 @@ public class User implements Serializable
     {
         return User.currentUser;
     }
+
+    public static void wipeCurrentUser(){User.currentUser=null;}
 }

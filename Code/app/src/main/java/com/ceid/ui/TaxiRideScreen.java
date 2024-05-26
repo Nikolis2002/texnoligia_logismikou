@@ -16,6 +16,7 @@ import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.Points;
+import com.ceid.model.users.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class TaxiRideScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_ride_screen);
         Intent intent = getIntent();
-        customer = (Customer)((App) getApplicationContext()).getUser();
+        customer = (Customer) User.getCurrentUser();
         taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
 
 
