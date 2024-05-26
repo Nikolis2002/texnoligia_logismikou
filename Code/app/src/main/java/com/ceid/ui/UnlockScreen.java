@@ -249,6 +249,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                 cancelReservation();
                             }
 
+                        }else{
+                            Toast.makeText(getApplicationContext(), "This is not the vehicle you choose", Toast.LENGTH_SHORT).show();
+                            cancelReservation();
                         }
 
 
