@@ -370,6 +370,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
         bundle.putSerializable("service",service);
         bundle.putDouble("time", ((double)elapsedMillis/60000));
+        bundle.putString("timestring", (String) timer.getText());
+
+        Log.d("TIMETEST", (String)timer.getText());
+
         intent.putExtras(bundle);
         startActivity(intent);
     }
