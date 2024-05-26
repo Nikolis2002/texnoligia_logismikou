@@ -2,7 +2,6 @@ package com.ceid.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -24,19 +23,15 @@ import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChargeWallet extends AppCompatActivity implements postInterface {
+public class ChargeWalletScreen extends AppCompatActivity implements postInterface {
     protected User user;
     protected Customer customer;
     private TextView money;

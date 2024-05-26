@@ -100,4 +100,12 @@ public class TaxiRequest implements Serializable
                 destination.toString(),
                 payment.toString());
     }
+
+    public String calculateEta(Coordinates taxiCoords)
+    {
+        float distance=this.pickupLocation.distance(taxiCoords);
+        double timeCalc= (distance*0.1)/60;
+
+        return String.format("%.2f", timeCalc);
+    }
 }

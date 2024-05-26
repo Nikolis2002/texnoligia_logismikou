@@ -1,10 +1,7 @@
 package com.ceid.ui;
 
-import static com.ceid.model.users.User.currentUser;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,21 +9,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
-import com.ceid.model.payment_methods.Card;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +34,7 @@ public class addCard extends AppCompatActivity implements postInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addremovecard);
+        setContentView(R.layout.payment_method_screen);
         cardNum = findViewById(R.id.cardNum);
         expDate = findViewById(R.id.expDate);
         owner = findViewById(R.id.owner);

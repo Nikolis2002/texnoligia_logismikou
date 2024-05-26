@@ -2,36 +2,17 @@ package com.ceid.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import okhttp3.ResponseBody;
-import retrofit2.Response;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.ceid.Network.ApiClient;
-import com.ceid.Network.ApiService;
-import com.ceid.Network.PostHelper;
-import com.ceid.Network.jsonStringParser;
-import com.ceid.Network.postInterface;
 import com.ceid.model.users.Customer;
-import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.gson.Gson;
 
 public class MainScreen extends AppCompatActivity {
     Customer customer;
@@ -99,7 +80,7 @@ public class MainScreen extends AppCompatActivity {
     }
     public void chargeWallet(View view)
     {
-        Intent intent = new Intent(getApplicationContext(),ChargeWallet.class);
+        Intent intent = new Intent(getApplicationContext(), ChargeWalletScreen.class);
         startActivity(intent);
     }
     public void addLicenseButton(View view)

@@ -149,7 +149,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
     }
 
     public void showEta(){
-       String time =taxiRequest.getPickupLocation().calculateEta(taxiDriver.getTaxi().getCoords());
+       String time = taxiRequest.calculateEta(taxiDriver.getTaxi().getCoords());
        TextView etaTextview=findViewById(R.id.eta);
        String msg="Eta: " + time +" min";
        etaTextview.setText(msg);
@@ -210,7 +210,4 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
         costCalc=cost;
     }
-
-
-
 }

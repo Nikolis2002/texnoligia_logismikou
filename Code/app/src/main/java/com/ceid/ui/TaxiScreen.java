@@ -21,7 +21,6 @@ import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.payment_methods.Payment;
-import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
@@ -118,7 +117,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                                             Payment.Method.CASH
                                     )
                             );
-                            Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
+                            Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
                             intent.putExtra("taxiService",taxiService);
                             startActivity(intent);
                             finish();
@@ -165,7 +164,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                                                 Payment.Method.WALLET
                                         )
                                 );
-                                Intent intent = new Intent(TaxiScreen.this, TaxiRequestWaitScreen.class);
+                                Intent intent = new Intent(TaxiScreen.this, TaxiWaitScreen.class);
                                 intent.putExtra("taxiService",taxiService);
                                 startActivity(intent);
                                 finish();

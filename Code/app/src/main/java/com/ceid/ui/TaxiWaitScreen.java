@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -14,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
-import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.service.TaxiService;
 
 import java.io.IOException;
@@ -30,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TaxiRequestWaitScreen extends AppCompatActivity {
+public class TaxiWaitScreen extends AppCompatActivity {
 
     private Handler handler;
     private boolean status;
@@ -40,7 +37,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.taxi_request_wait_screen);
+        setContentView(R.layout.taxi_wait_screen);
 
         Intent intent = getIntent();
         taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
@@ -57,13 +54,13 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                 handler.removeCallbacks(taxiFoundCheck);
 
                 runOnUiThread(() -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(TaxiRequestWaitScreen.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TaxiWaitScreen.this);
                     builder.setMessage("Select a option");
                     builder.setTitle("Taxi was not found");
                     builder.setCancelable(false);
                     builder.setPositiveButton("Resend", (alertDialog, which) -> {
                         resumeTaxiReservation();
-                        Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRequestWaitScreen.class);
+                        Intent intent = new Intent(TaxiWaitScreen.this, TaxiWaitScreen.class);
                         intent.putExtra("taxiService",taxiService);
                         startActivity(intent);
                         finish();
@@ -102,7 +99,7 @@ public class TaxiRequestWaitScreen extends AppCompatActivity {
                             status = jsonStringParser.getbooleanFromJson(response);
 
                             if(status) {
-                                Intent intent = new Intent(TaxiRequestWaitScreen.this, TaxiRideScreen.class);
+                                Intent intent = new Intent(TaxiWaitScreen.this, TaxiRideScreen.class);
                                 intent.putExtra("taxiService",taxiService);
                                 startActivity(intent);
                             }

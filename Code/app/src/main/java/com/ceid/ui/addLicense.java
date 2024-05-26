@@ -5,16 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -33,26 +30,18 @@ import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class addLicense extends AppCompatActivity implements postInterface {
     private ImageView image;
@@ -64,7 +53,7 @@ public class addLicense extends AppCompatActivity implements postInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.adddriverslicense);
+        setContentView(R.layout.license_screen);
         image= findViewById(R.id.imageView2);
         text=findViewById(R.id.textView5);
 
