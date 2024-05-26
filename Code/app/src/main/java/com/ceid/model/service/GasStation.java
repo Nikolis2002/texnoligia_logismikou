@@ -1,5 +1,7 @@
 package com.ceid.model.service;
 
+import androidx.annotation.NonNull;
+
 import com.ceid.util.Coordinates;
 
 public class GasStation
@@ -33,6 +35,12 @@ public class GasStation
 	public double calculateGasPrice(int gas)
 	{
 		return gasPrice*gas;
+	}
+
+	@NonNull
+	public String toString()
+	{
+		return String.format("===================================================\nID: %d\nCoords: (%f, %f)\nPrice: %f\n===================================================", id, coords.getLat(), coords.getLng(), gasPrice);
 	}
 
 }

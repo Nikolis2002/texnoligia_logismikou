@@ -49,12 +49,11 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     private Map map;
     private Chronometer timer;
     private double addNumber=20;
-    Marker carMarker=null;
+    private Marker carMarker=null;
     private int[] disasterCounter= new int[2];
-    GasStation nearestGasStation = null;
 
-
-    ArrayList<GasStation> gasStationList=null;
+    private GasStation nearestGasStation = null;
+    private ArrayList<GasStation> gasStationList=null;
 
     int id;
 
@@ -94,6 +93,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         timer = findViewById(R.id.timer2);
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
+
+        enableRefillButton(false);
     }
 
     public void enableRefill(boolean status)
@@ -111,7 +112,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         gasStationList = data;
 
                         for (GasStation station : data) {
-                            Marker marker = map.placePin(station.getCoords(), false);
+                            Marker marker = map.placePin(station.getCoords(), false, R.drawable.gas_station);
                             marker.setTag(station);
                         }
 
@@ -150,6 +151,15 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         this.map.setZoom(12);
         this.map.setPosition(Patra);
 
+        //Consume click event
+        this.map.setMarkerListener(new GoogleMap.OnMarkerClickListener (){
+
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker)
+            {
+                return true;
+            }
+        });
 
         if(car instanceof CityCar){
             id=R.drawable.in_city_car;
@@ -166,41 +176,45 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         carMarker= map.placePin(car.getTracker().getCoords(), false,id);
         carMarker.setTag(car);
 
+        //Enable refill option only if the vehicle accepts gas
         enableRefill(car.acceptsGas());
     }
 
     @Override
-    public void onMapClick(@NonNull LatLng latLng) {
+    public void onMapClick(@NonNull LatLng latLng)
+    {
+        if(carMarker!=null)
+        {
+            PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(addNumber),new GenericCallback<VehicleTracker>() {
 
-            if(carMarker!=null)
-            {
-                PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(addNumber),new GenericCallback<VehicleTracker>() {
+                @Override
+                public void onSuccess(VehicleTracker data) {
+                    TextInputEditText dista=findViewById(R.id.distaRefill);
+                    addNumber=data.getDistanceTraveled();
+                    dista.setText("Distance Travelled: "+ String.valueOf(addNumber));
 
-                    @Override
-                    public void onSuccess(VehicleTracker data) {
-                        TextInputEditText dista=findViewById(R.id.distaRefill);
-                        addNumber=data.getDistanceTraveled();
-                        dista.setText("Distance Travelled: "+ String.valueOf(addNumber));
+                    nearestGasStation = findNearestGasStation(new Coordinates(latLng), gasStationList);
 
-                        nearestGasStation = findNearestGasStation(data.getCoords(), gasStationList);
+                    Log.d("GASTEST", nearestGasStation!=null?nearestGasStation.toString():"null");
 
-						enableRefillButton(nearestGasStation != null);
+                    enableRefillButton(nearestGasStation != null);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    if(disasterCounter[0]==0||disasterCounter[0]>100) {
+                        showAlert("Cant retrieve vehicle location");
                     }
+                    if(disasterCounter[0]==100)
+                        disasterCounter[0]=0;
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        if(disasterCounter[0]==0||disasterCounter[0]>100) {
-                            showAlert("Cant retrieve vehicle location");
-                        }
-                        if(disasterCounter[0]==100)
-                            disasterCounter[0]=0;
+                    disasterCounter[0]++;
 
-                        disasterCounter[0]++;
+                    enableRefillButton(false);
+                }
+            });
+        }
 
-                        enableRefillButton(false);
-                    }
-                });
-            }
         carMarker.remove();
         Coordinates coords=new Coordinates(latLng);
         car.getTracker().setCoords(coords);
@@ -272,7 +286,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             }
         }
         Log.d("test", String.valueOf(coords.distance(minGasStation.getCoords())));
-        if (coords.distance(minGasStation.getCoords()) < 500)
+        if (coords.distance(minGasStation.getCoords()) < 200)
         {
             return minGasStation;
         }
@@ -343,14 +357,21 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         //TODO
     }
 
-    public void  onEndBtn(View view){
+    public void  onEndBtn(View view)
+    {
+        Intent intent=new Intent(getApplicationContext(),endRide.class);
+        Bundle bundle=new Bundle();
 
+        timer.stop();
 
-           Intent intent=new Intent(getApplicationContext(),endRide.class);
-           Bundle bundle=new Bundle();
-           bundle.putSerializable("service",service);
-           intent.putExtras(bundle);
-           startActivity(intent);
+        long elapsedMillis = SystemClock.elapsedRealtime() - timer.getBase();
+
+        Log.d("TIMETEST", String.format("%f", ((double)elapsedMillis/60000)));
+
+        bundle.putSerializable("service",service);
+        bundle.putDouble("time", ((double)elapsedMillis/60000));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
 
