@@ -51,6 +51,7 @@ public class Login extends AppCompatActivity implements postInterface{
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
         visib = (ImageView) findViewById(R.id.visibility);
+        //Log.d("user",User.currentUser().toString());
         /*
         ApiService api=ApiClient.getApiService();
 
@@ -139,8 +140,9 @@ public class Login extends AppCompatActivity implements postInterface{
         JsonNode jsonNode = mapper.readTree(response.body().string());
         User user= jsonStringParser.parseJson(jsonNode);
 
-        App app = (App) getApplicationContext();
-        app.setUser(user);
+        //App app = (App) getApplicationContext();
+        //app.setUser(user);
+        User.setCurrentUser(user);
 
         if( user instanceof TaxiDriver){
             Log.d("taxi","yessirTaxi");
@@ -155,6 +157,7 @@ public class Login extends AppCompatActivity implements postInterface{
             intent.putExtra("customer",user);
             startActivity(intent);
         }
+        finish();
 
     }
 

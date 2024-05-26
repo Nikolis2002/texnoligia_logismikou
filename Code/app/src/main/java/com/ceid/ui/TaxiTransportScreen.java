@@ -16,6 +16,7 @@ import com.ceid.Network.jsonStringParser;
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.users.TaxiDriver;
+import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
@@ -53,7 +54,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
        Intent taxiRequestData = getIntent();
        taxiRequest = (TaxiRequest) taxiRequestData.getSerializableExtra("taxiRequest");
-       taxiDriver = (TaxiDriver)((App) getApplicationContext()).getUser();
+       taxiDriver = (TaxiDriver) User.getCurrentUser();
 
        button = findViewById(R.id.startEndRouteButton);
        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapView);

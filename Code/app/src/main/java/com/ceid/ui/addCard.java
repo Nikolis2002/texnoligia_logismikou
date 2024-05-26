@@ -9,10 +9,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
+import com.ceid.model.payment_methods.Card;
+import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
 
@@ -43,6 +46,7 @@ public class addCard extends AppCompatActivity implements postInterface {
 
     }
     public void addCardButton(View view) {
+        ApiService api= ApiClient.getApiService();
         List<Map<String, Object>> values = new ArrayList<>();
         Map<String, Object> cardCred = new LinkedHashMap<>();
         user = User.currentUser();
@@ -54,7 +58,6 @@ public class addCard extends AppCompatActivity implements postInterface {
         values.add(cardCred);
         String jsonString = jsonStringParser.createJsonString("insertCard", values);
         PostHelper addc = new PostHelper(this);
-
         addc.card(api, jsonString);
 
     }
@@ -66,6 +69,8 @@ public class addCard extends AppCompatActivity implements postInterface {
         {
             Toast.makeText(getApplicationContext(), "Card added successfully!",
                     Toast.LENGTH_LONG).show();
+            Card card=new Card(cardNum.getText().toString(),owner.getText().toString(),expDate.getText().toString(),ccv.getText().toString());
+            user.getWallet().addCard(card);
             Intent intent=new Intent(getApplicationContext(), MainScreen.class);
             startActivity(intent);
 

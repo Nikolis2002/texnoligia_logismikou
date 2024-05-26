@@ -29,7 +29,7 @@ public class InCityScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.in_city_screen);
 
-        customer = (Customer)((App) getApplicationContext()).getUser();
+        customer = (Customer)User.getCurrentUser();
 
         //overridePendingTransition(0, 0);
 

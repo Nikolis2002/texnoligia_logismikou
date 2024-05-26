@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.TaxiDriver;
+import com.ceid.model.users.User;
 
 public class MainScreenTaxi extends AppCompatActivity{
 
@@ -17,7 +18,7 @@ public class MainScreenTaxi extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_main_sceen);
-        taxiDriver = (TaxiDriver)((App) getApplicationContext()).getUser();
+        taxiDriver = (TaxiDriver) User.getCurrentUser();
 
     }
 

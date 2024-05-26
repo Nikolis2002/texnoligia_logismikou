@@ -101,10 +101,10 @@ BEGIN
     DECLARE balance VARCHAR(32);
     SELECT count(*),owner_balance INTO c,balance FROM bank WHERE cardNum=bank.card_number AND expDate=bank.card_exp_date AND  cOwner=bank.card_owner AND cvv=bank.cvv GROUP BY owner_balance;
     IF (c=1) THEN
-        SELECT TRUE AS result;
+        SELECT "true" AS result;
         INSERT INTO card VALUES(user,cardNum,cOwner,expDate,cvv,"credit");
     ELSE
-        SELECT FALSE AS result;
+        SELECT "false" AS result;
     END IF;
 END $
 DELIMITER ;
@@ -115,7 +115,7 @@ DELIMITER $
 CREATE PROCEDURE chargeWallet(IN user VARCHAR(32),IN val VARCHAR(32),cardNum VARCHAR(32))
 BEGIN
     DECLARE bankAmount VARCHAR(32);
-    SELECT owner_balance into bankAmount FROM bank INNER JOIN card ON bank.card_number=card.card_number where card.username=user;
+    SELECT owner_balance into bankAmount FROM bank INNER JOIN card ON bank.card_number=card.card_number where card.username=user AND card.card_number=cardNum;
     IF(bankAmount>=val) THEN
         UPDATE wallet SET balance=balance+val WHERE username=user;
         UPDATE bank SET owner_balance=bankAmount-val WHERE card_number=cardNum;
