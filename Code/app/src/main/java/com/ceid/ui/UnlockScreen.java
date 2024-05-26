@@ -19,6 +19,9 @@ import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.RentalService;
+import com.ceid.model.transport.Bicycle;
+import com.ceid.model.transport.CityCar;
+import com.ceid.model.transport.Motorcycle;
 import com.ceid.model.transport.Rental;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
@@ -74,7 +77,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                         cancelReservation();
                 });
             }
-        },5000);
+        },20000);
 
     }
 
@@ -280,7 +283,16 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         Coordinates location = new Coordinates(rental.getTracker().getCoords().getLat(),rental.getTracker().getCoords().getLng());
         map.setZoom(15);
         map.setPosition(location);
-        map.placePin(location,true);
+
+        if (rental instanceof CityCar)
+            map.placePin(location,true, R.drawable.in_city_car);
+        else if (rental instanceof Motorcycle)
+            map.placePin(location,true, R.drawable.in_city_motorcycle);
+        else if (rental instanceof Bicycle)
+            map.placePin(location,true, R.drawable.in_city_bicycle);
+        else
+            map.placePin(location,true, R.drawable.in_city_scooter);
+
     }
 
     @Override

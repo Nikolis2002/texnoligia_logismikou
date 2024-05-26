@@ -148,8 +148,8 @@ INSERT INTO rental_rating VALUES
     (1, 1, "an mporousa na balo 0 asteria tha to ekana!! pragmatika den exo ksanadei xeirotero autokinhto sti zoi mou. kat arxas to vrikame xoris katholoy venzini, kyriolektika mas emeine ston dromo. LIGO ELEOS DHLADH, DEN MPOREITE KAN NA GEMIZETE TA OXHMATA SAS?? epipleon afou to gemisame, pali den empaine bros ekane enan ixo 'ASIIII' kai meta esbhnea amesos. gia na mhn anafero thn katastasi toy esoterikou. akoma prospathoyme na katalaboume ti htan ekeinoi oi lekedes sta piso kathismata... genika exo pei se olous moy tous gnostous na min kleinoun amaxia apo authn thn efarmogh, oxi tipota allo mhn kollhsoume kai tipota. POTE KSANA!!! movfast, more like moufa!!!");
 
 INSERT INTO rental_service VALUES
-    (1, 7, null, null, null, null, null, null),
-    (4, 1, null, 1, null, null, null, null);
+    (1, 7, null, null, null, null, null, null, null),
+    (4, 1, null, null, 1, null, null, null, null);
 
 INSERT INTO out_city_service VALUES
     (2, 19, null);
