@@ -138,6 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:backgroundTint="#DE1515"
+        android:onClick="onEndBtn"
         android:text="End ride"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

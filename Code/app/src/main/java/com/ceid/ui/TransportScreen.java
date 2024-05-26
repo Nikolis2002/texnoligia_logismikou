@@ -1,6 +1,7 @@
 package com.ceid.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.model.service.GasStation;
 import com.ceid.model.service.Refill;
+import com.ceid.model.service.RentalService;
 import com.ceid.model.transport.CityCar;
 import com.ceid.model.transport.ElectricScooter;
 import com.ceid.model.transport.Motorcycle;
@@ -66,6 +68,15 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             1.40,
             new Coordinates(38.2442870,21.7326153),
             new PositiveInteger(100)
+    );
+
+    RentalService service= new RentalService(
+            1,
+            LocalDateTime.now(),
+            null,
+            null,
+            0,
+            car
     );
     String trackerType;
     //Customer customer =(Customer)((App) getApplicationContext()).getUser();
@@ -232,7 +243,6 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     {
 
                         callback(popupWindow,initTracker,nearestGasStation);
-
                     }
                 });
 
@@ -243,7 +253,6 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         cancelRefill(popupWindow,initTracker,nearestGasStation);
                     }
                 });
-
 
             }
 
@@ -262,7 +271,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 minGasStation=gasStation;
             }
         }
-
+        Log.d("test", String.valueOf(coords.distance(minGasStation.getCoords())));
         if (coords.distance(minGasStation.getCoords()) < 500)
         {
             return minGasStation;
@@ -301,7 +310,14 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         station,
                         initTracker.getGas(),
                         finalTracker.getGas());
+
+                int threshold=1;
+
+                if(diff>threshold){
+                    refill.calculatePoints(service,diff);
+                }
             }
+
 
             @Override
             public void onFailure(Exception e) {
@@ -325,6 +341,16 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                                  null);
 
         //TODO
+    }
+
+    public void  onEndBtn(View view){
+
+
+           Intent intent=new Intent(getApplicationContext(),endRide.class);
+           Bundle bundle=new Bundle();
+           bundle.putSerializable("service",service);
+           intent.putExtras(bundle);
+           startActivity(intent);
     }
 }
 

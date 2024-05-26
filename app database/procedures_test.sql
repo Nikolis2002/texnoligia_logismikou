@@ -118,30 +118,7 @@ BEGIN
 END $
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS chargeWallet;
-DELIMITER $
-CREATE PROCEDURE chargeWallet(IN user VARCHAR(32),IN val VARCHAR(32),cardNum VARCHAR(32))
-BEGIN
-    DECLARE bankAmount VARCHAR(32);
-    SELECT owner_balance into bankAmount FROM bank INNER JOIN card ON bank.card_number=card.card_number where card.username=user;
-    IF(bankAmount>=val) THEN
-        UPDATE wallet SET balance=balance+val WHERE username=user;
-        UPDATE bank SET owner_balance=bankAmount-val WHERE card_number=cardNum;
-        SELECT "true" AS result;
-    ELSE
-        SELECT "false" AS result;
-    END IF;
-END $
 
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS insertLicense;
-DELIMITER $
-CREATE PROCEDURE insertLicense(IN user VARCHAR(32),IN imagebyte LONGBLOB)
-BEGIN
-    UPDATE customer SET license_image=imagebyte WHERE username=user;
-END $
-DELIMITER ;
 
 
 DROP PROCEDURE IF EXISTS getLicense;

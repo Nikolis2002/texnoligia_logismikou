@@ -1,3 +1,5 @@
+USE app_database;
+
 INSERT INTO user VALUES
     ("a", "a", "Name", "Lastname", "myemail@gmail.com", "6970101010"),
     ("customer", "password", "Customer", "Customer", "customer@gmail.com", "6970000000"),
@@ -150,16 +152,10 @@ INSERT INTO rental_service VALUES
     (4, 1, null, 1, null, null, null, null);
 
 INSERT INTO out_city_service VALUES
-    (2, 19, null, null, null, null, null, null);
+    (2, 19, null);
 
 INSERT INTO taxi_request VALUES
     (1, POINT(38.2442870,21.7326153), POINT(38.2466208,21.7325087), "FIRE_IT_UP", '2024-05-24 21:30:22', '2024-05-24 21:30:39');
 
 INSERT INTO taxi_service VALUES
     (3, 1, null);
-
-INSERT INTO coupon VALUES
-    (1, "!=!=!=! VERY SPECIAL DEAL - LIMITED TIME ONLY !=!=!=!", 10, 100),
-    (2, "SUMMER SPECIL", 10, 99),
-    (3, "BUY 1 GET NONE FREE", 0, 1),
-    (4, "THE GOLDEN", 100, 100, '2000-01-01');
