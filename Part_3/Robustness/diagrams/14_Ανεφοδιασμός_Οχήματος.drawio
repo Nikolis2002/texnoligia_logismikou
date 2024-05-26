@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="3Z9twvWDdscRjlYfzpVh" name="Page-1">
-        <mxGraphModel dx="1368" dy="476" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2094" dy="1142" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -188,7 +188,7 @@
                 <mxCell id="114" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;Εμφάνισε&lt;/font&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;fontSize=11;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="235" y="830" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="121" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="117" target="120" edge="1">
+                <mxCell id="121" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="117" target="120" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="123" value="" style="edgeStyle=none;html=1;" parent="1" source="117" target="118" edge="1">
@@ -197,10 +197,7 @@
                 <mxCell id="117" value="&lt;font style=&quot;font-size: 11px;&quot;&gt;Υπολογισμός βενζίνης&lt;/font&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="475" y="680" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="122" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="118" target="120" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="125" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="118" target="119" edge="1">
+                <mxCell id="125" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="118" target="119" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="127" value="" style="edgeStyle=none;html=1;" parent="1" source="118" target="126" edge="1">
@@ -210,10 +207,10 @@
                     <mxGeometry x="635" y="680" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="119" value="Gas Station" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fontSize=11;" parent="1" vertex="1">
-                    <mxGeometry x="635" y="580" width="70" height="70" as="geometry"/>
+                    <mxGeometry x="635" y="570" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="120" value="Specialized&lt;br&gt;Tracker" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fontSize=11;" parent="1" vertex="1">
-                    <mxGeometry x="555" y="580" width="70" height="70" as="geometry"/>
+                    <mxGeometry x="475" y="570" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="129" value="" style="edgeStyle=none;html=1;" parent="1" source="126" target="128" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -225,7 +222,7 @@
                     <mxGeometry x="755" y="680" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="128" value="Wallet" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;fontSize=11;" parent="1" vertex="1">
-                    <mxGeometry x="755" y="580" width="70" height="70" as="geometry"/>
+                    <mxGeometry x="755" y="570" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="139" value="" style="edgeStyle=none;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" source="135" target="138" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -248,13 +245,13 @@
                 <mxCell id="147" value="" style="edgeStyle=none;html=1;" parent="1" source="142" target="146" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="198" value="" style="edgeStyle=none;html=1;" parent="1" source="142" target="152" edge="1">
+                <mxCell id="198" value="" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="142" target="152" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="142" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Υπολογισμός πόντων&lt;/span&gt;" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="620" y="925" width="70" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="149" value="" style="edgeStyle=none;html=1;" parent="1" source="146" edge="1">
+                <mxCell id="149" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="146" edge="1" target="192">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="525.0000000000002" y="860" as="targetPoint"/>
                     </mxGeometry>

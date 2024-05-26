@@ -40,6 +40,10 @@ public class Customer extends User {
         return this.points;
     }
 
+    public void addPoints(int points){
+        this.points.addPoints(points);
+    }
+
     public  void setPoints(int value){
         this.points.setPoints(value);
     }

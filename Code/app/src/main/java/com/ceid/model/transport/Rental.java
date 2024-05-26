@@ -70,4 +70,9 @@ public abstract class Rental extends InCityTransport
     public boolean acceptsGas(){
         return (tracker instanceof SpecializedTracker);
     }
+
+    public double calculateCharge(int minutes)
+    {
+        return minutes*rate;
+    }
 }

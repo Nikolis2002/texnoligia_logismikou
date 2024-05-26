@@ -91,5 +91,8 @@ public abstract class Service implements Serializable
         return earnedPoints;
     }
 
-
+    public Payment.Method getPaymentMethod()
+    {
+        return payment.getMethod();
+    }
 }

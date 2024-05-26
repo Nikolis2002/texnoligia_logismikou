@@ -41,6 +41,9 @@ public class VehicleTracker extends Tracker
 	}
 
 	//public void startTimer()
-	//public Currency calculateCharge()
-	//public int calculatePoints()
+
+	public int calculatePoints()
+	{
+		return 4;
+	}
 }

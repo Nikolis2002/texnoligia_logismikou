@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="zwPRGnRJBlrswf_2xyk5" name="Page-1">
-        <mxGraphModel dx="1442" dy="544" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1852" dy="367" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -72,7 +72,7 @@
                 <mxCell id="25" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;" parent="1" source="20" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="119" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="20" target="13" edge="1">
+                <mxCell id="126" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="20" target="125">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="Υπολογισμός χρονοχρέωσης" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -226,7 +226,7 @@
                 <mxCell id="83" value="" style="edgeStyle=none;html=1;endArrow=classic;endFill=1;entryX=0.464;entryY=0.098;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="75" target="120" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="107" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.266;exitY=0.181;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="75" target="106" edge="1">
+                <mxCell id="107" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.894;exitY=0.249;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="75" target="106" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="75" value="Ενημέρωση πόντων στο προφίλ" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -245,7 +245,7 @@
                     <mxGeometry x="768.75" y="607.5000000000001" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="106" value="Customer" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;direction=east;" parent="1" vertex="1">
-                    <mxGeometry x="720" y="530" width="55" height="55" as="geometry"/>
+                    <mxGeometry x="700" y="511.25" width="55" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="111" style="edgeStyle=none;html=1;entryX=0.983;entryY=0.673;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#B85450;" parent="1" source="108" target="110" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -273,7 +273,7 @@
                     <mxGeometry x="480" y="607.5" width="75" height="85" as="geometry"/>
                 </mxCell>
                 <mxCell id="116" value="Service" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;direction=east;" parent="1" vertex="1">
-                    <mxGeometry x="500" y="496.25" width="70" height="67.5" as="geometry"/>
+                    <mxGeometry x="482.5" y="496.25" width="70" height="67.5" as="geometry"/>
                 </mxCell>
                 <mxCell id="121" value="" style="edgeStyle=none;html=1;" parent="1" source="120" target="99" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -283,6 +283,9 @@
                 </mxCell>
                 <mxCell id="120" value="Ενημέρωση πόντων στη βάση" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="610" y="722.5" width="75" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="125" value="Rental" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;direction=east;" vertex="1" parent="1">
+                    <mxGeometry x="615" y="100" width="70" height="67.5" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

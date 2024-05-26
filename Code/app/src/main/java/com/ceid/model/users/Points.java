@@ -1,5 +1,4 @@
 package com.ceid.model.users;
-import com.ceid.util.PositiveInteger;
 
 import java.io.Serializable;
 
@@ -14,14 +13,16 @@ public class Points implements Serializable {
         return this.points;
     }
 
+    public void addPoints(int points){
+        this.points += points;
+    }
+
     public void setPoints(int points){
         this.points+=points;
     }
 
-    public int calcPoints(double cost){
-        int point=(int) (cost*0.5);
-        this.setPoints(point);
-        return point;
+    public static int calculatePoints(double cost){
+        return (int) (cost*0.5);
     }
 
 }
