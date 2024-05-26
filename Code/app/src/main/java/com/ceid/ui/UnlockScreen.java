@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
+import com.ceid.model.service.RentalService;
 import com.ceid.model.transport.Rental;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
@@ -28,6 +29,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -134,6 +136,50 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                     @Override
                                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
+                                        List<java.util.Map<String,Object>> values = new ArrayList<>();
+                                        java.util.Map<String, Object> creationDate = new LinkedHashMap<>();
+                                        creationDate.put("service_id",serviceId);
+                                        values.add(creationDate);
+
+                                        String jsonString = jsonStringParser.createJsonString("checkTaxiComplete",values);
+                                        Call<ResponseBody> call_date = api.getFunction(jsonString);
+
+                                        call_date.enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                                                if(response.isSuccessful()){
+
+                                                    try {
+                                                        ArrayList<String> responseArray = jsonStringParser.getResults(response);
+                                                        LocalDateTime date = LocalDateTime.parse(responseArray.get(0));
+
+                                                        RentalService rentalService = new RentalService(
+                                                                serviceId,
+                                                                date,
+                                                                null,
+                                                                null,
+                                                                0,
+                                                                rental
+                                                        );
+                                                       Intent intent = new Intent(UnlockScreen.this,TransportScreen.class);
+                                                        intent.putExtra("service", rentalService);
+                                                        startActivity(intent);
+
+                                                    } catch (IOException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+
+                                                }else{
+                                                    System.out.println("Error message");
+                                                }
+
+                                            }
+                                            @Override
+                                            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+                                                System.out.println("Error message");
+                                            }
+                                        });
                                     }
 
                                     @Override
