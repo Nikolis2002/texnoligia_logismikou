@@ -263,9 +263,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                 }
             });
-            if (qr != null) {
-                Toast.makeText(getApplicationContext(), qr, Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
