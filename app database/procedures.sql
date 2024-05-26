@@ -164,9 +164,9 @@ create procedure checkVehicleId(in serviceId int,in vehicle_id int)
 begin
 	declare check_id int;
 	
-	select selected_vehicle into check_id where service_id=serviceId;
+	select selected_vehicle into check_id from rental_service where service_id=serviceId;
 	
-	if vehocle_id=check_id then
+	if vehicle_id=check_id then
 		Select 'TRUE' as result;
 	else
 		select 'FALSE' as result;
