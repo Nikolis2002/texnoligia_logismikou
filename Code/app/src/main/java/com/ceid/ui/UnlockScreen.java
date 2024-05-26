@@ -125,10 +125,42 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                 == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
 
+
+
+
+        }else {
+            ActivityCompat.requestPermissions(UnlockScreen.this, new String[]{Manifest.permission.CAMERA},
+                    CAMERA_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+               openCamera();
+            }else{
+                Toast.makeText(getApplicationContext(), "App do not have camera permission", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,MainScreen.class);
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult qrResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+        if (qrResult != null) {
+            String qr = qrResult.getContents();
+
             List<java.util.Map<String,Object>> values = new ArrayList<>();
             java.util.Map<String, Object> checkVehicle = new LinkedHashMap<>();
             checkVehicle.put("id", serviceId);
-            checkVehicle.put("vehicle",rental.getId());
+            checkVehicle.put("vehicle",Integer.parseInt(qr));
             values.add(checkVehicle);
 
             String jsonString = jsonStringParser.createJsonString("checkVehicleId",values);
@@ -186,7 +218,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                                                 0,
                                                                 rental
                                                         );
-                                                       Intent intent = new Intent(UnlockScreen.this,TransportScreen.class);
+                                                        Intent intent = new Intent(UnlockScreen.this,TransportScreen.class);
                                                         intent.putExtra("service", rentalService);
                                                         startActivity(intent);
 
@@ -231,39 +263,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                 }
             });
-
-
-        }else {
-            ActivityCompat.requestPermissions(UnlockScreen.this, new String[]{Manifest.permission.CAMERA},
-                    CAMERA_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               openCamera();
-            }else{
-                Toast.makeText(getApplicationContext(), "App do not have camera permission", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this,MainScreen.class);
-                startActivity(intent);
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-        IntentResult qrResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
-        if (qrResult != null) {
-            String qr = qrResult.getContents();
-            if (qr != null) {
-                Toast.makeText(getApplicationContext(), qr, Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
