@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
+import com.ceid.model.service.RentalService;
 import com.ceid.model.transport.Rental;
 import com.ceid.model.users.Customer;
 import com.ceid.util.Coordinates;
@@ -28,6 +29,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -69,7 +71,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                 runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(), "Reservation time passed", Toast.LENGTH_SHORT).show();
-
+                        cancelReservation();
                 });
             }
         },5000);
@@ -92,7 +94,30 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     }
 
     public void cancelReservation(){
-        
+        List<java.util.Map<String,Object>> values = new ArrayList<>();
+        java.util.Map<String, Object> cancelReservation = new LinkedHashMap<>();
+        cancelReservation.put("id", serviceId);
+        cancelReservation.put("vehicle",rental.getId());
+        values.add(cancelReservation);
+
+        String jsonString = jsonStringParser.createJsonString("cancelReservation",values);
+
+        Call<ResponseBody> call = api.getFunction(jsonString);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+            }
+        });
     }
 
     public void unlockVehicle(View view){
@@ -121,10 +146,11 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                             double balance= customer.getWallet().getBalance();
 
                             if(balance>10){
+                                customer.getWallet().withdraw(10);
                                 List<java.util.Map<String,Object>> values = new ArrayList<>();
                                 java.util.Map<String, Object> unlockDate = new LinkedHashMap<>();
                                 unlockDate.put("id", serviceId);
-                                values.add(checkVehicle);
+                                values.add(unlockDate);
 
                                 String jsonString = jsonStringParser.createJsonString("unlockVehicle",values);
 
@@ -134,6 +160,50 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                     @Override
                                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
+                                        List<java.util.Map<String,Object>> values = new ArrayList<>();
+                                        java.util.Map<String, Object> creationDate = new LinkedHashMap<>();
+                                        creationDate.put("service_id",serviceId);
+                                        values.add(creationDate);
+
+                                        String jsonString = jsonStringParser.createJsonString("checkTaxiComplete",values);
+                                        Call<ResponseBody> call_date = api.getFunction(jsonString);
+
+                                        call_date.enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                                                if(response.isSuccessful()){
+
+                                                    try {
+                                                        ArrayList<String> responseArray = jsonStringParser.getResults(response);
+                                                        LocalDateTime date = LocalDateTime.parse(responseArray.get(0));
+
+                                                        RentalService rentalService = new RentalService(
+                                                                serviceId,
+                                                                date,
+                                                                null,
+                                                                null,
+                                                                0,
+                                                                rental
+                                                        );
+                                                       Intent intent = new Intent(UnlockScreen.this,TransportScreen.class);
+                                                        intent.putExtra("service", rentalService);
+                                                        startActivity(intent);
+
+                                                    } catch (IOException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+
+                                                }else{
+                                                    System.out.println("Error message");
+                                                }
+
+                                            }
+                                            @Override
+                                            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+                                                System.out.println("Error message");
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -141,6 +211,10 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                                     }
                                 });
+                            }else{
+                                Toast.makeText(getApplicationContext(), "You don't have the required amount in your wallet", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Reservation canceled", Toast.LENGTH_SHORT).show();
+                                cancelReservation();
                             }
 
                         }
@@ -194,8 +268,10 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     }
 
     public void cancelReservation(View view){
+        cancelReservation();
         Intent intent = new Intent(this,MainScreen.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

@@ -183,6 +183,13 @@ begin
 end$
 delimiter ;
 
+drop procedure if exists rentalService;
+delimiter $
+create procedure rentalService(in serviceId int)
+begin
+	select creation_date from service where id=serviceId;
+end$
+delimiter ;
 -- =====================================================================================================
 
 DROP PROCEDURE IF EXISTS insertOutCityService;
