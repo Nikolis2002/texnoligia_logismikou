@@ -185,6 +185,18 @@ delimiter ;
 
 -- =====================================================================================================
 
+DROP PROCEDURE IF EXISTS insertOutCityService;
+DELIMITER $
+CREATE PROCEDURE insertOutCityService(IN name VARCHAR(32),IN value DECIMAL(10,2),IN method ENUM('WALLET','CASH'),IN creationDate DATETIME,IN ENUM('ONGOING', 'COMPLETED', 'CANCELLED') status,IN status_date DATETIME,IN earned_points INT)
+BEGIN
+    INSERT INTO payment VALUES(null,name,value,method);
+    
+END $
+DELIMITER ;
+
+
+-- =====================================================================================================
+
 DROP VIEW IF EXISTS selectTaxiRequests;
 CREATE VIEW selectTaxiRequests AS
 SELECT tr.id as id,tr.pickup_location as pickup_location,tr.destination as destination,p.payment_method as payment_method
@@ -230,7 +242,22 @@ INSERT INTO card VALUES("Nikolis","458","nikolaos","123","086","credit");
 
 insert into user values("Zoukos","zouk741","Panagiotis","Kalozoumis","panos@gmail.com","6988521346");
 INSERT INTO customer VALUES("Zoukos","A2",null,0);
-INSERT INTO wallet VALUES("Zoukos",10);
+INSERT INTO wallet CREATE TABLE service
+(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    creation_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    payment_id  INT UNSIGNED,
+    service_status ENUM('ONGOING', 'COMPLETED', 'CANCELLED') NOT NULL DEFAULT 'ONGOING',
+    status_date DATETIME, -- Cancellation or completion date. Originally NULL
+    earned_points INT UNSIGNED NOT NULL DEFAULT 0,
+
+    PRIMARY KEY(id),
+
+    CONSTRAINT fk_service_payment
+    FOREIGN KEY(payment_id) REFERENCES payment(id)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL
+);VALUES("Zoukos",10);
 INSERT INTO card VALUES("Zoukos","125","panagiotis","123","086","credit");
 INSERT INTO user VALUES("bill4","12356","Vasilis","Kourtakis","test@gmail2.com","6911234567");
 INSERT INTO customer VALUES("bill4","A2","test",0);

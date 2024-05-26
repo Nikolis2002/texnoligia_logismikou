@@ -204,6 +204,8 @@ public class GarageReservationForm extends AppCompatActivity
 			{
 				Log.d("DAYSTEST", "Not within current week");
 			}
+
+			
 		}
 	}
 }
