@@ -49,7 +49,7 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 	
 
 	//User presses the button to confirm location
-	public void onSubmit(View view)
+	public void confirmLocation(View view)
 	{
 		data = new Bundle();
 		data.putSerializable("coords", map.getPinCoords());
