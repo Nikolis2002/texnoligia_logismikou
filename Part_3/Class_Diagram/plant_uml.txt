@@ -1,0 +1,1014 @@
+@startuml
+left to right direction
+class RatingRental {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+abstract class Transport {
+- int id
+- String model
+- String manufacturer
+- String manuf_year
++ <<Create>> Transport(int,String,String,String)
++ <<Create>> Transport()
++ String getModel()
++ String getManufacturer()
++ String getManufYear()
++ int getId()
++ String getTitle()
+}
+
+
+class RatingScreen {
+~ Service service
+# void onCreate(Bundle)
++ boolean validateRating(Float,Float,String)
+- void saveRating(Float,Float,String)
++ void submit(View)
+}
+
+class SecondFragment {
+- FragmentSecondBinding binding
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void onDestroyView()
+}
+
+
+class Tracker {
+- Coordinates coords
++ <<Create>> Tracker(double,double)
++ <<Create>> Tracker(Coordinates)
++ <<Create>> Tracker(LatLng)
++ void getCoordsFromDatabase()
++ Coordinates getCoords()
++ void setCoords(Coordinates)
+}
+
+
+class GasStation {
+- int id
+- Coordinates coords
+- double gasPrice
++ <<Create>> GasStation(int,Coordinates,double)
++ int getid()
++ Coordinates getCoords()
++ double getGasPrice()
+}
+
+interface Fuel {
+~ PositiveInteger getFuel()
+~ void setFuel(int)
+}
+
+class PositiveInteger{
+- int value
++ <<Create>> PositiveInteger(int)
++ int getValue()
++ void setValue(int)
++ int PosDif(PositiveInteger)
+}
+
+enum RatingType {
++  RENTAL
++  OUTCITY
++  TAXI
+}
+
+class MainScreen {
+~ Customer customer
+# void onCreate(Bundle)
++ void onBackPressed()
++ void inCity(View)
++ void outCity(View)
++ void addCardButton2(View)
++ void chargeWallet(View)
+}
+
+
+class FirstFragment {
+- FragmentFirstBinding binding
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void onDestroyView()
+}
+
+
+class ProfileTaxiScreen {
+# void onCreate(Bundle)
+}
+
+class TaxiRideScreen {
+- Chronometer timer
+- Handler handler
+- Runnable taxiRideCheck
+- Runnable taxiPickUp
+- TaxiService taxiService
+- ApiService api
+- Customer customer
+- double cost
+- CountDownLatch waitCost
+# void onCreate(Bundle)
++ void isPickUp()
++ void rideStatus()
++ void rideCost()
++ void onBackPressed()
+# void onStop()
+# void onDestroy()
+}
+
+
+class OutCityCar {
++ <<Create>> OutCityCar(String,double,int,int,String,String,String)
+}
+
+class InCityVehicleScreen {
+- Intent locationIntent
+- ActivityResultLauncher<Intent> activityResultLauncher
+- Map vehicleMap
+- Coordinates selectedCoords
+- Bundle locationScreenData
+- String type
+- int markerIcon
+# void onCreate(Bundle)
++ void onMapWrapperReady()
++ boolean onMarkerClick(Marker)
++ void onItemClick(AdapterView<?>,View,int,long)
++ void onClick(View)
++ void onActivityResult(ActivityResult)
++ void getVehicles(GenericCallback<ArrayList<Rental>>)
+}
+
+
+class ElectricScooter {
++ <<Create>> ElectricScooter(boolean,int,String,String,String,double,Coordinates)
++ <<Create>> ElectricScooter()
++ boolean requiresLicense()
++ boolean validLicense(String)
++ String toString()
+}
+
+class addCard {
+- Customer customer
+- User user
+- EditText cardNum
+- ApiService api
+- PostHelper addc
+# void onCreate(Bundle)
++ void addCardButton(View)
++ void remCard(View)
++ void onResponseSuccess(Response<ResponseBody>)
++ void onResponseFailure(Throwable)
+}
+
+
+class Taxi {
+- String licence_plate
+- Coordinates coords
++ <<Create>> Taxi(int,String,String,String,String,double,double)
++ <<Create>> Taxi(int,String,String,String,String,Coordinates)
++ <<Create>> Taxi(int,String,String,String,String)
++ String getLicence_plate()
++ void setLicence_plate(String)
++ Coordinates getCoords()
++ void setCoords(Coordinates)
++ void gpsLocation()
+}
+
+
+class TaxiRequest {
+- int id
+- Coordinates pickupLocation
+- Coordinates destination
+- Payment.Method payment
+- TaxiDriver taxiDriver
+- LocalDateTime assignmentTime
+- LocalDateTime pickupTime
++ <<Create>> TaxiRequest(Coordinates,Coordinates,Payment.Method)
++ <<Create>> TaxiRequest(int,Coordinates,Coordinates,Payment.Method)
++ Payment.Method getPaymentMethod()
++ void setPaymentMethod(Payment.Method)
++ int getId()
++ void setId(int)
++ Coordinates getPickupLocation()
++ Coordinates getDestination()
++ TaxiDriver getTaxiDriver()
++ LocalDateTime getAssignmentTime()
++ LocalDateTime getPickupTime()
++ void setTaxiDriver(TaxiDriver)
++ void setAssignmentTime(LocalDateTime)
++ void setPickupTime(LocalDateTime)
++ String toString()
+}
+
+class CityCar {
+- String license_plate
++ <<Create>> CityCar(String,boolean,int,String,String,String,double,Coordinates,PositiveInteger)
++ <<Create>> CityCar()
++ boolean requiresLicense()
++ boolean validLicense(String)
++ String getLicensePlate()
++ String toString()
+}
+
+class GarageListAdapter {
+- Context context
+- ArrayList<Garage> garages
+- int icon
++ <<Create>> GarageListAdapter(Context,ArrayList<Garage>)
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+}
+
+
+class Bicycle {
++ <<Create>> Bicycle(boolean,int,String,String,String,double,Coordinates)
++ <<Create>> Bicycle()
++ boolean requiresLicense()
++ boolean validLicense(String)
++ String toString()
+}
+
+class TaxiService {
+- TaxiRequest request
++ <<Create>> TaxiService(int,LocalDateTime,Payment,Rating,int,Transport,TaxiRequest)
++ <<Create>> TaxiService(int,Payment)
++ TaxiRequest getRequest()
+}
+
+
+class .Location {
+- String address
++ <<Create>> Location(double,double,String)
++ <<Create>> Location(Coordinates,String)
++ String getAddress()
+}
+
+
+abstract class Rental {
+- double rate
+- VehicleTracker tracker
+- boolean freeStatus
++ <<Create>> Rental(boolean,int,String,String,String,double,Coordinates)
++ <<Create>> Rental()
++ <<Create>> Rental(boolean,int,String,String,String,double,VehicleTracker)
++ double getRate()
++ boolean isFree()
++ void setFreeStatus(boolean)
++ VehicleTracker getTracker()
++ {abstract}boolean requiresLicense()
++ {abstract}boolean validLicense(String)
++ {abstract}String toString()
++ boolean checksGas()
+}
+
+
+class User {
+- {static} User currentUser
+- String username
+- String name
+- String password
+- String lname
+- String email
+- Wallet wallet
++ <<Create>> User(String,String,String,String,String,Wallet)
++ String getUsername()
++ Wallet getWallet()
++ String getName()
++ String getLname()
++ String getLastname()
++ String getEmail()
+# void setUsername(String)
+# void setName(String)
+# void setLname(String)
+# void setLastname(String)
+# void setEmail(String)
++ void printUser()
++ {static} void setCurrentUser(User)
++ {static} User currentUser()
++ {static} User getCurrentUser()
+}
+
+
+class Login {
+- String username
+- EditText userText
+- ImageView visib
+# void onCreate(Bundle)
++ void onClickVisib(View)
++ void buttonLogin(View)
++ void signUp(View)
++ void onResponseSuccess(Response<ResponseBody>)
++ void onResponseFailure(Throwable)
+}
+
+
+class Payment {
+- double amount
+- Method method
++ <<Create>> Payment(double,Method)
++ <<Create>> Payment(Method)
++ {static} Method setPaymentType(String)
++ double getAmount()
++ void setAmount(double)
++ Method getMethod()
++ void setMethod(Method)
++ String toString()
+}
+
+
+enum Method {
++  WALLET
++  CASH
+}
+
+class UnlockScreen {
+- Map map
+- Rental rental
+- int serviceId
+- Timer reservationTimer
+- {static} int CAMERA_REQUEST_CODE
+# void onCreate(Bundle)
++ void openCamera()
++ void onBackPressed()
++ void unlockVehicle(View)
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
++ void cancelReservation(View)
++ void onMapWrapperReady()
+# void onDestroy()
+# void onPause()
+}
+
+
+abstract class Service {
+- int id
+- LocalDateTime creationDate
+- Payment payment
+- Rating rating
+- Transport transport
+- int earnedPoints
++ <<Create>> Service(int,LocalDateTime,Payment,Rating,int,Transport)
++ <<Create>> Service(int,Payment)
++ Rating rate(Float,Float,String)
++ Rating getRating()
++ Transport getTransport()
++ LocalDateTime getCreationDate()
++ int getId()
++ Payment getPayment()
++ void addPoints(int)
++ int getPoints()
+}
+
+
+class GarageReservationForm {
+- OutCityTransport vehicle
+- Garage garage
+- Date selectedDate
+- int hours
+- int minutes
+# void onCreate(Bundle)
++ void onDatetimeClick(View)
++ void onBack(View)
++ void onContinue(View)
+}
+
+
+class TaxiRequestsScreen {
+- RecyclerView requestView
+- TaxiRequestAdapter requestAdapter
+- TaxiDriver taxiDriver
+~ ApiService api
+# void onCreate(Bundle)
++ void taxiRequestSelect()
++ void taxiRequestSelect(View)
+}
+
+
+class .Map {
+- GoogleMap gmap
+- View view
+- SupportMapFragment mapFragment
+- boolean clickable
+- Coordinates pinCoords
+- Coordinates startCoords
+- GoogleMap.OnMarkerClickListener markerListener
+- GoogleMap.OnMapClickListener clickListener
+- Marker clickedMarker
+- MapWrapperReadyListener listener
++ <<Create>> Map(SupportMapFragment,Context)
++ <<Create>> Map(SupportMapFragment,Context,MapWrapperReadyListener)
++ void onMapReady(GoogleMap)
++ void setListener(MapWrapperReadyListener)
++ void setClickable(boolean)
++ boolean isClickable()
++ Marker placePin(Coordinates,boolean)
++ Marker placePin(Coordinates,boolean,int)
++ Marker placePin(Coordinates,boolean,int,boolean)
++ void placeStartPin(Coordinates,boolean,int)
++ GoogleMap getMap()
++ void setZoom(float)
++ void setPosition(Coordinates)
++ void smoothTransition(Coordinates)
++ void smoothTransition(Coordinates,float)
++ float getZoom()
++ Coordinates getPinCoords()
++ void setMarkerListener(GoogleMap.OnMarkerClickListener)
++ void setClickListener(GoogleMap.OnMapClickListener)
+}
+
+class .Timer {
++ <<Create>> Timer()
++ Instant startTimer()
++ Instant stopTimer()
++ long elapsedTime(Instant,Instant)
+}
+
+class signUp {
+- {static} int REQUEST_EXTERNAL_STORAGE
+# Uri photoDir
+- {static} int PICK_IMAGE
+- EditText username
+- CheckBox check
+~ ActivityResultLauncher<PickVisualMediaRequest> pickMedia
++ void saveImage(Uri)
+# void onCreate(Bundle)
++ void signUpButton(View)
++ void signIn(View)
++ void uploadLicense(View)
++ void onResponseSuccess(Response<ResponseBody>)
++ void onResponseFailure(Throwable)
+}
+
+
+abstract class OutCityTransport {
+- String licensePlate
+- int seats
+- double rate
++ <<Create>> OutCityTransport(String,double,int,int,String,String,String)
++ String getLicensePlate()
++ int getSeats()
++ double getRate()
+}
+
+
+interface .MapWrapperReadyListener {
+~ void onMapWrapperReady()
+}
+
+class Motorcycle {
+- String license_plate
++ <<Create>> Motorcycle(String,boolean,int,String,String,String,double,Coordinates,PositiveInteger)
++ <<Create>> Motorcycle()
++ boolean requiresLicense()
++ boolean validLicense(String)
++ String getLicensePlate()
++ String toString()
+}
+
+
+class Wallet {
+- ArrayList<Card> cards
+- double cash
++ <<Create>> Wallet(Card,double)
++ <<Create>> Wallet(double)
++ void addCard(Card)
++ List<Card> getCards()
++ double getBalance()
++ void addToWallet(double)
++ void withdraw(double)
++ void setBalance(double)
++ boolean isOverdrawn()
+}
+
+
+class RouteHistory {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+}
+
+class MainScreenTaxi {
+~ TaxiDriver taxiDriver
+# void onCreate(Bundle)
++ void taxiRequests(View)
++ void profile(View)
+}
+
+
+class VehicleTracker {
+- double distanceTraveled
+- boolean isStopped
++ <<Create>> VehicleTracker(Coordinates,double)
++ <<Create>> VehicleTracker(Coordinates)
++ <<Create>> VehicleTracker(Coordinates,double,boolean)
++ double getDistanceTraveled()
++ boolean isStopped()
+}
+
+
+class InCityScreen {
+- Intent rentalIntent
+- Intent taxiIntent
+~ Customer customer
+# void onCreate(Bundle)
++ void onVehicleSelect(View)
++ void onTaxiClick(View)
+}
+
+
+class QrCamera {
+}
+class ChargeWallet {
+# User user
+# Customer customer
+- TextView money
+- List<Card> cards
+- Wallet wallet
+- String value
+- List<String> cardSpinner
+- Spinner arrayCards
+- EditText amount
+# void onCreate(Bundle)
++ void chargeWalletButton(View)
++ void onResponseSuccess(Response<ResponseBody>)
++ void onResponseFailure(Throwable)
+}
+
+
+class SpecializedTracker {
+~ PositiveInteger gas
++ <<Create>> SpecializedTracker(Coordinates,PositiveInteger)
++ <<Create>> SpecializedTracker(Coordinates,double,boolean,PositiveInteger)
++ PositiveInteger getGas()
+}
+
+
+class GarageInfoScreen {
+- ArrayList<OutCityTransport> vehicles
+- Garage garage
+# void onCreate(Bundle)
++ void back(View)
++ void onItemClick(AdapterView<?>,View,int,long)
+}
+
+
+class OutCityVehicleListAdapter {
+- Context context
+- ArrayList<OutCityTransport> vehicles
++ <<Create>> OutCityVehicleListAdapter(Context,ArrayList<OutCityTransport>)
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+}
+
+
+class MainActivity {
+- AppBarConfiguration appBarConfiguration
+- ActivityMainBinding binding
+# void onCreate(Bundle)
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ boolean onSupportNavigateUp()
+}
+
+
+class TaxiDriver {
+- boolean free_status
+- Taxi taxi
++ <<Create>> TaxiDriver(String,String,String,String,String,Wallet,boolean,Taxi)
++ Taxi getTaxi()
++ boolean isFreeStatus()
++ void printUser()
+}
+
+
+abstract class InCityTransport {
++ <<Create>> InCityTransport(int,String,String,String)
++ <<Create>> InCityTransport()
+}
+
+class Refill {
+- LocalDateTime date
+- GasStation gasStation
+- PositiveInteger startGas
+- PositiveInteger endGas
+- boolean completed
++ <<Create>> Refill(LocalDateTime,GasStation,PositiveInteger,PositiveInteger)
++ LocalDateTime getDate()
++ GasStation getGasStation()
++ PositiveInteger getStartGas()
++ PositiveInteger getEndGas()
++ boolean isCompleted()
++ void setCompleted(boolean)
++ void addPointsToCustomer()
+}
+
+
+class TaxiRequestAdapter {
+- List<TaxiRequest> taxiRequests
+- Context context
+- ApiService api
+- TaxiDriver taxiDriver
+- TaxiRequest taxiRequest
++ <<Create>> TaxiRequestAdapter(List<TaxiRequest>,Context,TaxiDriver)
++ RequestView onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(RequestView,int)
++ void checkRequest()
++ void acceptRequest()
++ void clearData()
++ int getItemCount()
+}
+
+
+class TaxiRequestAdapter$RequestView {
+~ TextView number
+~ TextView start
+~ TextView end
+~ Button accept
++ <<Create>> RequestView(View)
+}
+
+
+class RentalService {
+- Refill refill
++ <<Create>> RentalService(int,LocalDateTime,Payment,Rating,int,Transport)
++ void setRefill(Refill)
+}
+
+
+class LocationScreen {
+- Map map
+- Bundle data
+# void onCreate(Bundle)
+- void taxiScreenCheck()
++ void onSubmit(View)
++ void onMapWrapperReady()
+}
+
+
+class RatingOutcity {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class RatingTaxi {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class Points {
+~ int points
++ <<Create>> Points(int)
++ int getPoints()
++ void setPoints(int)
++ int calcPoints(double)
+}
+
+class OutCityScreen {
+- RecyclerView recyclerView
+- GarageListAdapterOld adapter
+- Bundle locationScreenData
+- Intent locationIntent
+- ActivityResultLauncher<Intent> activityResultLauncher
+# void onCreate(Bundle)
++ void onClick(View)
+- void retrieveGarages(GenericCallback<ArrayList<Garage>>)
++ void onActivityResult(ActivityResult)
++ void onItemClick(AdapterView<?>,View,int,long)
+}
+
+
+class Rating {
+- Integer vehicleStars
+- Integer driverStars
+- Integer garageStars
+- String comment
+- RatingType type
++ <<Create>> Rating(String,int)
++ <<Create>> Rating(String,int,int,RatingType)
++ String getComment()
++ int getVehicleStars()
++ int getGarageStars()
++ int getDriverStars()
++ RatingType getType()
+}
+
+
+class .Coordinates {
+# double lat
+# double lng
++ <<Create>> Coordinates(double,double)
++ <<Create>> Coordinates(Coordinates)
++ <<Create>> Coordinates(LatLng)
++ {static} Coordinates parseCoords(String)
++ double getLat()
++ double getLng()
++ void setLat(double)
++ void setLng(double)
++ void addCoords(Coordinates)
++ void subCoords(Coordinates)
++ String toString()
++ LatLng toLatLng()
++ boolean withinRadius(Coordinates,float)
++ float distance(Coordinates)
++ double estimateTaxiCost(Coordinates)
++ String coordsToJson()
++ String calculateEta(Coordinates)
+}
+
+class TaxiRequestWaitScreen {
+- Handler handler
+- boolean status
+- Timer reservationTimer
+~ ApiService api
+- TaxiService taxiService
+~ Runnable taxiFoundCheck
+# void onCreate(Bundle)
++ void cancelTaxiReservation()
++ void onBackPressed()
++ void resumeTaxiReservation()
++ void rideStatus()
+# void onStop()
+# void onDestroy()
+}
+
+class Garage {
+- int id
+- String name
+- Location location
+- String availableHours
+- ArrayList<OutCityTransport> vehicles
++ <<Create>> Garage(int,String,Location,String,ArrayList<OutCityTransport>)
++ <<Create>> Garage(int,String,Location,String)
++ <<Create>> Garage(int,String,String,Coordinates,String,ArrayList<OutCityTransport>)
++ <<Create>> Garage(int,String,String,Coordinates,String)
++ int getId()
++ Location getLocation()
++ Coordinates getCoords()
++ String getAddress()
++ String getName()
++ String getAvailableHours()
++ ArrayList<OutCityTransport> getVehicles()
+}
+
+
+class Van {
++ <<Create>> Van(String,double,int,int,String,String,String)
+}
+
+class MainScreenFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class RefillScreen {
+- Map map
+- Chronometer timer
+- double addNumber
+~ Marker carMarker
+- int[] disasterCounter
+~ ArrayList<GasStation> gasStationList
+~ int id
+~ Rental car
+~ String trackerType
+- ApiService api
+# void onCreate(Bundle)
++ void onMapWrapperReady()
++ void onMapClick(LatLng)
++ void refillBtn(View)
++ GasStation sortArrayList(Coordinates,ArrayList<GasStation>)
++ void showAlert(String)
++ void callback(PopupWindow,SpecializedTracker,GasStation)
++ void cancelRefill(PopupWindow,SpecializedTracker,GasStation)
+}
+
+
+class TransportScreen {
+- Map map
+- Button button
+- Timer timer
+- Instant startTimer
+- Instant stopTimer
+- TaxiRequest taxiRequest
+- TaxiDriver taxiDriver
+- ApiService api
+- boolean status
+- long elapsedTime
+- String costCalc
+# void onCreate(Bundle)
++ void onMapWrapperReady()
++ void startRoute()
++ void checkRequest()
++ void showEta()
++ void endRoute()
++ long getTime()
++ void calculateCost()
+}
+
+
+class Card {
+- String cardnumber
+- String cardholderName
+- String expirationDate
+- String cvv
++ <<Create>> Card(String,String,String,String)
++ void changeInfo(String,String,String,String)
++ String getCardnumber()
++ String getCardholderName()
++ String getExpirationDate()
++ String getCvv()
++ String printCard()
+}
+
+class CustomerHistory {
+- ArrayList<Service> history
++ <<Create>> CustomerHistory()
+}
+
+
+class Customer {
+- Points points
+- byte[] img
+- String license
+- CustomerHistory history
++ <<Create>> Customer(String,String,String,String,String,byte[],Wallet,String,int)
++ CustomerHistory getHistory()
++ String getLicense()
++ void setLicense(String)
++ Points getPoints()
++ void setPoints(int)
++ String convertCustomerToJsonString()
++ void printUser()
+}
+
+
+class HistoryListAdapter {
+- Context context
+- ArrayList<Service> dataList
+- boolean clickable
+- {static} int TAXI
+- {static} int RENTAL
+- {static} int OUTCITY
++ <<Create>> HistoryListAdapter(Context,ArrayList<Service>)
++ <<Create>> HistoryListAdapter(Context,Service)
++ int getItemViewType(int)
++ RecyclerView.ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(RecyclerView.ViewHolder,int)
++ void onClick(View)
++ int getItemCount()
+}
+
+
+class HistoryListAdapter$RentalViewHolder {
+- ImageView icon
+- TextView titleField
+- TextView dateField
+- TextView idField
+- TextView amountField
++ <<Create>> RentalViewHolder(View)
+}
+
+
+class HistoryListAdapter$OutCityViewHolder {
+- ImageView icon
+- TextView titleField
+- TextView dateField
+- TextView idField
+- TextView amountField
+- TextView garageNameField
+- TextView garageIdField
++ <<Create>> OutCityViewHolder(View)
+}
+
+
+class HistoryListAdapter$TaxiViewHolder {
+- ImageView icon
+- TextView titleField
+- TextView dateField
+- TextView idField
+- TextView amountField
+- TextView fromField
+- TextView toField
++ <<Create>> TaxiViewHolder(View)
+}
+
+class OutCityService {
+- String garageName
+- int garageId
++ <<Create>> OutCityService(String,int,int,LocalDateTime,Payment,Rating,int,Transport)
++ String getGarageName()
++ int getGarageId()
+}
+
+
+class TaxiScreen {
+- ActivityResultLauncher<Intent> activityResultLauncher
+- Bundle destinationScreenData
+- Location location
+- Coordinates destinationCoord
+- float zoom
+~ Customer customer
+~ double finalCostEstimated
+~ ApiService api
+# void onCreate(Bundle)
++ void findTaxi(View)
++ void insertDestination(View)
+- int paymentCheck()
+- void enableTaxiBtn(Boolean)
+- boolean checkLocField()
+- void gpsLocation()
++ void onActivityResult(ActivityResult)
+}
+
+class VehicleListAdapter {
+- Context context
+- ArrayList<Rental> vehicles
+- int icon
+- Coordinates pos
++ <<Create>> VehicleListAdapter(Context,ArrayList<Rental>,int,Coordinates)
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+}
+
+
+class CustomerProfile {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+
+OutCityTransport <|-- OutCityCar
+MapWrapperReadyListener <|.. InCityVehicleScreen
+Rental <|-- ElectricScooter
+InCityTransport <|-- Taxi
+Rental <|-- CityCar
+ScrollMapFragment +.. ScrollMapFragment$OnTouchListener
+ScrollMapFragment +.. ScrollMapFragment$TouchableWrapper
+Rental <|-- Bicycle
+Service <|-- TaxiService
+Coordinates <|-- Location
+InCityTransport <|-- Rental
+MapWrapperReadyListener <|.. UnlockScreen
+Transport <|-- OutCityTransport
+Rental <|-- Motorcycle
+Tracker <|-- VehicleTracker
+VehicleTracker <|-- SpecializedTracker
+User <|-- TaxiDriver
+Transport <|-- InCityTransport
+TaxiRequestAdapter +.. TaxiRequestAdapter$RequestView
+Service <|-- RentalService
+MapWrapperReadyListener <|.. LocationScreen
+OutCityTransport <|-- Van
+MapWrapperReadyListener <|.. RefillScreen
+MapWrapperReadyListener <|.. TransportScreen
+User <|-- Customer
+HistoryListAdapter +.. HistoryListAdapter$RentalViewHolder
+HistoryListAdapter +.. HistoryListAdapter$OutCityViewHolder
+HistoryListAdapter +.. HistoryListAdapter$TaxiViewHolder
+Service <|-- OutCityService
+Service o--  Transport
+Payment *-- Method
+Taxi o-- Coordinates
+Garage o-- Coordinates
+Garage o-- OutCityTransport
+Rental o-- VehicleTracker
+TaxiService o--	TaxiRequest
+TaxiRequest o--	Coordinates
+TaxiRequest o--	TaxiDriver
+Refill o--	GasStation
+GasStation o--	Coordinates
+Service o--	Rating
+RentalService o-- Refill
+Service o-- Payment
+Wallet o-- Card
+User o-- Wallet
+TaxiDriver o-- Taxi
+Payment o-- Customer
+GarageReservationForm o-- Garage
+GarageReservationForm o-- OutCityTransport
+RatingScreen o-- Service
+MainScreen o-- Customer
+addCard o-- User
+TaxiRideScreen o-- Customer
+TaxiRideScreen o-- TaxiService
+TaxiRequestsScreen o-- TaxiDriver
+OutCityVehicleListAdapter o-- OutCityTransport
+ChargeWallet o-- User
+InCityScreen o-- Customer
+MainScreenTaxi o-- TaxiDriver
+GarageListAdapter o-- Garage
+TaxiRequestWaitScreen o-- TaxiService
+CustomerHistory o-- Service
+VehicleListAdapter o-- Rental
+TaxiScreen o-- Coordinates
+Map o-- Coordinates
+Rating o-- RatingType
+Refill  o-- PositiveInteger
+TaxiRequest o-- Payment.Method
+SpecializedTracker o-- PositiveInteger
+InCityVehicleScreen o-- Coordinates
+TaxiScreen o-- Location
+UnlockScreen o-- Rental
+RefillScreen o-- GasStation
+@enduml

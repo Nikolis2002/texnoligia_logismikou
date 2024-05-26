@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="-z3Yh579_QSOd7VFaLvF" name="Page-1">
-        <mxGraphModel dx="1981" dy="1038" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1528" dy="571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -315,13 +315,14 @@
                 <mxCell id="238" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="210" y="775" width="90" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="248" style="edgeStyle=none;html=1;entryX=1.094;entryY=0.494;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;fillColor=default;strokeColor=#b85450;strokeWidth=2;" parent="1" source="246" target="224" edge="1">
+                <mxCell id="248" style="edgeStyle=none;html=1;fontSize=12;fillColor=default;strokeColor=#b85450;strokeWidth=2;" parent="1" source="246" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="1120" y="1280"/>
                             <mxPoint x="1120" y="830"/>
                             <mxPoint x="1120" y="370"/>
                         </Array>
+                        <mxPoint x="900" y="370" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="246" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
