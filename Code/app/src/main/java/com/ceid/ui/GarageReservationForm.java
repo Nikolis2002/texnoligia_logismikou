@@ -1,35 +1,55 @@
 package com.ceid.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
+import com.ceid.Network.jsonStringParser;
 import com.ceid.model.transport.Garage;
 import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
 import com.ceid.model.transport.Van;
+import com.ceid.model.users.Customer;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GarageReservationForm extends AppCompatActivity
 {
@@ -38,6 +58,7 @@ public class GarageReservationForm extends AppCompatActivity
 	private Date selectedDate = null;
 	private int hours = 12;
 	private int minutes = 10;
+	Customer customer =(Customer)((App) getApplicationContext()).getUser();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -205,7 +226,60 @@ public class GarageReservationForm extends AppCompatActivity
 				Log.d("DAYSTEST", "Not within current week");
 			}
 
-			
+			List<Map<String,Object>> values = new ArrayList<>();
+			Map<String, Object> insert= new LinkedHashMap<>();
+			insert.put("name",customer.getName());
+			insert.put("value",vehicle.getRate());
+			insert.put("method","WALLET");
+			insert.put("creationDate",LocalDateTime.now());
+			insert.put("status_date",null);
+			insert.put("status","ONGOING");
+			insert.put("earned_points",null);
+			insert.put("car_id",vehicle.getId());
+
+			ApiService api= ApiClient.getApiService();
+			String parser= jsonStringParser.createJsonString("getPayment",values);
+
+
+			Call<ResponseBody> call= api.getFunction(parser);
+
+			call.enqueue(new Callback<ResponseBody>() {
+				@Override
+				public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+					if (response.isSuccessful()) {
+
+						View popupView = LayoutInflater.from(GarageReservationForm.this).inflate(R.layout.garage_popup, null);
+
+						// Create the popup window
+						PopupWindow popupWindow = new PopupWindow(
+								popupView,
+								ViewGroup.LayoutParams.MATCH_PARENT,
+								ViewGroup.LayoutParams.MATCH_PARENT
+						);
+
+						// Show the popup window
+						popupWindow.showAtLocation(
+								findViewById(android.R.id.content),
+								Gravity.CENTER,
+								0,
+								0
+						);
+
+					} else {
+						Log.d("Response", "Unsuccessful");
+					}
+				}
+
+				@Override
+				public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+					Log.e("Error", "Failed to fetch data: " + t.getMessage());
+				}
+			});
 		}
+	}
+
+	public void onClose(View view){
+		Intent intent=new Intent(getApplicationContext(),MainScreen.class);
+		startActivity(intent);
 	}
 }
