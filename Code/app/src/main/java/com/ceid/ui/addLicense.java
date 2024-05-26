@@ -178,9 +178,6 @@ public class addLicense extends AppCompatActivity implements postInterface {
         Toast.makeText(getApplicationContext(), "Check test!",
                 Toast.LENGTH_LONG).show();
     }
-    public void changeScreen(){
-
-    }
     public void givenUsingTimer_whenSchedulingTaskOnce_thenCorrect() throws InterruptedException {
         Thread thread;
         Thread.sleep(2000);

@@ -173,6 +173,7 @@
     <string name="points2">Points gained</string>
     <string name="logout">Logout</string>
     <string name="adddriversLicense">Add a driver\'s license</string>
+    <string name="timesec">Duration(min):</string>
 
 
 </resources>
