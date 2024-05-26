@@ -30,4 +30,9 @@ public class GasStation
 		return gasPrice;
 	}
 
+	public double calculateGasPrice(int gas)
+	{
+		return gasPrice*gas;
+	}
+
 }
