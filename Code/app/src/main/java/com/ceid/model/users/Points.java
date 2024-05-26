@@ -4,7 +4,7 @@ import com.ceid.util.PositiveInteger;
 import java.io.Serializable;
 
 public class Points implements Serializable {
-    int points;
+    private int points;
 
     public Points(int points){
         this.points= points;
