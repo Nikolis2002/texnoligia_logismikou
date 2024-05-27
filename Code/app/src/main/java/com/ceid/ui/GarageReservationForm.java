@@ -23,6 +23,7 @@ import com.ceid.model.transport.OutCityCar;
 import com.ceid.model.transport.OutCityTransport;
 import com.ceid.model.transport.Van;
 import com.ceid.model.users.Customer;
+import com.ceid.model.users.User;
 import com.ceid.util.DateFormat;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -59,7 +60,9 @@ public class GarageReservationForm extends AppCompatActivity
 	private Date selectedDate = null;
 	private int hours = 12;
 	private int minutes = 10;
-	Customer customer =(Customer)((App) getApplicationContext()).getUser();
+	//Customer customer =(Customer)((App) getApplicationContext()).getUser();
+
+	Customer customer = (Customer) User.getCurrentUser();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -229,19 +232,19 @@ public class GarageReservationForm extends AppCompatActivity
 
 			List<Map<String,Object>> values = new ArrayList<>();
 			Map<String, Object> insert= new LinkedHashMap<>();
-			insert.put("name",customer.getName());
+			insert.put("name",customer.getUsername());
 			insert.put("value",vehicle.getRate());
 			insert.put("method","WALLET");
 			insert.put("creationDate",LocalDateTime.now());
-			insert.put("status_date",null);
 			insert.put("status","ONGOING");
-			insert.put("earned_points",null);
+			insert.put("status_date",null);
+			insert.put("earned_points",0);
 			insert.put("car_id",vehicle.getId());
+			insert.put("num_days",1);
+			values.add(insert);
 
 			ApiService api= ApiClient.getApiService();
-			String parser= jsonStringParser.createJsonString("getPayment",values);
-
-
+			String parser= jsonStringParser.createJsonString("insertOutCityService",values);
 			Call<ResponseBody> call= api.getFunction(parser);
 
 			call.enqueue(new Callback<ResponseBody>() {
@@ -258,6 +261,10 @@ public class GarageReservationForm extends AppCompatActivity
 								ViewGroup.LayoutParams.MATCH_PARENT
 						);
 
+						String yourDate= DateFormat.format(selectedDatetime);
+						TextView textView=popupView.findViewById(R.id.textPop);
+						textView.setText("You can get you vehicle on the following date: "+yourDate);
+
 						// Show the popup window
 						popupWindow.showAtLocation(
 								findViewById(android.R.id.content),
@@ -265,10 +272,6 @@ public class GarageReservationForm extends AppCompatActivity
 								0,
 								0
 						);
-						String yourDate= DateFormat.format(selectedDatetime);
-						TextView textView=findViewById(R.id.textPop);
-						textView.setText("You can get you vehicle on the following date: "+yourDate);
-
 
 					} else {
 						Log.d("Response", "Unsuccessful");

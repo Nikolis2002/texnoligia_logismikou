@@ -265,7 +265,7 @@ CREATE TABLE rental_rating
 CREATE TABLE taxi_rating
 (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    taxi_stars TINYINT NOT NULL,
+    vehicle_stars TINYINT NOT NULL,
     driver_stars TINYINT NOT NULL,
     comment TEXT,
 
@@ -381,6 +381,7 @@ CREATE TABLE out_city_service
     service_id INT UNSIGNED NOT NULL,
     vehicle_id INT UNSIGNED NOT NULL,
     rating_id INT UNSIGNED,
+    num_days INT UNSIGNED NOT NULL,
 
     PRIMARY KEY(service_id),
 
