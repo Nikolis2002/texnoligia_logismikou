@@ -76,7 +76,7 @@ public class TaxiRequestsScreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(TaxiRequestsScreen.this, TaxiRequestsScreen.class);
+        Intent intent = new Intent(TaxiRequestsScreen.this, MainScreenTaxi.class);
         startActivity(intent);
         finish();
     }

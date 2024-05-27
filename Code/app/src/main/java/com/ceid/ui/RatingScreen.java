@@ -123,4 +123,10 @@ public class RatingScreen extends AppCompatActivity
 		if (validateRating(r1, r2, txt))
 			saveRating(r1, r2, txt);
 	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		finish();
+	}
 }

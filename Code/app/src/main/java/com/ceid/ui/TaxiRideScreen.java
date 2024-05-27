@@ -139,8 +139,6 @@ public class TaxiRideScreen extends AppCompatActivity {
 
                     try {
                         boolean status = jsonStringParser.getbooleanFromJson(response);
-                        Toast.makeText(getApplicationContext(), String.valueOf(status), Toast.LENGTH_SHORT).show();
-
                         if(status) {
                             timer.stop();
                             handlerStatus.removeCallbacks(taxiRideCheck);

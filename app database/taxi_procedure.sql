@@ -130,7 +130,7 @@ begin
 	
 	select service_id into service_id_update from taxi_service where request_id=taxi_req_id;
 	select payment_id into payment_id_update from service where id=service_id_update;
-	update service set service_status='COMPLETED' where id=service_id_update;
+	update service set service_status='COMPLETED',status_date=now() where id=service_id_update;
 	update payment set payment_value=payment_value where id=payment_id_update;
 	
 end$

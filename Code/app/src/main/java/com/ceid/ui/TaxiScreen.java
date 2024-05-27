@@ -24,6 +24,7 @@ import com.ceid.Network.jsonStringParser;
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.users.Customer;
+import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;
 import com.ceid.util.Location;
@@ -56,8 +57,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         enableTaxiBtn(false);
         gpsLocation();
 
-        Intent userDataIntent = getIntent();
-        customer= (Customer) userDataIntent.getSerializableExtra("customer");
+        customer=(Customer) User.getCurrentUser();
 
         TextView textView = findViewById(R.id.balance);
         String balance= customer.getWallet().getBalance() + "€";
