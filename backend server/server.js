@@ -174,9 +174,6 @@ app.get("/history", async(req, res)=>
                     let requestData = await helper.queryPromise(con, "SELECT * FROM taxi_request WHERE id = ?", [entry.other_id]);
                     entry.taxi_request = requestData.result[0];
 
-                    //let driverData = await helper.queryPromise(con, "SELECT * FROM taxi_driver WHERE username = ?", [entry.taxi_request.assigned_driver]);
-                    //entry.taxi_request.assigned_driver = driverData.result[0];
-
                     let vehicleData = await helper.queryPromise(con, "SELECT * FROM taxi_request_vehicle WHERE request_id = ?", [entry.other_id]);
                     entry.vehicle = vehicleData.result[0];
 

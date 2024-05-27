@@ -618,7 +618,7 @@ SELECT
     rs.rating_id
 FROM service s
 INNER JOIN rental_service rs ON s.id = rs.service_id
-INNER JOIN payment p ON s.payment_id  = p.id
+INNER JOIN payment p ON s.payment_id = p.id
 WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================

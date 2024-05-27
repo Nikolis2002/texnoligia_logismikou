@@ -2,7 +2,10 @@ package com.ceid.model.users;
 import android.util.Log;
 
 import com.ceid.model.payment_methods.*;
+import com.ceid.model.service.Service;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class Customer extends User {
 
@@ -26,6 +29,11 @@ public class Customer extends User {
     public void setHistory(CustomerHistory history)
     {
         this.history = history;
+    }
+
+    public void setHistory(ArrayList<Service> history)
+    {
+        this.history = new CustomerHistory(history);
     }
 
     public String getLicense(){

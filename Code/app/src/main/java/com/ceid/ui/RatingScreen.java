@@ -38,17 +38,26 @@ public class RatingScreen extends AppCompatActivity
 		list.setLayoutManager(new LinearLayoutManager(this));
 		list.setAdapter(new HistoryListAdapter(this, service));
 
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("rating", service.getRating());
+
 		if (service instanceof RentalService)
 		{
-			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new RatingRental()).commit();
+			Fragment fragment = new RatingRental();
+			fragment.setArguments(bundle);
+			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
 		else if (service instanceof OutCityService)
 		{
-			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new RatingOutcity()).commit();
+			Fragment fragment = new RatingOutcity();
+			fragment.setArguments(bundle);
+			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
 		else if (service instanceof TaxiService)
 		{
-			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new RatingTaxi()).commit();
+			Fragment fragment = new RatingTaxi();
+			fragment.setArguments(bundle);
+			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
 	}
 
@@ -94,6 +103,8 @@ public class RatingScreen extends AppCompatActivity
 		{
 			RatingBar vehicle = fview.findViewById(R.id.vehicleRating);
 			TextInputEditText text = fview.findViewById(R.id.commentText);
+
+			vehicle.setRating(5.0f);
 
 			r1 = vehicle.getRating();
 			r2  = null;

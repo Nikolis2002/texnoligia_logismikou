@@ -106,6 +106,8 @@ public class RouteHistory extends Fragment
 								history.add(new TaxiService(entry));
 						}
 
+						customer.setHistory(history);
+
 						showHistoryList(view, history);
 					}
 				}
@@ -118,68 +120,6 @@ public class RouteHistory extends Fragment
 			});
 		}
 		else showHistoryList(view, history.getList());
-
-		/*
-
-		ArrayList<Service> data = new ArrayList<>();
-		data.add(new RentalService(
-				1,
-				LocalDateTime.now(),
-				new Payment(87, Payment.Method.WALLET),
-				null,
-				0,
-				new CityCar(
-						"ABC-1234",
-						true,
-						0,
-						"MONDEO",
-						"FORD",
-						"1993",
-						1.40,
-						new Coordinates(38.2442870,21.7326153),
-						new PositiveInteger(0)
-				)
-		));
-
-		data.add(new OutCityService(
-				"Kort Rentals",
-				1,
-				1,
-				LocalDateTime.now(),
-				new Payment(87, Payment.Method.WALLET),
-				null,
-				0,
-				new Van(
-						"ABC-1234",
-						1.40,
-						4,
-						0,
-						"MONDEO",
-						"FORD",
-						"1993"
-				)
-		));
-
-		data.add(new TaxiService(
-				1,
-				LocalDateTime.now(),
-				new Payment(87, Payment.Method.WALLET),
-				null,
-				0,
-				new Taxi(
-						1,
-						"MONDEO",
-						"FORD",
-						"1993",
-						"ABC-123"
-				),
-				new TaxiRequest(
-						new Coordinates(38.2442870,21.7326153),
-						new Coordinates(39.2442870,22.7326153),
-						Payment.Method.WALLET
-				)
-		));
-		*/
 	}
 
 	public void showHistoryList(View view, ArrayList<Service> data)
