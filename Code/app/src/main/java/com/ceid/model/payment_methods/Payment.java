@@ -8,12 +8,37 @@ public class Payment implements Serializable
 {
 
     private double amount;
-    public enum Method implements Serializable {WALLET,CASH};
+
+    public enum Method implements Serializable
+    {
+        WALLET,CASH;
+
+        public static Method fromString(String str)
+        {
+            if (str.equalsIgnoreCase("wallet"))
+            {
+                return WALLET;
+            }
+            else if (str.equalsIgnoreCase("cash"))
+            {
+                return CASH;
+            }
+
+            return null;
+        }
+    };
+
     private Method method;
 
     public Payment(double amount, Method method) {
         this.amount = amount;
         this.method = method;
+    }
+
+    public Payment(double amount, String paymentMethod)
+    {
+        this.amount = amount;
+        this.method = Method.fromString(paymentMethod);
     }
 
     public Payment(Method method) {

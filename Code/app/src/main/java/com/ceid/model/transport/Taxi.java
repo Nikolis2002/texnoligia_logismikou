@@ -1,6 +1,7 @@
 package com.ceid.model.transport;
 
 import com.ceid.util.Coordinates;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,19 @@ public class Taxi extends InCityTransport {
         super(id, model, manufacturer, manuf_year);
         this.licence_plate=licence_plate;
         this.coords=null;
+    }
+
+    public Taxi(JsonNode taxiData)
+    {
+        super(
+                taxiData.get("id").asInt(),
+                taxiData.get("model").asText(),
+                taxiData.get("manufacturer").asText(),
+                taxiData.get("manuf_year").asText()
+        );
+
+        this.licence_plate = taxiData.get("license_plate").asText();
+        this.coords = new Coordinates(taxiData.get("coords"));
     }
 
 

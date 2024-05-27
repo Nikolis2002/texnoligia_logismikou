@@ -3,9 +3,12 @@ package com.ceid.model.service;
 import androidx.annotation.NonNull;
 
 import com.ceid.model.payment_methods.Payment;
+import com.ceid.model.transport.Taxi;
 import com.ceid.model.transport.Transport;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.util.Coordinates;
+import com.ceid.util.DateFormat;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,7 +20,7 @@ public class TaxiRequest implements Serializable
     private Coordinates pickupLocation;
     private Coordinates destination;
     private Payment.Method payment;
-    private TaxiDriver taxiDriver = null;
+    //private TaxiDriver taxiDriver = null;
     private LocalDateTime assignmentTime = null;
     private LocalDateTime pickupTime = null;
 
@@ -32,6 +35,17 @@ public class TaxiRequest implements Serializable
         this.pickupLocation=pickUp;
         this.destination=dest;
         this.payment= payment;
+    }
+
+    public TaxiRequest(JsonNode requestData, Payment.Method paymentMethod)
+    {
+        this.id = requestData.get("id").asInt();
+        this.pickupLocation = new Coordinates(requestData.get("pickup_location"));
+        this.destination = new Coordinates(requestData.get("destination"));
+        this.assignmentTime = DateFormat.parseFromJS(requestData.get("assignment_time").asText());
+        this.pickupTime = DateFormat.parseFromJS(requestData.get("pickup_time").asText());
+        this.payment = paymentMethod;
+        //this.taxiDriver = null;
     }
 
     public Payment.Method getPaymentMethod() {
@@ -61,10 +75,10 @@ public class TaxiRequest implements Serializable
         return destination;
     }
 
-    public TaxiDriver getTaxiDriver()
+    /*public TaxiDriver getTaxiDriver()
     {
         return taxiDriver;
-    }
+    }*/
 
     public LocalDateTime getAssignmentTime()
     {
@@ -76,10 +90,10 @@ public class TaxiRequest implements Serializable
         return pickupTime;
     }
 
-    public void setTaxiDriver(TaxiDriver taxiDriver)
+    /*public void setTaxiDriver(TaxiDriver taxiDriver)
     {
         this.taxiDriver = taxiDriver;
-    }
+    }*/
 
     public void setAssignmentTime(LocalDateTime time)
     {

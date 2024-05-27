@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 
 import com.ceid.util.Coordinates;
 import com.ceid.util.PositiveInteger;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,25 @@ public class CityCar extends Rental {
         this.license_plate = null;
     }
 
-    //rest of  the car todo!
+	public CityCar(JsonNode vehicleData)
+	{
+        super(
+                true,
+                vehicleData.get("id").asInt(),
+                vehicleData.get("model").asText(),
+                vehicleData.get("manufacturer").asText(),
+                vehicleData.get("manuf_year").asText(),
+                vehicleData.get("rate").asDouble(),
+                new SpecializedTracker(
+                        new Coordinates(vehicleData.get("coords")),
+                        new PositiveInteger(vehicleData.get("gas_level").asInt())
+                )
+        );
+
+        this.license_plate = vehicleData.get("license_plate").asText();
+	}
+
+	//rest of  the car todo!
 
     @Override
     public boolean requiresLicense()

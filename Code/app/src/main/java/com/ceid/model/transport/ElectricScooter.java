@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
 import com.ceid.util.DateFormat;import com.ceid.util.PositiveInteger;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,21 @@ public class ElectricScooter extends Rental {
 	public ElectricScooter()
 	{
 		super();
+	}
+
+	public ElectricScooter(JsonNode vehicleData)
+	{
+		super(
+				true,
+				vehicleData.get("id").asInt(),
+				vehicleData.get("model").asText(),
+				vehicleData.get("manufacturer").asText(),
+				vehicleData.get("manuf_year").asText(),
+				vehicleData.get("rate").asDouble(),
+				new VehicleTracker(
+						new Coordinates(vehicleData.get("coords"))
+				)
+		);
 	}
 
 	@Override

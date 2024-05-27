@@ -24,7 +24,7 @@ public class MainScreen extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
         //User.setCurrentUser(customer);
-        //Customer customer=(Customer) User.setCurrentUser(customer);
+        this.customer=(Customer) User.getCurrentUser();
         //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

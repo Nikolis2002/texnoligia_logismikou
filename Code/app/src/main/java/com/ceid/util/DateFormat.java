@@ -1,8 +1,10 @@
 package com.ceid.util;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class DateFormat {
@@ -45,5 +47,11 @@ public class DateFormat {
     public static LocalDateTime parseDatetime(String datetimeStr)
     {
         return LocalDateTime.parse(datetimeStr, datetimeFormatter);
+    }
+
+    public static LocalDateTime parseFromJS(String datetimeStr)
+    {
+        Instant instant = Instant.parse(datetimeStr);
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 }

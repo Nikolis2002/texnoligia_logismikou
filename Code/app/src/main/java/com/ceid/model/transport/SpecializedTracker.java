@@ -2,6 +2,7 @@ package com.ceid.model.transport;
 
 import com.ceid.util.Coordinates;
 import com.ceid.util.PositiveInteger;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class SpecializedTracker extends VehicleTracker
 {
