@@ -618,7 +618,7 @@ SELECT
     rs.rating_id
 FROM service s
 INNER JOIN rental_service rs ON s.id = rs.service_id
-INNER JOIN payment p ON s.id = p.id
+INNER JOIN payment p ON s.payment_id = p.id
 WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================
@@ -640,7 +640,7 @@ SELECT
     ts.rating_id
 FROM service s
 INNER JOIN taxi_service ts ON s.id = ts.service_id
-INNER JOIN payment p ON s.id = p.id
+INNER JOIN payment p ON s.payment_id = p.id
 WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================
@@ -662,7 +662,7 @@ SELECT
     ocs.rating_id
 FROM service s
 INNER JOIN out_city_service ocs ON s.id = ocs.service_id
-INNER JOIN payment p ON s.id = p.id
+INNER JOIN payment p ON s.payment_id = p.id
 WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================

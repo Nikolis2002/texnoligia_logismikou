@@ -6,10 +6,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="main_screen_rent_car"> <u>Rent a car</u> </string>
-    <string name="main_screen_rent_motorcycle"> <u>Rent a motorcycle</u></string>
-    <string name="main_screen_rent_bike"> <u>Rent a bike</u></string>
-    <string name="main_screen_rent_scooter"> <u>Rent a scooter</u> </string>
+    <string name="main_screen_rent_car">Rent a car</string>
+    <string name="main_screen_rent_motorcycle">Rent a motorcycle</string>
+    <string name="main_screen_rent_bike">Rent a bike</string>
+    <string name="main_screen_rent_scooter">Rent a scooter</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
