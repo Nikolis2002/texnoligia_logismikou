@@ -102,6 +102,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
                                 Intent intent = new Intent(TaxiWaitScreen.this, TaxiRideScreen.class);
                                 intent.putExtra("taxiService",taxiService);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (IOException e) {
                             throw new RuntimeException(e);

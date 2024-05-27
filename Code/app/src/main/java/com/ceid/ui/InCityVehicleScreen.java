@@ -322,6 +322,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                                 intent.putExtra("vehicle", rental);
                                                 intent.putExtra("service_id", json.get("id").asInt());
                                                 startActivity(intent);
+                                                finish();
                                             }
                                             else
                                             {
@@ -577,5 +578,11 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 callback.onFailure(new Exception(t));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

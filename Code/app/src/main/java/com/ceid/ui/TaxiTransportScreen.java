@@ -110,9 +110,9 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
                                     if(response.isSuccessful()){
 
-                                        Coordinates destination = new Coordinates(38.246639, 21.734576);
                                         map.setZoom(13);
-                                        map.setPosition(destination);
+                                        map.setPosition(taxiRequest.getDestination());
+                                        map.placePin(taxiRequest.getDestination(),true);
                                         String text = "End Route";
                                         startTimer = timer.startTimer();
                                         button.setText(text);

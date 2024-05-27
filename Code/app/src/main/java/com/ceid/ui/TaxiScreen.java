@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -185,6 +186,12 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 

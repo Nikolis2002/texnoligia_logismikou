@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
@@ -91,6 +92,7 @@ public class TaxiRideScreen extends AppCompatActivity {
                             handlerPickUp.removeCallbacks(taxiPickUp);
                             handlerStatus = new Handler();
                             timer = findViewById(R.id.timer);
+                            timer.setBase(SystemClock.elapsedRealtime());
                             timer.start();
                             taxiRideCheck = new Runnable() {
                                 @Override
@@ -137,6 +139,7 @@ public class TaxiRideScreen extends AppCompatActivity {
 
                     try {
                         boolean status = jsonStringParser.getbooleanFromJson(response);
+                        Toast.makeText(getApplicationContext(), String.valueOf(status), Toast.LENGTH_SHORT).show();
 
                         if(status) {
                             timer.stop();
@@ -208,9 +211,30 @@ public class TaxiRideScreen extends AppCompatActivity {
                                 call_points.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                                        Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
-                                        startActivity(intent);
-                                        finish();
+                                        List<Map<String, Object>> values = new ArrayList<>();
+                                        java.util.Map<String, Object> updateWallet = new LinkedHashMap<>();
+                                        updateWallet.put("username", customer.getUsername());
+                                        updateWallet.put("balance", customer.getWallet().getBalance());
+                                        values.add(updateWallet);
+
+                                        String jsonString = jsonStringParser.createJsonString("updateWallet", values);
+                                        Call<ResponseBody> call_wallet = api.getFunction(jsonString);
+
+                                        call_wallet.enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                                                Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+                                            }
+                                        });
+
+
                                     }
 
                                     @Override

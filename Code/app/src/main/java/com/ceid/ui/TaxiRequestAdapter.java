@@ -102,6 +102,8 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
                         if(status) {
                             acceptRequest();
                         }else{
+                            TaxiRequestsScreen activity = (TaxiRequestsScreen) context;
+                            activity.taxiRequestSelect();
                             Toast.makeText(context.getApplicationContext(),"The request is not available", Toast.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
