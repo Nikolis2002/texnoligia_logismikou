@@ -152,7 +152,7 @@ INSERT INTO rental_service VALUES
     (4, 1, null, null, 1, null, null, null, null);
 
 INSERT INTO out_city_service VALUES
-    (2, 19, null);
+    (2, 19, null, 3);
 
 INSERT INTO taxi_request VALUES
     (1, POINT(38.2442870,21.7326153), POINT(38.2466208,21.7325087), "FIRE_IT_UP", '2024-05-24 21:30:22', '2024-05-24 21:30:39');
