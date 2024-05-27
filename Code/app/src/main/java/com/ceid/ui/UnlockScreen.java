@@ -149,7 +149,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                openCamera();
             }else{
-                Toast.makeText(getApplicationContext(), "App do not have camera permission", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "App does not have camera permission", Toast.LENGTH_SHORT).show();
                 cancelReservation();
 
             }

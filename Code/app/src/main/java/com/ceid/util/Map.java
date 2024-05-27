@@ -25,8 +25,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.maps.android.PolyUtil;
 
 import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Map implements OnMapReadyCallback
 {
@@ -41,6 +47,9 @@ public class Map implements OnMapReadyCallback
 	private GoogleMap.OnMarkerClickListener markerListener;
 	private GoogleMap.OnMapClickListener clickListener;
 	private Marker clickedMarker;
+
+	private ArrayList<Coordinates> polygonCoords = null;
+	private Polygon polygon = null;
 
 	private MapWrapperReadyListener listener;
 
@@ -102,6 +111,17 @@ public class Map implements OnMapReadyCallback
 
 		//Set listeners if we have previously called setMarkerListener/ setClickListener
 		this.gmap.setOnMarkerClickListener(markerListener);
+
+		//Set polygon
+		if (this.polygonCoords != null)
+		{
+			ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+
+			this.polygon = gmap.addPolygon(new PolygonOptions()
+					.addAll(list)
+					.strokeColor(0xFF0000FF)
+			);
+		}
 
 		if (clickListener != null)
 			this.gmap.setOnMapClickListener(clickListener);
@@ -259,5 +279,36 @@ public class Map implements OnMapReadyCallback
 		{
 			this.gmap.setOnMapClickListener(listener);
 		}
+	}
+
+	public void setPolygon(ArrayList<Coordinates> polygonCoords)
+	{
+		this.polygonCoords = polygonCoords;
+
+		if (gmap != null)
+		{
+			ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+
+			this.polygon = gmap.addPolygon(new PolygonOptions()
+					.addAll(list)
+					.strokeColor(0xFF0000FF)
+			);
+		}
+	}
+
+	public boolean withinPolygon(Coordinates coords)
+	{
+		assert polygon != null;
+
+		ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+		return PolyUtil.containsLocation(coords.toLatLng(), list, false);
+	}
+
+	public boolean withinPolygon()
+	{
+		assert polygon != null;
+
+		ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+		return PolyUtil.containsLocation(pinCoords.toLatLng(), list, false);
 	}
 }

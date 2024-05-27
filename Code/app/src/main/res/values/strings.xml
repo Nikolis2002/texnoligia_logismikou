@@ -98,7 +98,7 @@
     <string name="button">button</string>
     <string name="maplocation">mapLocation</string>
     <string name="unlockbutton">unlockButton</string>
-    <string name="you_will_transferred_to_your_camera_to_scan_a_qr_code_make_sure_to_allow_all_permitions">You will transferred to your camera to scan a QR code. Make sure to allow all permitions.</string>
+    <string name="you_will_transferred_to_your_camera_to_scan_a_qr_code_make_sure_to_allow_all_permitions">You will be transferred to your camera to scan the QR code on the vehicle. Make sure to allow all permissions.</string>
     <string name="fieldsWith">Fields with * are obligatory!</string>
     <string name="getStarted">Get started!</string>
     <string name="checkBox">By signing up, you agree to our Terms of Service and Privacy Policy.</string>
