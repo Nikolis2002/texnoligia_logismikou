@@ -104,20 +104,19 @@ delimiter ;
 
 DROP PROCEDURE IF EXISTS checkTaxiReservationSecond;
 delimiter $
-create procedure checkTaxiReservationSecond(in service_id_check int)
+create procedure checkTaxiReservationSecond(in request_id_in int)
 begin
 	declare status_check ENUM('ONGOING', 'COMPLETED', 'CANCELLED');
+	declare service_id_check int;
 	
+	select service_id into service_id_check from taxi_service where request_id=request_id_in;
 	select service_status into status_check from service where id=service_id_check;
 
-	
 	if status_check='CANCELLED' THEN
 		SELECT "FALSE" AS result;	
 	ELSE
 		SELECT "TRUE" AS result;
 	END IF;
-
-	
 end$
 delimiter ;
 
