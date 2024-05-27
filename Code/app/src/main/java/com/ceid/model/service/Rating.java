@@ -1,5 +1,7 @@
 package com.ceid.model.service;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.Serializable;
@@ -37,9 +39,15 @@ public class Rating implements Serializable
 	public static Rating makeRating(JsonNode rating)
 	{
 		if (rating == null)
+		{
+			Log.d("SERVICETEST", "I AM NULL");
 			return null;
+		}
 		else
+		{
+			Log.d("SERVICETEST", "I AM NOT NULL");
 			return new Rating(rating);
+		}
 	}
 
 	public Rating(JsonNode rating)

@@ -1,4 +1,6 @@
 package com.ceid.model.payment_methods;
+import androidx.annotation.NonNull;
+
 import com.ceid.model.users.Customer;
 import com.ceid.util.PositiveInteger;
 
@@ -25,6 +27,12 @@ public class Payment implements Serializable
             }
 
             return null;
+        }
+
+        @NonNull
+        public String toString()
+        {
+            return this.name();
         }
     };
 

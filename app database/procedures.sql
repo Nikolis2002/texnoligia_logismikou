@@ -210,6 +210,47 @@ BEGIN
 END $
 DELIMITER ;
 
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS rate_rental_service;
+
+DELIMITER $
+
+CREATE PROCEDURE rate_rental_service(IN in_service_id INT UNSIGNED, IN vehicle_stars TINYINT, IN comment TEXT)
+BEGIN
+    INSERT INTO rental_rating VALUES(NULL, vehicle_stars, comment);
+    UPDATE rental_service SET rating_id = LAST_INSERT_ID() WHERE service_id = in_service_id;
+END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS rate_taxi_service;
+
+DELIMITER $
+
+CREATE PROCEDURE rate_taxi_service(IN in_service_id INT UNSIGNED, IN vehicle_stars TINYINT, IN driver_stars TINYINT, IN comment TEXT)
+BEGIN
+    INSERT INTO taxi_rating VALUES(NULL, vehicle_stars, driver_stars, comment);
+    UPDATE taxi_service SET rating_id = LAST_INSERT_ID() WHERE service_id = in_service_id;
+END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS rate_out_city_service;
+
+DELIMITER $
+
+CREATE PROCEDURE rate_out_city_service(IN in_service_id INT UNSIGNED, IN vehicle_stars TINYINT, IN garage_stars TINYINT, IN comment TEXT)
+BEGIN
+    INSERT INTO out_city_rating VALUES(NULL, vehicle_stars, garage_stars, comment);
+    UPDATE out_city_service SET rating_id = LAST_INSERT_ID() WHERE service_id = in_service_id;
+END$
+
+DELIMITER ;
 
 
 -- =====================================================================================================

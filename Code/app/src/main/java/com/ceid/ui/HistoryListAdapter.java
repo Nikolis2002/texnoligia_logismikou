@@ -224,10 +224,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	{
 		if (this.clickable)
 		{
-			Service service = dataList.get((int)view.getTag());
-
 			Intent intent = new Intent(context, RatingScreen.class);
-			intent.putExtra("service", service);
+			intent.putExtra("service_pos", (int)view.getTag());
 			context.startActivity(intent);
 		}
 	}

@@ -1,11 +1,18 @@
 package com.ceid.ui;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ceid.Network.ApiClient;
+import com.ceid.Network.ApiService;
+import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.OutCityService;
 import com.ceid.model.service.Rating;
 import com.ceid.model.service.RatingType;
@@ -13,18 +20,33 @@ import com.ceid.model.service.RentalService;
 import com.ceid.model.service.Service;
 import com.ceid.model.service.TaxiService;
 import com.ceid.model.transport.Taxi;
+import com.ceid.model.users.User;
 import com.google.android.material.textfield.TextInputEditText;
+import com.ceid.model.users.Customer;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RatingScreen extends AppCompatActivity
 {
-	Service service;
+	private int servicePos;
+	private Service service;
+	private Customer customer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -32,7 +54,9 @@ public class RatingScreen extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rating_screen);
 
-		this.service = (Service) getIntent().getExtras().get("service");
+		this.servicePos = getIntent().getIntExtra("service_pos", -1);
+		this.customer = (Customer) User.getCurrentUser();
+		this.service = customer.getHistory().getList().get(servicePos);
 
 		RecyclerView list = findViewById(R.id.list);
 		list.setLayoutManager(new LinearLayoutManager(this));
@@ -43,7 +67,7 @@ public class RatingScreen extends AppCompatActivity
 
 		if (service instanceof RentalService)
 		{
-			Fragment fragment = new RatingRental();
+			RatingRental fragment = new RatingRental();
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
@@ -59,35 +83,12 @@ public class RatingScreen extends AppCompatActivity
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
-	}
 
-	public boolean validateRating(Float r1, Float r2, String text)
-	{
-
-		if ((r1 <= 0) || (r1 > 5))
+		if (service.getRating() != null)
 		{
-			return false;
+			findViewById(R.id.submitBtn).setVisibility(View.GONE);
+			((TextView)findViewById(R.id.ratingText)).setText("Your rating");
 		}
-
-		if ((r2 != null) && ((r2 < 0) || (r2 > 5)))
-		{
-			return false;
-		}
-
-		if (text.length() > 150)
-		{
-			//error
-			return false;
-		}
-
-		return true;
-	}
-
-	private void saveRating(Float r1, Float r2, String text)
-	{
-		Rating rating = service.rate(r1, r2, text);
-
-		//Save to database
 	}
 
 	public void submit(View view)
@@ -103,8 +104,6 @@ public class RatingScreen extends AppCompatActivity
 		{
 			RatingBar vehicle = fview.findViewById(R.id.vehicleRating);
 			TextInputEditText text = fview.findViewById(R.id.commentText);
-
-			vehicle.setRating(5.0f);
 
 			r1 = vehicle.getRating();
 			r2  = null;
@@ -132,7 +131,124 @@ public class RatingScreen extends AppCompatActivity
 		}
 
 		if (validateRating(r1, r2, txt))
+		{
 			saveRating(r1, r2, txt);
+		}
+	}
+
+	public boolean validateRating(Float r1, Float r2, String text)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.dismiss();
+			}
+		});
+
+
+		//Vehicle stars out of range
+		if ((r1 <= 0) || (r1 > 5))
+		{
+			builder.setTitle("Star Error");
+			builder.setMessage("Vehicle stars are not within allowed range (1 to 5)");
+			builder.create().show();
+
+			return false;
+		}
+
+		//Driver/ Garage stars out of range
+		if ((r2 != null) && ((r2 <= 0) || (r2 > 5)))
+		{
+			builder.setTitle("Star Error");
+			builder.setMessage(String.format("%s stars are not within allowed range (1 to 5)", service instanceof OutCityService ? "Garage" : "Driver"));
+			builder.create().show();
+
+			return false;
+		}
+
+		if (text.length() > 200)
+		{
+			builder.setTitle("Achievement Unlocked - Professional Yapper");
+			builder.setMessage("Comment is too big, must be at most 200 characters long");
+			builder.create().show();
+
+			return false;
+		}
+
+		return true;
+	}
+
+	private void saveRating(Float r1, Float r2, String text)
+	{
+		Rating rating = service.rate(r1, r2, text);
+
+		//Parameters
+		//===========================================================================
+		List<Map<String,Object>> values = new ArrayList<>();
+		java.util.Map<String, Object> params = new LinkedHashMap<>();
+
+		params.put("service_id", service.getId());
+		params.put("vehicle_stars", Math.round(r1));
+
+		if (!(service instanceof RentalService))
+		{
+			params.put("other_stars", Math.round(r2));
+		}
+
+		params.put("comment", text);
+
+		values.add(params);
+
+		//Procedure name
+		//===========================================================================
+		String procedure;
+
+		if (service instanceof TaxiService)
+			procedure = "rate_taxi_service";
+		else if (service instanceof OutCityService)
+			procedure = "rate_out_city_service";
+		else
+			procedure = "rate_rental_service";
+
+		//Save to the database
+		//===========================================================================
+
+		String jsonString = jsonStringParser.createJsonString(procedure, values);
+
+		ApiService api = ApiClient.getApiService();
+		Call<ResponseBody> call = api.getFunction(jsonString);
+
+		call.enqueue(new Callback<ResponseBody>()
+		{
+			@Override
+			public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+				if(response.isSuccessful())
+				{
+					//Success message
+					Toast.makeText(getApplicationContext(), "Rating submitted successfully", Toast.LENGTH_LONG).show();
+					finish();
+
+				}
+				else
+				{
+					//Failure message
+					Toast.makeText(getApplicationContext(), "Failed to save rating in the server", Toast.LENGTH_LONG).show();
+					finish();
+				}
+
+			}
+			@Override
+			public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+				//Failure message
+				Toast.makeText(getApplicationContext(), "Failed to reach server", Toast.LENGTH_LONG).show();
+				finish();
+			}
+		});
 	}
 
 	@Override

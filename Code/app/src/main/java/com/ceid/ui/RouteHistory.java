@@ -124,6 +124,10 @@ public class RouteHistory extends Fragment
 
 	public void showHistoryList(View view, ArrayList<Service> data)
 	{
+
+		for (Service s : data)
+			Log.d("SERVICETEST", s.toString());
+
 		RecyclerView list = view.findViewById(R.id.list);
 		list.setLayoutManager(new LinearLayoutManager(getContext()));
 		list.setAdapter(new HistoryListAdapter(getContext(), data));

@@ -164,7 +164,7 @@
     <string name="motorcycle_image">motorcycle image</string>
     <string name="bike_image">bike image</string>
     <string name="taxi_image_2">taxi image</string>
-    <string name="rating_comment">Comment (max 150 chars):</string>
+    <string name="rating_comment">Comment (max 200 chars):</string>
     <string name="mail">Email</string>
     <string name="waiting_for_the_taxi_ride_to_end">Waiting for the taxi ride to end</string>
     <string name="username2">Username</string>

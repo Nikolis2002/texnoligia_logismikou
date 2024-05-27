@@ -2,6 +2,7 @@ package com.ceid.model.service;
 
 import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.transport.Transport;
+import com.ceid.util.DateFormat;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.Serializable;
@@ -30,6 +31,7 @@ public abstract class Service implements Serializable
         this.payment = payment;
         this.transport = transport;
         this.earnedPoints = earnedPoints;
+        this.rating = rating;
     }
 
     public Service(int id, Payment payment) {
@@ -94,5 +96,10 @@ public abstract class Service implements Serializable
     public Payment.Method getPaymentMethod()
     {
         return payment.getMethod();
+    }
+
+    public String toString()
+    {
+        return String.format("\n=====================================================\nID: %d\nCreated On: %s\nAmount: %.02f\nPayment Method: %s\nRating: %s\nPoints: %d\n\n=====================================================", id, DateFormat.format(creationDate), payment.getAmount(), payment.getMethod().toString(), rating != null ? "Exists" : "NULL", earnedPoints);
     }
 }
