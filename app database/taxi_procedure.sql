@@ -111,7 +111,7 @@ begin
 	select service_status into status_check from service where id=service_id_check;
 
 	
-	if service_status='CANCELLED' THEN
+	if status_check='CANCELLED' THEN
 		SELECT "FALSE" AS result;	
 	ELSE
 		SELECT "TRUE" AS result;
@@ -158,17 +158,17 @@ delimiter ;
 
 drop procedure if exists checkTaxiRequest;
 delimiter $
-create procedure checkTaxiRequest(in request_id int)
+create procedure checkTaxiRequest(in requestIdin int)
 begin
 	declare service_st  VARCHAR(32);
 	declare serviceId int;
 	declare taxi_req__driver VARCHAR(32);
 
-	select service_id into serviceId from taxi_service where request_id=request_id;
+	select service_id into serviceId from taxi_service where request_id=requestIdin;
 	select service_status into service_st from service where id=serviceId;
-	select assigned_driver into taxi_req__driver from taxi_request where id=request_id;
+	select assigned_driver into taxi_req__driver from taxi_request where id=serviceId;
 	
-	if (service_status='ONGOING' AND assigned_driver IS NULL) THEN
+	if (service_st='ONGOING' AND taxi_req__driver IS NULL) THEN
 		SELECT "TRUE" AS result;
 	ELSE
 		SELECT "FALSE" AS result; 

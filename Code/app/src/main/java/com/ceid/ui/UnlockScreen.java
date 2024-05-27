@@ -150,8 +150,8 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                openCamera();
             }else{
                 Toast.makeText(getApplicationContext(), "App do not have camera permission", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this,MainScreen.class);
-                startActivity(intent);
+                cancelReservation();
+
             }
         }
     }
@@ -234,7 +234,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                                         Intent intent = new Intent(UnlockScreen.this,TransportScreen.class);
                                                         intent.putExtra("service", rentalService);
                                                         startActivity(intent);
-
+                                                        finish();
                                                     } catch (IOException e) {
                                                         throw new RuntimeException(e);
                                                     }
@@ -284,9 +284,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
     public void cancelReservation(View view){
         cancelReservation();
-        Intent intent = new Intent(this,MainScreen.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override

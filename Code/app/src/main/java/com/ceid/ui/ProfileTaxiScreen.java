@@ -1,7 +1,10 @@
 package com.ceid.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,4 +30,17 @@ public class ProfileTaxiScreen extends AppCompatActivity {
         email.setText(taxiDriver.getEmail());
         amount.setText(String.valueOf(taxiDriver.getWallet().getBalance()));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    public void Logout(View view){
+        Intent intent = new Intent(ProfileTaxiScreen.this, Login.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

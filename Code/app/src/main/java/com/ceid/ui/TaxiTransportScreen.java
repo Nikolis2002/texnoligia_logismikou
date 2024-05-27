@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -154,6 +155,12 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
        TextView etaTextview=findViewById(R.id.eta);
        String msg="Eta: " + time +" min";
        etaTextview.setText(msg);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
     }
 
     public void endRoute(){

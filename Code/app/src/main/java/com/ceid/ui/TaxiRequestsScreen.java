@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -72,10 +73,20 @@ public class TaxiRequestsScreen extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(TaxiRequestsScreen.this, TaxiRequestsScreen.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void taxiRequestSelect(View view){
         requestAdapter.clearData();
         taxiRequestSelect();
     }
+
+
 
 
 }

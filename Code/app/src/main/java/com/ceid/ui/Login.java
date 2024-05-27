@@ -115,8 +115,8 @@ public class Login extends AppCompatActivity implements postInterface{
 
         PostHelper postLogin = new PostHelper(this);
 
-        username=userText.getText().toString();
-        password=pass.getText().toString();
+        username=userText.getText().toString().trim();
+        password=pass.getText().toString().trim();
 
         Map<String, String> data = new HashMap<>();
         data.put("username", username);

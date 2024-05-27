@@ -57,7 +57,8 @@
                     android:id="@+id/textView15"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Username" />
+                    android:text="Username"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/usernameProfile"
@@ -85,7 +86,8 @@
                     android:id="@+id/textView19"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Name" />
+                    android:text="Name"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/nameProfile"
@@ -114,7 +116,8 @@
                     android:id="@+id/textView20"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Surname" />
+                    android:text="Surname"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/surnameProfile"
@@ -143,7 +146,8 @@
                     android:id="@+id/textView22"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Email" />
+                    android:text="Email"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/emailProfile"
@@ -175,7 +179,8 @@
                     android:id="@+id/textView24"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Gathered Amount" />
+                    android:text="Gathered Amount"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/amountProfile"
@@ -188,9 +193,10 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="Logout"
             android:text="Log out" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

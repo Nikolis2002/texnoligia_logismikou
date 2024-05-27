@@ -7,11 +7,13 @@
     android:layout_marginVertical="15dp">
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +22,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12">
+        app:layout_constraintTop_toBottomOf="@+id/welcome">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -48,8 +51,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hapticFeedbackEnabled="true"
-                    android:text="Requests"
+                    android:text="@string/requests_taxi"
                     android:textAlignment="center"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -84,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/activity"
                     android:textAlignment="center"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -122,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile"
                     android:textAlignment="center"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView

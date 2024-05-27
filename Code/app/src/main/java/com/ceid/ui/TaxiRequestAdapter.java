@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -138,7 +139,7 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
                     Intent intent = new Intent(context, TaxiTransportScreen.class);
                     intent.putExtra("taxiRequest",taxiRequest);
                     context.startActivity(intent);
-
+                    ((Activity) context).finish();
                 }else{
                     System.out.println("Error message");
                 }

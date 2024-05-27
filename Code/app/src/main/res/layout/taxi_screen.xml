@@ -234,7 +234,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="5dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    android:text="-" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -285,7 +286,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="5dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    android:text="-" />
 
             </LinearLayout>
 
