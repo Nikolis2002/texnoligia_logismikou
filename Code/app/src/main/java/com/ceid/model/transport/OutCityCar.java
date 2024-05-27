@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.ceid.util.Location;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.Serializable;
 
@@ -13,6 +14,19 @@ public class OutCityCar extends OutCityTransport {
     {
         super(license_plate, rate, seats, id, model, manufacturer, manuf_year);
     }
+
+	public OutCityCar(JsonNode vehicleData)
+	{
+		super(
+				vehicleData.get("license_plate").asText(),
+				vehicleData.get("rate").asDouble(),
+				vehicleData.get("seats").asInt(),
+				vehicleData.get("id").asInt(),
+				vehicleData.get("model").asText(),
+				vehicleData.get("manufacturer").asText(),
+				vehicleData.get("manuf_year").asText()
+		);
+	}
 
     /*
     //Parcelable

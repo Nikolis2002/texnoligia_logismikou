@@ -1,6 +1,7 @@
 package com.ceid.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 import android.location.Location;
@@ -33,7 +34,13 @@ public class Coordinates implements Serializable
 
     }
 
-    public static Coordinates parseCoords(String coordsString){
+	public Coordinates(JsonNode coords)
+	{
+        this.lat = coords.get("x").asDouble();
+        this.lng = coords.get("y").asDouble();
+	}
+
+	public static Coordinates parseCoords(String coordsString){
         coordsString=coordsString.replace("POINT(", "").replace(")", "");
         String[] coords= coordsString.split(" ");
         double lat=Double.parseDouble(coords[0]);

@@ -256,7 +256,7 @@ CREATE TABLE customer_coupon
 CREATE TABLE rental_rating
 (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    stars TINYINT NOT NULL,
+    vehicle_stars TINYINT NOT NULL,
     comment TEXT,
 
     PRIMARY KEY(id)
@@ -485,6 +485,9 @@ CREATE TABLE bank(
 -- Views
 -- ==========================================================================================================================
 
+-- Full information for all the free cars
+-- Displayed on the rental map
+
 DROP VIEW IF EXISTS rental_cars;
 
 CREATE VIEW rental_cars AS
@@ -495,6 +498,9 @@ INNER JOIN transport on car.id = transport.id
 WHERE free_status = "TRUE";
 
 -- =========================================================================================================================
+
+-- Full information for all the free motorcycles
+-- Displayed on the rental map
 
 DROP VIEW IF EXISTS rental_motorcycles;
 
@@ -507,6 +513,9 @@ WHERE free_status = "TRUE";
 
 -- =========================================================================================================================
 
+-- Full information for all the free bikes
+-- Displayed on the rental map
+
 DROP VIEW IF EXISTS rental_bikes;
 
 CREATE VIEW rental_bikes AS
@@ -518,6 +527,9 @@ WHERE free_status = "TRUE";
 
 -- =========================================================================================================================
 
+-- Full information for all the free scooters
+-- Displayed on the rental map
+
 DROP VIEW IF EXISTS rental_scooters;
 
 CREATE VIEW rental_scooters AS
@@ -528,6 +540,9 @@ INNER JOIN transport on electric_scooter.id = transport.id
 WHERE free_status = "TRUE";
 
 -- =========================================================================================================================
+
+-- All the information for all the out city vehicles, along with their type
+-- From here we retrieve the vehicle associated with each out city history entry
 
 DROP VIEW IF EXISTS out_city_vehicles;
 
@@ -545,6 +560,9 @@ INNER JOIN out_city_car occ ON occ.id = oct.id
 INNER JOIN garage g ON oct.garage = g.id;
 
 -- =========================================================================================================================
+
+-- All the information for all the rentals, along with their type
+-- From here we retrieve the vehicle associated with each rental history entry
 
 DROP VIEW IF EXISTS rental_vehicles;
 
@@ -571,6 +589,9 @@ INNER JOIN transport on electric_scooter.id = transport.id;
 
 -- =========================================================================================================================
 
+-- Full info of each taxi
+-- From here we retrieve the vehicle associated with each taxi history entry
+
 DROP VIEW IF EXISTS taxi_vehicles;
 
 CREATE VIEW taxi_vehicles AS
@@ -579,6 +600,8 @@ FROM taxi
 INNER JOIN transport ON taxi.id = transport.id;
 
 -- =========================================================================================================================
+
+-- Rental history
 
 DROP VIEW IF EXISTS rental_history;
 
@@ -600,6 +623,8 @@ WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================
 
+-- Taxi history
+
 DROP VIEW IF EXISTS taxi_history;
 
 CREATE VIEW taxi_history AS
@@ -620,6 +645,8 @@ WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================
 
+-- Out city history
+
 DROP VIEW IF EXISTS out_city_history;
 
 CREATE VIEW out_city_history AS
@@ -639,6 +666,20 @@ INNER JOIN payment p ON s.id = p.id
 WHERE s.service_status = "COMPLETED";
 
 -- =========================================================================================================================
+
+-- Shows which taxi was used for each request
+
+DROP VIEW IF EXISTS taxi_request_vehicle;
+
+CREATE VIEW taxi_request_vehicle AS
+SELECT taxi_request.id AS "request_id", taxi_vehicles.id, license_plate, coords, manufacturer, model, manuf_year
+FROM taxi_request
+INNER JOIN taxi_driver ON assigned_driver = username
+INNER JOIN taxi_vehicles ON taxi_driver.taxi = taxi_vehicles.id;
+
+-- =========================================================================================================================
+
+-- All the services along with their type
 
 DROP VIEW IF EXISTS history;
 

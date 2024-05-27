@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.transport.Taxi;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class TaxiDriver extends User{
     private boolean free_status;
