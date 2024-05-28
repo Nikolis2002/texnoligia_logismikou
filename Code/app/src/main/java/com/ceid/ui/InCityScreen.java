@@ -2,11 +2,14 @@ package com.ceid.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaRouter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,6 +45,7 @@ public class InCityScreen extends AppCompatActivity
         //Initialize intent
         rentalIntent = new Intent(this, InCityVehicleScreen.class);
         taxiIntent = new Intent(this, TaxiScreen.class);
+
     }
 
     public void onVehicleSelect(View view)

@@ -50,49 +50,6 @@ public class Login extends AppCompatActivity implements postInterface{
         setContentView(R.layout.login);
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
-        //visib = (ImageView) findViewById(R.id.visibility);
-        //Log.d("user",User.currentUser().toString());
-        /*
-        ApiService api=ApiClient.getApiService();
-
-        List<Map<String,Object>> values = new ArrayList<>();
-        Map<String, Object> insert= new LinkedHashMap<>();
-        insert.put("id",1);
-        values.add(insert);
-
-        String parser=jsonStringParser.createJsonString("getPayment",values);
-
-
-        Call<ResponseBody> call= api.getFunction(parser);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        ArrayList<String> tester=jsonStringParser.getResults(response);
-
-                        for(String str:tester){
-                            Log.d("test",str);
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                } else {
-                    Log.d("Response", "Unsuccessful");
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                Log.e("Error", "Failed to fetch data: " + t.getMessage());
-            }
-        });
-        */
-
-
-
     }
     public void onClickVisib(View view) {
         int cursorPosition = pass.getSelectionStart();

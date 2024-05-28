@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,6 +53,14 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
     protected  void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.taxi_transport_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //do nothing stay on the same screen
+            }
+        });
 
        Intent taxiRequestData = getIntent();
        taxiRequest = (TaxiRequest) taxiRequestData.getSerializableExtra("taxiRequest");
@@ -156,11 +166,6 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
        etaTextview.setText(msg);
     }
 
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
-
-    }
 
     public void endRoute(){
         stopTimer=timer.stopTimer();

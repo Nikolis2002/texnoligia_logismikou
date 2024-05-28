@@ -24,6 +24,8 @@ import com.ceid.model.users.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.ceid.model.users.Customer;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +55,14 @@ public class RatingScreen extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rating_screen);
+
+		OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+		dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+			@Override
+			public void handleOnBackPressed() {
+				finish();
+			}
+		});
 
 		this.servicePos = getIntent().getIntExtra("service_pos", -1);
 		this.customer = (Customer) User.getCurrentUser();
@@ -251,9 +261,4 @@ public class RatingScreen extends AppCompatActivity
 		});
 	}
 
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		finish();
-	}
 }
