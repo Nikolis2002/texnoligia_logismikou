@@ -8,181 +8,142 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="364dp"
-        android:layout_height="267dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/background_stroke"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/ccvText"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/ccvText"
-            app:layout_constraintBottom_toTopOf="@+id/ccvField"
-            app:layout_constraintStart_toStartOf="@+id/ccvField" />
-
-        <RelativeLayout
-            android:id="@+id/expDateField"
-            android:layout_width="91dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center|start"
-            android:layout_marginTop="148dp"
-            android:background="@drawable/username_email"
-            android:gravity="center"
-
-            app:layout_constraintEnd_toStartOf="@+id/ownerField"
-            app:layout_constraintHorizontal_bias="0.484"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/signUpButton2"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
             <EditText
                 android:id="@+id/expDate"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:hint="@string/expDateText"
+                android:inputType="number"
+                android:lineSpacingExtra="3sp"
+                android:maxLength="5"
+                android:singleLine="true"
+                android:textAppearance="@style/label" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+
+            <EditText
+                android:id="@+id/owner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:inputType="number"
-                android:maxLength="5"
+                android:hint="@string/ownerText"
                 android:lineSpacingExtra="3sp"
-                android:hint="@string/expDateText"
                 android:textAppearance="@style/label" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/ccvField"
-            android:layout_width="106dp"
-            android:layout_height="49dp"
-            android:layout_gravity="center|start"
-            android:layout_marginTop="148dp"
-            android:background="@drawable/username_email"
-            android:gravity="center"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/signUpButton2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.36"
-            app:layout_constraintStart_toEndOf="@+id/ownerField"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
             <EditText
                 android:id="@+id/ccv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:lineSpacingExtra="3sp"
                 android:hint="@string/ccvText"
-                android:textAppearance="@style/label" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/ownerField"
-            android:layout_width="120dp"
-            android:layout_height="49dp"
-            android:layout_gravity="center|start"
-            android:layout_marginTop="148dp"
-            android:background="@drawable/username_email"
-            android:gravity="center"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.463"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <EditText
-                android:id="@+id/owner"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
                 android:lineSpacingExtra="3sp"
-                android:hint="@string/ownerText"
                 android:textAppearance="@style/label" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/cardNumField"
-            android:layout_width="338dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center|start"
-            android:layout_marginTop="68dp"
-            android:background="@drawable/username_email"
-            android:gravity="center"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/addCard">
 
             <EditText
                 android:id="@+id/cardNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:lineSpacingExtra="3sp"
                 android:hint="@string/cardNumText"
+                android:lineSpacingExtra="3sp"
+                android:singleLine="true"
                 android:textAppearance="@style/label" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/cardNumText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cardNumText"
-            app:layout_constraintBottom_toTopOf="@+id/cardNumField"
-            app:layout_constraintStart_toStartOf="@+id/cardNumField" />
-
-        <TextView
-            android:id="@+id/expDateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/expDateText"
-            app:layout_constraintBottom_toTopOf="@+id/expDateField"
-            app:layout_constraintStart_toStartOf="@+id/expDateField" />
-
-        <TextView
-            android:id="@+id/cardOwnerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ownerText"
-            app:layout_constraintBottom_toTopOf="@+id/ownerField"
-            app:layout_constraintStart_toStartOf="@+id/ownerField" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/signUpButton2"
             android:layout_width="156dp"
             android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="#000000"
+            android:onClick="addCardButton"
             android:text="@string/addCard"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:onClick="addCardButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.926" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
         <TextView
             android:id="@+id/addCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:text="@string/addCard"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
@@ -193,25 +154,28 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="363dp"
-        android:layout_height="194dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/background_stroke"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.256">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <Button
             android:id="@+id/remCard2"
             android:layout_width="156dp"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="#000000"
             android:onClick="remCard"
             android:text="@string/remCardText"
             android:textColor="@android:color/white"
             android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -225,6 +189,8 @@
 
             android:layout_marginTop="16dp"
             android:text="@string/remCard"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -232,13 +198,17 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="292dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/remCard2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/remCard" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
