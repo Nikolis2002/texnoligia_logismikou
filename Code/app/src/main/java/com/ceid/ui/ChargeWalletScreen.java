@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
@@ -21,6 +23,7 @@ import com.ceid.model.payment_methods.Card;
 import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,27 +44,64 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     private List<String> cardSpinner;
     private Spinner arrayCards;
     private EditText amount;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.chargewallet);
 
-        money=findViewById(R.id.cardNum);
-        arrayCards=findViewById(R.id.spinner);
-        amount = findViewById(R.id.amount);
-        user=User.getCurrentUser();
-        Wallet wallet=user.getWallet();
-        money.setText(String.valueOf(user.getWallet().getBalance()));
-        cards=user.getWallet().getCards();
-        cardSpinner= new ArrayList<>();
-        for (Card card :cards ) {
-            cardSpinner.add(card.getCardnumber());
+    protected void onResume()
+    {
+        super.onResume();
+        cards = user.getWallet().getCards();
+
+        if (cards.isEmpty())
+        {
+            noPaymentAlert();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.charge_wallet_screen);
+
+        money = findViewById(R.id.cardNum);
+        //arrayCards = findViewById(R.id.spinner);
+        amount = findViewById(R.id.amount);
+        user = User.getCurrentUser();
+
+        Wallet wallet = user.getWallet();
+        money.setText(String.format("Balance: %.02f€", user.getWallet().getBalance()));
+
+        //Check if customer has cards
+        //=======================================================================================================
+        cards = user.getWallet().getCards();
+
+        if (cards.isEmpty())
+        {
+            noPaymentAlert();
+        }
+
+        //Initialize card spinner
+        //=======================================================================================================
+
+        MaterialAutoCompleteTextView materialSpinner = findViewById(R.id.cardSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+        materialSpinner.setAdapter(adapter);
+
+        ArrayList<String> mycards = new ArrayList<>();
+
+        for (Card card :cards ) {
+            mycards.add(card.getCardnumber());
+        }
+
+        adapter.addAll(mycards);
+        adapter.notifyDataSetChanged();
+
+        /*
+
         ArrayAdapter ad = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cardSpinner);
         ad.setDropDownViewResource(
                 android.R.layout
                         .simple_spinner_dropdown_item);
-        arrayCards.setAdapter(ad);
+        arrayCards.setAdapter(ad);*/
     }
 
 
@@ -100,5 +140,40 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     public void onResponseFailure(Throwable t) {
         Toast.makeText(getApplicationContext(), "error",
                 Toast.LENGTH_LONG).show();
+    }
+
+    //ERRORS
+    //===================================================================================================
+
+    public void noPaymentAlert()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("No Payment Methods");
+        builder.setMessage("There are no payment methods in your account. Would you like to insert one?");
+
+        builder.setPositiveButton("Insert", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                Intent intent = new Intent(ChargeWalletScreen.this, addCard.class);
+                startActivity(intent);
+            }
+        });
+
+        builder.setNegativeButton("Maybe Later", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 }
