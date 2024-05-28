@@ -121,7 +121,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
         points.setText(String.valueOf(service.getPoints()));
         Rental rental=(Rental) service.getTransport();
 
-        cost.setText(String.valueOf(rental.getRate()*time));
+        cost.setText(String.format(".2f€",rental.getRate()*time));
     }
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {

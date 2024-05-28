@@ -83,7 +83,7 @@ app.get("/getTracker",async (req,res)=>{
             tracker.coords={x:"38.2442870",y:"21.7326153"};
             tracker.isStopped="true";
             tracker.distance=ten;
-            tracker.gas="100";
+            tracker.gas=Math.floor(Math.random() * (500 - 100+ 1)) + 100;
         }
         console.log(tracker);
         res.status(200).send(tracker);
