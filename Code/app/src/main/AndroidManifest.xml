@@ -37,7 +37,7 @@
         </activity>
         <activity android:name=".endRide"/>
         <activity android:name=".TransportScreen"/>
-        <activity android:name=".addLicense"/>
+        <activity android:name=".LicenseScreen"/>
         <activity android:name=".ChargeWalletScreen"/>
         <activity android:name=".addCard"/>
         <activity android:name=".signUp"/>

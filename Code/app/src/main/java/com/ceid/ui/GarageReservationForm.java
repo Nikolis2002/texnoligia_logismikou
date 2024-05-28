@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
@@ -60,7 +62,7 @@ public class GarageReservationForm extends AppCompatActivity
 	private Date selectedDate = null;
 	private int hours = 12;
 	private int minutes = 10;
-	//Customer customer =(Customer)((App) getApplicationContext()).getUser();
+	private int daysToRent = 1;
 
 	Customer customer = (Customer) User.getCurrentUser();
 
@@ -69,6 +71,8 @@ public class GarageReservationForm extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.garage_reservation_form);
 
+		//Get selected garage and vehicle
+		//==========================================================================================
 		this.vehicle = (OutCityTransport) getIntent().getExtras().getSerializable("vehicle");
 		this.garage = (Garage) getIntent().getExtras().getSerializable("garage");
 
@@ -76,7 +80,7 @@ public class GarageReservationForm extends AppCompatActivity
 		assert garage != null;
 
 		//Text
-
+		//==========================================================================================
 		TextView title = findViewById(R.id.textTitle);
 		TextView rate = findViewById(R.id.textRate);
 		TextView seats = findViewById(R.id.textSeats);
@@ -88,7 +92,7 @@ public class GarageReservationForm extends AppCompatActivity
 		plate.setText(String.format("%s", vehicle.getLicensePlate()));
 
 		//Icon
-
+		//==========================================================================================
 		ImageView img = findViewById(R.id.imageView);
 
 		if (vehicle instanceof OutCityCar)
@@ -97,7 +101,7 @@ public class GarageReservationForm extends AppCompatActivity
 			img.setImageResource(R.drawable.out_city_van);
 
 		//Garage info
-
+		//==========================================================================================
 		TextView name = findViewById(R.id.nameField);
 		TextView address = findViewById(R.id.addressField);
 		TextView hours = findViewById(R.id.hoursField);
@@ -107,8 +111,7 @@ public class GarageReservationForm extends AppCompatActivity
 		hours.setText(garage.getAvailableHours());
 	}
 
-	//Input time
-
+	//Input date and time
 	public void onDatetimeClick(View view)
 	{
 		MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
@@ -154,81 +157,83 @@ public class GarageReservationForm extends AppCompatActivity
 	}
 
 	//Back button
-	public void onBack(View view)
+	public void onCancel(View view)
 	{
 		finish();
 	}
 
 	//Continue button
-	public void onContinue(View view)
+	public void onSubmit(View view)
 	{
-		//CHECK FORM VALIDITLY
-		//WE NEED TO CHECK IF THE SELECTED DATE IS WITHIN THE AVAILABLE HOURS
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+		//Empty field checks
+		//=======================================================================================
+		String daysText = ((TextView)findViewById(R.id.daysText)).getText().toString();
 
-		LocalDate localDate = LocalDate.parse(dateFormat.format(selectedDate), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		if (daysText.isEmpty())
+		{
+			invalidFormMsg("Empty Field", "Please insert how many days you want to rent the vehicle for");
+			return;
+		}
 
-		String day = localDate.getDayOfWeek().name().substring(0, 3);
-		day = day.charAt(0) + day.substring(1).toLowerCase();
+		if (selectedDate == null)
+		{
+			invalidFormMsg("Empty Datetime", "Please insert the date you want to pickup the vehicle on");
+			return;
+		}
 
-		java.util.Map<String, Integer> dayMap = new HashMap<String, Integer>();
+		daysToRent = Integer.parseInt(daysText);
 
-		dayMap.put("Mon", 0);
-		dayMap.put("Tue", 1);
-		dayMap.put("Wed", 2);
-		dayMap.put("Thu", 3);
-		dayMap.put("Fri", 4);
-		dayMap.put("Sat", 5);
-		dayMap.put("Sun", 6);
-
-		Log.d("REGEXTEST", garage.getAvailableHours());
-
+		//Pattern to extract day and time from the garage info string
+		//=======================================================================================
 		Pattern pattern = Pattern.compile("(?<d1>[A-Z][a-z]{2})-(?<d2>[A-Z][a-z]{2})\\s(?<t1>\\d{2}:\\d{2})-(?<t2>\\d{2}:\\d{2})");
 		Matcher matcher = pattern.matcher(garage.getAvailableHours());
 
-		Log.d("REGEXTEST", matcher.toString());
-
-		int dayValue = dayMap.get(day);
+		//Check if day is within working hours
+		//=======================================================================================
+		int dayValue = DateFormat.dayOfWeekNum(selectedDate);
 
 		if (matcher.find())
 		{
-			if (!(dayValue >= dayMap.get(matcher.group("d1")) && dayValue <= dayMap.get(matcher.group("d2"))))
+			if (!(dayValue >= DateFormat.dayOfWeekNum(matcher.group("d1")) && dayValue <= DateFormat.dayOfWeekNum(matcher.group("d2"))))
 			{
-				Log.d("DAYERROR", "Date is not within range");
+				invalidFormMsg("Day Error", "Date is not within working hours");
+				return;
 			}
 
-			//Check time
-
+			//Check if time is within working hours
+			//=======================================================================================
 			DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
 			LocalTime startTime = LocalTime.parse(matcher.group("t1"), timeFormatter);
 			LocalTime endTime = LocalTime.parse(matcher.group("t2"), timeFormatter);
 			LocalTime checkTime = LocalTime.parse(String.format("%02d:%02d", this.hours, this.minutes), timeFormatter);
 
-			boolean isWithinRange = !checkTime.isBefore(startTime) && !checkTime.isAfter(endTime);
-
 			if (checkTime.isBefore(startTime) || checkTime.isAfter(endTime))
 			{
-				Log.d("TIMEERROR", "Time is not within range");
+				invalidFormMsg("Time Error", "Time is not within working hours");
 			}
 
-			//Check if it's within the current week
-
+			//Check if datetime is within the current week
+			//=======================================================================================
 			LocalDateTime currentDatetime = LocalDateTime.now();
-
-			LocalDateTime selectedDatetime = LocalDateTime.of(localDate, checkTime);
+			LocalDateTime selectedDatetime = LocalDateTime.of(DateFormat.toLocalDate(selectedDate), checkTime);
 
 			long daysBetween = ChronoUnit.DAYS.between(currentDatetime, selectedDatetime);
 
 			if (selectedDatetime.isBefore(currentDatetime))
 			{
-				Log.d("DAYSTEST", "Bro wants to time travel");
+				invalidFormMsg("Achievement Unlocked: Time Traveler", "This time is in the past");
+				return;
 			}
 
 			if (daysBetween >= 7)
 			{
-				Log.d("DAYSTEST", "Not within current week");
+				invalidFormMsg("Not within current week", "The selected day must be within the next 7 days");
+				return;
 			}
+
+			//If all went well, save to database
+			//=======================================================================================
 
 			List<Map<String,Object>> values = new ArrayList<>();
 			Map<String, Object> insert= new LinkedHashMap<>();
@@ -289,5 +294,46 @@ public class GarageReservationForm extends AppCompatActivity
 	public void onClose(View view){
 		Intent intent=new Intent(getApplicationContext(),MainScreen.class);
 		startActivity(intent);
+	}
+
+	//ERRORS
+	//========================================================================================
+
+	public void invalidFormMsg(String formErrorTitle, String formErrorMsg)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle(formErrorTitle);
+		builder.setMessage(formErrorMsg);
+
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.dismiss();
+			}
+		});
+
+		builder.create().show();
+	}
+
+	public void noMoneyMsg()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle("Insufficient funds");
+		builder.setMessage("You do not have enough money in your wallet for the rental");
+
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.dismiss();
+			}
+		});
+
+		builder.create().show();
 	}
 }

@@ -32,13 +32,16 @@ public class GarageInfoScreen extends AppCompatActivity implements AdapterView.O
     private Garage garage;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.garage_info_screen);
 
         this.garage = (Garage) getIntent().getExtras().getSerializable("garage");
         assert this.garage != null;
 
+        //Set garage information
+        //===========================================================================
         TextView name = findViewById(R.id.nameField);
         TextView address = findViewById(R.id.addressField);
         TextView hours = findViewById(R.id.hoursField);
@@ -47,14 +50,17 @@ public class GarageInfoScreen extends AppCompatActivity implements AdapterView.O
         address.setText(garage.getAddress());
         hours.setText(garage.getAvailableHours());
 
-        //Add vehicles to list
-        ListView listView = (ListView) findViewById(R.id.listViewId);
-
-        //GET VEHICLES
+        //GET VEHICLES FROM SELECTED GARAGE
+        //===========================================================================
         this.vehicles = garage.getVehicles();
 
+        //Add vehicles to list
+        //===========================================================================
+        ListView listView = (ListView) findViewById(R.id.listViewId);
         listView.setAdapter(new OutCityVehicleListAdapter(this, this.vehicles));
         listView.setOnItemClickListener(this);
+
+        //If the vehicles are empty, the list will show "No vehicles in this garage"
     }
 
     public void back(View view)

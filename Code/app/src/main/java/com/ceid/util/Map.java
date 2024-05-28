@@ -3,23 +3,15 @@ package com.ceid.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
-import com.ceid.ui.R;
 import com.ceid.ui.ScrollMapFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,8 +40,9 @@ public class Map implements OnMapReadyCallback
 	private GoogleMap.OnMapClickListener clickListener;
 	private Marker clickedMarker;
 
-	private ArrayList<Coordinates> polygonCoords = null;
-	private Polygon polygon = null;
+	private ArrayList<ArrayList<Coordinates>> polygonCoords = null;
+	private ArrayList<Polygon> polygons = null;
+	private int selectedPolygonPos = -1; //Will be set only after calling withinPolygon()
 
 	private MapWrapperReadyListener listener;
 
@@ -115,12 +108,15 @@ public class Map implements OnMapReadyCallback
 		//Set polygon
 		if (this.polygonCoords != null)
 		{
-			ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+			for (ArrayList<Coordinates> singlePolygonCoords : polygonCoords)
+			{
+				ArrayList<LatLng> list = singlePolygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
 
-			this.polygon = gmap.addPolygon(new PolygonOptions()
-					.addAll(list)
-					.strokeColor(0xFF0000FF)
-			);
+				this.polygons.add(gmap.addPolygon(new PolygonOptions()
+						.addAll(list)
+						.strokeColor(0xFF0000FF)
+				));
+			}
 		}
 
 		if (clickListener != null)
@@ -281,34 +277,88 @@ public class Map implements OnMapReadyCallback
 		}
 	}
 
-	public void setPolygon(ArrayList<Coordinates> polygonCoords)
+	public void addPolygon(ArrayList<Coordinates> polygonCoords)
 	{
-		this.polygonCoords = polygonCoords;
+		if (this.polygonCoords == null)
+		{
+			this.polygonCoords = new ArrayList<ArrayList<Coordinates>>();
+			this.polygons = new ArrayList<Polygon>();
+		}
+
+		this.polygonCoords.add(polygonCoords);
 
 		if (gmap != null)
 		{
 			ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
 
-			this.polygon = gmap.addPolygon(new PolygonOptions()
+			this.polygons.add(gmap.addPolygon(new PolygonOptions()
 					.addAll(list)
 					.strokeColor(0xFF0000FF)
-			);
+			));
 		}
 	}
 
 	public boolean withinPolygon(Coordinates coords)
 	{
-		assert polygon != null;
+		assert polygons != null;
 
+		int i = 0;
+
+		for (ArrayList<Coordinates> singlePolygonCoords : polygonCoords)
+		{
+			ArrayList<LatLng> list = singlePolygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+
+			if (PolyUtil.containsLocation(coords.toLatLng(), list, false))
+			{
+				this.selectedPolygonPos = i;
+				return true;
+			}
+
+			i++;
+		}
+
+		return false;
+	}
+
+	public static boolean withinPolygon(Coordinates point, ArrayList<Coordinates> polygonCoords)
+	{
 		ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
-		return PolyUtil.containsLocation(coords.toLatLng(), list, false);
+		return PolyUtil.containsLocation(point.toLatLng(), list, false);
 	}
 
 	public boolean withinPolygon()
 	{
-		assert polygon != null;
+		assert polygons != null;
 
-		ArrayList<LatLng> list = polygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+		int i = 0;
+
+		for (ArrayList<Coordinates> singlePolygonCoords : polygonCoords)
+		{
+			ArrayList<LatLng> list = singlePolygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
+
+			if (PolyUtil.containsLocation(pinCoords.toLatLng(), list, false))
+			{
+				this.selectedPolygonPos = i;
+				return true;
+			}
+
+			i++;
+		}
+
+		return false;
+	}
+
+	public boolean withinSelectedPolygon()
+	{
+		ArrayList<Coordinates> selectedPolygonCoords = polygonCoords.get(selectedPolygonPos);
+		ArrayList<LatLng> list = selectedPolygonCoords.stream().map(Coordinates::toLatLng).collect(Collectors.toCollection(ArrayList::new));
 		return PolyUtil.containsLocation(pinCoords.toLatLng(), list, false);
+	}
+
+	public ArrayList<Coordinates> getSelectedPolygonCoords()
+	{
+		if (selectedPolygonPos != -1)
+			return polygonCoords.get(selectedPolygonPos);
+		else return null;
 	}
 }
