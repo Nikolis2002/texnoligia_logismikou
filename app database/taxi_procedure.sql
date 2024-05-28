@@ -1,5 +1,7 @@
 USE app_database;
 
+-- =====================================================================================================
+
 DROP PROCEDURE IF EXISTS cancelService;
 delimiter $
 create procedure cancelService(in service_id int)
@@ -16,8 +18,9 @@ begin
 		SELECT "FALSE" AS result;
 	END IF;
 end $
-delimiter ; 
+delimiter ;
 
+-- =====================================================================================================
 
 DROP PROCEDURE IF EXISTS taxiReservation;
 delimiter $
@@ -44,6 +47,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 DROP PROCEDURE IF EXISTS resumeService;
 delimiter $
 create procedure resumeService(in service_id int)
@@ -52,6 +57,8 @@ begin
     update service set status_date=now() where id=service_id;
 end$
 delimiter ;
+
+-- =====================================================================================================
 
 DROP PROCEDURE IF EXISTS checkTaxiReservation;
 delimiter $
@@ -73,6 +80,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 drop procedure if exists acceptTaxiRequest;
 delimiter $
 create procedure acceptTaxiRequest(in request_id int, in driver_username VARCHAR(32))
@@ -82,6 +91,8 @@ begin
 
 end$
 delimiter ;
+
+-- =====================================================================================================
 
 drop procedure if exists checkTaxiPickUp;
 delimiter $
@@ -102,6 +113,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 DROP PROCEDURE IF EXISTS checkTaxiReservationSecond;
 delimiter $
 create procedure checkTaxiReservationSecond(in request_id_in int)
@@ -120,6 +133,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 drop procedure if exists completeTaxiRequest;
 delimiter $
 create procedure completeTaxiRequest(in taxi_req_id int,in payment_method ENUM('WALLET','CASH'),in payment_value DECIMAL(10,2))
@@ -135,6 +150,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 drop procedure if exists getPayment;
 delimiter $
 create procedure getPayment(in service_id int)
@@ -147,6 +164,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 drop procedure if exists updatePickUpRequest;
 delimiter $
 create procedure updatePickUpRequest(in taxi_req_id int)
@@ -154,6 +173,8 @@ begin
 	update taxi_request set pickup_time=now() where id=taxi_req_id;
 end$
 delimiter ;
+
+-- =====================================================================================================
 
 drop procedure if exists checkTaxiRequest;
 delimiter $
@@ -176,6 +197,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 drop procedure if exists checkTaxiComplete;
 delimiter $
 create procedure checkTaxiComplete(in service_id int)
@@ -193,6 +216,8 @@ begin
 end$
 delimiter ;
 
+-- =====================================================================================================
+
 drop procedure if exists updatePoints;
 delimiter $
 create procedure updatePoints(in service_id_in int,in points_in int,in username_in VARCHAR(32),in newPoints int)
@@ -202,7 +227,9 @@ begin
 	update customer set points=newPoints where username=username_in;
 	
 end$
-delimiter ; 
+delimiter ;
+
+-- =====================================================================================================
 
 drop procedure if exists updateWallet;
 delimiter $
@@ -211,3 +238,5 @@ begin
 	update wallet set balance=new_balance where username=customer_username;
 end $
 delimiter ;
+
+-- =====================================================================================================
