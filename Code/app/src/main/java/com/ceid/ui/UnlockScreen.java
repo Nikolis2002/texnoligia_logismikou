@@ -80,6 +80,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                 runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(), "Reservation time passed", Toast.LENGTH_SHORT).show();
                         cancelReservation();
+                        Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
+                        startActivity(intent);
+                        finish();
                 });
             }
         },20000);
@@ -116,9 +119,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
-                Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
-                startActivity(intent);
-                finish();
+
             }
 
             @Override
@@ -151,7 +152,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
             }else{
                 Toast.makeText(getApplicationContext(), "App does not have camera permission", Toast.LENGTH_SHORT).show();
                 cancelReservation();
-
+                Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
+                startActivity(intent);
+                finish();
             }
         }
     }
@@ -162,7 +165,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult qrResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if (qrResult != null) {
+        if (qrResult != null & data!=null) {
             String qr = qrResult.getContents();
 
             List<java.util.Map<String,Object>> values = new ArrayList<>();
@@ -260,6 +263,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                 Toast.makeText(getApplicationContext(), "You don't have the required amount in your wallet", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getApplicationContext(), "Reservation canceled", Toast.LENGTH_SHORT).show();
                                 cancelReservation();
+                                Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
+                                startActivity(intent);
+                                finish();
                             }
 
                         }else{
@@ -284,6 +290,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
     public void cancelReservation(View view){
         cancelReservation();
+        Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
