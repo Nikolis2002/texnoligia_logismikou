@@ -23,6 +23,15 @@ public class Refill implements Serializable
 		this.endGas = endGas;
 	}
 
+	public Refill(LocalDateTime date, GasStation gasStation, PositiveInteger startGas, PositiveInteger endGas,boolean completed)
+	{
+		this.date = date;
+		this.gasStation = gasStation;
+		this.startGas = startGas;
+		this.endGas = endGas;
+		this.completed=completed;
+	}
+
 	public LocalDateTime getDate()
 	{
 		return date;
