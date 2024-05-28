@@ -20,11 +20,12 @@ import com.google.android.material.navigation.NavigationBarView;
 public class CustomerProfile extends Fragment
 {
 	private TextView username,pass,name,surname,email,license,points,wallet,payment;
-	@Override
+
+    @Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.customer_profile, container, false);
-		User user= User.getCurrentUser();
+        User user = User.getCurrentUser();
 		Customer customer=(Customer) user;
 		username= view.findViewById(R.id.user_name);
 		name=view.findViewById(R.id.name);
@@ -41,7 +42,7 @@ public class CustomerProfile extends Fragment
 		email.setText(user.getEmail());
 		license.setText(customer.getLicense());
 		points.setText(String.valueOf(customer.getPoints().getPoints()));
-		wallet.setText(String.valueOf(user.getWallet().getBalance()));
+		wallet.setText(String.valueOf(customer.getWallet().getBalance()));
 
 		return view;
 	}

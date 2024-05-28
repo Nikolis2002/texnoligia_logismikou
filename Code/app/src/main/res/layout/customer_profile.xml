@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:srcCompat="@drawable/img" />
 
             <TextView

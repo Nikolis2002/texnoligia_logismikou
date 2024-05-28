@@ -73,6 +73,7 @@ public class addCard extends AppCompatActivity implements postInterface {
             user.getWallet().addCard(card);
             Intent intent=new Intent(getApplicationContext(), MainScreen.class);
             startActivity(intent);
+            finish();
 
         }
         else{

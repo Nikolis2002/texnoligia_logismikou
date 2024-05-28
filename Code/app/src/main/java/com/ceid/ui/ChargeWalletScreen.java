@@ -3,6 +3,7 @@ package com.ceid.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -41,6 +42,9 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     private List<Card> cards;
     private Wallet wallet;
     private String value;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> mycards;
+    private MaterialAutoCompleteTextView materialSpinner;
     private List<String> cardSpinner;
     private Spinner arrayCards;
     private EditText amount;
@@ -82,8 +86,8 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         //Initialize card spinner
         //=======================================================================================================
 
-        MaterialAutoCompleteTextView materialSpinner = findViewById(R.id.cardSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+        materialSpinner = findViewById(R.id.cardSpinner);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
         materialSpinner.setAdapter(adapter);
 
         ArrayList<String> mycards = new ArrayList<>();
@@ -94,9 +98,9 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
 
         adapter.addAll(mycards);
         adapter.notifyDataSetChanged();
+        Log.d("test",materialSpinner.getText().toString());
 
         /*
-
         ArrayAdapter ad = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cardSpinner);
         ad.setDropDownViewResource(
                 android.R.layout
@@ -110,7 +114,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         Map<String, Object> charge=new LinkedHashMap<>();
         charge.put("username",user.getUsername());
         charge.put("amount",amount.getText().toString());
-        charge.put("value",arrayCards.getSelectedItem().toString());
+        charge.put("value",materialSpinner.getText().toString());
 
         values.add(charge);
         String jsonString = jsonStringParser.createJsonString("chargeWallet", values);
@@ -128,7 +132,10 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
             Toast.makeText(getApplicationContext(), "Value added successfully!",
                     Toast.LENGTH_LONG).show();
             user.getWallet().addToWallet(Double.parseDouble(amount.getText().toString()));
+            Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+            startActivity(intent);
             finish();
+
         }
         else{
             Toast.makeText(getApplicationContext(), "No money!",
