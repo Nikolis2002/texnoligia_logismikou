@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
@@ -47,6 +49,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -90,7 +93,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         });
 
         intent=getIntent();
-        service= intent.getSerializableExtra("service",RentalService.class);
+        service = (RentalService) intent.getSerializableExtra("service");
         car= (Rental) service.getTransport();
 
         disasterCounter[0]=disasterCounter[1]=0;
@@ -146,6 +149,12 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             TextView textView=findViewById(R.id.textView23);
             textView.setText("Your Location:");
 
+            ConstraintLayout layout = findViewById(R.id.constraintLayout);
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(layout);
+            constraintSet.setHorizontalBias(R.id.button5, 0.5f);
+            constraintSet.applyTo(layout);
+
             View view=findViewById(R.id.button7);
             view.setVisibility(View.GONE);
         }
@@ -182,13 +191,13 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         else if(car instanceof Motorcycle){
             id=R.drawable.in_city_motorcycle;
         } else if (car instanceof ElectricScooter) {
-            id=R.drawable.electric_scooter_fill0_wght400_grad0_opsz24;
+            id=R.drawable.in_city_scooter;
         }
         else{
             id=R.drawable.in_city_bicycle;
         }
 
-        carMarker= map.placePin(car.getTracker().getCoords(), false,id);
+        carMarker = map.placePin(car.getTracker().getCoords(), false, id);
         carMarker.setTag(car);
 
         //Enable refill option only if the vehicle accepts gas

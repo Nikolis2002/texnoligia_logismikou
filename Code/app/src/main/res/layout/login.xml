@@ -33,22 +33,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="64dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/welcome_to"
-            android:textColor="@color/textColor"
             android:layout_width="150dp"
             android:layout_height="36dp"
             android:layout_alignParentTop="true"
@@ -57,6 +54,7 @@
             android:lineSpacingExtra="4sp"
             android:text="@string/welcome_to"
             android:textAppearance="@style/welcome_to"
+            android:textColor="@color/textColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,9 +68,9 @@
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal|center_vertical"
             android:lineSpacingExtra="4sp"
-            android:textColor="@color/textColor"
             android:text="@string/movfast"
             android:textAppearance="@style/movfast"
+            android:textColor="@color/textColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,14 +91,13 @@
         android:layout_width="397dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout14">
 
         <TextView
             android:id="@+id/sign_in_to"
@@ -171,8 +168,8 @@
             android:layout_width="166dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:onClick="buttonLogin"
             android:backgroundTint="#35313A"
+            android:onClick="buttonLogin"
             android:text="@string/fireitup"
             android:textColor="@android:color/white" />
 

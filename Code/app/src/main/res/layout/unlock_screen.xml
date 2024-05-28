@@ -26,10 +26,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/countdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,31 +49,34 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/UnlockButton"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
+            android:backgroundTint="@color/genericBtn"
             android:contentDescription="@string/unlockbutton"
             android:onClick="unlockVehicle"
-            android:text="@string/unlock_vehicle" />
+            android:text="@string/unlock_vehicle"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FF0000"
+            android:backgroundTint="@color/cancelBtn"
             android:onClick="cancelReservation"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <TextView
@@ -81,7 +84,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:gravity="center"
@@ -89,6 +91,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout12" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

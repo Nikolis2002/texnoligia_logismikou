@@ -9,7 +9,7 @@
         android:id="@+id/materialDivider4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
@@ -40,7 +40,7 @@
         android:id="@+id/title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Wallet Management"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -52,28 +52,26 @@
         android:id="@+id/logout"
         android:layout_width="199dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#B23636"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/cancelBtn"
         android:onClick="logout"
         android:text="@string/logout"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialDivider3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
-        android:backgroundTint="#35313A"
+        android:backgroundTint="@color/genericBtn"
         android:onClick="chargeWallet"
         android:text="@string/chargeWallet"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title2" />
+        app:layout_constraintTop_toTopOf="@+id/button123123123123123123123" />
 
     <LinearLayout
         android:id="@+id/fields"
@@ -374,9 +372,9 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="#35313A"
+        android:backgroundTint="@color/genericBtn"
         android:onClick="addCardButton2"
         android:text="@string/addCard"
         android:textColor="#FFFFFF"
@@ -390,11 +388,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:height="60dp"
-        android:backgroundTint="#35313A"
+        android:backgroundTint="@color/genericBtn"
         android:onClick="addLicenseButton"
         android:text="@string/adddriversLicense"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fields" />
 

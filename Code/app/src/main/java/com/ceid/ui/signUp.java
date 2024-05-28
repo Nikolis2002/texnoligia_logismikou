@@ -154,8 +154,6 @@ public class signUp extends AppCompatActivity implements postInterface {
             String jsonString = jsonStringParser.createJsonString("signUp", values);
             license.signUp(api,jsonString);
 
-            Intent intent= new Intent(getApplicationContext(),Login.class);
-            startActivity(intent);
             finish();
 
         }
@@ -167,8 +165,6 @@ public class signUp extends AppCompatActivity implements postInterface {
     }
     public void signIn(View view)
     {
-        Intent intent = new Intent(this,Login.class);
-        startActivity(intent);
         finish();
     }
     public void uploadLicense(View view)

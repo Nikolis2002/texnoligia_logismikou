@@ -1,5 +1,32 @@
 USE app_database;
 
+DELETE FROM gas_station;
+DELETE FROM taxi_service;
+DELETE FROM taxi_request;
+DELETE FROM out_city_service;
+DELETE FROM rental_service;
+DELETE FROM rental_rating;
+DELETE FROM customer_history;
+DELETE FROM service;
+DELETE FROM payment;
+DELETE FROM out_city_van;
+DELETE FROM out_city_car;
+DELETE FROM out_city_transport;
+DELETE FROM garage;
+DELETE FROM electric_scooter;
+DELETE FROM bicycle;
+DELETE FROM motorcycle;
+DELETE FROM car;
+DELETE FROM rental;
+DELETE FROM card;
+DELETE FROM wallet;
+DELETE FROM taxi_driver;
+DELETE FROM taxi;
+DELETE FROM transport;
+DELETE FROM bank;
+DELETE FROM customer;
+DELETE FROM user;
+
 INSERT INTO user VALUES
     ("a", "a", "Name", "Lastname", "myemail@gmail.com", "6970101010"),
     ("customer", "password", "Customer", "Customer", "customer@gmail.com", "6970000000"),
@@ -30,6 +57,7 @@ INSERT INTO customer VALUES
     ("Nikolis","BOTH",null,0),
     ("Zoukos","BOTH",null,0),
     ("bill4","BOTH","test",0);
+
 INSERT INTO bank VALUES("kort","123","123","086",500);
 
 INSERT INTO transport VALUES

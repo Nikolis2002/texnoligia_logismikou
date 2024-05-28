@@ -110,4 +110,11 @@ public class DateFormat {
 
         return dayMap.get(day);
     }
+
+    public static String millisToTimeString(long millis)
+    {
+        int minutes = (int) ((millis/1000)/60);
+        int seconds = (int) ((millis/1000)%60);
+        return String.format("%02d:%02d", minutes, seconds);
+    }
 }

@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="textColor">#FFFFFF</color>
+    <color name="genericBtn">#35313A</color>
+    <color name="cancelBtn">#CC6262</color>
 </resources>

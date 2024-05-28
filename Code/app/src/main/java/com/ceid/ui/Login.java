@@ -90,7 +90,6 @@ public class Login extends AppCompatActivity implements postInterface{
     {
         Intent intent = new Intent(this,signUp.class);
         startActivity(intent);
-        finish();
     }
 
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {

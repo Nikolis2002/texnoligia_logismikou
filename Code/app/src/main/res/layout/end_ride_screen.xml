@@ -137,9 +137,10 @@
         android:layout_height="51dp"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="48dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="@color/genericBtn"
         android:onClick="sendPhotos"
         android:text="@string/sendPhotos"
+        android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -187,9 +188,10 @@
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="140dp"
-                android:backgroundTint="#000000"
+                android:backgroundTint="@color/genericBtn"
                 android:onClick="attach1"
                 android:text="@string/attachPhoto"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:srcCompat="@drawable/img" />
 
@@ -240,9 +242,10 @@
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="140dp"
+                android:backgroundTint="@color/genericBtn"
                 android:onClick="attach1"
-                android:backgroundTint="#000000"
                 android:text="@string/attachPhoto"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:srcCompat="@drawable/img" />
 
@@ -287,9 +290,10 @@
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="140dp"
-                android:backgroundTint="#000000"
+                android:backgroundTint="@color/genericBtn"
                 android:onClick="attach1"
                 android:text="@string/attachPhoto"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:srcCompat="@drawable/img" />
 
@@ -333,9 +337,10 @@
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="140dp"
-                android:backgroundTint="#000000"
+                android:backgroundTint="@color/genericBtn"
                 android:onClick="attach1"
                 android:text="@string/attachPhoto"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:srcCompat="@drawable/img" />
 
