@@ -316,7 +316,7 @@ app.post("/getFunctionWithParams", async (req, res) => {
                 let dbLng = parseFloat(dbCoords.lng);
                 queryString += "ST_GeomFromText(POINT(?, ?)),";
                 queryParams.push(dbLat, dbLng);
-            }else if(key === "left"||"right"||"front"||"back"){
+            }else if(key === "leftimg"||"rightimg"||"frontimg"||"backimg"){
                 console.log("value="+value);
                 let buff=JSON.parse(value);
                 console.log("buff="+buff);
