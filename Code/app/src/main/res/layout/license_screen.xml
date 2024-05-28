@@ -9,31 +9,30 @@
         android:id="@+id/attachPhoto"
         android:layout_width="190dp"
         android:layout_height="41dp"
-        android:layout_marginTop="368dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#000000"
-        android:text="@string/attachPhoto"
         android:onClick="attachPhoto"
+        android:text="@string/attachPhoto"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/sendForReview"
         android:layout_width="252dp"
         android:layout_height="45dp"
-        android:layout_marginTop="528dp"
+        android:layout_marginTop="128dp"
         android:backgroundTint="#000000"
-        android:text="@string/sendForReview"
         android:onClick="sendReview"
+        android:text="@string/sendForReview"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/attachPhoto" />
 
     <ImageView
         android:id="@+id/imageView2"
