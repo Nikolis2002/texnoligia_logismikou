@@ -170,7 +170,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
         if (qrResult != null & data!=null) {
             String qr = qrResult.getContents();
-
+            qr=qr.trim();
             List<java.util.Map<String,Object>> values = new ArrayList<>();
             java.util.Map<String, Object> checkVehicle = new LinkedHashMap<>();
             checkVehicle.put("id", serviceId);
