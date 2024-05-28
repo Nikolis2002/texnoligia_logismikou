@@ -93,6 +93,7 @@
                 android:dropDownHeight="200dp"
                 android:gravity="bottom"
                 android:inputType="none"
+                android:singleLine="true"
                 android:paddingTop="20dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>

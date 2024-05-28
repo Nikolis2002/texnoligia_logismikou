@@ -24,12 +24,12 @@ INSERT INTO customer VALUES
     ("souvlakigamer2024", "MOTORCYCLE", NULL, 64),
     ("magic17", "CAR", NULL, 128),
 
-    ("bill","A2","test",0),
-    ("bill3","A2","test",0),
-    ("Dista","A2",null,0),
-    ("Nikolis","A2",null,0),
-    ("Zoukos","A2",null,0),
-    ("bill4","A2","test",0);
+    ("bill","BOTH","test",0),
+    ("bill3","BOTH","test",0),
+    ("Dista","BOTH",null,0),
+    ("Nikolis","BOTH",null,0),
+    ("Zoukos","BOTH",null,0),
+    ("bill4","BOTH","test",0);
 
 INSERT INTO transport VALUES
     (1, "Ford", "Mondeo", 1993),
