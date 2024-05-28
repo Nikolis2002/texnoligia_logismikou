@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity implements postInterface{
         setContentView(R.layout.login);
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
-        visib = (ImageView) findViewById(R.id.visibility);
+        //visib = (ImageView) findViewById(R.id.visibility);
         //Log.d("user",User.currentUser().toString());
         /*
         ApiService api=ApiClient.getApiService();

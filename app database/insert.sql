@@ -17,7 +17,6 @@ INSERT INTO user VALUES
     ("Zoukos","zouk741","Panagiotis","Kalozoumis","panos@gmail.com","6988521346"),
     ("bill4","12356","Vasilis","Kourtakis","test@gmail2.com","6911234567");
 
-
 INSERT INTO customer VALUES
     ("a", "BOTH", NULL, 1),
     ("customer", "BOTH", NULL, 16),

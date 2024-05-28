@@ -55,7 +55,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/timesec"
                 android:textAppearance="@style/label" />
@@ -90,7 +89,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/cost"
                 android:textAppearance="@style/label" />
@@ -125,7 +123,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/points"
                 android:textAppearance="@style/label" />
@@ -201,7 +198,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="42dp"
-                android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/frontSide"
                 android:textAppearance="@style/label" />
@@ -255,7 +251,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="42dp"
-                android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/backSide"
                 android:textAppearance="@style/label" />
@@ -302,7 +297,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="42dp"
-                android:layout_toStartOf="@id/visibility"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/leftSide"
                 android:textAppearance="@style/label" />

@@ -592,10 +592,4 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             }
         });
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 }
