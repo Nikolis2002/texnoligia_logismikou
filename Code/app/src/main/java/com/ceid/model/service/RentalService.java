@@ -62,4 +62,6 @@ public class RentalService extends Service{
 	{
 		this.refill = refill;
 	}
+
+	public Refill getRefill(){return this.refill;}
 }
