@@ -62,7 +62,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
     private String time;
     private User user;
     protected byte[] bArray1,bArray2,bArray3,bArray4;
-
+    private RentalService service;
     private TextView duration,cost,points;
     private CheckBox check1,check2,check3,check4;
     private Bitmap bitmap;
@@ -70,14 +70,14 @@ public class EndRide extends AppCompatActivity implements postInterface {
     private Map<String, Object> sides=new LinkedHashMap<>();
     private boolean checked1,checked2,checked3,checked4;
     private Button photoButton1,photoButton2,photoButton3,photoButton4;
-    private GasStation gas=new GasStation(100,new Coordinates(38.256422,21.743256),1.80);
+    /*private GasStation gas=new GasStation(100,new Coordinates(38.256422,21.743256),1.80);
     private Refill refill=new Refill(LocalDateTime.now(),gas,new PositiveInteger(50),new PositiveInteger(60));
     private CityCar rental=new CityCar("abc",true,1,
             "MONDEO","FORD","2002",4.9,
             new Coordinates(38.256422,21.743256),new PositiveInteger(50));
 
     private RentalService service=new RentalService(1, LocalDateTime.now(),
-            new Payment(WALLET), null, 100,rental);
+            new Payment(WALLET), null, 100,rental);*/
 
 
     @Override
@@ -107,18 +107,18 @@ public class EndRide extends AppCompatActivity implements postInterface {
 
 
 
-        //bundle= getIntent().getExtras();
-        //time=getIntent().getStringExtra("timestring");
-        //service= (RentalService) bundle.getSerializable("service");
+        bundle= getIntent().getExtras();
+        time=getIntent().getStringExtra("timestring");
+        service= (RentalService) bundle.getSerializable("service");
         duration=findViewById(R.id.time);
         cost=findViewById(R.id.cost);
         points=findViewById(R.id.points);
-        //duration.setText(time);
-        //points.setText(String.valueOf(service.getPoints()));
-        //Rental rental=(Rental) service.getTransport();
-        //duration.setText(time);
-        //cost.setText(String.valueOf(rental.getRate()*Double.parseDouble(time)));
-        //points.setText(String.valueOf(service.getPoints()));
+        duration.setText(time);
+        points.setText(String.valueOf(service.getPoints()));
+        Rental rental=(Rental) service.getTransport();
+        duration.setText(time);
+        cost.setText(String.valueOf(rental.getRate()*Double.parseDouble(time)));
+        points.setText(String.valueOf(service.getPoints()));
     }
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
@@ -170,6 +170,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
                 checked1=false;
                 check1.setChecked(true);
                 bArray1 = bos.toByteArray();
+                Log.d("test",Arrays.toString(bArray1));
             }
             if(checked2){
                 checked2=false;
@@ -187,7 +188,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
                 check4.setChecked(true);
                 bArray4 = bos.toByteArray();
             }
-           // System.out.println(Arrays.toString(bArray));
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("PhotoPicker", "Error saving image", e);
@@ -198,17 +199,16 @@ public class EndRide extends AppCompatActivity implements postInterface {
         if(check1.isChecked()&&check2.isChecked()&&check3.isChecked()&&check4.isChecked()){
             PostHelper end=new PostHelper(this);
             ApiService api= ApiClient.getApiService();
-            service.setRefill(refill);
-            //user= User.getCurrentUser();
-            //Customer customer=(Customer) user;
-            //sides.put("username",customer.getUsername());
+            //service.setRefill(refill);
+
             sides.put("id",service.getId());
             sides.put("stationId",service.getRefill().getGasStation().getid());
-            sides.put("initGas",service.getRefill().getStartGas());
+            sides.put("initGas",service.getRefill().getStartGas().getValue());
             int diff=service.getRefill().getEndGas().posDiff(service.getRefill().getStartGas());
             sides.put("addedGas",diff);
             sides.put("success",service.getRefill().getSuccess());
             sides.put("refillDate",service.getRefill().getDate());
+            Log.d("testinside",Arrays.toString(bArray1));
             sides.put("leftimg",Arrays.toString(bArray3));
             sides.put("rightimg",Arrays.toString(bArray4));
             sides.put("frontimg",Arrays.toString(bArray1));

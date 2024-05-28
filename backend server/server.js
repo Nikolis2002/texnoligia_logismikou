@@ -303,7 +303,7 @@ app.post("/getFunctionWithParams", async (req, res) => {
         const param = req.body;
         let jsonObj = JSON.parse(param);
         const { table, values } = jsonObj;
-        
+        //console.log(jsonObj);
         let queryString = `CALL ${table}(`;
         const array = values[0];
         let queryParams = [];
@@ -316,10 +316,8 @@ app.post("/getFunctionWithParams", async (req, res) => {
                 let dbLng = parseFloat(dbCoords.lng);
                 queryString += "ST_GeomFromText(POINT(?, ?)),";
                 queryParams.push(dbLat, dbLng);
-            }else if(key === "leftimg"||"rightimg"||"frontimg"||"backimg"){
-                console.log("value="+value);
+            }else if(key === "leftimg"||key ==="rightimg"||key==="frontimg"||key==="backimg"){
                 let buff=JSON.parse(value);
-                console.log("buff="+buff);
                 queryString += "?,"; 
                 const buffer = Buffer.from(buff);
                 queryParams.push(buffer);
@@ -431,7 +429,7 @@ app.post("/savePhoto", async (req, res) => {
         const param = req.body;
         let jsonObj = JSON.parse(param);
         const { table, values } = jsonObj;
-        //console.log(jsonObj);
+        
         let queryString = `CALL ${table}(`;
         const array = values[0];
         let queryParams = [];
