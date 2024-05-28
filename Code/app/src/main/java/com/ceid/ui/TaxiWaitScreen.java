@@ -65,9 +65,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     });
-                    builder.setNegativeButton("Cancel", (alertDialog, which) -> {
-                        finish();
-                    });
+                    builder.setNegativeButton("Cancel", (alertDialog, which) -> finish());
 
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();

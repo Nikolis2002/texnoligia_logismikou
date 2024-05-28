@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -68,7 +69,8 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
     @Override
     public void onBindViewHolder(RequestView holder, int position) {
         taxiRequest = taxiRequests.get(position);
-        holder.number.setText("Request " + (position+1));
+        String text="Request " + (position+1);
+        holder.number.setText(text);
         holder.start.setText(String.valueOf(taxiRequest.getPickupLocation()));
         holder.end.setText(String.valueOf(taxiRequest.getDestination()));
 
@@ -154,6 +156,7 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void clearData() {
         taxiRequests.clear();
         notifyDataSetChanged();

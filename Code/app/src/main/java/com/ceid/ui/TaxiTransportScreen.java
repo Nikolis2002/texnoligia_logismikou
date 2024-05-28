@@ -18,7 +18,6 @@ import com.ceid.model.payment_methods.Payment;
 import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
-import com.ceid.util.Coordinates;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
 import com.ceid.util.Timer;

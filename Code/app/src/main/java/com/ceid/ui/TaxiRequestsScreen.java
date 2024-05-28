@@ -16,15 +16,9 @@ import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.TaxiRequest;
 import com.ceid.model.users.TaxiDriver;
 import com.ceid.model.users.User;
-import com.ceid.util.Coordinates;
-import com.ceid.util.Location;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

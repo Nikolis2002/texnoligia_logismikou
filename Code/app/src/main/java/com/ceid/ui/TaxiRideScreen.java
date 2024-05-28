@@ -72,9 +72,9 @@ public class TaxiRideScreen extends AppCompatActivity {
 
     public void isPickUp() {
         List<Map<String,Object>> values = new ArrayList<>();
-        java.util.Map<String, Object> taxiPickUpcheck = new LinkedHashMap<>();
-        taxiPickUpcheck.put("request_id_in",taxiService.getId());
-        values.add(taxiPickUpcheck);
+        java.util.Map<String, Object> taxiPickUncheck = new LinkedHashMap<>();
+        taxiPickUncheck.put("request_id_in",taxiService.getId());
+        values.add(taxiPickUncheck);
 
         String jsonString = jsonStringParser.createJsonString("checkTaxiPickUp",values);
         Call<ResponseBody> call = api.getFunction(jsonString);
