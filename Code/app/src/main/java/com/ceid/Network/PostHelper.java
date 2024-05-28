@@ -188,7 +188,7 @@ public class PostHelper {
 
     public void licenseCall(ApiService api, String license) {
 
-        Call<ResponseBody> call = api.savePhoto(license);
+        Call<ResponseBody> call = api.getFunction(license);
         Log.d("kort", "kort was send successfully!!");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -213,9 +213,9 @@ public class PostHelper {
             }
         });
     }
-    public void getLicense(ApiService api,String user)
+    public void finalRental(ApiService api,String params)
     {
-        Call<ResponseBody> call = api.savePhoto(user);
+        Call<ResponseBody> call = api.getFunction(params);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
