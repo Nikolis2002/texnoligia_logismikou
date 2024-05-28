@@ -69,6 +69,8 @@ public class EndRide extends AppCompatActivity implements postInterface {
     private List<Map<String, Object>> values = new ArrayList<>();
     private Map<String, Object> sides=new LinkedHashMap<>();
     private boolean checked1,checked2,checked3,checked4;
+
+    private  double pValue;
     private Button photoButton1,photoButton2,photoButton3,photoButton4;
     /*private GasStation gas=new GasStation(100,new Coordinates(38.256422,21.743256),1.80);
     private Refill refill=new Refill(LocalDateTime.now(),gas,new PositiveInteger(50),new PositiveInteger(60));
@@ -120,8 +122,8 @@ public class EndRide extends AppCompatActivity implements postInterface {
 
         points.setText(String.valueOf(service.getPoints()));
         Rental rental=(Rental) service.getTransport();
-
-        cost.setText(String.format(".2f€",rental.getRate()*time));
+        pValue=rental.getRate()*time;
+        cost.setText(String.format("%.02f€",pValue));
     }
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
@@ -167,7 +169,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
             }
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos); //if the image is too big,it is compressed automatically
 
             if(checked1){
                 checked1=false;
@@ -203,8 +205,13 @@ public class EndRide extends AppCompatActivity implements postInterface {
             PostHelper end=new PostHelper(this);
             ApiService api= ApiClient.getApiService();
             //service.setRefill(refill);
+            user=User.getCurrentUser();
 
-            sides.put("id",service.getId());
+            sides.put("points",service.getPoints());
+            sides.put("userName",user.getUsername());
+            sides.put("pValue",pValue);
+            sides.put("pMethod","WALLET");
+            sides.put("rentalId",service.getId());
             sides.put("stationId",service.getRefill().getGasStation().getid());
             sides.put("initGas",service.getRefill().getStartGas().getValue());
             int diff=service.getRefill().getEndGas().posDiff(service.getRefill().getStartGas());
@@ -230,12 +237,18 @@ public class EndRide extends AppCompatActivity implements postInterface {
 
     @Override
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
+            Customer customer=(Customer)user;
+            customer.getWallet().withdraw(pValue);
+            customer.getPoints().addPoints(service.getPoints());
 
+            Intent intent=new Intent(getApplicationContext(),MainScreen.class);
+            startActivity(intent);
+            finish();
     }
 
     @Override
     public void onResponseFailure(Throwable t) {
-
+            //do nothing!!
     }
 }
 
