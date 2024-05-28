@@ -189,7 +189,8 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
                 if(response.isSuccessful()){
 
                     if(paymentString.equals("WALLET")){
-                        taxiDriver.getWallet().addToWallet(costCalc);
+                        String cost=String.format("%.2f", costCalc);
+                        taxiDriver.getWallet().addToWallet(Double.parseDouble(cost));
 
                         List<java.util.Map<String,Object>> values = new ArrayList<>();
                         java.util.Map<String, Object> updateWallet = new LinkedHashMap<>();
