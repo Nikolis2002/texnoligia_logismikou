@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".endRide"/>
+        <activity android:name=".EndRide"/>
         <activity android:name=".TransportScreen"/>
         <activity android:name=".LicenseScreen"/>
         <activity android:name=".ChargeWalletScreen"/>

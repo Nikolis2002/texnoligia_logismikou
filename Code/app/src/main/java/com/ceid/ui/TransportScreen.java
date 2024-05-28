@@ -2,6 +2,7 @@ package com.ceid.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,7 +36,6 @@ import com.ceid.util.Coordinates;
 import com.ceid.util.GenericCallback;
 import com.ceid.util.Map;
 import com.ceid.util.MapWrapperReadyListener;
-import com.ceid.util.PositiveInteger;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -44,6 +45,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+@RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 public class TransportScreen extends AppCompatActivity implements MapWrapperReadyListener, GoogleMap.OnMapClickListener{
 
     private Map map;
@@ -56,27 +58,11 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     private ArrayList<GasStation> gasStationList=null;
 
     int id;
+    Bundle bundle=getIntent().getExtras();
+    RentalService service = bundle.getSerializable("service",RentalService.class);
 
-    Rental car = new CityCar(
-            "ABC-1234",
-            true,
-            0,
-            "MONDEO",
-            "FORD",
-            "1993",
-            1.40,
-            new Coordinates(38.2442870,21.7326153),
-            new PositiveInteger(100)
-    );
+    Rental car = (Rental) service.getTransport();
 
-    RentalService service= new RentalService(
-            1,
-            LocalDateTime.now(),
-            null,
-            null,
-            0,
-            car
-    );
     String trackerType;
 
     private final ApiService api= ApiClient.getApiService();
@@ -354,12 +340,11 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                                  tracker.getGas(),
                                  null);
 
-        //TODO
     }
 
     public void  onEndBtn(View view)
     {
-        Intent intent=new Intent(getApplicationContext(),endRide.class);
+        Intent intent=new Intent(getApplicationContext(), EndRide.class);
         Bundle bundle=new Bundle();
 
         timer.stop();

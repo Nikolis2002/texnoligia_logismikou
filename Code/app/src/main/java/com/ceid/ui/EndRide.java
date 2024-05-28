@@ -1,5 +1,6 @@
 package com.ceid.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,15 +15,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.model.service.RentalService;
+import com.ceid.model.transport.Rental;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.Serializable;
-import java.util.Arrays;
 
-public class endRide extends AppCompatActivity {
+public class EndRide extends AppCompatActivity {
 
 
     private Bundle bundle;
@@ -30,11 +33,24 @@ public class endRide extends AppCompatActivity {
     private RentalService service;
     private TextView duration,cost,points;
 
+
     private Button photoButton1,photoButton2,photoButton3,photobutton4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.end_ride_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Toast.makeText(getApplicationContext(), "You can't go back here!",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
         bundle= getIntent().getExtras();
         time=getIntent().getStringExtra("timestring");
         service= (RentalService) bundle.getSerializable("service");
@@ -42,6 +58,12 @@ public class endRide extends AppCompatActivity {
         cost=findViewById(R.id.cost);
         points=findViewById(R.id.points);
         duration.setText(time);
+        points.setText(String.valueOf(service.getPoints()));
+
+        Rental rental=(Rental) service.getTransport();
+
+        duration.setText(time);
+        cost.setText(String.valueOf(rental.getRate()*Double.parseDouble(time)));
         points.setText(String.valueOf(service.getPoints()));
 
 
@@ -79,12 +101,6 @@ public class endRide extends AppCompatActivity {
             e.printStackTrace();
             Log.e("PhotoPicker", "Error saving image", e);
         }
-    }
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        Toast.makeText(getApplicationContext(), "You can't go back here!",
-                Toast.LENGTH_LONG).show();
     }
 
 }
