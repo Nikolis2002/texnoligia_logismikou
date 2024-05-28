@@ -7,21 +7,22 @@
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider4"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        tools:layout_editor_absoluteX="16dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider3"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="33dp"
-        app:layout_constraintBottom_toTopOf="@+id/logout"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <TextView
         android:id="@+id/title"
@@ -39,7 +40,7 @@
         android:id="@+id/title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Wallet Management"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -51,7 +52,7 @@
         android:id="@+id/logout"
         android:layout_width="199dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#B23636"
         android:onClick="logout"
         android:text="@string/logout"
@@ -59,32 +60,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider3" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="150dp"
         android:layout_height="60dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:backgroundTint="#35313A"
         android:onClick="chargeWallet"
         android:text="@string/chargeWallet"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button123123123123123123123" />
+        app:layout_constraintTop_toBottomOf="@+id/title2" />
 
     <LinearLayout
         android:id="@+id/fields"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="8dp"
         android:gravity="top"
         android:orientation="vertical"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/title">
 
 
         <RelativeLayout
@@ -101,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="100dp"
@@ -114,7 +116,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Username:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -145,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:srcCompat="@drawable/img" />
 
             <TextView
@@ -160,7 +162,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Name:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -198,7 +200,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Surname:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -220,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:srcCompat="@drawable/img" />
 
             <TextView
@@ -236,7 +238,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Email:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -266,7 +268,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:srcCompat="@drawable/img" />
 
             <TextView
@@ -281,7 +283,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Driver's License:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -302,7 +304,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:srcCompat="@drawable/img" />
 
             <TextView
@@ -316,7 +318,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Points gained:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -337,7 +339,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:srcCompat="@drawable/img" />
 
             <TextView
@@ -351,7 +353,7 @@
                 android:lineSpacingExtra="3sp"
                 android:text="Wallet:"
                 android:textAppearance="@style/label"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -372,7 +374,7 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="#35313A"
         android:onClick="addCardButton2"
@@ -387,7 +389,6 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:height="60dp"
         android:backgroundTint="#35313A"
         android:onClick="addLicenseButton"
