@@ -44,8 +44,7 @@ public class EndRide extends AppCompatActivity {
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Toast.makeText(getApplicationContext(), "You can't go back here!",
-                        Toast.LENGTH_LONG).show();
+                //do nothing stay on the same screen
             }
         });
 

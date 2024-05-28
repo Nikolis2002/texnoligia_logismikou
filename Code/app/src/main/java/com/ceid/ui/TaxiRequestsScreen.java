@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +36,17 @@ public class TaxiRequestsScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_request_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(TaxiRequestsScreen.this, MainScreenTaxi.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         taxiDriver = (TaxiDriver) User.getCurrentUser();
         taxiRequestSelect();
     }
@@ -76,13 +89,6 @@ public class TaxiRequestsScreen extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(TaxiRequestsScreen.this, MainScreenTaxi.class);
-        startActivity(intent);
-        finish();
-    }
 
     public void taxiRequestSelect(View view){
         requestAdapter.clearData();

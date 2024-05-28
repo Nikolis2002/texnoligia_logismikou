@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -74,6 +76,14 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.in_city_vehicle_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         assert extras != null;
@@ -593,9 +603,4 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 }

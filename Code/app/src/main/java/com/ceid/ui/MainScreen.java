@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,14 @@ public class MainScreen extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //do nothing stay on the same screen
+            }
+        });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
         //User.setCurrentUser(customer);
@@ -52,12 +62,6 @@ public class MainScreen extends AppCompatActivity {
                 return true; //successfully handled
             }
         });
-    }
-    
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
-
     }
 
     public void inCity(View view)

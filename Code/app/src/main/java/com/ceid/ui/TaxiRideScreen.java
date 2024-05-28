@@ -8,6 +8,8 @@ import android.os.SystemClock;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,6 +48,15 @@ public class TaxiRideScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_ride_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //do nothing stay on the same screen
+            }
+        });
+
         Intent intent = getIntent();
         customer = (Customer) User.getCurrentUser();
         taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
@@ -269,11 +280,6 @@ public class TaxiRideScreen extends AppCompatActivity {
 
     }
 
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
-
-    }
 
     @Override
     protected void onStop() {

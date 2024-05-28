@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +62,14 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.unlock_screen);
 
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //do nothing stay on the same screen
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap);
         map = new Map(mapFragment, this, this);
 
@@ -96,11 +106,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         qrScanner.initiateScan();
     }
 
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
-
-    }
 
     public void cancelReservation(){
         List<java.util.Map<String,Object>> values = new ArrayList<>();

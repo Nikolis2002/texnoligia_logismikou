@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.model.users.TaxiDriver;
@@ -15,6 +17,14 @@ public class ProfileTaxiScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_profile_screen);
+
+        OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+        dispatcher.addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        });
 
         TaxiDriver taxiDriver=(TaxiDriver) User.getCurrentUser();
 
@@ -31,11 +41,6 @@ public class ProfileTaxiScreen extends AppCompatActivity {
         amount.setText(String.valueOf(taxiDriver.getWallet().getBalance()));
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 
     public void Logout(View view){
         Intent intent = new Intent(ProfileTaxiScreen.this, Login.class);
