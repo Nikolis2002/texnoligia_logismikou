@@ -438,7 +438,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                         //Place pins
                         for (Rental rental : vehicleList)
                         {
-                            if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 2000) && rental.isFree())
+                            if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 1500) && rental.isFree())
                             {
                                 Marker marker = vehicleMap.placePin(rental.getTracker().getCoords(), false, markerIcon);
                                 marker.setTag(rental);
