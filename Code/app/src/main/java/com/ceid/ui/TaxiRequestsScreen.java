@@ -3,6 +3,7 @@ package com.ceid.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,10 +54,18 @@ public class TaxiRequestsScreen extends AppCompatActivity {
                     try {
                         ArrayList<TaxiRequest> requestList=jsonStringParser.parseTaxiRequest(response);
                         requestView = findViewById(R.id.requestView);
-                        requestView.setLayoutManager(new LinearLayoutManager(TaxiRequestsScreen.this));
-                        requestAdapter = new TaxiRequestAdapter(requestList,TaxiRequestsScreen.this,taxiDriver);
-                        requestView.setAdapter(requestAdapter);
 
+                        if(!requestList.isEmpty()) {
+                            requestView.setLayoutManager(new LinearLayoutManager(TaxiRequestsScreen.this));
+                            requestAdapter = new TaxiRequestAdapter(requestList, TaxiRequestsScreen.this, taxiDriver);
+                            requestView.setAdapter(requestAdapter);
+                        }else{
+                            requestView.setVisibility(View.GONE);
+                            TextView textView=findViewById(R.id.emptyRequest);
+                            String text="There are not active taxi requests";
+                            textView.setText(text);
+                            textView.setVisibility(View.VISIBLE);
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

@@ -1,17 +1,8 @@
 package com.ceid.ui;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +15,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
@@ -40,7 +39,6 @@ import com.ceid.util.MapWrapperReadyListener;
 import com.ceid.util.PositiveInteger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -50,7 +48,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Objects;
 
 import okhttp3.ResponseBody;
@@ -66,7 +63,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     private Map vehicleMap;
     private Coordinates selectedCoords = null;
     private Bundle locationScreenData = null;
-
+    private VehicleListAdapter vehicleListAdapter;
     private String type;
     private int markerIcon;
 
@@ -103,7 +100,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         //Other
         this.type = extras.getString("type");
 
-        TextView tview = (TextView) findViewById(R.id.nearbyText);
+        TextView tview = findViewById(R.id.nearbyText);
 
         switch(type)
         {
@@ -237,7 +234,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                     call.enqueue(new Callback<String>()
                     {
                         @Override
-                        public void onResponse(Call<String> call, Response<String> response)
+                        public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response)
                         {
 							if (response.isSuccessful())
                             {
@@ -331,7 +328,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                         }
 
                                         @Override
-                                        public void onFailure(Call<ResponseBody> call, Throwable throwable)
+                                        public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable)
                                         {
 
                                         }
@@ -359,7 +356,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                         }
 
                         @Override
-                        public void onFailure(Call<String> call, Throwable throwable)
+                        public void onFailure(@NonNull Call<String> call, @NonNull Throwable throwable)
                         {
                             AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
 
@@ -415,6 +412,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
             selectedCoords = (Coordinates) locationScreenData.getSerializable("coords");
 
+            TextView textViewInfo=findViewById(R.id.selectLocation);
+            ListView listView=findViewById(R.id.listViewId);
+
             //Display selected location
             if (selectedCoords != null)
             {
@@ -446,10 +446,23 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                             }
                         }
 
-                        ListView listView = (ListView) findViewById(R.id.listViewId);
+                        if(!validVehicles.isEmpty()) {
+                            textViewInfo.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
 
-                        listView.setAdapter(new VehicleListAdapter(InCityVehicleScreen.this,  validVehicles, InCityVehicleScreen.this.markerIcon, selectedCoords));
-                        listView.setOnItemClickListener(InCityVehicleScreen.this);
+                            vehicleListAdapter = new VehicleListAdapter(InCityVehicleScreen.this, validVehicles, InCityVehicleScreen.this.markerIcon, selectedCoords);
+
+                            listView.setAdapter(vehicleListAdapter);
+                            listView.setOnItemClickListener(InCityVehicleScreen.this);
+                        }else{
+
+                            if(vehicleListAdapter!=null){
+                                vehicleListAdapter.clearData();
+                            }
+                            String text="There are no available vehicles near your location";
+                            textViewInfo.setText(text);
+                            textViewInfo.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override

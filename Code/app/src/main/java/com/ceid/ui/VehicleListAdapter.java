@@ -59,4 +59,9 @@ public class VehicleListAdapter extends BaseAdapter
 
 		return (convertView);
 	}
+
+	public void clearData() {
+		vehicles.clear();
+		notifyDataSetChanged();
+	}
 }
