@@ -87,7 +87,7 @@ public class LicenseScreen extends AppCompatActivity implements postInterface {
             //String jsonString = jsonStringParser.createJsonString("getLicense", values);
             //lic.getLicense(api,jsonString);
 
-
+            text.setVisibility(View.GONE);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
@@ -169,6 +169,7 @@ public class LicenseScreen extends AppCompatActivity implements postInterface {
             public void run() {
                 Intent intent= new Intent(getApplicationContext(),MainScreen.class);
                 startActivity(intent);
+                finish();
             }
         }, 5000);
     }

@@ -110,16 +110,19 @@ public class MainScreen extends AppCompatActivity {
     {
         Intent intent=new Intent(getApplicationContext(),addCard.class);
         startActivity(intent);
+        finish();
     }
     public void chargeWallet(View view)
     {
         Intent intent = new Intent(getApplicationContext(), ChargeWalletScreen.class);
         startActivity(intent);
+        finish();
     }
     public void addLicenseButton(View view)
     {
         Intent intent = new Intent(getApplicationContext(), LicenseScreen.class);
         startActivity(intent);
+        finish();
     }
     public void logout(View view)
     {

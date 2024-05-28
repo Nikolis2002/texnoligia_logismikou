@@ -426,6 +426,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
         intent.putExtras(bundle);
         startActivity(intent);
+        finish();
     }
 }
 
