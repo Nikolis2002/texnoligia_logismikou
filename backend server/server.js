@@ -316,7 +316,15 @@ app.post("/getFunctionWithParams", async (req, res) => {
                 let dbLng = parseFloat(dbCoords.lng);
                 queryString += "ST_GeomFromText(POINT(?, ?)),";
                 queryParams.push(dbLat, dbLng);
-            } else {
+            }else if(key === "left"||"right"||"front"||"back"){
+                console.log("value="+value);
+                let buff=JSON.parse(value);
+                console.log("buff="+buff);
+                queryString += "?,"; 
+                const buffer = Buffer.from(buff);
+                queryParams.push(buffer);
+            }
+             else {
                 queryString += "?,";
                 queryParams.push(value);
             }
@@ -444,8 +452,6 @@ app.post("/savePhoto", async (req, res) => {
             else{
                 queryString += "?,";   
                 queryParams.push(value);
-                
-        
             }
         }
         
@@ -463,7 +469,42 @@ app.post("/savePhoto", async (req, res) => {
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
     }
 });
-
+/*app.post("/finalRentalService", async (req, res) => {
+    try {
+        const param = req.body;
+        let jsonObj = JSON.parse(param);
+        const { table, values } = jsonObj;
+        //console.log(jsonObj);
+        let queryString = `CALL ${table}(`;
+        const array = values[0];
+        let queryParams = [];
+        for (let [key, value] of Object.entries(array)) {
+            if(key === "left"||"right"||"front"||"right"){
+                let array=JSON.parse(value);
+                queryString += "?,"; 
+                const buffer = Buffer.from(array);
+                queryParams.push(buffer);
+            }
+            else{
+                queryString += "?,";   
+                queryParams.push(value);
+            }
+        }
+        
+        // Remove the trailing comma and close the parenthesis
+        queryString = queryString.slice(0, -1) + ")";
+        //console.log(queryString);
+        //console.log(queryParams);
+        
+        // Execute the query
+        let response = await helper.queryPromise(con, queryString, queryParams);
+        console.log(response.result)
+        res.status(200).send(response.result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
+    }
+});*/
 const ip_adress=jsonPass.ip;
 const port=3000;
 app.listen(port, () => {

@@ -1,7 +1,4 @@
 package com.ceid.Network;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -62,4 +59,6 @@ public interface ApiService {
 
     @GET("/history")
     Call<ResponseBody> getHistory(@Query("user") String user);
+    @POST("/finalRentalService")
+    Call<ResponseBody> finalRentalService(@Body String jsonfunction);
 }
