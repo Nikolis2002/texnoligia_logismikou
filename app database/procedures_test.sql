@@ -30,3 +30,14 @@ BEGIN
 END $
 
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS signUp;
+DELIMITER $
+
+CREATE PROCEDURE signUp(IN user VARCHAR(32),IN pass VARCHAR(32),IN name VARCHAR(32),IN lname VARCHAR(32),IN email VARCHAR(32),IN  phone VARCHAR(32),IN license LONGBLOB)
+BEGIN
+    INSERT INTO user VALUES(user,pass,name,lname,email,phone);
+    INSERT INTO customer VALUES(user,"BOTH",license,0);
+END $
+
+DELIMITER ;

@@ -23,13 +23,13 @@ public class PostHelper {
         this.callback = callback;
     }
 
-    public void insertUser(ApiService api, String userString) {
+    public void signUp(ApiService api, String userString) {
 
-        Call<Void> call = api.postUser(userString);
+        Call<ResponseBody> call = api.getFunction(userString);
 
-        call.enqueue(new Callback<Void>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     System.out.println("success message");
                 } else {
@@ -38,7 +38,7 @@ public class PostHelper {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 System.out.println("Error message");
             }
         });

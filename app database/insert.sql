@@ -30,6 +30,7 @@ INSERT INTO customer VALUES
     ("Nikolis","BOTH",null,0),
     ("Zoukos","BOTH",null,0),
     ("bill4","BOTH","test",0);
+INSERT INTO bank VALUES("kort","123","123","086",500);
 
 INSERT INTO transport VALUES
     (1, "Ford", "Mondeo", 1993),

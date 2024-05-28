@@ -27,29 +27,31 @@ import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class signUp extends AppCompatActivity implements postInterface {
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-
-    protected Uri photoDir;
-    private static final int PICK_IMAGE = 1;
-    private EditText username,password,name,surname,phoneNumber;
+    private byte[] bArray;
+    private EditText username,password,name,surname,phoneNumber,email;
     private CheckBox check;
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 // Callback is invoked after the user selects a media item or closes the
                 // photo picker.
                 if (uri != null) {
-                    photoDir=uri;
+                    saveImage(uri);
                 } else {
                     Toast.makeText(getApplicationContext(), "No media selected!",
                             Toast.LENGTH_LONG).show();
@@ -62,24 +64,22 @@ public class signUp extends AppCompatActivity implements postInterface {
                 Log.e("PhotoPicker", "InputStream is null for URI: " + uri);
                 return;
             }
+            // PostHelper lic=new PostHelper(this);
+            // ApiService api=ApiClient.getApiService();
+            // List<Map<String, Object>> values = new ArrayList<>();
+            //Map<String, Object> license=new LinkedHashMap<>();
+            //user= User.getCurrentUser();
+            //customer= (Customer) user;
+            //license.put("username",customer.getUsername());
+            //values.add(license);
+            //String jsonString = jsonStringParser.createJsonString("getLicense", values);
+            //lic.getLicense(api,jsonString);
+
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-            String fileName = "selected_image_" + System.currentTimeMillis() + ".jpg";
-            File directory = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "MovFast");
-            if (!directory.exists()) {
-                if (!directory.mkdirs()) {
-                    Log.e("PhotoPicker", "Failed to create directory: " + directory.getAbsolutePath());
-                    return;
-                }
-            }
-            File file = new File(directory, fileName);
-
-            FileOutputStream outputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            Log.d("PhotoPicker", "Image saved: " + file.getAbsolutePath());
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            bArray = bos.toByteArray();
+            //System.out.println(Arrays.toString(bArray));
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("PhotoPicker", "Error saving image", e);
@@ -93,6 +93,7 @@ public class signUp extends AppCompatActivity implements postInterface {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         name = findViewById(R.id.name);
+        email=findViewById(R.id.email);
         surname = findViewById(R.id.surname);
         phoneNumber = findViewById(R.id.phoneNumber);
 
@@ -140,16 +141,22 @@ public class signUp extends AppCompatActivity implements postInterface {
             }
             PostHelper license = new PostHelper(this);
             ApiService api = ApiClient.getApiService();
-            Map<String, Object> signUpUser = new HashMap<>();
-            signUpUser.put("username",username);
-            signUpUser.put("password",password);
-            signUpUser.put("name",name);
-            signUpUser.put("lname",surname);
-            signUpUser.put("phoneNumber",phoneNumber);
-            signUpUser.put("license","insert license here");
+            List<Map<String, Object>> values = new ArrayList<>();
+            Map<String, Object> signUpUser=new LinkedHashMap<>();
+            signUpUser.put("username",username.getText().toString());
+            signUpUser.put("password",password.getText().toString());
+            signUpUser.put("name",name.getText().toString());
+            signUpUser.put("lname",surname.getText().toString());
+            signUpUser.put("email",email.getText().toString());
+            signUpUser.put("phone",phoneNumber.getText().toString());
+            signUpUser.put("license",Arrays.toString(bArray));
+            values.add(signUpUser);
+            String jsonString = jsonStringParser.createJsonString("signUp", values);
+            license.signUp(api,jsonString);
 
-
-
+            Intent intent= new Intent(getApplicationContext(),Login.class);
+            startActivity(intent);
+            finish();
 
         }
         else
@@ -162,6 +169,7 @@ public class signUp extends AppCompatActivity implements postInterface {
     {
         Intent intent = new Intent(this,Login.class);
         startActivity(intent);
+        finish();
     }
     public void uploadLicense(View view)
     {
@@ -176,6 +184,7 @@ public class signUp extends AppCompatActivity implements postInterface {
         Intent intent = new Intent(getApplicationContext(),Login.class);
         startActivity(intent);
     }
+
 
     @Override
     public void onResponseFailure(Throwable t) {
