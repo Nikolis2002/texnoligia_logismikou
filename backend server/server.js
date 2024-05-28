@@ -23,7 +23,6 @@ const con = mysql.createConnection(
 );
 
 const app=express();
-let distance=
 
 app.use((req, res, next) => {
     if (req.is('application/json')) {
