@@ -105,7 +105,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
         Customer customer  = (Customer) User.getCurrentUser();
         TextView textAvailable=findViewById(R.id.textAvailable);
-        textAvailable.setText(String.valueOf(customer.getWallet().getBalance()));
+        textAvailable.setText(customer.getWallet().getBalance() + "€");
 
         enableRefillButton(false);
     }
