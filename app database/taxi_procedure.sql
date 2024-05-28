@@ -233,9 +233,9 @@ delimiter ;
 
 drop procedure if exists updateWallet;
 delimiter $
-create procedure updateWallet(in customer_username VARCHAR(32),in new_balance DECIMAL(10,2))
+create procedure updateWallet(in username_in VARCHAR(32),in new_balance DECIMAL(10,2))
 begin
-	update wallet set balance=new_balance where username=customer_username;
+	update wallet set balance=new_balance where username=username_in;
 end $
 delimiter ;
 

@@ -189,12 +189,35 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
                 if(response.isSuccessful()){
 
                     if(paymentString.equals("WALLET")){
-                        taxiDriver.getWallet().setBalance(costCalc);
+                        taxiDriver.getWallet().addToWallet(costCalc);
+
+                        List<java.util.Map<String,Object>> values = new ArrayList<>();
+                        java.util.Map<String, Object> updateWallet = new LinkedHashMap<>();
+                        updateWallet.put("username", taxiDriver.getUsername());
+                        updateWallet.put("balance", taxiDriver.getWallet().getBalance());
+                        values.add(updateWallet);
+
+                        String jsonString = jsonStringParser.createJsonString("updateWallet",values);
+
+                        Call<ResponseBody> call_wallet = api.getFunction(jsonString);
+
+                        call_wallet.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                                Intent intent = new Intent(TaxiTransportScreen.this,MainScreenTaxi.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+
+                            }
+                        });
+
                     }
 
-                    Intent intent = new Intent(TaxiTransportScreen.this,MainScreenTaxi.class);
-                    startActivity(intent);
-                    finish();
+
 
                 }else{
                     System.out.println("Error message");
