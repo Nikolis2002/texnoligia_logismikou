@@ -35,7 +35,7 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 		map.setClickable(true);
 		map.setListener(this);
 
-		map.setPolygon(new ArrayList<>(Arrays.asList(
+		map.addPolygon(new ArrayList<>(Arrays.asList(
 				new Coordinates(38.1943262,21.6946574),
 				new Coordinates(38.2141890,21.7176181),
 				new Coordinates(38.2446701,21.7267309),
@@ -54,6 +54,14 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 				new Coordinates(38.1871228,21.7655592),
 				new Coordinates(38.1822601,21.7208944),
 				new Coordinates(38.1943262,21.6946574)
+		)));
+
+		map.addPolygon(new ArrayList<>(Arrays.asList(
+				new Coordinates(37.9594493,23.6064075),
+				new Coordinates(38.1013615,23.7380416),
+				new Coordinates(38.0506260,23.8690360),
+				new Coordinates(37.9020807,23.7297764),
+				new Coordinates(37.9594493,23.6064075)
 		)));
 
 		//See if we had already inserted coordinates before
@@ -81,6 +89,7 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 			data = new Bundle();
 			data.putSerializable("coords", map.getPinCoords());
 			data.putFloat("zoom", map.getZoom());
+			data.putSerializable("polygon", map.getSelectedPolygonCoords());
 
 			Log.d("LOCATION", String.valueOf(map.getZoom()));
 

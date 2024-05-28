@@ -43,7 +43,7 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-public class addLicense extends AppCompatActivity implements postInterface {
+public class LicenseScreen extends AppCompatActivity implements postInterface {
     private ImageView image;
     protected byte[] bArray;
     private User user;

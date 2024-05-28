@@ -11,11 +11,11 @@ INSERT INTO user VALUES
 
 
 INSERT INTO customer VALUES
-    ("a", "LICENSE", NULL, 1),
-    ("customer", "LICENSE", NULL, 16),
-    ("pipis", "LICENSE", NULL, 1997),
-    ("souvlakigamer2024", "LICENSE", NULL, 64),
-    ("magic17", "LICENSE", NULL, 128);
+    ("a", "BOTH", NULL, 1),
+    ("customer", "BOTH", NULL, 16),
+    ("pipis", "BOTH", NULL, 1997),
+    ("souvlakigamer2024", "MOTORCYCLE", NULL, 64),
+    ("magic17", "CAR", NULL, 128);
 
 INSERT INTO transport VALUES
     (1, "Ford", "Mondeo", 1993),

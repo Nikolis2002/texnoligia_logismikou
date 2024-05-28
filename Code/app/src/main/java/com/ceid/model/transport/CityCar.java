@@ -6,6 +6,7 @@ import com.ceid.util.PositiveInteger;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class CityCar extends Rental {
@@ -54,8 +55,7 @@ public class CityCar extends Rental {
     @Override
     public boolean validLicense(String license)
     {
-        //TODO
-        return true;
+        return Objects.equals(license, "CAR") || Objects.equals(license, "BOTH");
     }
 
     public String getLicensePlate()
