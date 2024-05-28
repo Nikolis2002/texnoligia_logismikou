@@ -206,7 +206,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 public void onSuccess(VehicleTracker data) {
                     TextInputEditText dista=findViewById(R.id.distaRefill);
                     addNumber=data.getDistanceTraveled();
-                    dista.setText("Distance Travelled: "+ String.valueOf(addNumber));
+                    dista.setText("Distance Travelled: "+ String.valueOf(addNumber)+"(km)");
 
                     if(car.acceptsGas()) {
                         nearestGasStation = findNearestGasStation(new Coordinates(latLng), gasStationList);
