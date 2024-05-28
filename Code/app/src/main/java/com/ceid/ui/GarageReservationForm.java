@@ -169,15 +169,15 @@ public class GarageReservationForm extends AppCompatActivity
 		//=======================================================================================
 		String daysText = ((TextView)findViewById(R.id.daysText)).getText().toString();
 
-		if (daysText.isEmpty())
-		{
-			invalidFormMsg("Empty Field", "Please insert how many days you want to rent the vehicle for");
-			return;
-		}
-
 		if (selectedDate == null)
 		{
 			invalidFormMsg("Empty Datetime", "Please insert the date you want to pickup the vehicle on");
+			return;
+		}
+
+		if (daysText.isEmpty())
+		{
+			invalidFormMsg("Empty Field", "Please insert how many days you want to rent the vehicle for");
 			return;
 		}
 
@@ -211,6 +211,7 @@ public class GarageReservationForm extends AppCompatActivity
 			if (checkTime.isBefore(startTime) || checkTime.isAfter(endTime))
 			{
 				invalidFormMsg("Time Error", "Time is not within working hours");
+				return;
 			}
 
 			//Check if datetime is within the current week
@@ -232,20 +233,33 @@ public class GarageReservationForm extends AppCompatActivity
 				return;
 			}
 
+			//Form was valid. Check wallet
+			//=======================================================================================
+			double balance = customer.getWallet().getBalance();
+
+			if (balance < daysToRent*vehicle.getRate())
+			{
+				noMoneyMsg();
+				return;
+			}
+
+			//Withdraw from wallet
+			customer.getWallet().withdraw(daysToRent*vehicle.getRate());
+
 			//If all went well, save to database
 			//=======================================================================================
 
 			List<Map<String,Object>> values = new ArrayList<>();
 			Map<String, Object> insert= new LinkedHashMap<>();
 			insert.put("name",customer.getUsername());
-			insert.put("value",vehicle.getRate());
+			insert.put("value",daysToRent*vehicle.getRate());
 			insert.put("method","WALLET");
 			insert.put("creationDate",LocalDateTime.now());
 			insert.put("status","ONGOING");
 			insert.put("status_date",null);
 			insert.put("earned_points",0);
 			insert.put("car_id",vehicle.getId());
-			insert.put("num_days",1);
+			insert.put("num_days",daysToRent);
 			values.add(insert);
 
 			ApiService api= ApiClient.getApiService();
@@ -323,7 +337,7 @@ public class GarageReservationForm extends AppCompatActivity
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		builder.setTitle("Insufficient funds");
-		builder.setMessage("You do not have enough money in your wallet for the rental");
+		builder.setMessage(String.format("You do not have enough money in your wallet for the rental. Current balance: %.02f€", customer.getWallet().getBalance()));
 
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
 		{

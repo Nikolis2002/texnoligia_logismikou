@@ -203,6 +203,8 @@ BEGIN
     
     SET payment_id=LAST_INSERT_ID();
     INSERT INTO service VALUES(null,creationDate,payment_id,status,status_date,earned_points);
+
+    UPDATE wallet SET balance = balance - value WHERE username = name;
     
     SET service_id=LAST_INSERT_ID();
     INSERT INTO out_city_service VALUES(service_id,car_id,null,num_days);
