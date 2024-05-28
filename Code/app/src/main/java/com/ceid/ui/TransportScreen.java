@@ -64,10 +64,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     private ArrayList<GasStation> gasStationList=null;
 
     int id;
-    Bundle bundle=getIntent().getExtras();
-    RentalService service = bundle.getSerializable("service",RentalService.class);
+    Intent intent;
+    RentalService service;
 
-    Rental car = (Rental) service.getTransport();
+    Rental car ;
 
     String trackerType;
 
@@ -87,6 +87,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             }
         });
 
+        intent=getIntent();
+        service= intent.getSerializableExtra("service",RentalService.class);
+        car= (Rental) service.getTransport();
 
         disasterCounter[0]=disasterCounter[1]=0;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapViewRefill);
@@ -199,11 +202,13 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     addNumber=data.getDistanceTraveled();
                     dista.setText("Distance Travelled: "+ String.valueOf(addNumber));
 
-                    nearestGasStation = findNearestGasStation(new Coordinates(latLng), gasStationList);
+                    if(car.acceptsGas()) {
+                        nearestGasStation = findNearestGasStation(new Coordinates(latLng), gasStationList);
 
-                    Log.d("GASTEST", nearestGasStation!=null?nearestGasStation.toString():"null");
+                        Log.d("GASTEST", nearestGasStation != null ? nearestGasStation.toString() : "null");
 
-                    enableRefillButton(nearestGasStation != null);
+                        enableRefillButton(nearestGasStation != null);
+                    }
                 }
 
                 @Override

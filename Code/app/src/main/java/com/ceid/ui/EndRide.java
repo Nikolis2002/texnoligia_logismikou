@@ -59,7 +59,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
 
 
     private Bundle bundle;
-    private String time;
+    private double time;
     private User user;
     protected byte[] bArray1,bArray2,bArray3,bArray4;
     private RentalService service;
@@ -108,17 +108,20 @@ public class EndRide extends AppCompatActivity implements postInterface {
 
 
         bundle= getIntent().getExtras();
-        time=getIntent().getStringExtra("timestring");
+        time=getIntent().getDoubleExtra("time",0);
+        String timeString=getIntent().getStringExtra("timestring");
+
         service= (RentalService) bundle.getSerializable("service");
         duration=findViewById(R.id.time);
         cost=findViewById(R.id.cost);
+
         points=findViewById(R.id.points);
-        duration.setText(time);
+        duration.setText(timeString);
+
         points.setText(String.valueOf(service.getPoints()));
         Rental rental=(Rental) service.getTransport();
-        duration.setText(time);
-        cost.setText(String.valueOf(rental.getRate()*Double.parseDouble(time)));
-        points.setText(String.valueOf(service.getPoints()));
+
+        cost.setText(String.valueOf(rental.getRate()*time));
     }
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
