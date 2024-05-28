@@ -93,7 +93,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                         finish();
                 });
             }
-        },20000);
+        },40000);
 
     }
 

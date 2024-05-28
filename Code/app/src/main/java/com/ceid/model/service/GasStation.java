@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.ceid.util.Coordinates;
 
-public class GasStation
+import java.io.Serializable;
+
+public class GasStation implements Serializable
 {
 	private int id;
 	private Coordinates coords;
