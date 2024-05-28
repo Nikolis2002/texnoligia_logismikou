@@ -35,6 +35,8 @@ import com.ceid.model.transport.Motorcycle;
 import com.ceid.model.transport.Rental;
 import com.ceid.model.transport.SpecializedTracker;
 import com.ceid.model.transport.VehicleTracker;
+import com.ceid.model.users.Customer;
+import com.ceid.model.users.User;
 import com.ceid.util.Coordinates;
 import com.ceid.util.GenericCallback;
 import com.ceid.util.Map;
@@ -100,6 +102,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         timer = findViewById(R.id.timer2);
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
+
+        Customer customer  = (Customer) User.getCurrentUser();
+        TextView textAvailable=findViewById(R.id.textAvailable);
+        textAvailable.setText(String.valueOf(customer.getWallet().getBalance()));
 
         enableRefillButton(false);
     }
