@@ -47,7 +47,7 @@
                 android:layout_height="match_parent"
                 android:cursorVisible="false"
                 android:focusable="false"
-                android:onClick="onClick"
+                android:onClick="inputLocation"
                 android:text="@string/location"
                 android:textColor="#000000" />
 
@@ -101,7 +101,7 @@
                 android:id="@+id/nearbyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/textview"
                 android:textSize="16sp"

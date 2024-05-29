@@ -115,24 +115,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         };
 
         reservationTimer.start();
-
-        /*
-        reservationTimer = new Timer();
-
-        reservationTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(() -> {
-                        Toast.makeText(getApplicationContext(), "Reservation time passed", Toast.LENGTH_SHORT).show();
-                        cancelReservation();
-                        Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
-                        startActivity(intent);
-                        finish();
-                });
-            }
-        },40000);*/
-
     }
 
     public void openCamera(){
@@ -145,6 +127,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     }
 
 
+    //User cancels reservation
     public void cancelReservation(){
         List<java.util.Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> cancelReservation = new LinkedHashMap<>();
@@ -170,15 +153,16 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         });
     }
 
+    //Pressing the unlock button
     public void unlockVehicle(View view){
+
+        //Check if app has camera permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
 
-
-
-
-        }else {
+        }else //Ask camera permission
+        {
             ActivityCompat.requestPermissions(UnlockScreen.this, new String[]{Manifest.permission.CAMERA},
                     CAMERA_REQUEST_CODE);
         }
@@ -187,10 +171,16 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == CAMERA_REQUEST_CODE)
+        {
+            //User granted permission
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
                openCamera();
-            }else{
+            }
+            //User denied permission
+            else
+            {
                 Toast.makeText(getApplicationContext(), "App does not have camera permission", Toast.LENGTH_SHORT).show();
                 cancelReservation();
                 Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
@@ -200,6 +190,8 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         }
     }
 
+    //QR scan results
+    //=======================================================================
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -209,6 +201,10 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         if (qrResult != null & data!=null) {
             String qr = qrResult.getContents();
             qr=qr.trim();
+
+            //Prepare data for the database
+            //We need to check if the QR we scanned on the vehicle corresponds to the vehicle reserved in this service
+            //==============================================================================================
             List<java.util.Map<String,Object>> values = new ArrayList<>();
             java.util.Map<String, Object> checkVehicle = new LinkedHashMap<>();
             checkVehicle.put("id", serviceId);
@@ -219,31 +215,49 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
             Call<ResponseBody> call = api.getFunction(jsonString);
 
+            //Make the database call
+            //==============================================================================================
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     try {
                         boolean status = jsonStringParser.getbooleanFromJson(response);
 
+                        //Customer reserved vehicle
+                        //==============================================================================================
                         if(status){
 
                             double balance= customer.getWallet().getBalance();
 
-                            if(balance>10){
-                                customer.getWallet().withdraw(10);
+                            //Check if customer has sufficient funds for unlocking the vehicle
+                            if(balance >= 1){
+
+                                //Remove a small amount from customer's wallet for unlocking the vehicle
+                                customer.getWallet().withdraw(1);
+
+                                //Prepare database data
+                                //=========================================================================
                                 List<java.util.Map<String,Object>> values = new ArrayList<>();
                                 java.util.Map<String, Object> unlockDate = new LinkedHashMap<>();
                                 unlockDate.put("id", serviceId);
+                                unlockDate.put("name", customer.getUsername());
                                 values.add(unlockDate);
 
                                 String jsonString = jsonStringParser.createJsonString("unlockVehicle",values);
 
                                 Call<ResponseBody> call_unlock = api.getFunction(jsonString);
 
+                                //Update database with the unlock event
+                                //=========================================================================
                                 call_unlock.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
+                                        //Success message
+                                        Toast.makeText(getApplicationContext(), "Vehicle unlocked successfully", Toast.LENGTH_SHORT).show();
+
+                                        //Prepare another call to the database, to get creation date of the service
+                                        //=========================================================================
                                         List<java.util.Map<String,Object>> values = new ArrayList<>();
                                         java.util.Map<String, Object> creationDate = new LinkedHashMap<>();
                                         creationDate.put("service_id",serviceId);
@@ -252,6 +266,8 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                         String jsonString = jsonStringParser.createJsonString("rentalService",values);
                                         Call<ResponseBody> call_date = api.getFunction(jsonString);
 
+                                        //Make the call
+                                        //=========================================================================
                                         call_date.enqueue(new Callback<ResponseBody>() {
                                             @Override
                                             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -265,8 +281,9 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                                         ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
                                                         LocalDateTime date = zonedDateTime.toLocalDateTime();
 
-                                                        //LocalDateTime date = LocalDateTime.parse(, DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss"));
-
+                                                        //Create the service object
+                                                        //Pass this to the next screen
+                                                        //=========================================================================
                                                         RentalService rentalService = new RentalService(
                                                                 serviceId,
                                                                 date,
@@ -275,10 +292,12 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                                                 0,
                                                                 rental
                                                         );
+
                                                         Intent intent = new Intent(UnlockScreen.this,TransportScreen.class);
                                                         intent.putExtra("service", rentalService);
                                                         startActivity(intent);
                                                         finish();
+
                                                     } catch (IOException e) {
                                                         throw new RuntimeException(e);
                                                     }
@@ -300,18 +319,25 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                                     }
                                 });
-                            }else{
+                            }
+                            //Customer did not have sufficient funds for the unlocking
+                            //Cancel reservation
+                            //=============================================================================
+                            else
+                            {
                                 Toast.makeText(getApplicationContext(), "You don't have the required amount in your wallet", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(), "Reservation canceled", Toast.LENGTH_SHORT).show();
                                 cancelReservation();
                                 Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
                                 startActivity(intent);
                                 finish();
                             }
 
-                        }else{
-                            Toast.makeText(getApplicationContext(), "This is not the vehicle you choose", Toast.LENGTH_SHORT).show();
-                            cancelReservation();
+                        }
+                        //Customer has not reserved scanned vehicle
+                        //==============================================================================================
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "This is not the vehicle you chose", Toast.LENGTH_SHORT).show();
                         }
 
 

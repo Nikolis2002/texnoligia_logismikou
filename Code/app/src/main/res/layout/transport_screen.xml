@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/cancelBtn"
-        android:onClick="onEndBtn"
+        android:onClick="endRoute"
         android:text="End ride"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

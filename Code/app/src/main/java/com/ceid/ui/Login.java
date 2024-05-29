@@ -41,8 +41,6 @@ import com.google.gson.Gson;
 public class Login extends AppCompatActivity implements postInterface{
     private String username,password;
     private EditText userText,pass;
-    private ImageView visib;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +49,7 @@ public class Login extends AppCompatActivity implements postInterface{
         userText = (EditText) findViewById(R.id.username_email);
         pass = (EditText) findViewById(R.id.pass);
     }
-    public void onClickVisib(View view) {
-        int cursorPosition = pass.getSelectionStart();
-        System.out.println(User.getCurrentUser());
-        visib.setSelected(!visib.isSelected());
-        if (visib.isSelected()) {
 
-            visib.setImageResource(R.drawable.baseline_visibility_off_24);
-            pass.setInputType(InputType.TYPE_CLASS_TEXT);
-            pass.setSelection(cursorPosition);
-        } else {
-            visib.setImageResource(R.drawable.baseline_visibility_24);
-            pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            pass.setSelection(cursorPosition);
-        }
-    }
     public void buttonLogin(View view)
     {
         ApiService api = ApiClient.getApiService();
@@ -84,7 +68,6 @@ public class Login extends AppCompatActivity implements postInterface{
         String jsonString = gson.toJson(data);
         Log.d("kort",jsonString);
         postLogin.login(api,jsonString);
-
     }
     public void signUp(View view)
     {
@@ -97,8 +80,6 @@ public class Login extends AppCompatActivity implements postInterface{
         JsonNode jsonNode = mapper.readTree(response.body().string());
         User user= jsonStringParser.parseJson(jsonNode);
 
-        //App app = (App) getApplicationContext();
-        //app.setUser(user);
         User.setCurrentUser(user);
 
         if( user instanceof TaxiDriver){

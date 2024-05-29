@@ -12,6 +12,7 @@ import com.ceid.model.transport.Rental;
 import com.ceid.util.Coordinates;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class VehicleListAdapter extends BaseAdapter
 {
@@ -58,6 +59,22 @@ public class VehicleListAdapter extends BaseAdapter
 		imgview.setImageResource(this.icon);
 
 		return (convertView);
+	}
+
+	public void remove(int id)
+	{
+		for (Iterator<Rental> iter = vehicles.iterator(); iter.hasNext();)
+		{
+			Rental rental = iter.next();
+
+			if (rental.getId() == id)
+			{
+				iter.remove();
+				break;
+			}
+		}
+
+		notifyDataSetChanged();
 	}
 
 	public void clearData() {

@@ -50,7 +50,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -73,22 +72,27 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     private Runnable runnable;
     private int currentTimerValue = -1;
 
+    private Customer customer;
+
     int id;
     Intent intent;
     RentalService service;
 
-    Rental car ;
+    Rental car;
 
     String trackerType;
 
-    private boolean refillCounter=false;
+    private boolean hasRefilled = false;
 
     private final ApiService api= ApiClient.getApiService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transport_screen);
 
+        //Prevent back press
+        //======================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -97,47 +101,62 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             }
         });
 
+        //Get data from previous screen
+        //======================================================================================
         intent=getIntent();
         service = (RentalService) intent.getSerializableExtra("service");
         car= (Rental) service.getTransport();
 
         disasterCounter[0]=disasterCounter[1]=0;
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapViewRefill);
 
+        //Create map
+        //======================================================================================
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapViewRefill);
         map = new Map(mapFragment, this,this);
         map.setClickable(true);
         map.setClickListener(this);
+
+        //Start movement timer
+        //======================================================================================
         timer = findViewById(R.id.timer2);
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 
-        Customer customer  = (Customer) User.getCurrentUser();
+        //Fill balance field
+        //======================================================================================
+        customer  = (Customer) User.getCurrentUser();
         TextView textAvailable=findViewById(R.id.textAvailable);
         textAvailable.setText(customer.getWallet().getBalance() + "€");
 
+
+        //Initially, the refill button if disabled
         enableRefillButton(false);
     }
 
+    //Enables or disables refill options based on the selected vehicle type
+    //======================================================================================
     public void enableRefill(boolean status)
     {
         if(status)
         {
-            trackerType="specialized";
+            trackerType="specialized"; //Tracker type that also tracks gas
 
             if (gasStationList == null)
             {
+                //Get gas stations
+                //======================================================================================
                 PostHelper.getGasStations(api, "gas_station", new GenericCallback<ArrayList<GasStation>>() {
                     @Override
                     public void onSuccess(ArrayList<GasStation> data) {
 
                         gasStationList = data;
 
+                        //For every gas station, place pin
+                        //======================================================================================
                         for (GasStation station : data) {
                             Marker marker = map.placePin(station.getCoords(), false, R.drawable.gas_station);
                             marker.setTag(station);
                         }
-
-                        SpecializedTracker tracker = null;
                     }
 
                     @Override
@@ -150,7 +169,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         }
         else
         {
-            trackerType="vechicleTracker";
+            trackerType="vechicleTracker"; //Normal tracker that only tracks location and not gas
+
+            //Disable all UI elements that are for refilling
+            //======================================================================================
             TextView textView=findViewById(R.id.textView23);
             textView.setText("Your Location:");
 
@@ -167,20 +189,25 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
     public void enableRefillButton(boolean status)
     {
-        if(!refillCounter) {
+        if(!hasRefilled) {
             ((Button) findViewById(R.id.button7)).setEnabled(status);
             ((Button) findViewById(R.id.button7)).setClickable(status);
         }
     }
 
+    //Once the map is created
+    //======================================================================================
     @Override
     public void onMapWrapperReady() {
-        //map.getMap().getUiSettings().setAllGesturesEnabled(false);
+
+        //Focus map
+        //======================================================================================
         Coordinates Patra = new Coordinates( 38.246639, 21.734573);
         this.map.setZoom(12);
         this.map.setPosition(Patra);
 
         //Consume click event
+        //======================================================================================
         this.map.setMarkerListener(new GoogleMap.OnMarkerClickListener (){
 
             @Override
@@ -190,6 +217,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             }
         });
 
+        //Vehicle icon
+        //======================================================================================
         if(car instanceof CityCar){
             id=R.drawable.in_city_car;
         }
@@ -209,6 +238,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         enableRefill(car.acceptsGas());
     }
 
+    //Clicking on the map changes vehicle location
+    //On click, we communicate with the tracker on the vehicle to receive data about the vehicle's current location
+    //Normally, this would be done periodically, but here it's just a simulation
+    //======================================================================================
     @Override
     public void onMapClick(@NonNull LatLng latLng)
     {
@@ -216,30 +249,34 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         {
             PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(addNumber),new GenericCallback<VehicleTracker>() {
 
+                //Coordinates were returned successfully
+                //======================================================================================
                 @Override
                 public void onSuccess(VehicleTracker data) {
+
                     TextInputEditText dista=findViewById(R.id.distaRefill);
-                    addNumber=data.getDistanceTraveled();
+                    addNumber=data.getDistanceTraveled(); //dummy value from the server. Distance always increments the same way
                     dista.setText("Distance Travelled: "+ String.valueOf(addNumber)+"(km)");
 
-                    if(car.acceptsGas()) {
+                    if(car.acceptsGas())
+                    {
+                        //Find nearest gas station from the retrieved gas stations
+                        //======================================================================================
                         nearestGasStation = findNearestGasStation(new Coordinates(latLng), gasStationList);
-
                         Log.d("GASTEST", nearestGasStation != null ? nearestGasStation.toString() : "null");
-
                         enableRefillButton(nearestGasStation != null);
                     }
                 }
 
+                //Failed to get coordinates
+                //======================================================================================
                 @Override
                 public void onFailure(Exception e) {
-                    if(disasterCounter[0]==0||disasterCounter[0]>100) {
+                    if(disasterCounter[0]==0) {
                         showAlert("Cant retrieve vehicle location");
                     }
-                    if(disasterCounter[0]==100)
-                        disasterCounter[0]=0;
 
-                    disasterCounter[0]++;
+                    disasterCounter[0] = (disasterCounter[0] + 1)%100;
 
                     enableRefillButton(false);
                 }
@@ -254,14 +291,22 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
     }
 
-    public void onRefillStart(View view){
+    public void onRefillStart(View view)
+    {
+        //If, for some reason, the button was pressed while there is no nearest gas station
+        if (nearestGasStation == null)
+        {
+            enableRefillButton(false);
+            return;
+        }
 
+        //Get initial gas level
+        //======================================================================================
         PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(0),new GenericCallback<VehicleTracker>() {
 
             @Override
             public void onSuccess(VehicleTracker data)
             {
-                //Get tracker data
                 SpecializedTracker initTracker= (SpecializedTracker) data;
 
                 // Create the popup window
@@ -320,7 +365,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         popupWindow.dismiss();
                         handler.removeCallbacks(runnable);
                         currentTimerValue = -1;
-                        callback(popupWindow,initTracker,nearestGasStation);
+                        onRefillEnd(popupWindow,initTracker,nearestGasStation);
                     }
                 });
 
@@ -339,7 +384,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
             @Override
             public void onFailure(Exception e) {
-                showAlert("Could not retrieve gas level");
+                showAlert("Failed to get initial gas level");
             }
         });
     }
@@ -363,7 +408,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
     public void showAlert(String msg){
         AlertDialog.Builder builder = new AlertDialog.Builder(TransportScreen.this);
 
-        builder.setTitle("CONNECTION error");
+        builder.setTitle("Connection error");
         builder.setMessage(msg);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
@@ -381,42 +426,73 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         alert.show();
     }
 
-    public void callback(PopupWindow window,SpecializedTracker initTracker,GasStation station){
+    public void onRefillEnd(PopupWindow window, SpecializedTracker initTracker, GasStation station){
+
+        //Get final gas level
+        //======================================================================================
         PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(0),new GenericCallback<VehicleTracker>() {
             @Override
             public void onSuccess(VehicleTracker data) {
 
+                SpecializedTracker  finalTracker= (SpecializedTracker) data;
 
-                  SpecializedTracker  finalTracker= (SpecializedTracker) data;
+                //Data from trackers is random
+                //For the sake of this demonstration, let's assume the second tracker has more gas (after refill)
+                //To simulate this, we just take absolute difference of two gas levels
+                int diff=finalTracker.getGas().posDiff(initTracker.getGas());
 
-                  int diff=finalTracker.getGas().posDiff(initTracker.getGas());
 
-                  refill=new Refill(LocalDateTime.now(),
-                          station,
-                          initTracker.getGas(),
-                          finalTracker.getGas(),
-                          true);
+                //Calculate gas price and return money to customer wallet
+                //======================================================================================
 
-                  service.setRefill(refill);
-                  int threshold=1;
+                double gasPrice = station.calculateGasPrice(diff);
 
-                  if(diff>threshold){
-                      refill.calculatePoints(service,diff);
-                  }
+                customer.getWallet().addToWallet(gasPrice);
+                PostHelper.addToWallet(api, customer.getUsername(), gasPrice);
 
-                  refillCounter=true;
+                TextView textAvailable=findViewById(R.id.textAvailable);
+                textAvailable.setText(customer.getWallet().getBalance() + "€");
+
+                //Create the refill object
+                //======================================================================================
+                refill = new Refill(LocalDateTime.now(),
+                station,
+                initTracker.getGas(),
+                finalTracker.getGas(),
+                true);
+
+                service.setRefill(refill);
+
+                //Gas threshold
+                //======================================================================================
+                int threshold=5;
+
+                if(diff>threshold){
+                    refill.calculatePoints(service);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Refill amount too small. You gained 0 points.", Toast.LENGTH_SHORT).show();
+                }
+
+                hasRefilled = true;
                 ((Button) findViewById(R.id.button7)).setEnabled(false);
                 ((Button) findViewById(R.id.button7)).setClickable(false);
-              }
+            }
 
 
+
+            //Failed to get final gas level
+            //======================================================================================
             @Override
             public void onFailure(Exception e) {
+
+                //We give the user 100 retries before we force him to STOP RETRYING, IT AIN'T GONNA WORK THE 101st TIME, JUST LET IT GO BRUH, IT'S OVER
                 if(disasterCounter[1]<100) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(TransportScreen.this);
 
                     builder.setTitle("Error");
-                    builder.setMessage("Failed to get your gas level");
+                    builder.setMessage("Failed to get final gas level");
                     builder.setCancelable(false);
 
                     builder.setPositiveButton("Try again", new DialogInterface.OnClickListener()
@@ -424,7 +500,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            callback(window,initTracker,station);
+                            onRefillEnd(window,initTracker,station);
                         }
                     });
 
@@ -433,7 +509,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            cancelRefill(window,initTracker,station);
+                            failedRefill(window,initTracker,station);
                         }
                     });
 
@@ -442,9 +518,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     alert.show();
                 }
                 if(disasterCounter[1]==100) {
-                    Toast.makeText(getApplicationContext(), "You reached the max amount of re tries!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You reached the max amount of re-tries!", Toast.LENGTH_LONG).show();
 
-                    cancelRefill(window,initTracker,station);
+                    failedRefill(window,initTracker,station);
                     disasterCounter[1] = 0;
                 }
                 disasterCounter[1]++;
@@ -452,36 +528,88 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         });
     }
 
-    public void cancelRefill(PopupWindow window,SpecializedTracker tracker,GasStation station){
+    public void failedRefill(PopupWindow window, SpecializedTracker tracker, GasStation station){
+
+        //Refill failed. Create Refill object marking the refill as incomplete, as we don't know final gas level
         refill=new Refill(LocalDateTime.now(),
                                  station,
                                  tracker.getGas(),
                                  null);
 
-
-        refillCounter=true;
+        hasRefilled =true;
+        ((Button) findViewById(R.id.button7)).setEnabled(false);
+        ((Button) findViewById(R.id.button7)).setClickable(false);
     }
 
-    public void  onEndBtn(View view)
+    public void endRoute(View view)
     {
-        Intent intent=new Intent(getApplicationContext(), EndRide.class);
-        Bundle bundle=new Bundle();
+        //Get tracker data before ending the ride
+        //========================================================================================
 
-        timer.stop();
+        PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(addNumber),new GenericCallback<VehicleTracker>() {
 
-        long elapsedMillis = SystemClock.elapsedRealtime() - timer.getBase();
+            //Data was returned successfully
+            //======================================================================================
+            @Override
+            public void onSuccess(VehicleTracker tracker)
+            {
+                ((Rental)service.getTransport()).setTracker(tracker);
 
-        Log.d("TIMETEST", String.format("%f", ((double)elapsedMillis/60000)));
+                if (tracker.isStopped())
+                {
+                    //Movement data
+                    //========================================================================================
+                    Intent intent=new Intent(getApplicationContext(), EndRideScreen.class);
+                    Bundle bundle=new Bundle();
 
-        bundle.putSerializable("service",service);
-        bundle.putDouble("time", ((double)elapsedMillis/60000));
-        bundle.putString("timestring", (String) timer.getText());
+                    timer.stop();
 
-        Log.d("TIMETEST", (String)timer.getText());
+                    long elapsedMillis = SystemClock.elapsedRealtime() - timer.getBase();
 
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
+                    Log.d("TIMETEST", String.format("%f", ((double)elapsedMillis/60000)));
+
+                    double time = ((double)elapsedMillis/60000);
+
+                    bundle.putSerializable("service",service);
+                    bundle.putString("timestring", (String) timer.getText());
+
+                    Log.d("TIMETEST", (String)timer.getText());
+
+                    //Calculate cost
+                    //========================================================================================
+                    double routeCost = ((Rental) service.getTransport()).calculateCharge(time);
+                    double balance = customer.getWallet().getBalance();
+
+                    bundle.putDouble("cost", routeCost);
+
+                    if (balance < routeCost)
+                        insufficientBalance();
+                    else
+                        Toast.makeText(getApplicationContext(), "Payment executed successfully", Toast.LENGTH_SHORT).show();
+
+                    customer.getWallet().withdraw(routeCost);
+                    PostHelper.withdraw(api, customer.getUsername(), routeCost);
+
+                    //Display EndRouteScreen
+                    //=========================================================================================
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+                else //Vehicle is not stopped
+                {
+                    Toast.makeText(getApplicationContext(), "Vehicle must be stopped before ending ride", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            //Tracker error
+            //======================================================================================
+            @Override
+            public void onFailure(Exception e)
+            {
+                showAlert("Failed to end ride due to tracker communication failure.");
+            }
+        });
     }
 
     @Override
@@ -490,6 +618,30 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
         if (handler != null && runnable!=null)
             handler.removeCallbacks(runnable);
+    }
+
+    //ERRORS
+    //===================================================================================================
+    public void insufficientBalance()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Insufficient balance");
+        builder.setMessage("Your wallet balance was not enough for the payment. The payment will still be executed, but you will be left with negative balance!");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 }
 

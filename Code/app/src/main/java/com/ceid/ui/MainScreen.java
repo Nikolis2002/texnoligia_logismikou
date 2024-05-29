@@ -28,6 +28,8 @@ public class MainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
+        //Disable back button
+        //================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -36,11 +38,12 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
+        //Bottom navigation
+        //================================================================================
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainScreenFragment()).commit();
-        //User.setCurrentUser(customer);
         this.customer=(Customer) User.getCurrentUser();
 
-        //Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -65,16 +68,17 @@ public class MainScreen extends AppCompatActivity {
 
     public void inCity(View view)
     {
-
         //customer.getWallet().setBalance(-2);
 
         //Check if wallet is overdrawn
+        //================================================================================
         if (customer.getWallet().isOverdrawn())
         {
             overdrawnError();
         }
         else
         {
+            //Display InCityScreen
             Intent intent = new Intent(this, InCityScreen.class);
             startActivity(intent);
         }
@@ -85,6 +89,7 @@ public class MainScreen extends AppCompatActivity {
         //customer.getWallet().setBalance(-2);
 
         //Check if wallet is overdrawn
+        //================================================================================
         if (customer.getWallet().isOverdrawn())
         {
             overdrawnError();
@@ -100,6 +105,7 @@ public class MainScreen extends AppCompatActivity {
             }
             else
             {
+                //Display OutCityScreen
                 Intent intent = new Intent(this, OutCityScreen.class);
                 startActivity(intent);
             }
@@ -107,19 +113,25 @@ public class MainScreen extends AppCompatActivity {
     }
     public void addCardButton2(View view)
     {
+        //Display PaymentMethodScreen
         Intent intent=new Intent(getApplicationContext(), PaymentMethodScreen.class);
         startActivity(intent);
     }
+
     public void chargeWallet(View view)
     {
+        //Display ChargeWalletScreen
         Intent intent = new Intent(getApplicationContext(), ChargeWalletScreen.class);
         startActivity(intent);
     }
+
     public void addLicenseButton(View view)
     {
+        //Display LicenseScreen
         Intent intent = new Intent(getApplicationContext(), LicenseScreen.class);
         startActivity(intent);
     }
+
     public void logout(View view)
     {
         User.wipeCurrentUser();
@@ -127,7 +139,6 @@ public class MainScreen extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),Login.class);
         startActivity(intent);
         finish();
-        //System.exit(0);
     }
 
     //ERRORS

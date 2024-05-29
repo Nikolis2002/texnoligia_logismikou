@@ -67,8 +67,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     private String type;
     private int markerIcon;
 
-    //private ArrayList<Rental> vehicleList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -79,25 +77,28 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         assert extras != null;
 
         //Initialize header text
+        //================================================================================
         TextView textview = findViewById(R.id.in_city_choose_vehicle);
 		textview.setText(String.format("%s %s", textview.getText(), extras.getString("type")));
 
         //Initialize location intent
+        //================================================================================
         this.activityResultLauncher = registerForActivityResult
         (
             new ActivityResultContracts.StartActivityForResult(),
             this
         );
 
-        //Initialize intents
         locationIntent = new Intent(this, LocationScreen.class);
 
         //Initialize map
+        //================================================================================
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         vehicleMap = new Map(mapFragment, this, this);
         vehicleMap.setMarkerListener(this);
 
-        //Other
+        //Selected vehicle
+        //================================================================================
         this.type = extras.getString("type");
 
         TextView tview = findViewById(R.id.nearbyText);
@@ -135,6 +136,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
     }
 
     //TESTING
+    //Nvm guess we keeping it
     @Override
     public void onMapWrapperReady()
     {
@@ -143,6 +145,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         vehicleMap.setPosition(Patra);
     }
 
+    //Select a pin
+    //A popup window is created
+    //================================================================================
     @Override
     public boolean onMarkerClick(@NonNull Marker marker)
     {
@@ -150,10 +155,10 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
         if (tag != null) //Vehicle marker
         {
-            // Inflate the popup window layout
+            //Create the popup window
+            //================================================================================
             View popupView = LayoutInflater.from(this).inflate(R.layout.vehicle_popup, null);
 
-            // Create the popup window
             PopupWindow popupWindow = new PopupWindow(
                     popupView,
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -161,6 +166,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             );
 
             // Show the popup window
+            //================================================================================
             popupWindow.showAtLocation(
                     findViewById(android.R.id.content),
                     Gravity.CENTER,
@@ -168,6 +174,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                     0
             );
 
+            //Pass data to the popup window
+            //================================================================================
             ImageView icon = popupView.findViewById(R.id.imageView);
 
             TextView title = popupView.findViewById(R.id.text_title);
@@ -212,9 +220,13 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 plate.setVisibility(View.GONE);
             }
 
+            //Reserve and Cancel buttons on the popup window
+            //================================================================================
             Button cancel = popupView.findViewById(R.id.cancel);
             Button reserve = popupView.findViewById(R.id.reserve);
 
+            //Cancel
+            //================================================================================
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
@@ -223,11 +235,14 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 }
             });
 
+            //Reserve
+            //================================================================================
             reserve.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
                     //Check if reservation exists
+                    //================================================================================
                     ApiService api = ApiClient.getApiService();
                     Call<String> call = api.checkReservation(String.valueOf(rental.getId()));
 
@@ -241,9 +256,12 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                 int rentalAvailable = Integer.parseInt(response.body());
                                 Log.d("MYTEST", String.valueOf(rentalAvailable));
 
-                                //Check if reservation exists
+                                //Reservation exists
+                                //================================================================================
                                 if (rentalAvailable == 0)
                                 {
+                                    popupWindow.dismiss();
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
 
                                     builder.setTitle("Reservation error");
@@ -256,7 +274,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                         public void onClick(DialogInterface dialog, int which)
                                         {
                                             dialog.dismiss();
-
+                                            vehicleListAdapter.remove(rental.getId());
                                             //Remove pin from the map
                                             marker.remove();
                                         }
@@ -266,9 +284,12 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     alert.setCanceledOnTouchOutside(false);
                                     alert.show();
                                 }
+                                //Reservation doesn't exist
+                                //================================================================================
                                 else
                                 {
                                     //Save reservation to database
+                                    //================================================================================
                                     java.util.Map<String, Object> values = new LinkedHashMap<String, Object>();
 
                                     ObjectMapper mapper = new ObjectMapper();
@@ -292,9 +313,10 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     Log.d("JSONTEST", jsonString);
 
                                     ApiService api=ApiClient.getApiService();
-
                                     Call<ResponseBody> reserveCall = api.reserveRental(jsonString);
 
+                                    //Database call
+                                    //================================================================================
                                     reserveCall.enqueue(new Callback<ResponseBody>() {
 
                                         @Override
@@ -318,15 +340,13 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                                                 Log.d("JSONTEST", "Service ID: " + String.valueOf(json.get("id").asInt()));
 
+                                                //Display UnlockScreen
+                                                //================================================================================
                                                 Intent intent = new Intent(v.getContext(), UnlockScreen.class);
                                                 intent.putExtra("vehicle", rental);
                                                 intent.putExtra("service_id", json.get("id").asInt());
                                                 startActivity(intent);
                                                 finish();
-                                            }
-                                            else
-                                            {
-
                                             }
                                         }
 
@@ -338,6 +358,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     });
                                 }
                             }
+                            //Unknown server error
+                            //================================================================================
                             else
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
@@ -361,6 +383,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                             }
                         }
 
+                        //Could not reach server
+                        //================================================================================
                         @Override
                         public void onFailure(@NonNull Call<String> call, @NonNull Throwable throwable)
                         {
@@ -389,7 +413,6 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         }
 
         return true;
-
     }
 
     //Clicking on list item
@@ -401,8 +424,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         vehicleMap.smoothTransition(rental.getTracker().getCoords(), vehicleMap.getZoom() < 16 ? 16:vehicleMap.getZoom());
     }
 
-    //Clicking on the location screen
-    public void onClick(View view)
+    //Clicking on the location screen field
+    public void inputLocation(View view)
     {
         if (locationScreenData != null)
             locationIntent.putExtras(locationScreenData);
@@ -425,6 +448,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             ListView listView=findViewById(R.id.listViewId);
 
             //Display selected location
+            //================================================================================
             if (selectedCoords != null)
             {
                 TextInputEditText text = findViewById(R.id.location_text);
@@ -435,16 +459,20 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 vehicleMap.setPosition(selectedCoords);
 
                 //Retrieve vehicles
+                //================================================================================
                 this.getVehicles(new GenericCallback<ArrayList<Rental>>()
                 {
                     @Override
                     public void onSuccess(ArrayList<Rental> vehicleList)
                     {
+                        //For every vehicle returned from the database, place it on the map
+                        //================================================================================
                         vehicleMap.placePin(selectedCoords, true);
 
                         ArrayList<Rental> validVehicles = new ArrayList<>();
 
                         //Place pins
+                        //Only keep vehicles that are within a certain radius
                         for (Rental rental : vehicleList)
                         {
                             if (selectedCoords.withinRadius(rental.getTracker().getCoords(), 1500) && rental.isFree())
@@ -455,6 +483,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                             }
                         }
 
+                        //Display vehicles that are within a radius on a list
+                        //================================================================================
                         if(!validVehicles.isEmpty()) {
                             textViewInfo.setVisibility(View.GONE);
                             listView.setVisibility(View.VISIBLE);
@@ -484,6 +514,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
         }
     }
 
+    //Query database for the vehicles
+    //================================================================================
     public void getVehicles(GenericCallback<ArrayList<Rental>> callback)
     {
         ApiService api = ApiClient.getApiService();
@@ -494,6 +526,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response)
             {
+                //Retrieved rentals successfully
+                //================================================================================
                 if (response.isSuccessful())
                 {
                     ArrayList<Rental> vehicleList = new ArrayList<>();
@@ -514,6 +548,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                     //Log.d("TYPE", InCityVehicleScreen.this.type);
 
+                    //Create the vehicles from database data
+                    //================================================================================
                     for (JsonNode vehicle : vehicles)
                     {
                         if (Objects.equals(InCityVehicleScreen.this.type, "car"))
@@ -594,6 +630,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 }
             }
 
+            //Could not reach database
+            //================================================================================
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t)
             {

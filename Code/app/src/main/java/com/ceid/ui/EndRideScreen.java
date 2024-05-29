@@ -1,7 +1,5 @@
 package com.ceid.ui;
 
-import static com.ceid.model.payment_methods.Payment.Method.WALLET;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,31 +19,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.ceid.Network.ApiClient;
 import com.ceid.Network.ApiService;
 import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
-import com.ceid.model.payment_methods.Payment;
-import com.ceid.model.service.GasStation;
-import com.ceid.model.service.Rating;
-import com.ceid.model.service.Refill;
 import com.ceid.model.service.RentalService;
-import com.ceid.model.transport.CityCar;
 import com.ceid.model.transport.Rental;
-import com.ceid.model.transport.SpecializedTracker;
-import com.ceid.model.transport.Transport;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
-import com.ceid.util.Coordinates;
-import com.ceid.util.PositiveInteger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -55,7 +42,7 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-public class EndRide extends AppCompatActivity implements postInterface {
+public class EndRideScreen extends AppCompatActivity implements postInterface {
 
 
     private Bundle bundle;
@@ -81,9 +68,9 @@ public class EndRide extends AppCompatActivity implements postInterface {
     private RentalService service=new RentalService(1, LocalDateTime.now(),
             new Payment(WALLET), null, 100,rental);*/
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.end_ride_screen);
         photoButton1=findViewById(R.id.attach1);
@@ -107,10 +94,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
         });
 
 
-
-
         bundle= getIntent().getExtras();
-        time=getIntent().getDoubleExtra("time",0);
         String timeString=getIntent().getStringExtra("timestring");
 
         service= (RentalService) bundle.getSerializable("service");
@@ -122,7 +106,7 @@ public class EndRide extends AppCompatActivity implements postInterface {
 
         points.setText(String.valueOf(service.getPoints()));
         Rental rental=(Rental) service.getTransport();
-        pValue=rental.getRate()*time;
+        pValue=getIntent().getDoubleExtra("cost", 0);
         cost.setText(String.format("%.02f€",pValue));
     }
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
@@ -238,7 +222,6 @@ public class EndRide extends AppCompatActivity implements postInterface {
     @Override
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
             Customer customer=(Customer)user;
-            customer.getWallet().withdraw(pValue);
             customer.getPoints().addPoints(service.getPoints());
 
             Intent intent=new Intent(getApplicationContext(),MainScreen.class);

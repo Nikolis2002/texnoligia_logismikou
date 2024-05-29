@@ -71,8 +71,13 @@ public abstract class Rental extends InCityTransport
         return (tracker instanceof SpecializedTracker);
     }
 
-    public double calculateCharge(int minutes)
+    public double calculateCharge(double minutes)
     {
         return minutes*rate;
     }
+
+	public void setTracker(VehicleTracker tracker)
+	{
+        this.tracker = tracker;
+	}
 }

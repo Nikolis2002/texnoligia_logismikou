@@ -50,7 +50,7 @@ public class CustomerProfile extends Fragment
 		email.setText(customer.getEmail());
 		license.setText(customer.getLicense());
 		points.setText(String.valueOf(customer.getPoints().getPoints()));
-		wallet.setText(String.valueOf(customer.getWallet().getBalance()));
+		wallet.setText(String.format("%.02f€", customer.getWallet().getBalance()));
 	}
 
 

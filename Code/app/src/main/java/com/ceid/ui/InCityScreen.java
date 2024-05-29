@@ -34,25 +34,27 @@ public class InCityScreen extends AppCompatActivity
 
         customer = (Customer)User.getCurrentUser();
 
-        //overridePendingTransition(0, 0);
-
-        //Initialize tags
+        //Initialize tags with dummy vehicles
+        //Use these dummy objects later to see if the selected vehicle requires license
+        //================================================================================
         findViewById(R.id.img_rent_car).setTag(new CityCar());
         findViewById(R.id.img_rent_motorcycle).setTag(new Motorcycle());
         findViewById(R.id.img_rent_bike).setTag(new Bicycle());
         findViewById(R.id.img_rent_scooter).setTag(new ElectricScooter());
 
         //Initialize intent
+        //================================================================================
         rentalIntent = new Intent(this, InCityVehicleScreen.class);
         taxiIntent = new Intent(this, TaxiScreen.class);
-
     }
 
     public void onVehicleSelect(View view)
     {
-        //Dummy vehicle to use overridden abstract methods
         Rental selectedVehicle = (Rental)view.getTag();
 
+        //Type of vehicle
+        //Pass this info to the next screen
+        //================================================================================
         String type;
 
         if (selectedVehicle instanceof CityCar) type="car";
@@ -63,7 +65,7 @@ public class InCityScreen extends AppCompatActivity
         rentalIntent.putExtra("type", type);
 
         //Check if vehicle requires license
-
+        //================================================================================
         if (selectedVehicle.requiresLicense())
         {
             String license = customer.getLicense();
@@ -71,29 +73,34 @@ public class InCityScreen extends AppCompatActivity
             if (license == null)
             {
                 //Ask the user if he wants to insert license
-
+                //================================================================================
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 builder.setTitle("Missing License");
                 builder.setMessage("The selected vehicle requires a driver's license, but you don't have one");
                 builder.setCancelable(false);
 
+                //User inserts license
+                //================================================================================
                 builder.setPositiveButton("Insert", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        startActivity(new Intent(InCityScreen.this, LocationScreen.class));
+                        //Go to LicenseScreen
+                        startActivity(new Intent(InCityScreen.this, LicenseScreen.class));
                     }
                 });
 
+                //User doesn't insert license
+                //================================================================================
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
                         dialog.dismiss();
-                        startActivity(new Intent(InCityScreen.this, MainScreen.class));
+                        finish();
                     }
                 });
 
@@ -106,7 +113,7 @@ public class InCityScreen extends AppCompatActivity
             else
             {
                 //Check if license is valid
-
+                //================================================================================
                 if (!selectedVehicle.validLicense(customer.getLicense()))
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -167,8 +167,6 @@ public class LicenseScreen extends AppCompatActivity implements postInterface {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(getApplicationContext(),MainScreen.class);
-                startActivity(intent);
                 finish();
             }
         }, 5000);

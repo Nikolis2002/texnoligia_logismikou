@@ -188,9 +188,11 @@ delimiter ;
 
 drop procedure if exists unlockVehicle;
 delimiter $
-create procedure unlockVehicle(in serviceId int)
+create procedure unlockVehicle(in serviceId int, IN in_name VARCHAR(32))
 begin
 	update rental_service set unlock_vehicle=now() where service_id=serviceId;
+
+    UPDATE wallet SET balance = balance - 1 WHERE username = in_name;
 end$
 delimiter ;
 
@@ -264,6 +266,77 @@ BEGIN
     INSERT INTO out_city_rating VALUES(NULL, vehicle_stars, garage_stars, comment);
     UPDATE out_city_service SET rating_id = LAST_INSERT_ID() WHERE service_id = in_service_id;
 END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS withdraw_from_wallet;
+
+DELIMITER $
+
+CREATE PROCEDURE withdraw_from_wallet(IN in_username VARCHAR(32), IN in_amount DECIMAL(10,2))
+BEGIN
+    UPDATE wallet SET balance = balance - in_amount WHERE username = in_username;
+END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS add_to_wallet;
+
+DELIMITER $
+
+CREATE PROCEDURE add_to_wallet(IN in_username VARCHAR(32), IN in_amount DECIMAL(10,2))
+BEGIN
+    UPDATE wallet SET balance = balance + in_amount WHERE username = in_username;
+END$
+
+DELIMITER ;
+
+-- =====================================================================================================
+
+DROP PROCEDURE IF EXISTS insertFinalRentalService;
+DELIMITER $
+
+CREATE PROCEDURE insertFinalRentalService(IN points INT,IN userName Varchar(32),IN pValue DECIMAL(10,2),IN pMethod ENUM('WALLET','CASH'),IN rentalId INT,IN stationId INT,IN initGas INT,IN addedGas INT,IN success VARCHAR(32),IN refillDate DATETIME,IN leftimg LONGBLOB,IN rightimg LONGBLOB,IN frontimg LONGBLOB,in backimg LONGBLOB)
+BEGIN
+
+    DECLARE paymentID INT UNSIGNED;
+    
+    INSERT INTO payment VALUES(null,userName,pValue,pMethod);
+
+    SET paymentID=LAST_INSERT_ID();
+
+    UPDATE service SET payment_id=paymentID,
+    service_status='COMPLETED',
+    status_date=NOW(),
+    earned_points=points
+    where id=rentalId;
+    
+    INSERT INTO refill VALUES(refillDate,stationId,initGas,addedGas,success);
+
+    UPDATE rental_service SET left_side_img=leftimg,
+    right_side_img=rightimg,
+    front_side_img=frontimg,
+    back_side_img=backimg,
+    refill_date=refillDate
+    WHERE service_id=rentalId;
+END $
+
+-- =====================================================================================================
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS signUp;
+DELIMITER $
+
+CREATE PROCEDURE signUp(IN user VARCHAR(32),IN pass VARCHAR(32),IN name VARCHAR(32),IN lname VARCHAR(32),IN email VARCHAR(32),IN  phone VARCHAR(32),IN license LONGBLOB)
+BEGIN
+    INSERT INTO user VALUES(user,pass,name,lname,email,phone);
+    INSERT INTO customer VALUES(user,"BOTH",license,0);
+END $
 
 DELIMITER ;
 

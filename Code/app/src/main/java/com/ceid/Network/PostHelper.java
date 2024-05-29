@@ -10,6 +10,9 @@ import com.ceid.util.GenericCallback;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -127,6 +130,8 @@ public class PostHelper {
         });
     }
 
+    //Communication with the tracker
+    //======================================================================================
     public static void getTrackerOfRental(ApiService api, String params,String ten, GenericCallback<VehicleTracker> callback){
         Call<ResponseBody> call=api.getTracker(params,ten);
         call.enqueue(new Callback<ResponseBody>(){
@@ -152,8 +157,64 @@ public class PostHelper {
                 callback.onFailure(new Exception(t));
             }
         });
+    }
 
+    public static void withdraw(ApiService api, String username, double amount)
+    {
+        List<Map<String,Object>> values = new ArrayList<>();
+        java.util.Map<String, Object> checkVehicle = new LinkedHashMap<>();
 
+        checkVehicle.put("username", username);
+        checkVehicle.put("amount", amount);
+
+        values.add(checkVehicle);
+
+        String jsonString = jsonStringParser.createJsonString("withdraw_from_wallet",values);
+
+        Call<ResponseBody> call = api.getFunction(jsonString);
+        call.enqueue(new Callback<ResponseBody>()
+        {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response)
+            {
+                if (!response.isSuccessful())
+                    throw new RuntimeException("Withdrawal error");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                throw new RuntimeException(t);
+            }
+        });
+    }
+
+    public static void addToWallet(ApiService api, String username, double amount)
+    {
+        List<Map<String,Object>> values = new ArrayList<>();
+        java.util.Map<String, Object> checkVehicle = new LinkedHashMap<>();
+
+        checkVehicle.put("username", username);
+        checkVehicle.put("amount", amount);
+
+        values.add(checkVehicle);
+
+        String jsonString = jsonStringParser.createJsonString("add_to_wallet",values);
+
+        Call<ResponseBody> call = api.getFunction(jsonString);
+        call.enqueue(new Callback<ResponseBody>()
+        {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response)
+            {
+                if (!response.isSuccessful())
+                    throw new RuntimeException("Wallet error");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                throw new RuntimeException(t);
+            }
+        });
     }
 
     public void charge(ApiService api, String value) {
