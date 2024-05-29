@@ -1,5 +1,4 @@
 package com.ceid.ui;
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -108,7 +107,7 @@ public class MainScreen extends AppCompatActivity {
     }
     public void addCardButton2(View view)
     {
-        Intent intent=new Intent(getApplicationContext(),addCard.class);
+        Intent intent=new Intent(getApplicationContext(), PaymentMethodScreen.class);
         startActivity(intent);
     }
     public void chargeWallet(View view)
@@ -140,6 +139,7 @@ public class MainScreen extends AppCompatActivity {
 
         builder.setTitle("Overdrawn Wallet");
         builder.setMessage("You have previous debt on your wallet and cannot proceed to our services. You can choose to charge your wallet now.");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Charge Now", new DialogInterface.OnClickListener()
         {
@@ -171,6 +171,7 @@ public class MainScreen extends AppCompatActivity {
 
         builder.setTitle("Invalid License");
         builder.setMessage("You don't have the necessary license (car) for this service. Would you like to insert a license now?");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Charge Now", new DialogInterface.OnClickListener()
         {

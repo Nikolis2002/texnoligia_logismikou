@@ -15,7 +15,6 @@ import com.ceid.Network.PostHelper;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.Network.postInterface;
 import com.ceid.model.payment_methods.Card;
-import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
 
@@ -28,7 +27,7 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-public class addCard extends AppCompatActivity implements postInterface {
+public class PaymentMethodScreen extends AppCompatActivity implements postInterface {
     private Customer customer;
     private User user;
     private EditText cardNum,expDate,owner,ccv;

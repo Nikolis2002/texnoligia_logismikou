@@ -39,7 +39,7 @@
         <activity android:name=".TransportScreen"/>
         <activity android:name=".LicenseScreen"/>
         <activity android:name=".ChargeWalletScreen"/>
-        <activity android:name=".addCard"/>
+        <activity android:name=".PaymentMethodScreen"/>
         <activity android:name=".signUp"/>
         <activity android:name=".MainScreen" />
         <activity android:name=".MainScreenTaxi" />

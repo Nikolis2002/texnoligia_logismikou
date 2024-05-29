@@ -248,6 +248,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                                     builder.setTitle("Reservation error");
                                     builder.setMessage("There is already a reservation for that vehicle");
+                                    builder.setCancelable(false);
 
                                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
                                     {
@@ -343,6 +344,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                                 builder.setTitle("Server");
                                 builder.setMessage("There was an error with the server");
+                                builder.setCancelable(false);
 
                                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
                                 {
@@ -366,6 +368,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
                             builder.setTitle("Communication error");
                             builder.setMessage("Could not communicate with the server");
+                            builder.setCancelable(false);
 
                             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
                             {

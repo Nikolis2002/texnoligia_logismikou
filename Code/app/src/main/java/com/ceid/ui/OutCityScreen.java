@@ -265,6 +265,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
 
         builder.setTitle("No garages");
         builder.setMessage("There are no garages in the selected area");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {

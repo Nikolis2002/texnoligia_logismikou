@@ -200,13 +200,14 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
 
         builder.setTitle("No Payment Methods");
         builder.setMessage("There are no payment methods in your account. Would you like to insert one?");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Insert", new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                Intent intent = new Intent(ChargeWalletScreen.this, addCard.class);
+                Intent intent = new Intent(ChargeWalletScreen.this, PaymentMethodScreen.class);
                 startActivity(intent);
             }
         });
@@ -232,6 +233,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
 
         builder.setTitle("Empty field");
         builder.setMessage("Field " + field + " cannot be empty");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
@@ -253,6 +255,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
 
         builder.setTitle("Insufficient funds");
         builder.setMessage("The requested amount does not exist in the bank");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
@@ -274,6 +277,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
 
         builder.setTitle("Formatting Error");
         builder.setMessage(msg);
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {

@@ -319,6 +319,7 @@ public class GarageReservationForm extends AppCompatActivity
 
 		builder.setTitle(formErrorTitle);
 		builder.setMessage(formErrorMsg);
+		builder.setCancelable(false);
 
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
 		{

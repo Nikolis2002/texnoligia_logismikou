@@ -417,6 +417,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
                     builder.setTitle("Error");
                     builder.setMessage("Failed to get your gas level");
+                    builder.setCancelable(false);
 
                     builder.setPositiveButton("Try again", new DialogInterface.OnClickListener()
                     {

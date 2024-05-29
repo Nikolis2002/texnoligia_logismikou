@@ -76,6 +76,7 @@ public class InCityScreen extends AppCompatActivity
 
                 builder.setTitle("Missing License");
                 builder.setMessage("The selected vehicle requires a driver's license, but you don't have one");
+                builder.setCancelable(false);
 
                 builder.setPositiveButton("Insert", new DialogInterface.OnClickListener()
                 {
@@ -112,6 +113,7 @@ public class InCityScreen extends AppCompatActivity
 
                     builder.setTitle("Invalid License");
                     builder.setMessage("You don't have the necessary license for this vehicle");
+                    builder.setCancelable(false);
 
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
                     {
