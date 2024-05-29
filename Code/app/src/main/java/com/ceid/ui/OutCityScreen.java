@@ -276,6 +276,8 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
-        builder.create().show();
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 }

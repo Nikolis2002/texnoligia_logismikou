@@ -160,7 +160,9 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
-        builder.create().show();
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 
     public void licenseErrorMsg()
@@ -189,7 +191,9 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
-        builder.create().show();
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 
 }

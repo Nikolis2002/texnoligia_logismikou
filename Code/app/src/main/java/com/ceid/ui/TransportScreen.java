@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,6 +68,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
     private GasStation nearestGasStation = null;
     private ArrayList<GasStation> gasStationList=null;
+
+    private Handler handler;
+    private Runnable runnable;
+    private int currentTimerValue = -1;
 
     int id;
     Intent intent;
@@ -254,11 +259,15 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         PostHelper.getTrackerOfRental(api,trackerType, String.valueOf(0),new GenericCallback<VehicleTracker>() {
 
             @Override
-            public void onSuccess(VehicleTracker data) {
-
-                View popupView = LayoutInflater.from(TransportScreen.this).inflate(R.layout.refill_popup, null);
+            public void onSuccess(VehicleTracker data)
+            {
+                //Get tracker data
+                SpecializedTracker initTracker= (SpecializedTracker) data;
 
                 // Create the popup window
+                //===========================================================================
+                View popupView = LayoutInflater.from(TransportScreen.this).inflate(R.layout.refill_popup, null);
+
                 PopupWindow popupWindow = new PopupWindow(
                         popupView,
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -272,8 +281,35 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         0,
                         0
                 );
-                SpecializedTracker initTracker= (SpecializedTracker) data;
 
+                //Animated text on the popup window
+                //===========================================================================
+                handler = new Handler();
+                TextView animatedTextView = popupView.findViewById(R.id.refillingText);
+
+                runnable = new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        currentTimerValue = (currentTimerValue + 1)%3;
+
+                        String str = "Refilling";
+
+                        for (int i = 0; i < (currentTimerValue + 1); i++)
+                            str = str.concat(".");
+
+                        animatedTextView.setText(str);
+
+                        // Schedule the next execution
+                        handler.postDelayed(this, 400);
+                    }
+                };
+
+                handler.post(runnable);
+
+                //Click handlers
+                //===========================================================================
                 Button cancel = popupView.findViewById(R.id.cancel2);
                 Button complete = popupView.findViewById(R.id.complete);
 
@@ -282,6 +318,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     public void onClick(View v)
                     {
                         popupWindow.dismiss();
+                        handler.removeCallbacks(runnable);
+                        currentTimerValue = -1;
                         callback(popupWindow,initTracker,nearestGasStation);
                     }
                 });
@@ -291,9 +329,12 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     public void onClick(View v)
                     {
                         popupWindow.dismiss();
+                        currentTimerValue = -1;
+                        handler.removeCallbacks(runnable);
                     }
                 });
 
+                //===========================================================================
             }
 
             @Override
@@ -335,7 +376,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             }
         });
 
-        builder.create().show();
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 
     public void callback(PopupWindow window,SpecializedTracker initTracker,GasStation station){
@@ -393,7 +436,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         }
                     });
 
-                    builder.create().show();
+                    AlertDialog alert = builder.create();
+                    alert.setCanceledOnTouchOutside(false);
+                    alert.show();
                 }
                 if(disasterCounter[1]==100) {
                     Toast.makeText(getApplicationContext(), "You reached the max amount of re tries!", Toast.LENGTH_LONG).show();
@@ -436,6 +481,14 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (handler != null && runnable!=null)
+            handler.removeCallbacks(runnable);
     }
 }
 

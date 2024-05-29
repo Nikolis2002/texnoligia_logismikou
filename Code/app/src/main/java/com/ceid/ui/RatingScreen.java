@@ -165,7 +165,9 @@ public class RatingScreen extends AppCompatActivity
 		{
 			builder.setTitle("Star Error");
 			builder.setMessage("Vehicle stars are not within allowed range (1 to 5)");
-			builder.create().show();
+			AlertDialog alert = builder.create();
+			alert.setCanceledOnTouchOutside(false);
+			alert.show();
 
 			return false;
 		}
@@ -175,7 +177,9 @@ public class RatingScreen extends AppCompatActivity
 		{
 			builder.setTitle("Star Error");
 			builder.setMessage(String.format("%s stars are not within allowed range (1 to 5)", service instanceof OutCityService ? "Garage" : "Driver"));
-			builder.create().show();
+			AlertDialog alert = builder.create();
+			alert.setCanceledOnTouchOutside(false);
+			alert.show();
 
 			return false;
 		}
@@ -184,7 +188,9 @@ public class RatingScreen extends AppCompatActivity
 		{
 			builder.setTitle("Achievement Unlocked - Professional Yapper");
 			builder.setMessage("Comment is too big, must be at most 200 characters long");
-			builder.create().show();
+			AlertDialog alert = builder.create();
+			alert.setCanceledOnTouchOutside(false);
+			alert.show();
 
 			return false;
 		}

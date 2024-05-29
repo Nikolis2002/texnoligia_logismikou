@@ -280,9 +280,9 @@ public class GarageReservationForm extends AppCompatActivity
 								ViewGroup.LayoutParams.MATCH_PARENT
 						);
 
-						String yourDate= DateFormat.format(selectedDatetime);
+						String yourDate = DateFormat.humanReadable(selectedDatetime);
 						TextView textView=popupView.findViewById(R.id.textPop);
-						textView.setText("You can get you vehicle on the following date: "+yourDate);
+						textView.setText(yourDate);
 
 						// Show the popup window
 						popupWindow.showAtLocation(
@@ -329,7 +329,9 @@ public class GarageReservationForm extends AppCompatActivity
 			}
 		});
 
-		builder.create().show();
+		AlertDialog alert = builder.create();
+		alert.setCanceledOnTouchOutside(false);
+		alert.show();
 	}
 
 	public void noMoneyMsg()
@@ -348,6 +350,8 @@ public class GarageReservationForm extends AppCompatActivity
 			}
 		});
 
-		builder.create().show();
+		AlertDialog alert = builder.create();
+		alert.setCanceledOnTouchOutside(false);
+		alert.show();
 	}
 }

@@ -261,7 +261,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                         }
                                     });
 
-                                    builder.create().show();
+                                    AlertDialog alert = builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
                                 }
                                 else
                                 {
@@ -351,7 +353,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                     }
                                 });
 
-                                builder.create().show();
+                                AlertDialog alert = builder.create();
+                                alert.setCanceledOnTouchOutside(false);
+                                alert.show();
                             }
                         }
 
@@ -372,7 +376,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                 }
                             });
 
-                            builder.create().show();
+                            AlertDialog alert = builder.create();
+                            alert.setCanceledOnTouchOutside(false);
+                            alert.show();
                         }
                     });
                 }

@@ -58,7 +58,7 @@ INSERT INTO customer VALUES
     ("Zoukos","BOTH",null,0),
     ("bill4","BOTH","test",0);
 
-INSERT INTO bank VALUES("kort","123","123","086",500);
+INSERT INTO bank VALUES("kort","1233-1233-1233-1233","123","086",500);
 
 INSERT INTO transport VALUES
     (1, "Ford", "Mondeo", 1993),
@@ -116,17 +116,17 @@ INSERT INTO wallet VALUES
     ("bill4",50);
 
 INSERT INTO card VALUES
-    ("customer", "1234 5678 1234 5678", "CUSTOMER CUSTOMER", "12/27", "999", "DEBIT"),
-    ("customer", "5678 1234 5678 1232", "CUSTOMER CUSTOMER", "12/27", "222", "DEBIT"),
-    ("driver", "5678 1234 5678 1234", "DRIVER DRIVER", "12/27", "111", "DEBIT"),
+    ("customer", "1234-5678-1234-5678", "CUSTOMER CUSTOMER", "12/27", "999", "DEBIT"),
+    ("customer", "5678-1234-5678-1232", "CUSTOMER CUSTOMER", "12/27", "222", "DEBIT"),
+    ("driver", "5678-1234-5678-1234", "DRIVER DRIVER", "12/27", "111", "DEBIT"),
 
-    ("bill","123","kort","123","086","CREDIT"),
-    ("bill","124","kort2","1234","0862","CREDIT"),
-    ("bill2","1235","kort","123","086","CREDIT"),
-    ("bill2","1246","kort2","1234","0862","CREDIT"),
-    ("Dista","456","dimitris","123","086","CREDIT"),
-    ("Nikolis","458","nikolaos","123","086","CREDIT"),
-    ("Zoukos","125","panagiotis","123","086","CREDIT");
+    ("bill","1233-1233-1233-1233","kort","123","086","CREDIT"),
+    ("bill","1244-1244-1244-1244","kort2","1234","0862","CREDIT"),
+    ("bill2","1235-1235-1235-1235","kort","123","086","CREDIT"),
+    ("bill2","1246-1246-1246-1246","kort2","1234","0862","CREDIT"),
+    ("Dista","4566-4566-4566-4566","dimitris","123","086","CREDIT"),
+    ("Nikolis","4588-4588-4588-4588","nikolaos","123","086","CREDIT"),
+    ("Zoukos","1255-1255-1255-1255","panagiotis","123","086","CREDIT");
 
 INSERT INTO rental VALUES
     (1, 1.40, POINT(38.2442870,21.7326153), "TRUE"),

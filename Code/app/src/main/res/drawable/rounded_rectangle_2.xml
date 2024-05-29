@@ -4,7 +4,7 @@
         <shape android:shape="rectangle"  >
             <stroke android:shape="rectangle"
                 android:width="2dp"
-                android:color="#BDBDBD"/> <!-- Outline color -->
+                android:color="@color/outlineColor"/> <!-- Outline color -->
             <corners android:radius="20dip" />
         </shape>
     </item>

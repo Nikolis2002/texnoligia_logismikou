@@ -20,13 +20,15 @@ import com.google.android.material.navigation.NavigationBarView;
 public class CustomerProfile extends Fragment
 {
 	private TextView username,pass,name,surname,email,license,points,wallet,payment;
+	private Customer customer;
 
     @Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.customer_profile, container, false);
         User user = User.getCurrentUser();
-		Customer customer=(Customer) user;
+		customer=(Customer) user;
+
 		username= view.findViewById(R.id.user_name);
 		name=view.findViewById(R.id.name);
 		surname=view.findViewById(R.id.surname);
@@ -35,16 +37,26 @@ public class CustomerProfile extends Fragment
 		points=view.findViewById(R.id.points);
 		wallet=view.findViewById(R.id.wallet);
 
-
-		username.setText(user.getUsername());
-		name.setText(user.getName());
-		surname.setText(user.getLname());
-		email.setText(user.getEmail());
-		license.setText(customer.getLicense());
-		points.setText(String.valueOf(customer.getPoints().getPoints()));
-		wallet.setText(String.valueOf(customer.getWallet().getBalance()));
+		loadFields();
 
 		return view;
 	}
 
+	public void loadFields()
+	{
+		username.setText(customer.getUsername());
+		name.setText(customer.getName());
+		surname.setText(customer.getLname());
+		email.setText(customer.getEmail());
+		license.setText(customer.getLicense());
+		points.setText(String.valueOf(customer.getPoints().getPoints()));
+		wallet.setText(String.valueOf(customer.getWallet().getBalance()));
+	}
+
+
+	public void onResume()
+	{
+		super.onResume();
+		loadFields();
+	}
 }

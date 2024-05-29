@@ -475,7 +475,7 @@ CREATE TABLE bank(
     card_number VARCHAR(32) NOT NULL,
     card_exp_date VARCHAR(10) NOT NULL,
     cvv VARCHAR(8) NOT NULL,
-    owner_balance INT NOT NULL default '500',
+    owner_balance DECIMAL(10,2) NOT NULL default '500',
     PRIMARY KEY(card_number)
 );
 
@@ -548,13 +548,13 @@ WHERE free_status = "TRUE";
 DROP VIEW IF EXISTS out_city_vehicles;
 
 CREATE VIEW out_city_vehicles AS
-SELECT "van" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, g.id AS "garage_id", g.name AS "garage_name"
+SELECT "van" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, g.id AS "garage_id", g.name AS "garage_name", oct.free_status
 FROM transport t
 INNER JOIN out_city_transport oct ON t.id = oct.id
 INNER JOIN out_city_van ocv ON ocv.id = oct.id
 INNER JOIN garage g ON oct.garage = g.id
 UNION
-SELECT "car" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, g.id AS "garage_id", g.name AS "garage_name"
+SELECT "car" AS "type", t.id, t.manufacturer, t.model, t.manuf_year, oct.out_city_license AS "license_plate", oct.rate, oct.seat_capacity AS "seats", oct.gas, g.id AS "garage_id", g.name AS "garage_name", oct.free_status
 FROM transport t
 INNER JOIN out_city_transport oct ON t.id = oct.id
 INNER JOIN out_city_car occ ON occ.id = oct.id

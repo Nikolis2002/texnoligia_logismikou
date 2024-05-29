@@ -122,7 +122,7 @@ app.get("/getGarages", async(req,res)=>
 
         for (let garage of garageList)
         {
-            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, rate, seats, gas FROM out_city_vehicles WHERE garage_id = ?", [garage.id]);
+            let vehicleList = await helper.queryPromise(con, "SELECT type, id, manufacturer, model, manuf_year, license_plate, rate, seats, gas FROM out_city_vehicles WHERE garage_id = ? AND free_status = 'TRUE'", [garage.id]);
             garage.vehicles = vehicleList.result;
         }
 

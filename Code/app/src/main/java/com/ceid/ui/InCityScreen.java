@@ -96,7 +96,9 @@ public class InCityScreen extends AppCompatActivity
                     }
                 });
 
-                builder.create().show();
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
 
                 return;
             }

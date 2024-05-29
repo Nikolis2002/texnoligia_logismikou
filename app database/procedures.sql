@@ -116,9 +116,10 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS chargeWallet;
 DELIMITER $
-CREATE PROCEDURE chargeWallet(IN user VARCHAR(32),IN val VARCHAR(32),cardNum VARCHAR(32))
+CREATE PROCEDURE chargeWallet(IN user VARCHAR(32),IN val DECIMAL(10,2),cardNum VARCHAR(32))
 BEGIN
     DECLARE bankAmount VARCHAR(32);
+
     SELECT owner_balance into bankAmount FROM bank INNER JOIN card ON bank.card_number=card.card_number where card.username=user AND card.card_number=cardNum;
     IF(bankAmount>=val) THEN
         UPDATE wallet SET balance=balance+val WHERE username=user;
@@ -220,6 +221,7 @@ BEGIN
     SET service_id=LAST_INSERT_ID();
     INSERT INTO out_city_service VALUES(service_id,car_id,null,num_days);
 
+    UPDATE out_city_transport SET free_status = "FALSE" WHERE id = car_id;
 END $
 DELIMITER ;
 

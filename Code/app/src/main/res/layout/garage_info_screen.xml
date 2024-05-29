@@ -117,7 +117,7 @@
         android:backgroundTint="@color/cancelBtn"
         android:onClick="back"
         android:text="Back"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

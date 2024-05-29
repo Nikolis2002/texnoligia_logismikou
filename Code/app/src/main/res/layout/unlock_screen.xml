@@ -63,7 +63,7 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
-            android:backgroundTint="@color/genericBtn"
+            android:backgroundTint="@color/generic_btn"
             android:contentDescription="@string/unlockbutton"
             android:onClick="unlockVehicle"
             android:text="@string/unlock_vehicle"
@@ -76,7 +76,7 @@
             android:backgroundTint="@color/cancelBtn"
             android:onClick="cancelReservation"
             android:text="Cancel"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <TextView
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

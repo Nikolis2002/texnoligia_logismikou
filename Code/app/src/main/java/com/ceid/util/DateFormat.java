@@ -16,6 +16,7 @@ public class DateFormat {
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static DateTimeFormatter humanFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     //Format
     //========================================================================
@@ -33,6 +34,11 @@ public class DateFormat {
     public static String format(LocalDateTime datetime)
     {
         return datetimeFormatter.format(datetime);
+    }
+
+    public static String humanReadable(LocalDateTime datetime)
+    {
+        return humanFormatter.format(datetime);
     }
 
     //Parse

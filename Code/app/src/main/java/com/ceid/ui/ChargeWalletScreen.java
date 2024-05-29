@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,12 +23,16 @@ import com.ceid.model.payment_methods.Wallet;
 import com.ceid.model.users.Customer;
 import com.ceid.model.users.User;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -38,7 +40,7 @@ import retrofit2.Response;
 public class ChargeWalletScreen extends AppCompatActivity implements postInterface {
     private User user;
     protected Customer customer;
-    private TextView money;
+    private TextInputEditText currentBalance;
     private List<Card> cards;
     private Wallet wallet;
     private String value;
@@ -47,7 +49,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     private MaterialAutoCompleteTextView materialSpinner;
     private List<String> cardSpinner;
     private Spinner arrayCards;
-    private EditText amount;
+    private TextInputEditText amountToAdd;
 
     protected void onResume()
     {
@@ -66,13 +68,13 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charge_wallet_screen);
 
-        money = findViewById(R.id.cardNum);
+        currentBalance = findViewById(R.id.balance);
         //arrayCards = findViewById(R.id.spinner);
-        amount = findViewById(R.id.amount);
+        amountToAdd = findViewById(R.id.amount);
         user = User.getCurrentUser();
 
         Wallet wallet = user.getWallet();
-        money.setText(String.format("Balance: %.02f€", user.getWallet().getBalance()));
+        currentBalance.setText(String.format("Balance: %.02f€", user.getWallet().getBalance()));
 
         //Check if customer has cards
         //=======================================================================================================
@@ -99,54 +101,94 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         adapter.addAll(mycards);
         adapter.notifyDataSetChanged();
         Log.d("test",materialSpinner.getText().toString());
-
-        /*
-        ArrayAdapter ad = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cardSpinner);
-        ad.setDropDownViewResource(
-                android.R.layout
-                        .simple_spinner_dropdown_item);
-        arrayCards.setAdapter(ad);*/
     }
 
+    public boolean checkFields(Map<String, Object> fields)
+    {
+        //Check if fields are empty
+        //===============================================================================
+        if (Objects.equals(fields.get("card"), ""))
+        {
+            emptyFieldsAlert("card");
+            return false;
+        }
 
-    public void chargeWalletButton(View view){
+        if (Objects.equals(fields.get("amount"), ""))
+        {
+            emptyFieldsAlert("amount");
+            return false;
+        }
+
+        //Check if fields have valid formatting
+        //===============================================================================
+        String regex = "^(\\d{4}[- ]?){3}\\d{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher((String)fields.get("card"));
+
+        if (!matcher.matches())
+        {
+            formattingError("Card does not have the correct format");
+            return false;
+        }
+
+        regex = "^\\d+(\\.\\d{1,2})?$";
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher((String)fields.get("amount"));
+
+        if (!matcher.matches())
+        {
+            formattingError("Amount does not have the correct format");
+            return false;
+        }
+
+        return true;
+    }
+
+    public void getFields(View view)
+    {
         List<Map<String, Object>> values = new ArrayList<>();
         Map<String, Object> charge=new LinkedHashMap<>();
         charge.put("username",user.getUsername());
-        charge.put("amount",amount.getText().toString());
-        charge.put("value",materialSpinner.getText().toString());
+        charge.put("amount", amountToAdd.getText().toString());
+        charge.put("card", materialSpinner.getText().toString());
 
-        values.add(charge);
-        String jsonString = jsonStringParser.createJsonString("chargeWallet", values);
-        PostHelper chargeValue=new PostHelper(this);
-        ApiService api=ApiClient.getApiService();
-        chargeValue.charge(api,jsonString);
+        if (checkFields(charge))
+        {
+            Log.d("WALLETTEST", String.format("%s %s %s", user.getUsername(), amountToAdd.getText().toString(), materialSpinner.getText().toString()));
+
+            values.add(charge);
+            String jsonString = jsonStringParser.createJsonString("chargeWallet", values);
+
+            //Contact the bank to see if amount exists
+            //If bank verifies that the amount is ok, then update customer wallet in the database
+            //Finally, update customer wallet on the app
+            PostHelper chargeValue=new PostHelper(this);
+            ApiService api=ApiClient.getApiService();
+            chargeValue.charge(api,jsonString);
+        }
     }
-
 
     @Override
     public void onResponseSuccess(@NonNull Response<ResponseBody> response) throws IOException {
         boolean bool=jsonStringParser.getbooleanFromJson(response);
-        if(bool)
-        {
-            Toast.makeText(getApplicationContext(), "Value added successfully!",
-                    Toast.LENGTH_LONG).show();
-            user.getWallet().addToWallet(Double.parseDouble(amount.getText().toString()));
-            Intent intent = new Intent(getApplicationContext(), MainScreen.class);
-            startActivity(intent);
-            finish();
 
+        if(bool) //Amount exists
+        {
+            Toast.makeText(getApplicationContext(), "Value added successfully!", Toast.LENGTH_LONG).show();
+
+            //Add money to customer wallet
+            user.getWallet().addToWallet(Double.parseDouble(amountToAdd.getText().toString()));
+
+            finish();
         }
-        else{
-            Toast.makeText(getApplicationContext(), "No money!",
-                    Toast.LENGTH_LONG).show();
-        }
+        else //Bank says the amount doesn't exist
+            amountAlert();
     }
 
+    //Failed to reach bank
     @Override
     public void onResponseFailure(Throwable t) {
-        Toast.makeText(getApplicationContext(), "error",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Failed to reach bank", Toast.LENGTH_LONG).show();
     }
 
     //ERRORS
@@ -176,6 +218,69 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
             {
                 dialog.dismiss();
                 finish();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    public void emptyFieldsAlert(String field)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Empty field");
+        builder.setMessage("Field " + field + " cannot be empty");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    public void amountAlert()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Insufficient funds");
+        builder.setMessage("The requested amount does not exist in the bank");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    public void formattingError(String msg)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Formatting Error");
+        builder.setMessage(msg);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.dismiss();
             }
         });
 
