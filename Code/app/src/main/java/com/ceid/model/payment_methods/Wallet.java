@@ -1,7 +1,5 @@
 package com.ceid.model.payment_methods;
 
-import com.ceid.util.DateFormat;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class Wallet implements Serializable {
         this.cash=cash;
     }
 
-    public void addCard(Card card){
+    public void addPaymentMethod(Card card){
         cards.add(card);
     }
     public List<Card> getCards() {

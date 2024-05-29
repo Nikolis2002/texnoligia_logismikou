@@ -58,7 +58,10 @@ INSERT INTO customer VALUES
     ("Zoukos","BOTH",null,0),
     ("bill4","BOTH","test",0);
 
-INSERT INTO bank VALUES("kort","1233-1233-1233-1233","123","086",500);
+INSERT INTO bank VALUES
+    ("kort","1233-1233-1233-1233","123","086",500),
+    ("mitsos17", "1234-1234-1234-1234", "02/27", "111", 6000);
+
 
 INSERT INTO transport VALUES
     (1, "Ford", "Mondeo", 1993),

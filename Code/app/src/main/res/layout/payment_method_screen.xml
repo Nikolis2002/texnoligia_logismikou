@@ -61,7 +61,7 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:hint="@string/expDateText"
-                android:inputType="number"
+                android:inputType="text"
                 android:lineSpacingExtra="3sp"
                 android:maxLength="5"
                 android:singleLine="true"
@@ -110,7 +110,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:hint="@string/ccvText"
+                android:inputType="number"
+                android:hint="CVV"
                 android:lineSpacingExtra="3sp"
                 android:textAppearance="@style/label" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -145,7 +146,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/generic_btn"
-            android:onClick="addCardButton"
+            android:onClick="submit"
             android:text="@string/addCard"
             android:textColor="@android:color/white"
             android:textSize="14sp"

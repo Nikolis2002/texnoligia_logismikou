@@ -70,7 +70,7 @@ public class jsonStringParser {
                         card.get("expiration_date").asText(),
                         card.get("cvv").asText()
                 );
-                wallet.addCard(newCard); // Assuming you have a method to add a card to the wallet
+                wallet.addPaymentMethod(newCard); // Assuming you have a method to add a card to the wallet
             }
 
             // Extract customer information
@@ -104,7 +104,7 @@ public class jsonStringParser {
                         card.get("expiration_date").asText(),
                         card.get("cvv").asText()
                 );
-                wallet.addCard(newCard); // Assuming you have a method to add a card to the wallet
+                wallet.addPaymentMethod(newCard); // Assuming you have a method to add a card to the wallet
             }
 
             Taxi taxi = new Taxi(

@@ -42,24 +42,22 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     protected Customer customer;
     private TextInputEditText currentBalance;
     private List<Card> cards;
-    private Wallet wallet;
-    private String value;
     ArrayAdapter<String> adapter;
-    ArrayList<String> mycards;
     private MaterialAutoCompleteTextView materialSpinner;
-    private List<String> cardSpinner;
-    private Spinner arrayCards;
     private TextInputEditText amountToAdd;
+    private boolean checkedCards = false;
 
+    //If there is no card, you go PaymentMethodScreen
+    //After coming back, insert card into the list of cars
+    //You can now charge your wallet normally
     protected void onResume()
     {
         super.onResume();
-        cards = user.getWallet().getCards();
 
-        if (cards.isEmpty())
-        {
-            noPaymentAlert();
-        }
+        if (!checkedCards)
+            checkCards();
+
+        checkedCards = false;
     }
 
     @Override
@@ -68,6 +66,8 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charge_wallet_screen);
 
+        //Get all the fields
+        //=======================================================================================================
         currentBalance = findViewById(R.id.balance);
         //arrayCards = findViewById(R.id.spinner);
         amountToAdd = findViewById(R.id.amount);
@@ -78,29 +78,43 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
 
         //Check if customer has cards
         //=======================================================================================================
+        checkCards();
+    }
+
+    public void checkCards()
+    {
         cards = user.getWallet().getCards();
+
+        for (Card card: cards)
+        {
+            Log.d("CARDTEST", card.toString());
+        }
 
         if (cards.isEmpty())
         {
             noPaymentAlert();
         }
+        else
+        {
+            //Initialize card spinner
+            //=======================================================================================================
 
-        //Initialize card spinner
-        //=======================================================================================================
+            materialSpinner = findViewById(R.id.cardSpinner);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+            materialSpinner.setAdapter(adapter);
 
-        materialSpinner = findViewById(R.id.cardSpinner);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
-        materialSpinner.setAdapter(adapter);
+            ArrayList<String> mycards = new ArrayList<>();
 
-        ArrayList<String> mycards = new ArrayList<>();
+            for (Card card :cards ) {
+                mycards.add(card.getCardnumber());
+            }
 
-        for (Card card :cards ) {
-            mycards.add(card.getCardnumber());
+            adapter.addAll(mycards);
+            adapter.notifyDataSetChanged();
+            Log.d("test",materialSpinner.getText().toString());
         }
 
-        adapter.addAll(mycards);
-        adapter.notifyDataSetChanged();
-        Log.d("test",materialSpinner.getText().toString());
+        checkedCards = true;
     }
 
     public boolean checkFields(Map<String, Object> fields)
@@ -209,6 +223,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
             {
                 Intent intent = new Intent(ChargeWalletScreen.this, PaymentMethodScreen.class);
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
 

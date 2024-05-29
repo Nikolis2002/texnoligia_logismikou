@@ -476,6 +476,7 @@ CREATE TABLE bank(
     card_exp_date VARCHAR(10) NOT NULL,
     cvv VARCHAR(8) NOT NULL,
     owner_balance DECIMAL(10,2) NOT NULL default '500',
+    
     PRIMARY KEY(card_number)
 );
 

@@ -1,5 +1,7 @@
 package com.ceid.model.payment_methods;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Card implements Serializable {
@@ -41,7 +43,9 @@ public class Card implements Serializable {
     public String getCvv() {
         return cvv;
     }
-    public String printCard(){
+
+    @NonNull
+    public String toString(){
 
         return "Card Number: " + this.getCardnumber() + "\n" +
                 "Cardholder Name: " + this.getCardholderName() + "\n" +
