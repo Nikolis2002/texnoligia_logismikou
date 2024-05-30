@@ -27,12 +27,6 @@ class RatingScreen {
 + void submit(View)
 }
 
-class SecondFragment {
-- FragmentSecondBinding binding
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void onDestroyView()
-}
 
 
 class Tracker {
@@ -83,14 +77,6 @@ class MainScreen {
 + void outCity(View)
 + void addCardButton2(View)
 + void chargeWallet(View)
-}
-
-
-class FirstFragment {
-- FragmentFirstBinding binding
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void onDestroyView()
 }
 
 
@@ -562,16 +548,6 @@ class OutCityVehicleListAdapter {
 + Object getItem(int)
 + long getItemId(int)
 + View getView(int,View,ViewGroup)
-}
-
-
-class MainActivity {
-- AppBarConfiguration appBarConfiguration
-- ActivityMainBinding binding
-# void onCreate(Bundle)
-+ boolean onCreateOptionsMenu(Menu)
-+ boolean onOptionsItemSelected(MenuItem)
-+ boolean onSupportNavigateUp()
 }
 
 
