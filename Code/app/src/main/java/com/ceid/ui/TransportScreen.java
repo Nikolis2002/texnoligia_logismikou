@@ -126,7 +126,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         //======================================================================================
         customer  = (Customer) User.getCurrentUser();
         TextView textAvailable=findViewById(R.id.textAvailable);
-        textAvailable.setText(customer.getWallet().getBalance() + "€");
+        textAvailable.setText(String.format("%.02f€", customer.getWallet().getBalance()));
 
 
         //Initially, the refill button if disabled
