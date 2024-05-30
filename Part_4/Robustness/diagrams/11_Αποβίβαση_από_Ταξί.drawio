@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="DId9uxz7sm1LXZV5XANA" name="Page-1">
-        <mxGraphModel dx="1186" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="961" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -96,7 +96,7 @@
                 <mxCell id="45" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="42" target="43" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="85" style="edgeStyle=none;html=1;entryX=1;entryY=0.575;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="42" target="46">
+                <mxCell id="85" style="edgeStyle=none;html=1;entryX=1;entryY=0.575;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="42" target="46" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="42" value="Ενημέρωση πόντων και υπολοίπου" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -146,19 +146,19 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="57" style="edgeStyle=none;html=1;entryX=1.043;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#B85450;strokeWidth=2;" parent="1" source="58" target="68" edge="1">
+                <mxCell id="57" style="edgeStyle=none;html=1;strokeColor=#B85450;strokeWidth=2;entryX=0.986;entryY=0.45;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="58" target="86" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="496.5000000000002" y="802.26" as="targetPoint"/>
+                        <mxPoint x="580" y="750" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="58" value="Αφαίρεση χρηματικού ποσού" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;strokeColor=#B85450;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="645" y="730" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="60" value="Μήνυμα σφάλματος" style="shape=umlBoundary;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="380" y="735.0000000000002" width="90" height="70" as="geometry"/>
+                    <mxGeometry x="225" y="770.0000000000002" width="90" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="68" value="Εμφάνισε" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;strokeColor=#B85450;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="520" y="730" width="70" height="80" as="geometry"/>
+                    <mxGeometry x="380" y="765" width="70" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="71" style="edgeStyle=none;html=1;entryX=1.044;entryY=0.543;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#B85450;strokeWidth=2;exitX=-0.043;exitY=0.513;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="68" target="60" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -195,6 +195,24 @@
                 </mxCell>
                 <mxCell id="84" value="Points" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="465" y="640" width="77.5" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="Ενημέρωση πορτοφολιού" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;strokeColor=#B85450;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="765" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="Database" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="505" y="880" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" style="edgeStyle=none;html=1;strokeColor=#B85450;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.529;exitY=1.025;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="86" target="87">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="589.02" y="811" as="targetPoint"/>
+                        <mxPoint x="656.2206309373043" y="790.4716044094357" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="89" style="edgeStyle=none;html=1;strokeColor=#B85450;strokeWidth=2;entryX=1;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.043;exitY=0.588;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="86" target="68">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="395.29999999999995" y="865.53" as="targetPoint"/>
+                        <mxPoint x="462.5006309373043" y="845.0016044094357" as="sourcePoint"/>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>
