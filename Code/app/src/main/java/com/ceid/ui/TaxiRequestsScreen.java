@@ -37,6 +37,8 @@ public class TaxiRequestsScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_request_screen);
 
+        //Disable back button in this screen
+        //=================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -47,7 +49,12 @@ public class TaxiRequestsScreen extends AppCompatActivity {
             }
         });
 
+        //Get taxi Driver data
+        //=================================================================================
         taxiDriver = (TaxiDriver) User.getCurrentUser();
+
+        //Retrieve Taxi Requests from database
+        //=================================================================================
         taxiRequestSelect();
     }
 
@@ -63,6 +70,8 @@ public class TaxiRequestsScreen extends AppCompatActivity {
                         requestView = findViewById(R.id.requestView);
 
                         if(!requestList.isEmpty()) {
+                            //Display the Requests
+                            //=================================================================================
                             requestView.setLayoutManager(new LinearLayoutManager(TaxiRequestsScreen.this));
                             requestAdapter = new TaxiRequestAdapter(requestList, TaxiRequestsScreen.this, taxiDriver);
                             requestView.setAdapter(requestAdapter);
@@ -89,7 +98,8 @@ public class TaxiRequestsScreen extends AppCompatActivity {
 
     }
 
-
+    //Refresh button for Taxi Requests
+    //=================================================================================
     public void taxiRequestSelect(View view){
         requestAdapter.clearData();
         taxiRequestSelect();

@@ -84,6 +84,8 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         });
     }
 
+    //Check if taxi request is valid
+    //=================================================================================
     public void checkRequest(){
         List<Map<String,Object>> values = new ArrayList<>();
         Map<String, Object> taxiReservationCheck = new LinkedHashMap<>();
@@ -125,6 +127,8 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         });
     }
 
+    //Accept taxi request
+    //=================================================================================
     public void acceptRequest(){
         List<Map<String,Object>> values = new ArrayList<>();
         Map<String, Object> taxiReservationConfirm = new LinkedHashMap<>();

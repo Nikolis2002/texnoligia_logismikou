@@ -53,6 +53,8 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
        super.onCreate(savedInstanceState);
        setContentView(R.layout.taxi_transport_screen);
 
+        //Disable back button in this screen
+        //=================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -61,17 +63,30 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
             }
         });
 
+        //Get taxi driver and taxi Request data
+        //=================================================================================
        Intent taxiRequestData = getIntent();
        taxiRequest = (TaxiRequest) taxiRequestData.getSerializableExtra("taxiRequest");
        taxiDriver = (TaxiDriver) User.getCurrentUser();
 
        button = findViewById(R.id.startEndRouteButton);
+
+        //Setup map
+        //=================================================================================
        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapView);
        map = new Map(mapFragment, this, this);
+
+        //Calculate Eta
+        //=================================================================================
        showEta();
+
+
        button.setOnClickListener(v -> startRoute());
    }
 
+    //Got the map from the map service
+    //Display the map, along with vehicle's location
+    //============================================================================================
     @Override
     public void onMapWrapperReady() {
         map.placePin(taxiRequest.getPickupLocation(),true,R.drawable.emoji_people);
@@ -80,10 +95,14 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
         map.setPosition(taxiRequest.getPickupLocation());
     }
 
+    //Start the route
+    //=================================================================================
     public void startRoute(){
         checkRequest();
     }
 
+    //Check if Request is valid
+    //=================================================================================
     public void checkRequest(){
         List<java.util.Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> taxiReservationCheck = new LinkedHashMap<>();
@@ -103,6 +122,8 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
                         if(status) {
 
+                            //Update Request Status
+                            //=================================================================================
                             List<java.util.Map<String,Object>> values = new ArrayList<>();
                             java.util.Map<String, Object> updatePickUpRequest = new LinkedHashMap<>();
                             updatePickUpRequest.put("updatePickUpRequest", taxiRequest.getId());
@@ -118,6 +139,8 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
                                     if(response.isSuccessful()){
 
+                                        //Customer has been picked ride have started
+                                        //=================================================================================
                                         map.setZoom(13);
                                         map.setPosition(taxiRequest.getDestination());
                                         map.placePin(taxiRequest.getDestination(),true);
@@ -158,6 +181,8 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
         });
     }
 
+    //Calculate Eta
+    //=================================================================================
     public void showEta(){
        String time = taxiRequest.calculateEta(taxiDriver.getTaxi().getCoords());
        TextView etaTextview=findViewById(R.id.eta);
@@ -165,12 +190,23 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
        etaTextview.setText(msg);
     }
 
-
+    //End route
+    //=================================================================================
     public void endRoute(){
         stopTimer=timer.stopTimer();
+
+        //Calculate cost based on Time
+        //=================================================================================
         calculateCost();
+
+        //Get payment method
+        //=================================================================================
         Payment.Method payment = taxiRequest.getPaymentMethod();
+
         String paymentString=String.valueOf(payment);
+
+        //Complete the route and update database
+        //=================================================================================
         List<java.util.Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> taxiReservationComplete = new LinkedHashMap<>();
         taxiReservationComplete.put("id",taxiRequest.getId());
@@ -234,10 +270,14 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
     }
 
+    //Calculate Elapsed time
+    //=================================================================================
     public long getTime(){
         return timer.elapsedTime(startTimer,stopTimer);
     }
 
+    //Calculate cost
+    //=================================================================================
     public void calculateCost(){
         elapsedTime=getTime();
         double cost= elapsedTime*0.012;

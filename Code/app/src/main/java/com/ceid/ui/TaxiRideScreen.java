@@ -48,6 +48,8 @@ public class TaxiRideScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_ride_screen);
 
+        //Disable back button in this screen
+        //=================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -56,12 +58,15 @@ public class TaxiRideScreen extends AppCompatActivity {
             }
         });
 
+        //Get customer and taxi service data
+        //=================================================================================
         Intent intent = getIntent();
         customer = (Customer) User.getCurrentUser();
         taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
 
 
-
+        //Check is the customer is picked every 2 sec
+        //=================================================================================
         taxiPickUp = new Runnable() {
             @Override
             public void run() {
@@ -79,7 +84,8 @@ public class TaxiRideScreen extends AppCompatActivity {
     }
 
 
-
+    //Check is the customer is picked
+    //=================================================================================
     public void isPickUp() {
         List<Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> taxiPickUncheck = new LinkedHashMap<>();
@@ -99,11 +105,17 @@ public class TaxiRideScreen extends AppCompatActivity {
                         boolean status = jsonStringParser.getbooleanFromJson(response);
 
                         if(status){
+
+                            //Ride start
+                            //=================================================================================
                             handlerPickUp.removeCallbacks(taxiPickUp);
                             handlerStatus = new Handler();
                             timer = findViewById(R.id.timer);
                             timer.setBase(SystemClock.elapsedRealtime());
                             timer.start();
+
+                            //Check if ride have finished every 2 sec
+                            //=================================================================================
                             taxiRideCheck = new Runnable() {
                                 @Override
                                 public void run() {
@@ -132,6 +144,8 @@ public class TaxiRideScreen extends AppCompatActivity {
         });
     }
 
+    //Check if ride have finished
+    //=================================================================================
     public void rideStatus(){
         List<Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> taxiComplete = new LinkedHashMap<>();
@@ -153,8 +167,10 @@ public class TaxiRideScreen extends AppCompatActivity {
                             timer.stop();
                             handlerStatus.removeCallbacks(taxiRideCheck);
 
+                            //Retrieve Ride cost
+                            //=================================================================================
                             rideCost();
-                            }
+                        }
 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -172,6 +188,8 @@ public class TaxiRideScreen extends AppCompatActivity {
         });
     }
 
+    //Retrieve ride cost from database
+    //=================================================================================
     public void rideCost(){
         List<Map<String,Object>> values = new ArrayList<>();
         Map<String, Object> paymentCheck = new LinkedHashMap<>();
@@ -186,6 +204,9 @@ public class TaxiRideScreen extends AppCompatActivity {
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if(response.isSuccessful()){
                     try {
+
+                        //Get payment method
+                        //=================================================================================
                         ArrayList<String> responseArray = jsonStringParser.getResults(response);
                         cost = Double.parseDouble(responseArray.get(0));
                         String payment = String.valueOf(taxiService.getPayment().getMethod());
@@ -195,6 +216,9 @@ public class TaxiRideScreen extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
+
+                            //Get customer wallet balance, calculate points, update points and balance
+                            //=================================================================================
                             double balance = customer.getWallet().getBalance();
                             if (balance > cost) {
                                 customer.getWallet().withdraw(cost);

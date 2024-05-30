@@ -40,6 +40,8 @@ public class TaxiWaitScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_wait_screen);
 
+        //Disable back button in this screen
+        //=================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -48,14 +50,21 @@ public class TaxiWaitScreen extends AppCompatActivity {
             }
         });
 
+        //Get Taxi service data
+        //=================================================================================
         Intent intent = getIntent();
         taxiService = (TaxiService) intent.getSerializableExtra("taxiService");
 
         handler = new Handler();
+
+        //Check if ride has begun
+        //=================================================================================
         rideStatus();
 
         reservationTimer = new Timer();
 
+        //Alert user after 20 sec if taxi has not been found
+        //=================================================================================
         reservationTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -84,6 +93,8 @@ public class TaxiWaitScreen extends AppCompatActivity {
         },20000);
     }
 
+    //Check ride status
+    //=================================================================================
     Runnable taxiFoundCheck = new Runnable() {
         @Override
         public void run() {
@@ -129,6 +140,8 @@ public class TaxiWaitScreen extends AppCompatActivity {
         }
     };
 
+    //Cancel Taxi reservation
+    //=================================================================================
     public void cancelTaxiReservation(){
 
         List<Map<String,Object>> values = new ArrayList<>();
@@ -150,6 +163,8 @@ public class TaxiWaitScreen extends AppCompatActivity {
         });
     }
 
+    //Resume taxi reservation
+    //=================================================================================
     public void resumeTaxiReservation(){
 
         List<Map<String,Object>> values = new ArrayList<>();

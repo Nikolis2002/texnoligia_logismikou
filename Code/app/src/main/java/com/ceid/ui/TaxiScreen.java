@@ -56,6 +56,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taxi_screen);
 
+        //Disable back button in this screen
+        //=================================================================================
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -64,11 +66,20 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
             }
         });
 
+        //Disable button
+        //=================================================================================
         enableTaxiBtn(false);
+
+        //Get GPS location
+        //=================================================================================
         gpsLocation();
 
+        //Get Customer data
+        //=================================================================================
         customer=(Customer) User.getCurrentUser();
 
+        //Display Customer Wallet info
+        //=================================================================================
         TextView textView = findViewById(R.id.balance);
         String balance= customer.getWallet().getBalance() + "€";
         textView.setText(balance);
@@ -79,10 +90,13 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
     }
 
 
-
+    //Create a Taxi Request/Service
+    //=================================================================================
     public void findTaxi(View view){
         boolean fieldCheck=checkLocField();
 
+        //Alert user
+        //=================================================================================
         if(!fieldCheck){
             Toast.makeText(getApplicationContext(), "Set a destination!", Toast.LENGTH_SHORT).show();
         }
@@ -93,6 +107,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
         if(fieldCheck && paymentCheck()!=-1){
 
+            //Get payment method
+            //=================================================================================
             RadioGroup paymentRadioGroup = findViewById(R.id.paymentRadioGroup);
             int selectedPayment = paymentRadioGroup.getCheckedRadioButtonId();
             RadioButton paymentRadioButton = findViewById(selectedPayment);
@@ -143,6 +159,9 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
                     }
                 });
             }else{
+
+                //Get Wallet balance
+                //=================================================================================
                 double balance=customer.getWallet().getBalance();
 
                 if(balance<finalCostEstimated){
@@ -198,7 +217,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
 
     }
 
-
+    //Insert the destination
+    //=================================================================================
     public void insertDestination(View view){
         Intent destinationIntent = new Intent(TaxiScreen.this, LocationScreen.class);
         destinationScreenData = new Bundle();
@@ -210,17 +230,22 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         activityResultLauncher.launch(destinationIntent);
     }
 
+    //Check if payment method have been selected
+    //=================================================================================
     private int paymentCheck(){
         RadioGroup radioGroup = findViewById(R.id.paymentRadioGroup);
 
         return radioGroup.getCheckedRadioButtonId();
     }
 
+    //Enable/Disable Taxi button
+    //=================================================================================
     private void enableTaxiBtn(Boolean action){
         Button button = findViewById(R.id.findCabButton);
         button.setEnabled(action);
     }
-
+    //Check if the location field have a destination
+    //=================================================================================
     private boolean checkLocField(){
         TextInputEditText destCoords = findViewById(R.id.endPointInput);
         String end = destCoords.getText().toString();
@@ -228,6 +253,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         return !(end.isEmpty());
     }
 
+    //Get GPS location
+    //=================================================================================
     private void gpsLocation(){
 
         List<Location> locationList= new ArrayList<>();
@@ -275,7 +302,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         fromInput.setText(location.getAddress());
     }
 
-
+    //Retrieve destination from LocationScreen
+    //=================================================================================
     @Override
     public void onActivityResult(ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK){
@@ -287,6 +315,8 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
             destinationCoord = (Coordinates) destinationScreenData.getSerializable("coords");
             zoom = destinationScreenData.getFloat("zoom");
 
+            //Estimate Taxi cost and display
+            //=================================================================================
             if (destinationCoord != null){
                 TextInputEditText destCoords = findViewById(R.id.endPointInput);
                 destCoords.setText(destinationCoord.toString());
