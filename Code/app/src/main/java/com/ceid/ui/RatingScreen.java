@@ -50,6 +50,8 @@ public class RatingScreen extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rating_screen);
 
+		//Back press
+		//========================================================================
 		OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
 		dispatcher.addCallback(this, new OnBackPressedCallback(true) {
 			@Override
@@ -58,6 +60,8 @@ public class RatingScreen extends AppCompatActivity
 			}
 		});
 
+		//Data for this screen
+		//========================================================================
 		this.servicePos = getIntent().getIntExtra("service_pos", -1);
 		this.customer = (Customer) User.getCurrentUser();
 		this.service = customer.getHistory().getList().get(servicePos);
@@ -66,21 +70,29 @@ public class RatingScreen extends AppCompatActivity
 		list.setLayoutManager(new LinearLayoutManager(this));
 		list.setAdapter(new HistoryListAdapter(this, service));
 
+		//Data to pass to the appropriate fragment
+		//========================================================================
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("rating", service.getRating());
 
+		//Route is for Rental
+		//========================================================================
 		if (service instanceof RentalService)
 		{
 			RatingRental fragment = new RatingRental();
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
+		//Route is for OutCity
+		//========================================================================
 		else if (service instanceof OutCityService)
 		{
 			Fragment fragment = new RatingOutcity();
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
 		}
+		//Route is for Taxi
+		//========================================================================
 		else if (service instanceof TaxiService)
 		{
 			Fragment fragment = new RatingTaxi();
@@ -97,6 +109,8 @@ public class RatingScreen extends AppCompatActivity
 
 	public void submit(View view)
 	{
+		//Get rating fields
+		//=================================================================================
 		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
 		View fview = fragment.getView();
 
@@ -134,6 +148,8 @@ public class RatingScreen extends AppCompatActivity
 			txt = text.getText().toString();
 		}
 
+		//Check rating
+		//=================================================================================
 		if (validateRating(r1, r2, txt))
 		{
 			saveRating(r1, r2, txt);
@@ -155,42 +171,46 @@ public class RatingScreen extends AppCompatActivity
 
 
 		//Vehicle stars out of range
+		//=================================================================================
 		if ((r1 <= 0) || (r1 > 5))
 		{
 			builder.setTitle("Star Error");
 			builder.setMessage("Vehicle stars are not within allowed range (1 to 5)");
 			builder.setCancelable(false);
 
-			AlertDialog alert = builder.create();
-			alert.setCanceledOnTouchOutside(false);
-			alert.show();
+			AlertDialog starError = builder.create();
+			starError.setCanceledOnTouchOutside(false);
+			starError.show();
 
 			return false;
 		}
 
 		//Driver/ Garage stars out of range
+		//=================================================================================
 		if ((r2 != null) && ((r2 <= 0) || (r2 > 5)))
 		{
 			builder.setTitle("Star Error");
 			builder.setMessage(String.format("%s stars are not within allowed range (1 to 5)", service instanceof OutCityService ? "Garage" : "Driver"));
 			builder.setCancelable(false);
 
-			AlertDialog alert = builder.create();
-			alert.setCanceledOnTouchOutside(false);
-			alert.show();
+			AlertDialog starError = builder.create();
+			starError.setCanceledOnTouchOutside(false);
+			starError.show();
 
 			return false;
 		}
 
+		//Comment too big
+		//=================================================================================
 		if (text.length() > 200)
 		{
 			builder.setTitle("Achievement Unlocked - Professional Yapper");
 			builder.setMessage("Comment is too big, must be at most 200 characters long");
 			builder.setCancelable(false);
 
-			AlertDialog alert = builder.create();
-			alert.setCanceledOnTouchOutside(false);
-			alert.show();
+			AlertDialog commentError = builder.create();
+			commentError.setCanceledOnTouchOutside(false);
+			commentError.show();
 
 			return false;
 		}

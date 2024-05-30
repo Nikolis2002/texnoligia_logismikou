@@ -26,23 +26,26 @@ public class RatingTaxi extends Fragment
 		Rating rating = (Rating)args.getSerializable("rating");
 
 		if (rating != null)
-		{
-			RatingBar vehicleBar = view.findViewById(R.id.taxiRating);
-			RatingBar driverBar = view.findViewById(R.id.driverRating);
-			TextInputEditText comment = view.findViewById(R.id.commentText);
-
-			vehicleBar.setRating(rating.getVehicleStars());
-			vehicleBar.setIsIndicator(true);
-
-			driverBar.setRating(rating.getDriverStars());
-			driverBar.setIsIndicator(true);
-
-			comment.setText(rating.getComment());
-			comment.setFocusableInTouchMode(false);
-			comment.clearFocus();
-		}
+			showRating(view, rating);
 
 		return view;
+	}
+
+	public void showRating(View view, Rating rating)
+	{
+		RatingBar vehicleBar = view.findViewById(R.id.taxiRating);
+		RatingBar driverBar = view.findViewById(R.id.driverRating);
+		TextInputEditText comment = view.findViewById(R.id.commentText);
+
+		vehicleBar.setRating(rating.getVehicleStars());
+		vehicleBar.setIsIndicator(true);
+
+		driverBar.setRating(rating.getDriverStars());
+		driverBar.setIsIndicator(true);
+
+		comment.setText(rating.getComment());
+		comment.setFocusableInTouchMode(false);
+		comment.clearFocus();
 	}
 }
 

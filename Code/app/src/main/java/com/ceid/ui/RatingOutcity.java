@@ -26,23 +26,26 @@ public class RatingOutcity extends Fragment
 		Rating rating = (Rating)args.getSerializable("rating");
 
 		if (rating != null)
-		{
-			RatingBar vehicleBar = view.findViewById(R.id.vehicleRating);
-			RatingBar garageBar = view.findViewById(R.id.garageRating);
-			TextInputEditText comment = view.findViewById(R.id.commentText);
-
-			vehicleBar.setRating(rating.getVehicleStars());
-			vehicleBar.setIsIndicator(true);
-
-			garageBar.setRating(rating.getGarageStars());
-			garageBar.setIsIndicator(true);
-
-			comment.setText(rating.getComment());
-			comment.setFocusableInTouchMode(false);
-			comment.clearFocus();
-		}
+			showRating(view, rating);
 
 		return view;
+	}
+
+	public void showRating(View view, Rating rating)
+	{
+		RatingBar vehicleBar = view.findViewById(R.id.vehicleRating);
+		RatingBar garageBar = view.findViewById(R.id.garageRating);
+		TextInputEditText comment = view.findViewById(R.id.commentText);
+
+		vehicleBar.setRating(rating.getVehicleStars());
+		vehicleBar.setIsIndicator(true);
+
+		garageBar.setRating(rating.getGarageStars());
+		garageBar.setIsIndicator(true);
+
+		comment.setText(rating.getComment());
+		comment.setFocusableInTouchMode(false);
+		comment.clearFocus();
 	}
 }
 
