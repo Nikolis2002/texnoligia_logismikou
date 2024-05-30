@@ -222,7 +222,7 @@
                         android:layout_height="match_parent"
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/taxi_image_2"
-                        android:onClick="onTaxiClick"
+                        android:onClick="Taxi"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/local_taxi_fill0_wght400_grad0_opsz24" />
                 </LinearLayout>

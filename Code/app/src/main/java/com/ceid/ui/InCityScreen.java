@@ -121,7 +121,7 @@ public class InCityScreen extends AppCompatActivity
         startActivity(rentalIntent);
     }
 
-    public void onTaxiClick(View view)
+    public void Taxi(View view)
     {
         taxiIntent.putExtra("customer",customer);
         startActivity(taxiIntent);
