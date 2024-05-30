@@ -202,6 +202,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
             //User denied permission
             else
             {
+                //deniedPermission
                 Toast.makeText(getApplicationContext(), "App does not have camera permission", Toast.LENGTH_SHORT).show();
                 cancelReservation();
                 Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
