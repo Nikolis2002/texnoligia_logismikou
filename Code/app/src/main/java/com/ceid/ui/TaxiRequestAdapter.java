@@ -91,7 +91,7 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         values.add(taxiReservationCheck);
 
         String jsonString = jsonStringParser.createJsonString("checkTaxiRequest",values);
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -133,7 +133,7 @@ public class TaxiRequestAdapter extends RecyclerView.Adapter<TaxiRequestAdapter.
         values.add(taxiReservationConfirm);
 
         String jsonString = jsonStringParser.createJsonString("acceptTaxiRequest",values);
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

@@ -1,6 +1,5 @@
 package com.ceid.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -92,7 +91,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
         values.add(taxiReservationCheck);
 
         String jsonString = jsonStringParser.createJsonString("checkTaxiReservationSecond",values);
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -111,7 +110,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
                             String jsonString = jsonStringParser.createJsonString("updatePickUpRequest",values);
 
-                            Call<ResponseBody> call_update = api.getFunction(jsonString);
+                            Call<ResponseBody> call_update = api.callProcedure(jsonString);
 
                             call_update.enqueue(new Callback<ResponseBody>() {
                                 @Override
@@ -181,7 +180,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
         String jsonString = jsonStringParser.createJsonString("completeTaxiRequest",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -200,7 +199,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
 
                         String jsonString = jsonStringParser.createJsonString("updateWallet",values);
 
-                        Call<ResponseBody> call_wallet = api.getFunction(jsonString);
+                        Call<ResponseBody> call_wallet = api.callProcedure(jsonString);
 
                         call_wallet.enqueue(new Callback<ResponseBody>() {
                             @Override

@@ -1,13 +1,11 @@
 package com.ceid.ui;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +43,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -55,7 +51,7 @@ import retrofit2.Response;
 
 public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyListener {
 
-    private Map map;
+    private Map reserveVehMap;
     private Rental rental;
     private int serviceId;
     private CountDownTimer reservationTimer;
@@ -80,7 +76,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         //Setup map
         //=================================================================================
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap);
-        map = new Map(mapFragment, this, this);
+        reserveVehMap = new Map(mapFragment, this, this);
 
         //Get data from previous screen
         //=================================================================================
@@ -117,6 +113,29 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         reservationTimer.start();
     }
 
+    //Got the map from the map service
+    //Display the map, along with vehicle's location
+    //============================================================================================
+    @Override
+    public void onMapWrapperReady()
+    {
+        Coordinates location = new Coordinates(rental.getTracker().getCoords().getLat(),rental.getTracker().getCoords().getLng());
+        reserveVehMap.setZoom(15);
+        reserveVehMap.setPosition(location);
+
+        //Place pin according to the vehicle's type
+        //================================================================================
+        if (rental instanceof CityCar)
+            reserveVehMap.placePin(location,true, R.drawable.in_city_car);
+        else if (rental instanceof Motorcycle)
+            reserveVehMap.placePin(location,true, R.drawable.in_city_motorcycle);
+        else if (rental instanceof Bicycle)
+            reserveVehMap.placePin(location,true, R.drawable.in_city_bicycle);
+        else
+            reserveVehMap.placePin(location,true, R.drawable.in_city_scooter);
+
+    }
+
     public void openCamera(){
         IntentIntegrator qrScanner = new IntentIntegrator(UnlockScreen.this);
         qrScanner.setCaptureActivity(QrCamera.class);
@@ -128,6 +147,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
 
     //User cancels reservation
+    //============================================================================================
     public void cancelReservation(){
         List<java.util.Map<String,Object>> values = new ArrayList<>();
         java.util.Map<String, Object> cancelReservation = new LinkedHashMap<>();
@@ -137,7 +157,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
         String jsonString = jsonStringParser.createJsonString("cancelReservation",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -154,6 +174,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
     }
 
     //Pressing the unlock button
+    //============================================================================================
     public void unlockVehicle(View view){
 
         //Check if app has camera permission
@@ -213,7 +234,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
             String jsonString = jsonStringParser.createJsonString("checkVehicleId",values);
 
-            Call<ResponseBody> call = api.getFunction(jsonString);
+            Call<ResponseBody> call = api.callProcedure(jsonString);
 
             //Make the database call
             //==============================================================================================
@@ -245,7 +266,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
 
                                 String jsonString = jsonStringParser.createJsonString("unlockVehicle",values);
 
-                                Call<ResponseBody> call_unlock = api.getFunction(jsonString);
+                                Call<ResponseBody> call_unlock = api.callProcedure(jsonString);
 
                                 //Update database with the unlock event
                                 //=========================================================================
@@ -264,7 +285,7 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
                                         values.add(creationDate);
 
                                         String jsonString = jsonStringParser.createJsonString("rentalService",values);
-                                        Call<ResponseBody> call_date = api.getFunction(jsonString);
+                                        Call<ResponseBody> call_date = api.callProcedure(jsonString);
 
                                         //Make the call
                                         //=========================================================================
@@ -360,24 +381,6 @@ public class UnlockScreen extends AppCompatActivity implements MapWrapperReadyLi
         Intent intent = new Intent(UnlockScreen.this,MainScreen.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public void onMapWrapperReady()
-    {
-        Coordinates location = new Coordinates(rental.getTracker().getCoords().getLat(),rental.getTracker().getCoords().getLng());
-        map.setZoom(15);
-        map.setPosition(location);
-
-        if (rental instanceof CityCar)
-            map.placePin(location,true, R.drawable.in_city_car);
-        else if (rental instanceof Motorcycle)
-            map.placePin(location,true, R.drawable.in_city_motorcycle);
-        else if (rental instanceof Bicycle)
-            map.placePin(location,true, R.drawable.in_city_bicycle);
-        else
-            map.placePin(location,true, R.drawable.in_city_scooter);
-
     }
 
     @Override

@@ -1,11 +1,8 @@
 package com.ceid.ui;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,11 +12,9 @@ import com.ceid.Network.ApiService;
 import com.ceid.Network.jsonStringParser;
 import com.ceid.model.service.OutCityService;
 import com.ceid.model.service.Rating;
-import com.ceid.model.service.RatingType;
 import com.ceid.model.service.RentalService;
 import com.ceid.model.service.Service;
 import com.ceid.model.service.TaxiService;
-import com.ceid.model.transport.Taxi;
 import com.ceid.model.users.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.ceid.model.users.Customer;
@@ -33,7 +28,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -242,7 +236,7 @@ public class RatingScreen extends AppCompatActivity
 		String jsonString = jsonStringParser.createJsonString(procedure, values);
 
 		ApiService api = ApiClient.getApiService();
-		Call<ResponseBody> call = api.getFunction(jsonString);
+		Call<ResponseBody> call = api.callProcedure(jsonString);
 
 		call.enqueue(new Callback<ResponseBody>()
 		{

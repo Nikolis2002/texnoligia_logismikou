@@ -22,7 +22,7 @@ public interface ApiService {
 
 
     @POST("/getFunctionWithParams")
-    Call<ResponseBody> getFunction(@Body String jsonfunction);
+    Call<ResponseBody> callProcedure(@Body String jsonfunction);
 
     @POST("/getFunctionNoParams")
     Call<String> getFuncNoParams(@Body String jsonfunction);

@@ -1,6 +1,5 @@
 package com.ceid.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -88,7 +87,7 @@ public class TaxiRideScreen extends AppCompatActivity {
         values.add(taxiPickUncheck);
 
         String jsonString = jsonStringParser.createJsonString("checkTaxiPickUp",values);
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -140,7 +139,7 @@ public class TaxiRideScreen extends AppCompatActivity {
         values.add(taxiComplete);
 
         String jsonString = jsonStringParser.createJsonString("checkTaxiComplete",values);
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -180,7 +179,7 @@ public class TaxiRideScreen extends AppCompatActivity {
         values.add(paymentCheck);
         String jsonString = jsonStringParser.createJsonString("getPayment",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -215,7 +214,7 @@ public class TaxiRideScreen extends AppCompatActivity {
                                 values.add(updatePoints);
 
                                 String jsonString = jsonStringParser.createJsonString("updatePoints", values);
-                                Call<ResponseBody> call_points = api.getFunction(jsonString);
+                                Call<ResponseBody> call_points = api.callProcedure(jsonString);
 
                                 call_points.enqueue(new Callback<ResponseBody>() {
                                     @Override
@@ -227,7 +226,7 @@ public class TaxiRideScreen extends AppCompatActivity {
                                         values.add(updateWallet);
 
                                         String jsonString = jsonStringParser.createJsonString("updateWallet", values);
-                                        Call<ResponseBody> call_wallet = api.getFunction(jsonString);
+                                        Call<ResponseBody> call_wallet = api.callProcedure(jsonString);
 
                                         call_wallet.enqueue(new Callback<ResponseBody>() {
                                             @Override

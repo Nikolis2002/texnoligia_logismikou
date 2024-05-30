@@ -1,6 +1,5 @@
 package com.ceid.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -96,7 +95,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
 
             String jsonString = jsonStringParser.createJsonString("checkTaxiReservation",values);
 
-            Call<ResponseBody> call = api.getFunction(jsonString);
+            Call<ResponseBody> call = api.callProcedure(jsonString);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -138,7 +137,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
         values.add(taxiReservationCancel);
         String jsonString = jsonStringParser.createJsonString("cancelService",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -168,7 +167,7 @@ public class TaxiWaitScreen extends AppCompatActivity {
 
         String jsonString = jsonStringParser.createJsonString("resumeService",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

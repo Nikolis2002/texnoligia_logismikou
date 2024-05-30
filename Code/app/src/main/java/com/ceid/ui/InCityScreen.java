@@ -104,9 +104,9 @@ public class InCityScreen extends AppCompatActivity
                     }
                 });
 
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
+                AlertDialog requiredLicenseMsg = builder.create();
+                requiredLicenseMsg.setCanceledOnTouchOutside(false);
+                requiredLicenseMsg.show();
 
                 return;
             }
@@ -131,9 +131,9 @@ public class InCityScreen extends AppCompatActivity
                         }
                     });
 
-                    AlertDialog dialog = builder.create();
+                    AlertDialog invalidLicense = builder.create();
 
-                    dialog.show();
+                    invalidLicense.show();
 
                     return;
                 }

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -33,16 +32,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -264,7 +260,7 @@ public class GarageReservationForm extends AppCompatActivity
 
 			ApiService api= ApiClient.getApiService();
 			String parser= jsonStringParser.createJsonString("insertOutCityService",values);
-			Call<ResponseBody> call= api.getFunction(parser);
+			Call<ResponseBody> call= api.callProcedure(parser);
 
 			call.enqueue(new Callback<ResponseBody>() {
 				@Override

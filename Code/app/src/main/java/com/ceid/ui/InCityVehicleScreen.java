@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -159,7 +160,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
             //================================================================================
             View popupView = LayoutInflater.from(this).inflate(R.layout.vehicle_popup, null);
 
-            PopupWindow popupWindow = new PopupWindow(
+            PopupWindow vehicleInfoPopup = new PopupWindow(
                     popupView,
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -167,7 +168,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
 
             // Show the popup window
             //================================================================================
-            popupWindow.showAtLocation(
+            vehicleInfoPopup.showAtLocation(
                     findViewById(android.R.id.content),
                     Gravity.CENTER,
                     0,
@@ -231,7 +232,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                 @Override
                 public void onClick(View v)
                 {
-                    popupWindow.dismiss();
+                    vehicleInfoPopup.dismiss();
                 }
             });
 
@@ -260,7 +261,7 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                 //================================================================================
                                 if (rentalAvailable == 0)
                                 {
-                                    popupWindow.dismiss();
+                                    vehicleInfoPopup.dismiss();
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(InCityVehicleScreen.this);
 
@@ -280,9 +281,9 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                                         }
                                     });
 
-                                    AlertDialog alert = builder.create();
-                                    alert.setCanceledOnTouchOutside(false);
-                                    alert.show();
+                                    AlertDialog existingReservationMsg = builder.create();
+                                    existingReservationMsg.setCanceledOnTouchOutside(false);
+                                    existingReservationMsg.show();
                                 }
                                 //Reservation doesn't exist
                                 //================================================================================
@@ -494,6 +495,8 @@ public class InCityVehicleScreen extends AppCompatActivity implements ActivityRe
                             listView.setAdapter(vehicleListAdapter);
                             listView.setOnItemClickListener(InCityVehicleScreen.this);
                         }else{
+
+                            Toast.makeText(getApplicationContext(), "No vehicles in your area", Toast.LENGTH_SHORT).show();
 
                             if(vehicleListAdapter!=null){
                                 vehicleListAdapter.clearData();

@@ -28,7 +28,7 @@ public class PostHelper {
 
     public void signUp(ApiService api, String userString) {
 
-        Call<ResponseBody> call = api.getFunction(userString);
+        Call<ResponseBody> call = api.callProcedure(userString);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -76,7 +76,7 @@ public class PostHelper {
 
     public void card(ApiService api, String cardParams) {
 
-        Call<ResponseBody> call = api.getFunction(cardParams);
+        Call<ResponseBody> call = api.callProcedure(cardParams);
         Log.d("kort", "kort was send successfully!!");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -171,7 +171,7 @@ public class PostHelper {
 
         String jsonString = jsonStringParser.createJsonString("withdraw_from_wallet",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
         call.enqueue(new Callback<ResponseBody>()
         {
             @Override
@@ -200,7 +200,7 @@ public class PostHelper {
 
         String jsonString = jsonStringParser.createJsonString("add_to_wallet",values);
 
-        Call<ResponseBody> call = api.getFunction(jsonString);
+        Call<ResponseBody> call = api.callProcedure(jsonString);
         call.enqueue(new Callback<ResponseBody>()
         {
             @Override
@@ -219,7 +219,7 @@ public class PostHelper {
 
     public void charge(ApiService api, String value) {
 
-        Call<ResponseBody> call = api.getFunction(value);
+        Call<ResponseBody> call = api.callProcedure(value);
         Log.d("kort", "kort was send successfully!!");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -249,7 +249,7 @@ public class PostHelper {
 
     public void licenseCall(ApiService api, String license) {
 
-        Call<ResponseBody> call = api.getFunction(license);
+        Call<ResponseBody> call = api.callProcedure(license);
         Log.d("kort", "kort was send successfully!!");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -276,7 +276,7 @@ public class PostHelper {
     }
     public void finalRental(ApiService api,String params)
     {
-        Call<ResponseBody> call = api.getFunction(params);
+        Call<ResponseBody> call = api.callProcedure(params);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
