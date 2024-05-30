@@ -247,7 +247,7 @@ public class TaxiScreen extends AppCompatActivity implements ActivityResultCallb
         locationList.add(new Location(
                 38.23805202046475,
                 21.72593019402509,
-                "Veso Mare"
+                "Vest Mare"
         ));
 
         locationList.add(new Location(
