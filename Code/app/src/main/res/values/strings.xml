@@ -138,6 +138,15 @@
     <string name="adddriversLicense">Add a driver\'s license</string>
     <string name="timesec">Duration(min):</string>
     <string name="requests_taxi">Requests</string>
+    <string name="amount_to_add">Amount to Add:</string>
+    <string name="balance">Balance:</string>
+    <string name="spinner_with_cards">Spinner with cards</string>
+    <string name="choose_a_card">Choose a Card</string>
+    <string name="charge_wallet">Charge Wallet</string>
+    <string name="wallet_screen_text">Wallet</string>
+    <string name="wallet_info">Wallet Info</string>
+    <string name="your_account">Your Account</string>
+    <string name="wallet_management">Wallet Management</string>
 
 
 </resources>

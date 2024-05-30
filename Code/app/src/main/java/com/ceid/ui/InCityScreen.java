@@ -1,15 +1,9 @@
 package com.ceid.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaRouter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -82,26 +76,16 @@ public class InCityScreen extends AppCompatActivity
 
                 //User inserts license
                 //================================================================================
-                builder.setPositiveButton("Insert", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        //Go to LicenseScreen
-                        startActivity(new Intent(InCityScreen.this, LicenseScreen.class));
-                    }
+                builder.setPositiveButton("Insert", (dialog, which) -> {
+                    //Go to LicenseScreen
+                    startActivity(new Intent(InCityScreen.this, LicenseScreen.class));
                 });
 
                 //User doesn't insert license
                 //================================================================================
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        finish();
-                    }
+                builder.setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
                 });
 
                 AlertDialog requiredLicenseMsg = builder.create();
@@ -122,14 +106,7 @@ public class InCityScreen extends AppCompatActivity
                     builder.setMessage("You don't have the necessary license for this vehicle");
                     builder.setCancelable(false);
 
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            dialog.dismiss();
-                        }
-                    });
+                    builder.setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
 
                     AlertDialog invalidLicense = builder.create();
 

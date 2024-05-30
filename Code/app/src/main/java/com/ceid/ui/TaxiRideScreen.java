@@ -253,10 +253,29 @@ public class TaxiRideScreen extends AppCompatActivity {
 
                             } else {
                                 customer.getWallet().withdraw(cost);
-                                Toast.makeText(getApplicationContext(), "Your wallet balance is negative", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
-                                startActivity(intent);
-                                finish();
+
+                                List<Map<String, Object>> values = new ArrayList<>();
+                                java.util.Map<String, Object> updateWallet = new LinkedHashMap<>();
+                                updateWallet.put("username", customer.getUsername());
+                                updateWallet.put("balance", customer.getWallet().getBalance());
+                                values.add(updateWallet);
+
+                                String jsonString = jsonStringParser.createJsonString("updateWallet", values);
+                                Call<ResponseBody> call_wallet = api.callProcedure(jsonString);
+
+                                call_wallet.enqueue(new Callback<ResponseBody>() {
+                                 @Override
+                                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                                     Toast.makeText(getApplicationContext(), "Your wallet balance is negative", Toast.LENGTH_SHORT).show();
+                                     Intent intent = new Intent(TaxiRideScreen.this, MainScreen.class);
+                                     startActivity(intent);
+                                     finish();
+                                 }
+                                 @Override
+                                 public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {}
+                                });
+
+
                             }
                         }
                     } catch (IOException e) {

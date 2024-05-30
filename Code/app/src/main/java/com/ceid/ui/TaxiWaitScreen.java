@@ -142,14 +142,6 @@ public class TaxiWaitScreen extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-
-                if(response.isSuccessful()){
-
-
-                }else{
-                    System.out.println("Error message");
-                }
-
             }
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
@@ -172,14 +164,6 @@ public class TaxiWaitScreen extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-
-                if(response.isSuccessful()){
-
-
-                }else{
-                    System.out.println("Error message");
-                }
-
             }
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
