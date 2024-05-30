@@ -1,5 +1,8 @@
 @startuml
 left to right direction
+scale 1.5
+skinparam linetype ortho
+
 class RatingRental {
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
 }
@@ -93,7 +96,6 @@ class TaxiRideScreen {
 - ApiService api
 - Customer customer
 - double cost
-- CountDownLatch waitCost
 # void onCreate(Bundle)
 + void isPickUp()
 + void rideStatus()
@@ -405,7 +407,7 @@ class .Map {
 + void setClickListener(GoogleMap.OnMapClickListener)
 }
 
-class .Timer {
+class Timer {
 + <<Create>> Timer()
 + Instant startTimer()
 + Instant stopTimer()
@@ -643,7 +645,6 @@ class Points {
 
 class OutCityScreen {
 - RecyclerView recyclerView
-- GarageListAdapterOld adapter
 - Bundle locationScreenData
 - Intent locationIntent
 - ActivityResultLauncher<Intent> activityResultLauncher
@@ -919,8 +920,6 @@ MapWrapperReadyListener <|.. InCityVehicleScreen
 Rental <|-- ElectricScooter
 InCityTransport <|-- Taxi
 Rental <|-- CityCar
-ScrollMapFragment +.. ScrollMapFragment$OnTouchListener
-ScrollMapFragment +.. ScrollMapFragment$TouchableWrapper
 Rental <|-- Bicycle
 Service <|-- TaxiService
 Coordinates <|-- Location
@@ -987,4 +986,15 @@ InCityVehicleScreen o-- Coordinates
 TaxiScreen o-- Location
 UnlockScreen o-- Rental
 RefillScreen o-- GasStation
+HistoryListAdapter o-- Service
+TaxiRequestAdapter o-- TaxiRequest
+VehicleListAdapter o-- Coordinates
+Tracker o-- Coordinates
+TaxiRequestWaitScreen o-- Timer
+UnlockScreen  o-- Timer
+GarageInfoScreen o-- Garage
+GarageInfoScreen o-- OutCityTransport
+TaxiScreen o-- Customer
+ChargeWallet o-- Card
+CustomerHistory o-- Customer
 @enduml
