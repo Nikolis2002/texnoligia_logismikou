@@ -67,7 +67,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
         locationIntent = new Intent(this, LocationScreen.class);
     }
 
-    public void onClick(View view)
+    public void inputLocation(View view)
     {
         if (locationScreenData != null)
             locationIntent.putExtras(locationScreenData);
@@ -273,7 +273,7 @@ public class OutCityScreen extends AppCompatActivity implements AdapterView.OnIt
             public void onClick(DialogInterface dialog, int which)
             {
                 dialog.dismiss();
-                OutCityScreen.this.onClick(null);
+                OutCityScreen.this.inputLocation(null);
             }
         });
 

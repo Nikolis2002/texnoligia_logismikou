@@ -84,10 +84,12 @@ public class LocationScreen extends AppCompatActivity implements MapWrapperReady
 	//User presses the button to confirm location
 	public void confirmLocation(View view)
 	{
+		Coordinates coords = map.getPinCoords();
+
 		if (map.withinPolygon())
 		{
 			data = new Bundle();
-			data.putSerializable("coords", map.getPinCoords());
+			data.putSerializable("coords", coords);
 			data.putFloat("zoom", map.getZoom());
 			data.putSerializable("polygon", map.getSelectedPolygonCoords());
 

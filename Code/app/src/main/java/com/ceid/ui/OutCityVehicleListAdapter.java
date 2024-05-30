@@ -68,10 +68,15 @@ public class OutCityVehicleListAdapter extends BaseAdapter
         {
             if (convertView == null)
             {
-                convertView = LayoutInflater.from(this.context).inflate(R.layout.out_city_vehicles_empty_row, parent, false);
+                convertView = emptyRow(parent);
             }
 
             return convertView;
         }
+    }
+
+    public View emptyRow(ViewGroup parent)
+    {
+        return LayoutInflater.from(this.context).inflate(R.layout.out_city_vehicles_empty_row, parent, false);
     }
 }

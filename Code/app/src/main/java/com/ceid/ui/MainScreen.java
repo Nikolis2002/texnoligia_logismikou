@@ -102,13 +102,12 @@ public class MainScreen extends AppCompatActivity {
             if (!Objects.equals(license, "CAR") && !Objects.equals(license, "BOTH"))
             {
                 licenseErrorMsg();
+                return;
             }
-            else
-            {
-                //Display OutCityScreen
-                Intent intent = new Intent(this, OutCityScreen.class);
-                startActivity(intent);
-            }
+
+            //Display OutCityScreen
+            Intent intent = new Intent(this, OutCityScreen.class);
+            startActivity(intent);
         }
     }
     public void addCardButton2(View view)

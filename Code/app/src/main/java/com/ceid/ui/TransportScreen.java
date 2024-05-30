@@ -56,7 +56,7 @@ import java.util.ArrayList;
 @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 public class TransportScreen extends AppCompatActivity implements MapWrapperReadyListener, GoogleMap.OnMapClickListener{
 
-    private Map map;
+    private Map stationMap;
     private Chronometer timer;
     private double addNumber=20;
     private Marker carMarker=null;
@@ -112,9 +112,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         //Create map
         //======================================================================================
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationMapViewRefill);
-        map = new Map(mapFragment, this,this);
-        map.setClickable(true);
-        map.setClickListener(this);
+        stationMap = new Map(mapFragment, this,this);
+        stationMap.setClickable(true);
+        stationMap.setClickListener(this);
 
         //Start movement timer
         //======================================================================================
@@ -154,7 +154,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         //For every gas station, place pin
                         //======================================================================================
                         for (GasStation station : data) {
-                            Marker marker = map.placePin(station.getCoords(), false, R.drawable.gas_station);
+                            Marker marker = stationMap.placePin(station.getCoords(), false, R.drawable.gas_station);
                             marker.setTag(station);
                         }
                     }
@@ -203,12 +203,12 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         //Focus map
         //======================================================================================
         Coordinates Patra = new Coordinates( 38.246639, 21.734573);
-        this.map.setZoom(12);
-        this.map.setPosition(Patra);
+        this.stationMap.setZoom(12);
+        this.stationMap.setPosition(Patra);
 
         //Consume click event
         //======================================================================================
-        this.map.setMarkerListener(new GoogleMap.OnMarkerClickListener (){
+        this.stationMap.setMarkerListener(new GoogleMap.OnMarkerClickListener (){
 
             @Override
             public boolean onMarkerClick(@NonNull Marker marker)
@@ -231,7 +231,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             id=R.drawable.in_city_bicycle;
         }
 
-        carMarker = map.placePin(car.getTracker().getCoords(), false, id);
+        carMarker = stationMap.placePin(car.getTracker().getCoords(), false, id);
         carMarker.setTag(car);
 
         //Enable refill option only if the vehicle accepts gas
@@ -286,7 +286,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         carMarker.remove();
         Coordinates coords=new Coordinates(latLng);
         car.getTracker().setCoords(coords);
-        carMarker=map.placePin(coords,false,id);
+        carMarker= stationMap.placePin(coords,false,id);
 
 
     }
@@ -313,14 +313,14 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 //===========================================================================
                 View popupView = LayoutInflater.from(TransportScreen.this).inflate(R.layout.refill_popup, null);
 
-                PopupWindow popupWindow = new PopupWindow(
+                PopupWindow refillPopup = new PopupWindow(
                         popupView,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                 );
 
                 // Show the popup window
-                popupWindow.showAtLocation(
+                refillPopup.showAtLocation(
                         findViewById(android.R.id.content),
                         Gravity.CENTER,
                         0,
@@ -362,10 +362,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     @Override
                     public void onClick(View v)
                     {
-                        popupWindow.dismiss();
+                        refillPopup.dismiss();
                         handler.removeCallbacks(runnable);
                         currentTimerValue = -1;
-                        onRefillEnd(popupWindow,initTracker,nearestGasStation);
+                        onRefillEnd(refillPopup,initTracker,nearestGasStation);
                     }
                 });
 
@@ -373,7 +373,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                     @Override
                     public void onClick(View v)
                     {
-                        popupWindow.dismiss();
+                        refillPopup.dismiss();
                         currentTimerValue = -1;
                         handler.removeCallbacks(runnable);
                     }
@@ -472,6 +472,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 }
                 else
                 {
+                    //belowThresholdMsg
                     Toast.makeText(getApplicationContext(), "Refill amount too small. You gained 0 points.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -513,9 +514,9 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         }
                     });
 
-                    AlertDialog alert = builder.create();
-                    alert.setCanceledOnTouchOutside(false);
-                    alert.show();
+                    AlertDialog finalTrackerFailure = builder.create();
+                    finalTrackerFailure.setCanceledOnTouchOutside(false);
+                    finalTrackerFailure.show();
                 }
                 if(disasterCounter[1]==100) {
                     Toast.makeText(getApplicationContext(), "You reached the max amount of re-tries!", Toast.LENGTH_LONG).show();

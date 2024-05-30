@@ -270,7 +270,7 @@ public class GarageReservationForm extends AppCompatActivity
 						View popupView = LayoutInflater.from(GarageReservationForm.this).inflate(R.layout.garage_popup, null);
 
 						// Create the popup window
-						PopupWindow popupWindow = new PopupWindow(
+						PopupWindow successPopup = new PopupWindow(
 								popupView,
 								ViewGroup.LayoutParams.MATCH_PARENT,
 								ViewGroup.LayoutParams.MATCH_PARENT
@@ -281,7 +281,7 @@ public class GarageReservationForm extends AppCompatActivity
 						textView.setText(yourDate);
 
 						// Show the popup window
-						popupWindow.showAtLocation(
+						successPopup.showAtLocation(
 								findViewById(android.R.id.content),
 								Gravity.CENTER,
 								0,
