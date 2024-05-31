@@ -44,6 +44,6 @@ public class VehicleTracker extends Tracker
 
 	public int calculatePoints()
 	{
-		return 4;
+		return (int) Math.floor(distanceTraveled/5);
 	}
 }

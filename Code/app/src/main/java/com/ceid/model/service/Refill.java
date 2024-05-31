@@ -62,10 +62,12 @@ public class Refill implements Serializable
 		this.completed = completed;
 	}
 
-	public void calculatePoints(Service service)
+	public int calculatePoints(Service service)
 	{
 		int points = 10*endGas.posDiff(startGas);
 		service.addPoints(points);
+
+		return points;
 	}
 	public boolean getSuccess(){
 		return this.completed;

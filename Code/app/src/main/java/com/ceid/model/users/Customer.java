@@ -13,7 +13,7 @@ public class Customer extends User {
     private byte[] img;
 
     private String license;
-    private CustomerHistory history;
+    private CustomerHistory history = new CustomerHistory();
 
    public Customer(String username,String password,String name,String lname,String email,byte[] img,Wallet wallet,String license,int points){
         super(username,password,name,lname,email,wallet);

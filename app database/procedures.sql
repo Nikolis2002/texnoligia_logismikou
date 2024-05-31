@@ -300,7 +300,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insertFinalRentalService;
 DELIMITER $
 
-CREATE PROCEDURE insertFinalRentalService(IN points INT,IN userName Varchar(32),IN pValue DECIMAL(10,2),IN pMethod ENUM('WALLET','CASH'),IN rentalId INT,IN stationId INT,IN initGas INT,IN addedGas INT,IN success VARCHAR(32),IN refillDate DATETIME,IN leftimg LONGBLOB,IN rightimg LONGBLOB,IN frontimg LONGBLOB,in backimg LONGBLOB)
+CREATE PROCEDURE insertFinalRentalService(IN in_points INT,IN userName Varchar(32),IN pValue DECIMAL(10,2),IN pMethod ENUM('WALLET','CASH'),IN serviceId INT,IN stationId INT,IN initGas INT,IN addedGas INT,IN success VARCHAR(32),IN refillDate DATETIME,IN leftimg LONGBLOB,IN rightimg LONGBLOB,IN frontimg LONGBLOB,in backimg LONGBLOB)
 BEGIN
 
     DECLARE paymentID INT UNSIGNED;
@@ -312,18 +312,26 @@ BEGIN
     UPDATE service SET payment_id=paymentID,
     service_status='COMPLETED',
     status_date=NOW(),
-    earned_points=points
-    where id=rentalId;
+    earned_points=in_points
+    where id=serviceId;
     
-    INSERT INTO refill VALUES(refillDate,stationId,initGas,addedGas,success);
+    if (refillDate is not null) then
+        INSERT INTO refill VALUES(refillDate,stationId,initGas,addedGas,success);
+    end if;
 
     UPDATE rental_service SET left_side_img=leftimg,
     right_side_img=rightimg,
     front_side_img=frontimg,
     back_side_img=backimg,
     refill_date=refillDate
-    WHERE service_id=rentalId;
+    WHERE service_id=serviceId;
+
+    UPDATE customer SET points = points + in_points;
+    UPDATE wallet SET balance = balance - pValue WHERE username = userName;
+
 END $
+
+DELIMITER ;
 
 -- =====================================================================================================
 

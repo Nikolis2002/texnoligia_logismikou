@@ -451,7 +451,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 PostHelper.addToWallet(api, customer.getUsername(), gasPrice);
 
                 TextView textAvailable=findViewById(R.id.textAvailable);
-                textAvailable.setText(customer.getWallet().getBalance() + "€");
+                textAvailable.setText(String.format("%.02f€", customer.getWallet().getBalance()));
 
                 //Create the refill object
                 //======================================================================================
@@ -467,8 +467,10 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 //======================================================================================
                 int threshold=5;
 
+                int points = 0;
+
                 if(diff>threshold){
-                    refill.calculatePoints(service);
+                    points = refill.calculatePoints(service);
                 }
                 else
                 {
@@ -479,6 +481,15 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                 hasRefilled = true;
                 ((Button) findViewById(R.id.button7)).setEnabled(false);
                 ((Button) findViewById(R.id.button7)).setClickable(false);
+
+                //Show info popup window
+                //======================================================================================
+                showRefillInfoPopup(
+                        "Refill was successful",
+                        String.format("Added gas: %d L", diff),
+                        String.format("Price: %.02f€", gasPrice),
+                        String.format("Points earned: %d", points)
+                );
             }
 
 
@@ -511,6 +522,15 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                         public void onClick(DialogInterface dialog, int which)
                         {
                             failedRefill(window,initTracker,station);
+
+                            //Show info popup window
+                            //======================================================================================
+                            showRefillInfoPopup(
+                                    "Refill failed",
+									"Added gas: ???",
+									"Price: ???",
+									"Points earned: 0"
+                            );
                         }
                     });
 
@@ -529,6 +549,40 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
         });
     }
 
+    private void showRefillInfoPopup(String title, String gas, String price, String points)
+    {
+        View infoPopupView = LayoutInflater.from(TransportScreen.this).inflate(R.layout.refill_info_popup, null);
+
+        PopupWindow refillInfoPopup = new PopupWindow(
+                infoPopupView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+
+        // Show the popup window
+        refillInfoPopup.showAtLocation(
+                findViewById(android.R.id.content),
+                Gravity.CENTER,
+                0,
+                0
+        );
+
+        ((TextView)infoPopupView.findViewById(R.id.title)).setText(title);
+        ((TextView)infoPopupView.findViewById(R.id.addedGas)).setText(gas);
+        ((TextView)infoPopupView.findViewById(R.id.price)).setText(price);
+        ((TextView)infoPopupView.findViewById(R.id.points)).setText(points);
+
+        Button cancel = infoPopupView.findViewById(R.id.cancel);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                refillInfoPopup.dismiss();
+            }
+        });
+    }
+
     public void failedRefill(PopupWindow window, SpecializedTracker tracker, GasStation station){
 
         //Refill failed. Create Refill object marking the refill as incomplete, as we don't know final gas level
@@ -536,6 +590,8 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
                                  station,
                                  tracker.getGas(),
                                  null);
+
+        service.setRefill(refill);
 
         hasRefilled =true;
         ((Button) findViewById(R.id.button7)).setEnabled(false);
@@ -571,7 +627,6 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
                     double time = ((double)elapsedMillis/60000);
 
-                    bundle.putSerializable("service",service);
                     bundle.putString("timestring", (String) timer.getText());
 
                     Log.d("TIMETEST", (String)timer.getText());
@@ -585,20 +640,25 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
 
                     if (balance < routeCost)
                         insufficientBalance();
-                    else
-                        Toast.makeText(getApplicationContext(), "Payment executed successfully", Toast.LENGTH_SHORT).show();
 
-                    customer.getWallet().withdraw(routeCost);
-                    PostHelper.withdraw(api, customer.getUsername(), routeCost);
+                    //Calculate points
+                    //========================================================================================
+                    int points = tracker.calculatePoints();
+                    bundle.putInt("points", points);
+
+                    service.addPoints(points);
 
                     //Display EndRouteScreen
                     //=========================================================================================
+                    bundle.putSerializable("service",service);
+
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
                 }
                 else //Vehicle is not stopped
                 {
+                    //stoppedVehicle
                     Toast.makeText(getApplicationContext(), "Vehicle must be stopped before ending ride", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -608,6 +668,7 @@ public class TransportScreen extends AppCompatActivity implements MapWrapperRead
             @Override
             public void onFailure(Exception e)
             {
+                //trackerFailure
                 showAlert("Failed to end ride due to tracker communication failure.");
             }
         });

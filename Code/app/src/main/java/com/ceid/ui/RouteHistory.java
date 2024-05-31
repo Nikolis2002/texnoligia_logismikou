@@ -66,7 +66,7 @@ public class RouteHistory extends Fragment
 		CustomerHistory history = customer.getHistory();
 
 		//History has not been retrieved from the database previously
-		if (history == null)
+		if (!history.retrieved())
 		{
 			ApiService api = ApiClient.getApiService();
 

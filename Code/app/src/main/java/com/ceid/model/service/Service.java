@@ -102,4 +102,9 @@ public abstract class Service implements Serializable
     {
         return String.format("\n=====================================================\nID: %d\nCreated On: %s\nAmount: %.02f\nPayment Method: %s\nRating: %s\nPoints: %d\n\n=====================================================", id, DateFormat.format(creationDate), payment.getAmount(), payment.getMethod().toString(), rating != null ? "Exists" : "NULL", earnedPoints);
     }
+
+    public void setPayment(Payment payment)
+    {
+        this.payment = payment;
+    }
 }
