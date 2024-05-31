@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Customer extends User {
 
     private Points points;
-    private byte[] img;
+    private byte[] img = null;
 
     private String license;
     private CustomerHistory history = new CustomerHistory();
@@ -84,5 +84,19 @@ public class Customer extends User {
         // Log history if needed
         // Log.d("Customer", "History: " + this.history.toString()); // Assuming CustomerHistory has a meaningful toString method
     }
-      
+
+	public void setLicenseImg(byte[] img)
+	{
+        this.img = img;
+	}
+
+    public boolean hasLicense()
+    {
+        return img != null;
+    }
+
+    public byte[] getLicenseImg()
+    {
+        return img;
+    }
 }

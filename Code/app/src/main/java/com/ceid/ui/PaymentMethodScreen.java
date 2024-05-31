@@ -161,10 +161,11 @@ public class PaymentMethodScreen extends AppCompatActivity implements postInterf
         boolean bool=jsonStringParser.getbooleanFromJson(response);
         if(bool)
         {
-            Toast.makeText(getApplicationContext(), "Card added successfully!",Toast.LENGTH_LONG).show();
-
             Card card=new Card(cardNum.getText().toString(),owner.getText().toString(),expDate.getText().toString(),ccv.getText().toString());
             user.getWallet().addPaymentMethod(card);
+
+            //successMessage
+            Toast.makeText(getApplicationContext(), "Card added successfully!",Toast.LENGTH_LONG).show();
 
             finish();
         }
@@ -174,7 +175,7 @@ public class PaymentMethodScreen extends AppCompatActivity implements postInterf
         }
     }
 
-    //Connection error
+    //connectionError
     @Override
     public void onResponseFailure(Throwable t)
     {

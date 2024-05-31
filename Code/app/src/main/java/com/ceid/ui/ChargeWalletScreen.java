@@ -202,6 +202,7 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
     //Failed to reach bank
     @Override
     public void onResponseFailure(Throwable t) {
+        //connectionError
         Toast.makeText(getApplicationContext(), "Failed to reach bank", Toast.LENGTH_LONG).show();
     }
 
