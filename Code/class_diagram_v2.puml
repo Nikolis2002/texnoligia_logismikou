@@ -1,9 +1,6 @@
 @startuml
-left to right direction
-scale 1.5
+
 skinparam linetype ortho
-
-
 
 class RatingRental {
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
@@ -561,9 +558,7 @@ abstract class OutCityTransport {
 }
 
 
-interface MapWrapperReadyListener {
-~ void onMapWrapperReady()
-}
+
 
 class Motorcycle {
 - String license_plate
@@ -1201,9 +1196,7 @@ class CustomerProfile {
 }
 
 
-MapWrapperReadyListener <|.. TaxiTransportScreen
 OutCityTransport <|-- OutCityCar
-MapWrapperReadyListener <|.. InCityVehicleScreen
 Rental <|-- ElectricScooter
 InCityTransport <|-- Taxi
 Rental <|-- CityCar
@@ -1211,7 +1204,6 @@ Rental <|-- Bicycle
 Service <|-- TaxiService
 Coordinates <|-- Location
 InCityTransport <|-- Rental
-MapWrapperReadyListener <|.. UnlockScreen
 Transport <|-- OutCityTransport
 Rental <|-- Motorcycle
 Tracker <|-- VehicleTracker
@@ -1220,10 +1212,8 @@ User <|-- TaxiDriver
 Transport <|-- InCityTransport
 TaxiRequestAdapter +.. TaxiRequestAdapter$RequestView
 Service <|-- RentalService
-MapWrapperReadyListener <|.. LocationScreen
 OfferListAdapter +.. OfferListAdapter$MyViewHolder
 OutCityTransport <|-- Van
-MapWrapperReadyListener <|.. TransportScreen
 User <|-- Customer
 HistoryListAdapter +.. HistoryListAdapter$RentalViewHolder
 HistoryListAdapter +.. HistoryListAdapter$OutCityViewHolder
@@ -1314,5 +1304,7 @@ TransportScreen o-- Refill
 TransportScreen o-- GasStation
 TransportScreen o-- Customer
 TransportScreen o-- ApiService
-
+TaxiRequestAdapter o-- TaxiDriver
+TaxiRequestAdapter o-- ApiService
+EndRideScreen o-- RentalService
 @enduml
