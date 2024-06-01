@@ -1,6 +1,11 @@
 @startuml
 
 skinparam linetype ortho
+skinparam class {
+    ArrowThickness 2
+    BorderThickness 2
+}
+
 
 class RatingRental {
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
@@ -1238,7 +1243,7 @@ TaxiDriver o-- Taxi
 Payment o-- Customer
 GarageReservationForm o-- Garage
 GarageReservationForm o-- OutCityTransport
-RatingScreen o-- Service
+RatingScreen o-down- Service
 MainScreen o-- Customer
 TaxiRideScreen o-- Customer
 TaxiRideScreen o-- TaxiService
@@ -1246,13 +1251,13 @@ TaxiRideScreen o-- ApiService
 TaxiRequestsScreen o-- TaxiDriver
 OutCityVehicleListAdapter o-- OutCityTransport
 ChargeWalletScreen o-- User
-InCityScreen o-- Customer
+InCityScreen o-down- Customer
 MainScreenTaxi o-- TaxiDriver
 GarageListAdapter o-- Garage
 TaxiRequestWaitScreen o-- TaxiService
 CustomerHistory o-- Service
 VehicleListAdapter o-- Rental
-TaxiScreen o-- Coordinates
+TaxiScreen o-down- Coordinates
 Map o-- Coordinates
 Rating o-- RatingType
 Refill  o-- PositiveInteger
@@ -1273,8 +1278,10 @@ UnlockScreen o-- Customer
 GarageInfoScreen o-- Garage
 GarageInfoScreen o-- OutCityTransport
 TaxiScreen o-- Customer
+TaxiScreen o-down- ApiService
 ChargeWalletScreen o-- Card
 TaxiRequestsScreen o-- TaxiRequestAdapter
+TaxiRequestsScreen o-- ApiService
 GarageReservationForm o-- Customer
 OfferListAdapter o-- Coupon
 Customer o-- CustomerHistory
@@ -1307,4 +1314,6 @@ TransportScreen o-- ApiService
 TaxiRequestAdapter o-- TaxiDriver
 TaxiRequestAdapter o-- ApiService
 EndRideScreen o-- RentalService
+InCityVehicleScreen o-- Map
+InCityVehicleScreen o-- VehicleListAdapter
 @enduml
