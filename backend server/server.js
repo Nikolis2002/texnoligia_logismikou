@@ -50,15 +50,14 @@ app.get("/getTableData",async (req,res)=>{
         const param = req.query.tableName;
         
         let queryString=`SELECT * FROM ${param}`;
-        console.log(queryString);
+
         let tableData=await helper.getTableData(con,param);
         let json=JSON.parse(tableData);
-        console.log(json.result);
+
         res.status(200).send(json.result);
         
     }
     catch(err){
-        console.log("here2");
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
     }
 
@@ -83,11 +82,10 @@ app.get("/getTracker",async (req,res)=>{
             tracker.coords={x:"38.2442870",y:"21.7326153"};
             tracker.isStopped="true";
             tracker.distance=ten;
-            tracker.gas=Math.floor(Math.random() * (70 - 10+ 1)) + 10;
-        }
-        console.log(tracker);
+            tracker.gas=Math.floo
         res.status(200).send(tracker);
 
+        }
     }
     catch(err){
         res.status(500).send(new helper.ResponseMessage("Could not connect to tracker").string());
@@ -101,8 +99,6 @@ app.get("/check_reservation", async(req,res)=>
         const data=req.body;
 
         let tableData = await helper.queryPromise(con, "CALL check_rental_available(?)", [req.query.vehicle]);
-
-        console.log(`"Available: ${tableData.result[0][0].result}"`)
 
         res.status(200).send(`${tableData.result[0][0].result}`);
     }
@@ -138,8 +134,6 @@ app.get("/getGarages", async(req,res)=>
 app.get("/history", async(req, res)=>
 {
     const user = req.query.user;
-
-    console.log(`User: ${user}`)
 
     try
     {   
@@ -209,7 +203,6 @@ app.post("/insertTaxiService", async (req,res)=>{
 
 
         let jsonObj=JSON.parse(param);
-        console.log(jsonObj);
         
         const array=jsonObj.values[0];
 
@@ -226,12 +219,9 @@ app.post("/insertTaxiService", async (req,res)=>{
 
         // Extract values from the array object
         const arrayValues = Object.values(array);
-        console.log(array);
-        console.log(arrayValues);
 
         // Your database query function
         let response = await helper.queryPromise(con, queryString, arrayValues);
-        console.log(response.result[0][0].service_id);
         res.status(200).send(JSON.stringify(response.result[0][0].service_id));
     }
     catch(err){
@@ -246,7 +236,6 @@ app.post("/insertTable", async (req, res) => {
     try {
         const param = req.body;
         let jsonObj = JSON.parse(param);
-        console.log(jsonObj);
 
         const { table, values } = jsonObj; // Extract table name and values array from request body
         const promises = [];
@@ -302,7 +291,6 @@ app.post("/getFunctionWithParams", async (req, res) => {
         const param = req.body;
         let jsonObj = JSON.parse(param);
         const { table, values } = jsonObj;
-        //console.log(jsonObj);
         let queryString = `CALL ${table}(`;
         const array = values[0];
         let queryParams = [];
@@ -329,12 +317,9 @@ app.post("/getFunctionWithParams", async (req, res) => {
 
         // Remove the trailing comma and close the parenthesis
         queryString = queryString.slice(0, -1) + ")";
-        console.log(queryString);
-        console.log(queryParams);
         
         // Execute the query
         let response = await helper.queryPromise(con, queryString, queryParams);
-        console.log(response.result)
         res.status(200).send(response.result);
     } catch (err) {
         console.error(err);
@@ -351,31 +336,22 @@ app.post("/check_user",async (req,res)=>{
         let queryUser= "CALL checkCustomer(?,?)";
         let queryDriver= "CALL checkDriver(?,?)";
 
-        console.log(`${jsonObj.username} and ${jsonObj.password}`);
         let tableUser=await helper.queryPromise(con,queryUser,[jsonObj.username,jsonObj.password]);
         let tableDriver=await helper.queryPromise(con,queryDriver,[jsonObj.username,jsonObj.password]);
 
         if(tableUser.result[0][0].result==0 && tableDriver.result[0][0].result==0 ){
-            console.log(tableUser.result);
             res.status(500).send(new helper.ResponseMessage("User not registered").string());
         }
-        else if(tableUser.result[0][0].result==0){
-            console.log("here dista2");
-            
-            
+        else if(tableUser.result[0][0].result==0){           
             let coords=tableDriver.result[0][0].taxi_coords;
             delete tableDriver.result[0][0].taxi_coords;
             
             tableDriver.result[0][0].lat=coords.x;
             tableDriver.result[0][0].lng=coords.y;
-
-            console.log(tableDriver.result);
             
             res.status(200).send(tableDriver.result);
         }
         else{
-            console.log("here dista3");
-            console.log(tableUser.result);
             res.status(200).send(tableUser.result);
         }
     }
@@ -387,12 +363,11 @@ app.post("/check_user",async (req,res)=>{
 
 app.post("/add_card"),async(req,res)=>{
     try{
-    console.log("dista");
     const data=req.body;
     jsonObj=JSON.parse(data);
+
     let obj="CALL insertCard(?,?,?,?)";
     let query= await helper.queryPromise(con,obj,[jsonObj.cardNum,jsonObj.expDate,jsonObj.owner,jsonObj.ccv]);
-    console.log(query[0][0].result);
     }
     catch(err){
         console.error("Error processing request:", err);
@@ -406,7 +381,6 @@ app.post("/reserveRental", async(req,res)=>
     {
         let data=req.body;
 
-        console.log(`Reservation information: ${data}`)
         data=JSON.parse(data);
 
         let serviceInsert = await helper.queryPromise(con, "INSERT INTO service VALUES(?, NOW(), ?, 'ONGOING', ?, '0')", [null, null, null]);
@@ -436,13 +410,16 @@ app.post("/savePhoto", async (req, res) => {
             if (key === "coords") {
                 let dbCoords = JSON.parse(value);
                 let dbLat = parseFloat(dbCoords.lat);
+                
                 let dbLng = parseFloat(dbCoords.lng);
+                
                 queryString += "ST_GeomFromText(POINT(?, ?)),";
                 queryParams.push(dbLat, dbLng);
             } else if(key === "license"){
+                
                 let array=JSON.parse(value);
-                //console.log(test);
                 queryString += "?,"; 
+                
                 const buffer = Buffer.from(array);
                 queryParams.push(buffer);
             }
@@ -454,54 +431,17 @@ app.post("/savePhoto", async (req, res) => {
         
         // Remove the trailing comma and close the parenthesis
         queryString = queryString.slice(0, -1) + ")";
-        //console.log(queryString);
-        //console.log(queryParams);
+       
         
         // Execute the query
         let response = await helper.queryPromise(con, queryString, queryParams);
-        console.log(response.result)
         res.status(200).send(response.result);
     } catch (err) {
         console.error(err);
         res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
     }
 });
-/*app.post("/finalRentalService", async (req, res) => {
-    try {
-        const param = req.body;
-        let jsonObj = JSON.parse(param);
-        const { table, values } = jsonObj;
-        //console.log(jsonObj);
-        let queryString = `CALL ${table}(`;
-        const array = values[0];
-        let queryParams = [];
-        for (let [key, value] of Object.entries(array)) {
-            if(key === "left"||"right"||"front"||"right"){
-                let array=JSON.parse(value);
-                queryString += "?,"; 
-                const buffer = Buffer.from(array);
-                queryParams.push(buffer);
-            }
-            else{
-                queryString += "?,";   
-                queryParams.push(value);
-            }
-        }
-        
-        // Remove the trailing comma and close the parenthesis
-        queryString = queryString.slice(0, -1) + ")";
-        //console.log(queryString);
-        //console.log(queryParams);
-        
-        // Execute the query
-        let response = await helper.queryPromise(con, queryString, queryParams);
-        console.log(response.result)
-        res.status(200).send(response.result);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(new helper.ResponseMessage("Could not retrieve table").string());
-    }
-});*/
+
 const ip_adress=jsonPass.ip;
 const port=3000;
 app.listen(port, () => {
