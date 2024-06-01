@@ -320,7 +320,6 @@ app.post("/getFunctionWithParams", async (req, res) => {
         
         // Execute the query
         let response = await helper.queryPromise(con, queryString, queryParams);
-        console.log(response.result)
         res.status(200).send(response.result);
     } catch (err) {
         console.error(err);
