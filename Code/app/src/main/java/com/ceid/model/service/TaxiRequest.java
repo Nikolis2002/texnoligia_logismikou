@@ -20,15 +20,8 @@ public class TaxiRequest implements Serializable
     private Coordinates pickupLocation;
     private Coordinates destination;
     private Payment.Method payment;
-    //private TaxiDriver taxiDriver = null;
     private LocalDateTime assignmentTime = null;
     private LocalDateTime pickupTime = null;
-
-    public TaxiRequest(Coordinates pickupLocation, Coordinates destination, Payment.Method payment) {
-        this.pickupLocation = pickupLocation;
-        this.destination = destination;
-        this.payment=payment;
-    }
 
     public TaxiRequest(int id, Coordinates pickUp, Coordinates dest, Payment.Method payment) {
         this.id=id;
@@ -45,7 +38,6 @@ public class TaxiRequest implements Serializable
         this.assignmentTime = DateFormat.parseFromJS(requestData.get("assignment_time").asText());
         this.pickupTime = DateFormat.parseFromJS(requestData.get("pickup_time").asText());
         this.payment = paymentMethod;
-        //this.taxiDriver = null;
     }
 
     public Payment.Method getPaymentMethod() {

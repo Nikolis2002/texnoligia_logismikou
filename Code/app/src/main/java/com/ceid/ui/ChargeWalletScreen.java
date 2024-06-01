@@ -69,11 +69,9 @@ public class ChargeWalletScreen extends AppCompatActivity implements postInterfa
         //Get all the fields
         //=======================================================================================================
         currentBalance = findViewById(R.id.balance);
-        //arrayCards = findViewById(R.id.spinner);
         amountToAdd = findViewById(R.id.amount);
         user = User.getCurrentUser();
 
-        Wallet wallet = user.getWallet();
         currentBalance.setText(String.format("Balance: %.02f€", user.getWallet().getBalance()));
 
         //Check if customer has cards

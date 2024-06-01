@@ -1,13 +1,8 @@
 package com.ceid.model.transport;
 import androidx.annotation.NonNull;
 
-import com.ceid.model.payment_methods.CurrencyType;
 import com.ceid.util.Coordinates;
-import com.ceid.util.DateFormat;
-import com.ceid.util.PositiveInteger;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import java.util.ArrayList;
 
 
 public class Bicycle extends Rental {

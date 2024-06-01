@@ -1,17 +1,5 @@
 package com.ceid.model.transport;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.ceid.model.payment_methods.CurrencyType;
-import com.ceid.util.Coordinates;
-import com.ceid.util.DateFormat;
-import com.ceid.util.Location;
-import com.ceid.util.PositiveInteger;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-
 public abstract class OutCityTransport extends Transport {
 
     private String licensePlate;
