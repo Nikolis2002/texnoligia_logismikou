@@ -84,6 +84,13 @@ public class MainScreen extends AppCompatActivity {
         }
     }
 
+    public void toCoupons(View view)
+    {
+        //Display OfferScreen
+        Intent intent = new Intent(this, OfferScreen.class);
+        startActivity(intent);
+    }
+
     public void outCity(View view)
     {
         //customer.getWallet().setBalance(-2);

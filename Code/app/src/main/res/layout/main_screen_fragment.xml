@@ -137,6 +137,7 @@
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
+                    android:onClick="toCoupons"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/coupon" />
             </LinearLayout>

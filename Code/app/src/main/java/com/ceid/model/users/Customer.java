@@ -52,6 +52,10 @@ public class Customer extends User {
         this.points.addPoints(points);
     }
 
+    public void subtractPoints(int points){
+        this.points.subtractPoints(points);
+    }
+
     public  void setPoints(int value){
         this.points.setPoints(value);
     }

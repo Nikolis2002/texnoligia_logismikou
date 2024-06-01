@@ -227,30 +227,12 @@ CREATE TABLE coupon
 (
     id VARCHAR(32) NOT NULL,
     name VARCHAR(32) NOT NULL,
-    value DECIMAL(10, 2) NOT NULL,
     points INT UNSIGNED NOT NULL,
-    expires DATE,
+    value DECIMAL(10, 2) NOT NULL,
+    expiration_date DATETIME NOT NULL,
+    supply INT NOT NULL DEFAULT -1,
 
     PRIMARY KEY(id)
-);
-
-CREATE TABLE customer_coupon
-(
-    coupon_id VARCHAR(32) NOT NULL,
-    customer_username VARCHAR(32) NOT NULL,
-    assignment_date DATETIME,
-
-    PRIMARY KEY(coupon_id, customer_username),
-
-    CONSTRAINT couponId
-        FOREIGN KEY(coupon_id) REFERENCES coupon(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-
-    CONSTRAINT customerId
-        FOREIGN KEY(customer_username) REFERENCES customer(username)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
 );
 
 CREATE TABLE rental_rating
@@ -706,3 +688,11 @@ INNER JOIN taxi_service ts ON tr.id=ts.request_id
 INNER JOIN service ser  ON ts.service_id=ser.id
 INNER JOIN payment p  ON  p.id=ser.payment_id
 WHERE tr.assignment_time is NULL and ser.service_status='ONGOING';
+
+-- =====================================================================================================
+
+DROP VIEW IF EXISTS valid_coupons;
+
+CREATE VIEW valid_coupons AS
+SELECT * FROM coupon
+WHERE expiration_date > NOW() AND (supply = -1 OR supply  > 0);

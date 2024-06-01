@@ -59,6 +59,7 @@ public interface ApiService {
 
     @GET("/history")
     Call<ResponseBody> getHistory(@Query("user") String user);
+
     @POST("/finalRentalService")
     Call<ResponseBody> finalRentalService(@Body String jsonfunction);
 }

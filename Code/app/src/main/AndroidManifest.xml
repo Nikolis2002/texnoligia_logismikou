@@ -64,6 +64,7 @@
         <activity android:name=".OutCityScreen" />
         <activity android:name=".GarageReservationForm" />
         <activity android:name=".RatingScreen" />
+        <activity android:name=".OfferScreen" />
     </application>
 
 </manifest>

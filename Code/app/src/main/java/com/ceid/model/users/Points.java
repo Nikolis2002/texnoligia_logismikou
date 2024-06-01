@@ -17,6 +17,10 @@ public class Points implements Serializable {
         this.points += points;
     }
 
+    public void subtractPoints(int points){
+        this.points -= points;
+    }
+
     public void setPoints(int points){
         this.points+=points;
     }

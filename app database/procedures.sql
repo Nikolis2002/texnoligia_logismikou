@@ -349,3 +349,49 @@ END $
 DELIMITER ;
 
 -- =====================================================================================================
+
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS check_coupon$
+
+CREATE PROCEDURE check_coupon(IN in_id INT)
+BEGIN
+
+    SELECT supply AS result
+    FROM coupon
+    WHERE id = in_id;
+
+END$
+DELIMITER ;
+
+-- =====================================================================================================
+
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS redeem_coupon$
+
+CREATE PROCEDURE redeem_coupon(IN in_id INT, IN in_username VARCHAR(32))
+BEGIN
+
+    DECLARE var_id INT;
+    DECLARE var_points INT;
+    DECLARE var_value DECIMAL(10, 2);
+
+    SELECT points, value
+    INTO var_points, var_value
+    FROM valid_coupons
+    WHERE id = in_id;
+
+    UPDATE customer SET points = points - var_points WHERE username = in_username;
+    UPDATE wallet SET balance = balance + var_value WHERE username = in_username;
+
+    UPDATE coupon
+    SET supply = supply - 1
+    WHERE id = in_id AND supply > -1 AND expiration_date > NOW();
+
+END$
+
+DELIMITER ;
+
+
+-- =====================================================================================================

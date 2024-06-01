@@ -1,5 +1,6 @@
 USE app_database;
 
+DELETE FROM coupon;
 DELETE FROM gas_station;
 DELETE FROM taxi_service;
 DELETE FROM taxi_request;
@@ -252,3 +253,10 @@ INSERT INTO gas_station VALUES
     (NULL, ST_GeomFromText('POINT(38.255465 21.747013)'), 4.5),
     (NULL, ST_GeomFromText('POINT(38.243420 21.754333)'), 6.6),
     (NULL, ST_GeomFromText('POINT(38.234517 21.746291)'), 7.9);
+
+INSERT INTO coupon VALUES
+    (1, "SUMMER SPECIAL - LIMITED SUPPLY", 200, 5, '2024-09-01 18:00:00', 8),
+    (2, "THE DEALMAKER", 200, 3, '2024-12-31 00:00:00', -1),
+    (3, "BUY 1 GET NONE FREE", 1, 0, '2025-01-01 00:00:00', 1),
+    (4, "$$$ GET POOR QUICK $$$", 200, -100, '2024-12-25 00:00:00', -1),
+    (5, "go ahead, try it", 1, 9999999, '1970-01-01 00:00:00', -1);
