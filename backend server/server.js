@@ -82,10 +82,10 @@ app.get("/getTracker",async (req,res)=>{
             tracker.coords={x:"38.2442870",y:"21.7326153"};
             tracker.isStopped="true";
             tracker.distance=ten;
-            tracker.gas=Math.floo
-        res.status(200).send(tracker);
-
+            tracker.gas=Math.floor(Math.random() * (70 - 10+ 1)) + 10;
         }
+
+        res.status(200).send(tracker);
     }
     catch(err){
         res.status(500).send(new helper.ResponseMessage("Could not connect to tracker").string());
