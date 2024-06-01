@@ -73,283 +73,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/button123123123123123123123" />
 
-    <LinearLayout
-        android:id="@+id/fields"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="top"
-        android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
-
-
-        <RelativeLayout
-            android:id="@+id/username_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/user_name"
-                android:lineSpacingExtra="3sp"
-                android:text="Username:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/pass_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal" />
-
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/name"
-                android:lineSpacingExtra="3sp"
-                android:text="Name:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/surname"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/surname"
-                android:lineSpacingExtra="3sp"
-                android:text="Surname:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/email"
-                android:lineSpacingExtra="3sp"
-                android:text="Email:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/license"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/license"
-                android:lineSpacingExtra="3sp"
-                android:text="Driver's License:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/points"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/points"
-                android:lineSpacingExtra="3sp"
-                android:text="Points gained:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-
-            android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/wallet"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                app:srcCompat="@drawable/img" />
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toStartOf="@id/wallet"
-                android:lineSpacingExtra="3sp"
-                android:text="Wallet:"
-                android:textAppearance="@style/label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/button123123123123123123123"
         android:layout_width="150dp"
@@ -370,6 +93,7 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:height="60dp"
         android:backgroundTint="@color/generic_btn"
         android:onClick="addLicenseButton"
@@ -378,6 +102,297 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fields" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView16" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <LinearLayout
+            android:id="@+id/fields"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:padding="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <RelativeLayout
+                android:id="@+id/username_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/user_name"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Username:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/pass_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal" />
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/name"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Name:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/surname"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/surname"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Surname:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/email"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Email:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/license"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/license"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Driver's License:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/points"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/points"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Points gained:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/wallet"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="16sp"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_toStartOf="@id/wallet"
+                    android:lineSpacingExtra="3sp"
+                    android:text="Wallet:"
+                    android:textAppearance="@style/label"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
