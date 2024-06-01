@@ -8,8 +8,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("/test")
-    Call<String> getMessage();
 
     @GET("/getTableData")
     Call<ResponseBody> getTableData(@Query("tableName") String tableName);
@@ -20,27 +18,14 @@ public interface ApiService {
             @Query("addTen") String ten
     );
 
-
     @POST("/getFunctionWithParams")
     Call<ResponseBody> callProcedure(@Body String jsonfunction);
-
-    @POST("/getFunctionNoParams")
-    Call<String> getFuncNoParams(@Body String jsonfunction);
 
     @POST("/insertTaxiService")
     Call<String> insertTaxiService(@Body String jsonBody);
 
-    @POST("/insertTable")
-    Call<ResponseBody> insertTable(@Body String jsonTable);
-
-    @POST("/insert_user")
-    Call<Void> postUser(@Body String userString);
-
     @POST("/check_user")
     Call<ResponseBody> checkUser(@Body String userParams);
-
-    @POST("/add_card")
-    Call<ResponseBody> addCard(@Body String cardParams);
 
     @GET("/check_reservation")
     Call<String> checkReservation(@Query("vehicle") String id);
@@ -51,15 +36,6 @@ public interface ApiService {
     @GET("/getGarages")
     Call<ResponseBody> getGarages();
 
-    @GET("/getLicense")
-    Call<ResponseBody> getLicense(@Body String jsonfunction);
-
-    @POST ("/savePhoto")
-    Call<ResponseBody> savePhoto(@Body String  json);
-
     @GET("/history")
     Call<ResponseBody> getHistory(@Query("user") String user);
-
-    @POST("/finalRentalService")
-    Call<ResponseBody> finalRentalService(@Body String jsonfunction);
 }
