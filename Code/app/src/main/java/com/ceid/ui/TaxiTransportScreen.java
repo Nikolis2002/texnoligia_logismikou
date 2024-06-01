@@ -211,7 +211,7 @@ public class TaxiTransportScreen extends AppCompatActivity implements MapWrapper
         java.util.Map<String, Object> taxiReservationComplete = new LinkedHashMap<>();
         taxiReservationComplete.put("id",taxiRequest.getId());
         taxiReservationComplete.put("method",taxiRequest.getPaymentMethod());
-        taxiReservationComplete.put("value",String.format("%.2f", costCalc));
+        taxiReservationComplete.put("value",costCalc);
         values.add(taxiReservationComplete);
 
         String jsonString = jsonStringParser.createJsonString("completeTaxiRequest",values);
