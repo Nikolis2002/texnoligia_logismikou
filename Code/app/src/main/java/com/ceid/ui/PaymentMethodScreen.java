@@ -92,7 +92,7 @@ public class PaymentMethodScreen extends AppCompatActivity implements postInterf
         //Check if fields have valid formatting
         //===============================================================================
 
-        String regex = "^(\\d{4}[- ]?){3}\\d{4}$";
+        String regex = "^(\\d{4}-){3}\\d{4}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher((String)fields.get("Card_Number"));
 
