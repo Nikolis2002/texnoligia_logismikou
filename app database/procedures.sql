@@ -304,6 +304,12 @@ CREATE PROCEDURE insertFinalRentalService(IN in_points INT,IN userName Varchar(3
 BEGIN
 
     DECLARE paymentID INT UNSIGNED;
+    DECLARE rentalID INT UNSIGNED;
+
+    SELECT selected_vehicle
+    INTO rentalID
+    FROM rental_service
+    where service_id=serviceId;
     
     INSERT INTO payment VALUES(null,userName,pValue,pMethod);
 
@@ -328,6 +334,7 @@ BEGIN
 
     UPDATE customer SET points = points + in_points;
     UPDATE wallet SET balance = balance - pValue WHERE username = userName;
+    UPDATE rental SET free_status='TRUE' WHERE id=rentalID;
 
 END $
 

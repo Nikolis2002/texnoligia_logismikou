@@ -193,13 +193,26 @@ public class EndRideScreen extends AppCompatActivity implements postInterface {
                 Log.e("PhotoPicker", "InputStream is null for URI: " + uri);
                 return;
             }
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            // First decode with inJustDecodeBounds=true to check dimensions
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(inputStream, null, options);
+            inputStream.close(); // Close the input stream to reopen it later
+
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, 800, 800); // Adjust to desired dimensions
+            options.inJustDecodeBounds = false;
+
+            // Reopen the input stream and decode with inSampleSize set
+            inputStream = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+            inputStream.close();
+
+            // Compress the bitmap
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bos);
 
             long mb = 1048576;
-
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-
             int temp = -1;
 
             if(checked1){
@@ -244,6 +257,28 @@ public class EndRideScreen extends AppCompatActivity implements postInterface {
             e.printStackTrace();
             Log.e("PhotoPicker", "Error saving image", e);
         }
+    }
+
+    private int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
     public void submit(View view)
     {
